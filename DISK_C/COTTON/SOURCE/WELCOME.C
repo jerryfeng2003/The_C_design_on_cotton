@@ -140,6 +140,12 @@ void enter_next()
 	{
 		draw_past01();
 	}
+
+	//Enter the past arguments
+	if(mouse_press(450,410,550,470)==1)
+	{
+		draw_help01();
+	}
 	
 }
 

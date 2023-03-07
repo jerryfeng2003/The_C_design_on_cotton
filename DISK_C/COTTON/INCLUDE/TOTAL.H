@@ -8,6 +8,7 @@
 #include "EDIT.H"
 #include "START.H"
 #include "PAST.H"
+#include "HELP.H"
 
 
 #endif
