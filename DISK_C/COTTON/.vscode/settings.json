@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "MOUSE.C": "cpp",
+        "welcome.C": "cpp",
+        "EDIT.C": "cpp",
+        "MAIN.C": "cpp",
+        "START.C": "cpp",
+        "PAST.C": "cpp"
+    }
+}
