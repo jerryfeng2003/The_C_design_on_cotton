@@ -27,7 +27,7 @@ void draw_home00()
 	for(i=0;i<1000;i++)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		delay(3);
+		delay(4);
 	}
 	closegraph();
 }
