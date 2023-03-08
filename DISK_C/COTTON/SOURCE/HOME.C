@@ -8,6 +8,7 @@ void draw_home01()
     setbkcolor(WHITE);
 	puthz(180,30,"西北地区：室外仓库",32,32,BLUE);
     mouseinit();
+	quit();
 	for(i=0;i<1000;i++)
 	{
 		newmouse(&MouseX,&MouseY,&press);
@@ -23,6 +24,7 @@ void draw_home00()
     cleardevice();
     setbkcolor(WHITE);
 	puthz(120,30,"黄河、长江流域：室内仓库",32,32,BLUE);
+	quit();
     mouseinit();
 	for(i=0;i<1000;i++)
 	{

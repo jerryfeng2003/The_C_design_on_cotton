@@ -177,6 +177,7 @@ void draw_wel()
 	draw_wel_buttons();
 	draw_wel_cofield();
 	draw_wel_tractors();
+	quit();
 	mouseinit();
 	for(;;)
 	{
