@@ -19,6 +19,7 @@ void draw_simu01()
 		newmouse(&MouseX,&MouseY,&press);
 		delay(3);
 	}
+	
 	//bmp_convert(".\\photo\\map.bmp",".\\photo\\map.dbm");
 	//show_dbm(5,100,".\\photo\\map.dbm");
 	//getchar();
