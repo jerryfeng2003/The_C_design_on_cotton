@@ -7,6 +7,6 @@
 #include "WELCOME.H"
 
 void draw_simu01(void);
-
+void quit(void);
 
 #endif

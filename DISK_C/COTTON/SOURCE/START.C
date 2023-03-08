@@ -12,7 +12,7 @@ void draw_simu01()
 	outtextxy(350,26,"24");
     puthz(400,30,"Ð¡Ê±",32,32,BLUE);
     //outtextxy()
-
+	quit();
     mouseinit();
 	for(i=0;i<1000;i++)
 	{
@@ -23,4 +23,11 @@ void draw_simu01()
 	//show_dbm(5,100,".\\photo\\map.dbm");
 	//getchar();
 	closegraph();
+}
+
+void quit(void)
+{
+    setfillstyle(1,LIGHTBLUE);
+    bar(0,0,40,30);
+	puthz(3,10,"ÍË³ö",16,16,WHITE);
 }
