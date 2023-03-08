@@ -15,4 +15,5 @@ extern int MouseY;
 extern int MouseS;
 extern int press;
 extern union REGS regs;
+extern int location;//1 means the norwestern,0 means others
 #endif

@@ -14,6 +14,6 @@
 #include "START.H"
 #include "PAST.H"
 #include "HELP.H"
-
+#include "HOME.H"
 
 #endif

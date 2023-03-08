@@ -1,6 +1,5 @@
 #include "TOTAL.H"
 
-
 /*void main()
 {
 	int gdriver,gmode;
@@ -28,6 +27,12 @@ void draw_wel_buttons(void)
 	puthz(470,330,"过往参数",16,16,BLUE);
 	rectangle(450,410,550,470);
 	puthz(460,430,"帮助及说明",16,16,BLUE);
+
+	line(300,130,360,100);
+	line(360,100,420,130);
+	line(300,130,420,130);
+	rectangle(310,130,410,200);
+	puthz(330,150,"仓库管理",16,16,BLUE);
 }
 
 void draw_wel_tractors()
@@ -116,12 +121,12 @@ void draw_wel_cofield()
 void enter_next()
 {
 	if(mouse_press(450,110,550,170)==0||mouse_press(450,210,550,270)==0\
-	||mouse_press(450,310,550,370)==0||mouse_press(450,410,550,470)==0)
+	||mouse_press(450,310,550,370)==0||mouse_press(450,410,550,470)==0||mouse_press(310,130,410,200)==0)
 	{
 		MouseS=0;
 	}
 	if(mouse_press(450,110,550,170)==2||mouse_press(450,210,550,270)==2\
-	||mouse_press(450,310,550,370)==2||mouse_press(450,410,550,470)==2)
+	||mouse_press(450,310,550,370)==2||mouse_press(450,410,550,470)==2||mouse_press(310,130,410,200)==2)
 	{
 		MouseS=1;
 	}
@@ -148,6 +153,19 @@ void enter_next()
 	if(mouse_press(450,410,550,470)==1)
 	{
 		draw_help01();
+	}
+
+	//Enter the home page
+	if(mouse_press(310,130,410,200)==1)
+	{
+		if(location==1)
+		{
+			draw_home01();
+		}
+		else
+		{
+			draw_home00();
+		}
 	}
 	
 }

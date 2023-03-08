@@ -6,6 +6,7 @@
         "MAIN.C": "cpp",
         "START.C": "cpp",
         "PAST.C": "cpp",
-        "HELP.C": "cpp"
+        "HELP.C": "cpp",
+        "HOME.C": "cpp"
     }
 }
