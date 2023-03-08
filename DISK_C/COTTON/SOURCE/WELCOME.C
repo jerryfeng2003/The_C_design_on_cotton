@@ -1,5 +1,5 @@
 #include "TOTAL.H"
-
+int location=0;
 /*void main()
 {
 	int gdriver,gmode;

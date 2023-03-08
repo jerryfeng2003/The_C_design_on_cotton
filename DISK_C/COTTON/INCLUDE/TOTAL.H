@@ -16,6 +16,7 @@
 #include "HELP.H"
 #include "HOME.H"
 
-
+extern int location;//1 means the norwestern,0 means others
+void quit(void);
 
 #endif
