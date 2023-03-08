@@ -1,8 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<graphics.h>
-#include<dos.h>
-#include<bios.h>
 #include "TOTAL.H"
 
 void draw_simu01()
@@ -11,7 +6,7 @@ void draw_simu01()
     //int num;
     cleardevice();
     setbkcolor(WHITE);
-	puthz(150,30,"采摘完成共需",32,32,BLUE);
+	puthz(150,30,"采摘完成还需",32,32,BLUE);
 	settextstyle(3,0,4);
 	setcolor(RED);
 	outtextxy(350,26,"24");

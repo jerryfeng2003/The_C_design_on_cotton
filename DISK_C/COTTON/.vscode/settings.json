@@ -5,6 +5,7 @@
         "EDIT.C": "cpp",
         "MAIN.C": "cpp",
         "START.C": "cpp",
-        "PAST.C": "cpp"
+        "PAST.C": "cpp",
+        "HELP.C": "cpp"
     }
 }

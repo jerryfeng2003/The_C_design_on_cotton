@@ -1,8 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<graphics.h>
-#include<dos.h>
-#include<bios.h>
 #include "TOTAL.H"
 
 
@@ -39,6 +34,7 @@ void draw_wel_tractors()
 {
 	//The wheels
 	int i,d;
+	setcolor(BROWN);
 	setfillstyle(1,BLUE);
 	bar(94,185,100,215);
 	bar(200,185,206,215);
@@ -92,8 +88,15 @@ void draw_wel_cofield()
 		int t1=rand()%250,t2=rand()%300;
 		line(t1+50,t2+100,t1+50,t2+100);
 	}
-
-		/*setfillstyle(1,BROWN);
+	setfillstyle(1,BROWN);
+	bar(100,310,200,400);
+	setcolor(WHITE);
+	for(i=0;i<100;i++)
+	{
+		int t1=rand()%100,t2=rand()%90;
+		line(t1+100,t2+310,t1+100,t2+310);
+	}
+	/*setfillstyle(1,BROWN);
 	bar(50,100,300,400);
 	setlinestyle(0,0,3);
 	setcolor(WHITE);
