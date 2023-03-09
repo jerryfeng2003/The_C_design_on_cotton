@@ -6,7 +6,7 @@ void draw_help01()
     cleardevice();
     setbkcolor(WHITE);
 	puthz(240,30,"°ïÖú¼°ËµÃ÷",32,32,BLUE);
-
+	quit();
     mouseinit();
 	for(i=0;i<1000;i++)
 	{

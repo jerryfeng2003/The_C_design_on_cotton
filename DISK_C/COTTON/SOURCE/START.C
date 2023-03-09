@@ -19,15 +19,10 @@ void draw_simu01()
 		newmouse(&MouseX,&MouseY,&press);
 		delay(3);
 	}
+	
 	//bmp_convert(".\\photo\\map.bmp",".\\photo\\map.dbm");
 	//show_dbm(5,100,".\\photo\\map.dbm");
 	//getchar();
 	closegraph();
 }
 
-void quit(void)
-{
-    setfillstyle(1,LIGHTBLUE);
-    bar(0,0,40,30);
-	puthz(3,10,"ÍË³ö",16,16,WHITE);
-}
