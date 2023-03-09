@@ -121,12 +121,14 @@ void draw_wel_cofield()
 void enter_next()
 {
 	if(mouse_press(450,110,550,170)==0||mouse_press(450,210,550,270)==0\
-	||mouse_press(450,310,550,370)==0||mouse_press(450,410,550,470)==0||mouse_press(310,130,410,200)==0)
+	||mouse_press(450,310,550,370)==0||mouse_press(450,410,550,470)==0||\
+	mouse_press(310,130,410,200)==0||mouse_press(0,0,40,30)==0)
 	{
 		MouseS=0;
 	}
 	if(mouse_press(450,110,550,170)==2||mouse_press(450,210,550,270)==2\
-	||mouse_press(450,310,550,370)==2||mouse_press(450,410,550,470)==2||mouse_press(310,130,410,200)==2)
+	||mouse_press(450,310,550,370)==2||mouse_press(450,410,550,470)==2||\
+	mouse_press(310,130,410,200)==2||mouse_press(0,0,40,30)==2)
 	{
 		MouseS=1;
 	}
@@ -166,6 +168,12 @@ void enter_next()
 		{
 			draw_home00();
 		}
+	}
+
+	//Exit the program
+	if(mouse_press(0,0,40,30)==1)
+	{
+		exit(0);
 	}
 	
 }

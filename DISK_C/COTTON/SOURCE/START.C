@@ -26,9 +26,3 @@ void draw_simu01()
 	closegraph();
 }
 
-void quit(void)
-{
-    setfillstyle(1,LIGHTBLUE);
-    bar(0,0,40,30);
-	puthz(3,10,"ÍË³ö",16,16,WHITE);
-}
