@@ -17,6 +17,7 @@
 #include "HOME.H"
 
 extern int location;//1 means the norwestern,0 means others
-void quit(void);
+void quit(void);//the leave button in every page
+void finish(void);//the finish button in every page
 
 #endif

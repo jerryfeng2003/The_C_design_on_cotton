@@ -2,7 +2,6 @@
 #define _HELP_H_
 
 
-void draw_help01(void);
-
+void draw_help01(void);//Draw the Help and Explanation page
 
 #endif
