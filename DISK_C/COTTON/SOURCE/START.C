@@ -14,17 +14,17 @@ void draw_simu01()
     //outtextxy()
 	quit();
     mouseinit();
-	for(i=0;i<1000;i++)
+	for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);
 		press_start();
-		delay(3);
+		delay(15);
 	}
 	
 	//bmp_convert(".\\photo\\map.bmp",".\\photo\\map.dbm");
 	//show_dbm(5,100,".\\photo\\map.dbm");
 	//getchar();
-	closegraph();
+	//closegraph();
 }
 
 void press_start()

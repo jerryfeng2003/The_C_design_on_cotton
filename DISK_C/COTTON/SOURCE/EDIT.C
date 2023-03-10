@@ -8,16 +8,16 @@ void draw_edit01()
 	puthz(240,30,"ÇëÑ¡ÔñµØÇø",32,32,BLUE);
 	quit();
     mouseinit();
-	for(i=0;i<1000;i++)
+	for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);
 		press_edit();
-		delay(5);
+		delay(15);
 	}
 	//bmp_convert(".\\photo\\map.bmp",".\\photo\\map.dbm");
 	//show_dbm(5,100,".\\photo\\map.dbm");
 	//getchar();
-	closegraph();
+	//closegraph();
 }
 
 void press_edit()

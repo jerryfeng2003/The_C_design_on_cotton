@@ -13,9 +13,9 @@ void draw_past01()
 	{
 		newmouse(&MouseX,&MouseY,&press);
 		press_past();
-		delay(3);
+		delay(15);
 	}
-	closegraph();
+	//closegraph();
 }
 
 void press_past()

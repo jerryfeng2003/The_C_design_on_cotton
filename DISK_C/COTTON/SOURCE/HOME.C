@@ -16,7 +16,7 @@ void draw_home01()
 	{
 		newmouse(&MouseX,&MouseY,&press);
 		press_home();
-		delay(10);
+		delay(15);
 	}
 }
 

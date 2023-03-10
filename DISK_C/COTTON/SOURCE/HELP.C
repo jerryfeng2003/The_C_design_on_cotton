@@ -8,13 +8,13 @@ void draw_help01()
 	puthz(240,30,"°ïÖú¼°ËµÃ÷",32,32,BLUE);
 	quit();
     mouseinit();
-	for(i=0;i<1000;i++)
+	for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);
 		press_help();
-		delay(5);
+		delay(15);
 	}
-	closegraph();
+	//closegraph();
 }
 
 void press_help()
