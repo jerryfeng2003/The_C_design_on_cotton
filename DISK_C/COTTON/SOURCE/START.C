@@ -17,6 +17,7 @@ void draw_simu01()
 	for(i=0;i<1000;i++)
 	{
 		newmouse(&MouseX,&MouseY,&press);
+		press_start();
 		delay(3);
 	}
 	
@@ -26,3 +27,18 @@ void draw_simu01()
 	closegraph();
 }
 
+void press_start()
+{
+	if(mouse_press(0,0,40,30)==0)
+	{
+		MouseS=0;
+	}
+	if(mouse_press(0,0,40,30)==2)
+	{
+		MouseS=1;
+	}
+	if(mouse_press(0,0,40,30)==1)
+	{
+		draw_wel();
+	}
+}

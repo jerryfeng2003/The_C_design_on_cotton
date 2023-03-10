@@ -3,5 +3,5 @@
 
 //attention: the warehouse moudule is made by file "HOME.H"
 void draw_simu01(void);//draw the process of harvest in animition
-
+void press_start(void);//add the press moudules
 #endif

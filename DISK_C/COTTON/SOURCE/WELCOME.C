@@ -1,5 +1,5 @@
 #include "TOTAL.H"
-int location=0;
+int location=1;
 /*void main()
 {
 	int gdriver,gmode;
@@ -94,12 +94,12 @@ void draw_wel_cofield()
 		line(t1+50,t2+100,t1+50,t2+100);
 	}
 	setfillstyle(1,BROWN);
-	bar(100,310,200,400);
+	bar(78,130,222,400);
 	setcolor(WHITE);
 	for(i=0;i<100;i++)
 	{
-		int t1=rand()%100,t2=rand()%90;
-		line(t1+100,t2+310,t1+100,t2+310);
+		int t1=rand()%144,t2=rand()%270;
+		line(t1+78,t2+130,t1+78,t2+130);
 	}
 	/*setfillstyle(1,BROWN);
 	bar(50,100,300,400);
