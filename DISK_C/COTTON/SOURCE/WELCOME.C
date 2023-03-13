@@ -160,14 +160,11 @@ void enter_next()
 	//Enter the home page
 	if(mouse_press(310,130,410,200)==1)
 	{
-		if(location==1)
-		{
-			draw_home01();
-		}
-		else
+		draw_home01();
+		/*else
 		{
 			draw_home00();
-		}
+		}*/
 	}
 
 	//Exit the program

@@ -6,7 +6,14 @@ void draw_home01()
     //int num;
     cleardevice();
     setbkcolor(WHITE);
-	puthz(180,30,"西北地区：室外仓库",32,32,BLUE);
+	if(location==1)
+	{
+		puthz(180,30,"西北地区：室外仓库",32,32,BLUE);
+	}
+	else
+	{
+		puthz(120,30,"黄河、长江流域：室内仓库",32,32,BLUE);
+	}
 	draw_warehouse();
 	draw_trunk();
 	in_warehouse(999);
@@ -22,11 +29,11 @@ void draw_home01()
 
 void press_home()
 {
-	if(mouse_press(0,0,40,30)==0)
+	if(mouse_press(0,0,40,30)==0||mouse_press(53,90,280,190)==0)
 	{
 		MouseS=0;
 	}
-	if(mouse_press(0,0,40,30)==2)
+	if(mouse_press(0,0,40,30)==2||mouse_press(53,90,280,190)==2)
 	{
 		MouseS=1;
 	}
@@ -34,15 +41,19 @@ void press_home()
 	{
 		draw_wel();
 	}
+	if(mouse_press(53,90,280,190)==1)
+	{
+		detail_warehouse();
+	}
 }
 
-void draw_home00()
+/*void draw_home00()
 {
     int i;
     //int num;
     cleardevice();
     setbkcolor(WHITE);
-	puthz(120,30,"黄河、长江流域：室内仓库",32,32,BLUE);
+
 	quit();
     mouseinit();
 	for(i=0;i<1000;i++)
@@ -50,7 +61,7 @@ void draw_home00()
 		newmouse(&MouseX,&MouseY,&press);
 		delay(4);
 	}
-}
+}*/
 
 void in_warehouse(int count)
 {
@@ -64,6 +75,38 @@ void in_warehouse(int count)
 	itoa(count,str1,10);
 	settextstyle(1,0,2);
 	outtextxy(130,105,str1);
+}
+
+void detail_warehouse()
+{
+	cleardevice();
+	setbkcolor(WHITE);
+	setfillstyle(1,LIGHTGRAY);
+	bar(100,100,540,300);
+	mouseinit();
+	quit();
+	for(;;)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		press_dewarehouse();
+		delay(15);
+	}
+}
+
+void press_dewarehouse()
+{
+	if(mouse_press(0,0,40,30)==0)
+	{
+		MouseS=0;
+	}
+	if(mouse_press(0,0,40,30)==2)
+	{
+		MouseS=1;
+	}
+	if(mouse_press(0,0,40,30)==1)
+	{
+		draw_home01();
+	}
 }
 
 void draw_trunk()
