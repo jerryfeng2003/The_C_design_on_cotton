@@ -1,4 +1,5 @@
 #include "TOTAL.H"
+int out=0;
 
 void draw_home01()
 {
@@ -43,7 +44,7 @@ void press_home()
 	}
 	if(mouse_press(53,90,280,190)==1)
 	{
-		detail_warehouse();
+		detailed_warehouse(999);
 	}
 }
 
@@ -69,6 +70,7 @@ void in_warehouse(int count)
 	setfillstyle(1,LIGHTGRAY);
 	bar(53,90,280,190);
 	puthz(60,110,"库存量：",16,16,WHITE);
+	puthz(200,110,"吨",16,16,WHITE);
 	puthz(60,145,"棉花种类：",16,16,WHITE);
 	puthz(138,145,"长绒棉",16,16,RED);
 	setcolor(RED);
@@ -77,29 +79,47 @@ void in_warehouse(int count)
 	outtextxy(130,105,str1);
 }
 
-void detail_warehouse()
+void detailed_warehouse(int count)
 {
+	char str1[8];
 	cleardevice();
 	setbkcolor(WHITE);
 	setfillstyle(1,LIGHTGRAY);
+	puthz(220,30,"当前仓储信息",32,32,BLUE);
 	bar(100,100,540,300);
+	puthz(120,130,"库存量：",32,32,WHITE);
+	puthz(400,130,"吨",32,32,WHITE);
+	puthz(120,220,"棉花种类：",32,32,WHITE);
+	puthz(280,220,"长绒棉",32,32,RED);
+	itoa(count,str1,10);
+	setcolor(RED);
+	settextstyle(1,0,4);
+	outtextxy(250,125,str1);
+
+	setfillstyle(1,LIGHTBLUE);
+	bar(140,320,240,380);
+	setfillstyle(1,RED);
+	bar(380,320,480,380);
+	puthz(155,333,"采摘",32,32,WHITE);
+	puthz(395,333,"出库",32,32,WHITE);
+
 	mouseinit();
 	quit();
 	for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		press_dewarehouse();
+		press_detwarehouse(count);
 		delay(15);
 	}
 }
 
-void press_dewarehouse()
+void press_detwarehouse(int count)
 {
-	if(mouse_press(0,0,40,30)==0)
+	if(mouse_press(0,0,40,30)==0||mouse_press(140,320,240,380)==0||mouse_press(380,320,480,380)==0)
 	{
 		MouseS=0;
 	}
-	if(mouse_press(0,0,40,30)==2)
+	if(mouse_press(0,0,40,30)==2||mouse_press(140,320,240,380)==2||mouse_press(380,320,480,380)==2)
 	{
 		MouseS=1;
 	}
@@ -107,6 +127,71 @@ void press_dewarehouse()
 	{
 		draw_home01();
 	}
+	if(mouse_press(140,320,240,380)==1)
+	{
+		draw_simu01();
+	}
+	if(mouse_press(380,320,480,380)==1)
+	{
+		out_warehouse(count);
+	}
+}
+
+void out_warehouse(int count)
+{
+	//int out;
+	//int kick=0;
+	char str[10];
+	cleardevice();
+	setbkcolor(WHITE);
+	setfillstyle(1,LIGHTGRAY);
+	puthz(220,30,"请输入出库量",32,32,BLUE);
+
+	setfillstyle(1,LIGHTGRAY);
+	bar(100,100,540,300);
+	setfillstyle(1,WHITE);
+	bar(130,150,510,250);
+	puthz(460,190,"吨",32,32,BLUE);
+
+	mouseinit();
+	quit();
+	for(;;)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		press_outware(count,str);
+		delay(15);
+	}
+	//return out;
+}
+
+void press_outware(int count,char*str)
+{
+	//char str[10];
+	//int out=0;
+	if(mouse_press(0,0,40,30)==0||mouse_press(130,150,510,250)==0)
+	{
+		MouseS=0;
+	}
+	if(mouse_press(0,0,40,30)==2||mouse_press(130,150,510,250)==2)
+	{
+		MouseS=1;
+	}
+	if(mouse_press(0,0,40,30)==1)
+	{
+		detailed_warehouse(count);
+	}
+	if(mouse_press(0,0,40,30)==1)
+	{
+		detailed_warehouse(count);
+	}
+	if(mouse_press(130,150,510,250)==1)
+	{
+		//text_input(str,130,150,510,250,90,140,32);
+		input_text(str,140,190,10,DARKGRAY,1);
+		out=ch_to_int(str);
+		//*kick=1;
+	}
+	//return out;
 }
 
 void draw_trunk()
