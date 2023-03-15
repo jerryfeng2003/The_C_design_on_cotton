@@ -12,4 +12,5 @@ void press_detwarehouse(int count);
 void press_home(void);//add the press moudule
 void out_warehouse(int count);//page of the cotton out
 void press_outware(int count,char*str);
+void out_finish(void);
 #endif

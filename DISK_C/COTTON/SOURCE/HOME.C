@@ -1,12 +1,15 @@
 #include "TOTAL.H"
-int out=0;
+int total=780;
+char str[15];
 
 void draw_home01()
 {
-    int i;
+    int i,temp=0;
     //int num;
     cleardevice();
     setbkcolor(WHITE);
+	draw_warehouse();
+	draw_trunk();
 	if(location==1)
 	{
 		puthz(180,30,"西北地区：室外仓库",32,32,BLUE);
@@ -14,10 +17,25 @@ void draw_home01()
 	else
 	{
 		puthz(120,30,"黄河、长江流域：室内仓库",32,32,BLUE);
+		setfillstyle(1,DARKGRAY);
+		bar(320,90,800,120);
+		setfillstyle(1,LIGHTBLUE);
+		bar(350,120,360,500);
 	}
-	draw_warehouse();
-	draw_trunk();
-	in_warehouse(999);
+	if(strcmp(str,"\0"))
+	{
+		temp=atoi(str);
+		if(temp>total)
+		{
+			temp=total;
+		}
+		total-=temp;
+		for(i=0;i<15;i++)
+		{
+			str[i]='\0';
+		}
+	}
+	in_warehouse(total);
     mouseinit();
 	quit();
 	for(;;)
@@ -44,7 +62,7 @@ void press_home()
 	}
 	if(mouse_press(53,90,280,190)==1)
 	{
-		detailed_warehouse(999);
+		detailed_warehouse(total);
 	}
 }
 
@@ -141,7 +159,6 @@ void out_warehouse(int count)
 {
 	//int out;
 	//int kick=0;
-	char str[10];
 	cleardevice();
 	setbkcolor(WHITE);
 	setfillstyle(1,LIGHTGRAY);
@@ -152,6 +169,9 @@ void out_warehouse(int count)
 	setfillstyle(1,WHITE);
 	bar(130,150,510,250);
 	puthz(460,190,"吨",32,32,BLUE);
+	setfillstyle(1,RED);
+	bar(270,320,370,380);
+	puthz(285,333,"完成",32,32,WHITE);
 
 	mouseinit();
 	quit();
@@ -168,11 +188,11 @@ void press_outware(int count,char*str)
 {
 	//char str[10];
 	//int out=0;
-	if(mouse_press(0,0,40,30)==0||mouse_press(130,150,510,250)==0)
+	if(mouse_press(0,0,40,30)==0||mouse_press(130,150,510,250)==0||mouse_press(270,320,370,380)==0)
 	{
 		MouseS=0;
 	}
-	if(mouse_press(0,0,40,30)==2||mouse_press(130,150,510,250)==2)
+	if(mouse_press(0,0,40,30)==2||mouse_press(130,150,510,250)==2||mouse_press(270,320,370,380)==2)
 	{
 		MouseS=1;
 	}
@@ -186,12 +206,23 @@ void press_outware(int count,char*str)
 	}
 	if(mouse_press(130,150,510,250)==1)
 	{
-		//text_input(str,130,150,510,250,90,140,32);
-		input_text(str,140,190,10,DARKGRAY,1);
-		out=ch_to_int(str);
-		//*kick=1;
+		input_text(str,140,190,15,DARKGRAY,1);
+		return;
+	}
+	if(mouse_press(270,320,370,380)==1)
+	{
+		out_finish();
 	}
 	//return out;
+}
+
+void out_finish()
+{
+	cleardevice();
+	setbkcolor(WHITE);
+	puthz(220,180,"出库完成",48,48,RED);
+	delay(3000);
+	draw_home01();
 }
 
 void draw_trunk()
