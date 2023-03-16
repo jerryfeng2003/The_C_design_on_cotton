@@ -2,6 +2,7 @@
 int total=780;
 char str[15];
 
+//the page of n-w warehouse
 void draw_home01()
 {
     int i,temp=0;
@@ -46,6 +47,7 @@ void draw_home01()
 	}
 }
 
+//add the press moudule
 void press_home()
 {
 	if(mouse_press(0,0,40,30)==0||mouse_press(53,90,280,190)==0)
@@ -82,6 +84,7 @@ void press_home()
 	}
 }*/
 
+//draw the board which show the cotton in warehouse
 void in_warehouse(int count)
 {
 	char str1[8];
@@ -97,6 +100,7 @@ void in_warehouse(int count)
 	outtextxy(130,105,str1);
 }
 
+//detail message of warehouse
 void detailed_warehouse(int count)
 {
 	char str1[8];
@@ -131,6 +135,7 @@ void detailed_warehouse(int count)
 	}
 }
 
+
 void press_detwarehouse(int count)
 {
 	if(mouse_press(0,0,40,30)==0||mouse_press(140,320,240,380)==0||mouse_press(380,320,480,380)==0)
@@ -155,6 +160,7 @@ void press_detwarehouse(int count)
 	}
 }
 
+//page of the cotton out
 void out_warehouse(int count)
 {
 	//int out;
@@ -218,13 +224,17 @@ void press_outware(int count,char*str)
 
 void out_finish()
 {
-	cleardevice();
-	setbkcolor(WHITE);
+	setfillstyle(1,WHITE);
+	bar(200,160,430,240);
+	setcolor(BLUE);
+	setlinestyle(0,0,3);
+	rectangle(200,160,430,240);
 	puthz(220,180,"³ö¿âÍê³É",48,48,RED);
-	delay(3000);
+	delay(1000);
 	draw_home01();
 }
 
+//draw the trunk int the page
 void draw_trunk()
 {
 	setfillstyle(1,RED);
@@ -240,6 +250,7 @@ void draw_trunk()
 	bar(165,230,185,240);
 }
 
+//draw the picture of warehouse
 void draw_warehouse()
 {
 	int i,j,y_d=160;
@@ -259,6 +270,7 @@ void draw_warehouse()
 	}
 }
 
+//draw the cotton in warehouse
 void cot_mount(int x,int y)
 {
 	int i,d_y=y;

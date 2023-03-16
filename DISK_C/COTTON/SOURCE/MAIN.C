@@ -1,12 +1,12 @@
 #include "TOTAL.H"
 
-int main()
+/*int main()
 {
     int gd=VGA,gm=VGAHI; 
 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
 	draw_wel();
 	return 0;
-}
+}*/
 
 void quit(void)
 {
@@ -53,7 +53,7 @@ void input_text(char *id, int x, int y, int charnum, int color, int flag)
 { // flag==1  œ‘ æ
 
 #define h 32
-#define w 17
+#define w 18
 #define space 0
 #define SX x + 5 // START X
 #define SY y - 5
