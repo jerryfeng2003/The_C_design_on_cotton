@@ -15,6 +15,27 @@ void quit(void)
 	puthz(3,10,"退出",16,16,WHITE);
 }
 
+void skip(void)
+{
+    setfillstyle(1,LIGHTBLUE);
+    bar(585,450,625,480);
+    puthz(625-40+3,480-30+10,"跳过",16,16,WHITE);
+}
+
+void next(void)
+{
+    setfillstyle(1,LIGHTBLUE);
+    bar(585,450,625,480);
+    puthz(625-40+3,480-30+10,"下页",16,16,WHITE);
+}
+
+void last(void)
+{
+    setfillstyle(1,LIGHTBLUE);
+    bar(0,450,40,480);
+    puthz(4,480-30+10,"上页",16,16,WHITE);
+}
+
 /*void text_input(char *str,int x1,int y1,int x2,int y2,int t_x,int t_y,int t_size)
 {
 	char temp,*p;

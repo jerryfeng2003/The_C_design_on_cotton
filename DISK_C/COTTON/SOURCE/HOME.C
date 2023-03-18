@@ -1,5 +1,5 @@
 #include "TOTAL.H"
-int total=780;
+long int total=0;
 char str[15];
 
 //the page of n-w warehouse
@@ -117,6 +117,7 @@ void detailed_warehouse(int count)
 	setcolor(RED);
 	settextstyle(1,0,4);
 	outtextxy(250,125,str1);
+	last();
 
 	setfillstyle(1,LIGHTBLUE);
 	bar(140,320,240,380);
@@ -138,15 +139,21 @@ void detailed_warehouse(int count)
 
 void press_detwarehouse(int count)
 {
-	if(mouse_press(0,0,40,30)==0||mouse_press(140,320,240,380)==0||mouse_press(380,320,480,380)==0)
+	if(mouse_press(0,0,40,30)==0||mouse_press(140,320,240,380)==0||mouse_press(380,320,480,380)==0\
+	||mouse_press(0,450,40,480)==0)
 	{
 		MouseS=0;
 	}
-	if(mouse_press(0,0,40,30)==2||mouse_press(140,320,240,380)==2||mouse_press(380,320,480,380)==2)
+	if(mouse_press(0,0,40,30)==2||mouse_press(140,320,240,380)==2||mouse_press(380,320,480,380)==2\
+	||mouse_press(0,450,40,480)==2)
 	{
 		MouseS=1;
 	}
 	if(mouse_press(0,0,40,30)==1)
+	{
+		draw_wel();
+	}
+	if(mouse_press(0,450,40,480)==1)
 	{
 		draw_home01();
 	}
@@ -178,6 +185,7 @@ void out_warehouse(int count)
 	setfillstyle(1,RED);
 	bar(270,320,370,380);
 	puthz(285,333,"Íê³É",32,32,WHITE);
+	last();
 
 	mouseinit();
 	quit();
@@ -192,17 +200,20 @@ void out_warehouse(int count)
 
 void press_outware(int count,char*str)
 {
-	//char str[10];
-	//int out=0;
-	if(mouse_press(0,0,40,30)==0||mouse_press(130,150,510,250)==0||mouse_press(270,320,370,380)==0)
+	if(mouse_press(0,0,40,30)==0||mouse_press(130,150,510,250)==0||mouse_press(270,320,370,380)==0\
+	||mouse_press(0,450,40,480)==0)
 	{
 		MouseS=0;
-	}
-	if(mouse_press(0,0,40,30)==2||mouse_press(130,150,510,250)==2||mouse_press(270,320,370,380)==2)
+	}	if(mouse_press(0,0,40,30)==2||mouse_press(130,150,510,250)==2||mouse_press(270,320,370,380)==2\
+	||mouse_press(0,450,40,480)==2)
 	{
 		MouseS=1;
 	}
 	if(mouse_press(0,0,40,30)==1)
+	{
+		draw_wel();
+	}
+	if(mouse_press(0,450,40,480)==1)
 	{
 		detailed_warehouse(count);
 	}
