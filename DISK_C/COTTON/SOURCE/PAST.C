@@ -9,10 +9,27 @@ void draw_past01()
 	puthz(240,30,"¹ıÍù²ÎÊı",32,32,BLUE);
 	quit();
     mouseinit();
-	for(i=0;i<1000;i++)
+	for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		delay(3);
+		press_past();
+		delay(15);
 	}
-	closegraph();
+	//closegraph();
+}
+
+void press_past()
+{
+	if(mouse_press(0,0,40,30)==0)
+	{
+		MouseS=0;
+	}
+	if(mouse_press(0,0,40,30)==2)
+	{
+		MouseS=1;
+	}
+	if(mouse_press(0,0,40,30)==1)
+	{
+		draw_wel();
+	}
 }

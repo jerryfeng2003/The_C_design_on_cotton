@@ -3,5 +3,6 @@
 
 
 void draw_help01(void);//Draw the Help and Explanation page
+void press_help(void);//add the press moudule
 
 #endif

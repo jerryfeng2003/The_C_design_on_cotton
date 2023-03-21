@@ -9,6 +9,7 @@ int location=0;
 	closegraph();
 }*/
 
+//draw the buttons in welcome page
 void draw_wel_buttons(void)
 {
 	int i,d;
@@ -35,6 +36,7 @@ void draw_wel_buttons(void)
 	puthz(330,150,"≤÷ø‚π‹¿Ì",16,16,BLUE);
 }
 
+//draw the tractor in welcome page
 void draw_wel_tractors()
 {
 	//The wheels
@@ -73,6 +75,7 @@ void draw_wel_tractors()
 	rectangle(130,120,170,160);
 }
 
+//draw the cotton field in welcome page
 void draw_wel_cofield()
 {
 	//The cotton field
@@ -94,12 +97,12 @@ void draw_wel_cofield()
 		line(t1+50,t2+100,t1+50,t2+100);
 	}
 	setfillstyle(1,BROWN);
-	bar(100,310,200,400);
+	bar(78,130,222,400);
 	setcolor(WHITE);
 	for(i=0;i<100;i++)
 	{
-		int t1=rand()%100,t2=rand()%90;
-		line(t1+100,t2+310,t1+100,t2+310);
+		int t1=rand()%144,t2=rand()%270;
+		line(t1+78,t2+130,t1+78,t2+130);
 	}
 	/*setfillstyle(1,BROWN);
 	bar(50,100,300,400);
@@ -160,14 +163,11 @@ void enter_next()
 	//Enter the home page
 	if(mouse_press(310,130,410,200)==1)
 	{
-		if(location==1)
-		{
-			draw_home01();
-		}
-		else
+		draw_home01();
+		/*else
 		{
 			draw_home00();
-		}
+		}*/
 	}
 
 	//Exit the program
