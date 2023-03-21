@@ -3,7 +3,7 @@
 
 
 
-typedef struct
+typedef struct 
 {
 	int x1;//ÊäÈë¿ò×ø±ê
 	int y1;
@@ -30,8 +30,7 @@ void input_s(int x,int y,INPUT *word,int size,int mode);//¼üÅÌÊäÈë
 void reset();//Íü¼ÇÃÜÂë
 void wr_user(char username[],char password[],char phonenumber[]);
 int changepassword(char username0[],char newpassword0[],char phonenumber0[]);
-int log(char username0[],char password0[],struct user* loguser);
-
+int logg(char username0[],char password0[],struct user* loguser);
 
 
 #endif

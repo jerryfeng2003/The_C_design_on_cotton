@@ -1,12 +1,12 @@
 #include "TOTAL.H"
 
-int main()
+/*int main()
 {
 	int gd=VGA,gm=VGAHI; 
 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
 	draw_simu01();
 	return 0;
-}
+}*/
 
 //draw the process of harvest in animition
 void draw_simu01()

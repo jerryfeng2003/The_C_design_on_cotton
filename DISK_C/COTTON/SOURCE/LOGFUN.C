@@ -184,7 +184,7 @@ int username_same(char username0[])
 }
 
 //µÇÂ¼£¬ÅĞ¶ÏÕËºÅÊÇ·ñ´æÔÚandÃÜÂëÊÇ·ñÕıÈ·
-int log(char username0[],char password0[],struct user* loguser)
+int logg(char username0[],char password0[],struct user* loguser)
 {
 	FILE *fp;
 	user *u=(user*)malloc(sizeof(user));
