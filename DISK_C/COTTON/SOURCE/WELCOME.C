@@ -9,6 +9,7 @@ int location=0;
 	closegraph();
 }*/
 
+//draw the buttons in welcome page
 void draw_wel_buttons(void)
 {
 	int i,d;
@@ -35,6 +36,7 @@ void draw_wel_buttons(void)
 	puthz(330,150,"≤÷ø‚π‹¿Ì",16,16,BLUE);
 }
 
+//draw the tractor in welcome page
 void draw_wel_tractors()
 {
 	//The wheels
@@ -73,6 +75,7 @@ void draw_wel_tractors()
 	rectangle(130,120,170,160);
 }
 
+//draw the cotton field in welcome page
 void draw_wel_cofield()
 {
 	//The cotton field

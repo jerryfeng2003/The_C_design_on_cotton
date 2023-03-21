@@ -46,6 +46,8 @@ void draw_simu01()
 	//closegraph();
 }
 
+
+//start playing the picking video
 void start_ainime(int t_trac,int x,int y,int num)
 {
 	int i,x_p=x_start,y_p=y_start+y-40,flag=0,out=0;
@@ -229,7 +231,7 @@ void start_ainime(int t_trac,int x,int y,int num)
 	}
 }
 
-//add the press moudules
+//add the press moudules in start page
 void press_start()
 {
 	if(mouse_press(0,0,40,30)==0)
@@ -246,6 +248,7 @@ void press_start()
 	}
 }
 
+//add press moudules in video page
 int pressed_anime(int x,int y)
 {
 	int re=0;
@@ -269,6 +272,7 @@ int pressed_anime(int x,int y)
     return re;
 }
 
+//show after picking 
 void pick_finish(int count)
 {
 	char str[10];
@@ -285,6 +289,7 @@ void pick_finish(int count)
 	outtextxy(280,225,str);
 }
 
+//moudules which skip the video and show the result
 void anime_skip_result(int x,int y)
 {
 	int i;
@@ -362,6 +367,7 @@ void init_tracktor01_f(int x,int y)
 	bar(x+22,y+26,x+24,y+32);
 }
 
+//initialize the tracktor type 1
 void init_tracktor01_b(int x,int y)
 {
 	int i,j;
@@ -399,7 +405,7 @@ void init_tracktor01_b(int x,int y)
 	bar(x+22,y+12,x+24,y+6);
 }
 
-//initialize the tarcker 02
+//initialize the tarcker 02 in front 
 void init_tracktor02_f(int x,int y)
 {
 	int i,j;
@@ -437,6 +443,7 @@ void init_tracktor02_f(int x,int y)
 	bar(x+22,y+26,x+24,y+32);
 }
 
+//initialize the tracktor type 2 in backward
 void init_tracktor02_b(int x,int y)
 {
 	int i,j;
@@ -474,6 +481,7 @@ void init_tracktor02_b(int x,int y)
 	bar(x+22,y+12,x+24,y+6);
 }
 
+//earth filling after pick ,front
 void earth_fill01(int x,int y)
 {
 	setfillstyle(1,BROWN);
@@ -486,6 +494,7 @@ void earth_fill01(int x,int y)
 	}
 }
 
+//earth filling after pick,back
 void earth_fill02(int x,int y)
 {
 	setfillstyle(1,BROWN);
@@ -498,6 +507,7 @@ void earth_fill02(int x,int y)
 	}
 }
 
+//earth filling after pick, turn direction
 void earth_fill03(int x,int y)
 {
 	int i;
