@@ -87,6 +87,7 @@ void wr_user(char username1[],char password1[],char phonenumber1[])
 {
 	FILE *fp;
 	user *u = (user*)malloc(sizeof(user));
+	//u->parameter="\0";
 	int i;
 	if((fp=fopen("User.txt","rt+"))==NULL)
 	{
