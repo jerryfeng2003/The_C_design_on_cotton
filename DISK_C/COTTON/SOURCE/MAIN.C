@@ -2,8 +2,10 @@
 
 int main()
 {
-    int gd=VGA,gm=VGAHI; 
+    int gd=VGA,gm=VGAHI;
+	user *h;
 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+    loginit(h);
 	draw_wel();
 	return 0;
 }
