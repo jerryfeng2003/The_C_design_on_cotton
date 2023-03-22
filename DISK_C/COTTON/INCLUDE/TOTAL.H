@@ -63,6 +63,11 @@
 #include "PAST.H"
 #include "HELP.H"
 #include "HOME.H"
+#include "LOGIN.H"
+#include "REGISTER.H"
+#include "RESET.H"
+#include "LOGFUN.H"
+#include "LOGIN.H"
 
 extern int location;//1 means the norwestern,0 means others
 extern long int total;

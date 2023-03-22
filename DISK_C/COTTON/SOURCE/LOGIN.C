@@ -67,7 +67,7 @@ void loginit(struct user * now)
 		newmouse(&MouseX,&MouseY,&press);
         if(logenter()==1)
         {
-            if(log(username.string,password.string,now)==1)
+            if(logg(username.string,password.string,now)==1)
             {
                 return;
             }
