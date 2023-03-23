@@ -9,9 +9,9 @@
 }*/
 
 //draw the process of harvest in animition
-void draw_simu01()
+void draw_simu01(long int x,long int y,int num)
 {
-    long int time=25,temp=0,x=x_max,y=y_max;
+    long int time=25,temp=0;
 	char here[8];
 	itoa(time,here,10);
 	temp=x*y*0.01+rand()%100;
@@ -26,12 +26,12 @@ void draw_simu01()
     //outtextxy()
 	quit();
     mouseinit();
-	start_ainime(0,x,y,10);
+	start_ainime(0,x,y,num);
 	pick_finish(temp);
-	total+=temp;
-	if(total>ware_full||total<0)
+	total[c_t]+=temp;
+	if(total[c_t]>ware_full||total<0)
 	{
-		total=ware_full;
+		total[c_t]=ware_full;
 	}
 	for(;;)
 	{
@@ -234,11 +234,11 @@ void start_ainime(int t_trac,int x,int y,int num)
 //add the press moudules in start page
 void press_start()
 {
-	if(mouse_press(0,0,40,30)==0)
+	if(mouse_press(0,0,40,30)==0||mouse_press(265,350,365,410)==0)
 	{
 		MouseS=0;
 	}
-	if(mouse_press(0,0,40,30)==2)
+	if(mouse_press(0,0,40,30)==2||mouse_press(265,350,365,410)==2)
 	{
 		MouseS=1;
 	}
@@ -246,12 +246,20 @@ void press_start()
 	{
 		draw_wel();
 	}
+	else if(mouse_press(265,350,365,410)==1)
+	{
+		draw_home01();
+	}
 }
 
 //add press moudules in video page
 int pressed_anime(int x,int y)
 {
 	int re=0;
+	if(MouseX>=x_start&&MouseY>=y_start&&MouseX<=x_start+x&&MouseY<=y_start+y)
+	{
+		clrmous(MouseX,MouseY);
+	}
 	if(mouse_press(0,0,40,30)==0||mouse_press(585,450,625,480)==0)
 	{
 		MouseS=0;
@@ -264,7 +272,7 @@ int pressed_anime(int x,int y)
 	{
 		draw_wel();
 	}
-	if(mouse_press(585,450,625,480)==1)
+	else if(mouse_press(585,450,625,480)==1)
 	{
 		anime_skip_result(x,y);
 		re=1;
@@ -278,15 +286,21 @@ void pick_finish(int count)
 	char str[10];
 	itoa(count,str,10);
 	setfillstyle(1,WHITE);
-	bar(160,170,470,300);
+	bar(160,170,470,340);
 	setcolor(RED);
 	setlinestyle(0,0,3);
-	rectangle(165,175,465,295);
+	rectangle(165,175,465,335);
+
 	puthz(210,190,"采摘完成",32,32,BLUE);
-	puthz(210,230,"共计",32,32,BLUE);
+	puthz(210,230,"共计：",32,32,BLUE);
 	settextstyle(3,0,4);
 	puthz(380,230,"吨",32,32,BLUE);
-	outtextxy(280,225,str);
+	outtextxy(300,225,str);
+	puthz(210,270,"种类：长绒棉",32,32,BLUE);
+
+	setfillstyle(1,YELLOW);
+	bar(265,350,365,410);
+	puthz(278,360,"入库",32,32,RED);
 }
 
 //moudules which skip the video and show the result

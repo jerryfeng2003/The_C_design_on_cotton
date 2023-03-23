@@ -1,11 +1,13 @@
 #include "TOTAL.H"
-long int total=0;
+long int total[3];
+int c_t=0;
 char str[15];
 
 //the page of n-w warehouse
 void draw_home01()
 {
-    int i,temp=0;
+    int i,temp=0,num_ware=0;
+	U_ware here[10];
     //int num;
     cleardevice();
     setbkcolor(WHITE);
@@ -26,23 +28,23 @@ void draw_home01()
 	if(strcmp(str,"\0"))
 	{
 		temp=atoi(str);
-		if(temp>total)
+		if(temp>total[c_t])
 		{
-			temp=total;
+			temp=total[c_t];
 		}
-		total-=temp;
+		total[c_t]-=temp;
 		for(i=0;i<15;i++)
 		{
 			str[i]='\0';
 		}
 	}
-	in_warehouse(total);
+	in_warehouse(total[c_t],c_t);
     mouseinit();
 	quit();
 	for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		press_home();
+		press_home(c_t);
 		delay(15);
 	}
 }
@@ -50,11 +52,13 @@ void draw_home01()
 //add the press moudule
 void press_home()
 {
-	if(mouse_press(0,0,40,30)==0||mouse_press(53,90,280,190)==0)
+	if(mouse_press(0,0,40,30)==0||mouse_press(53,90,280,190)==0||mouse_press(26,130,46,150)==0\
+	||mouse_press(287,130,307,150)==0||mouse_press(100,300,200,360)==0)
 	{
 		MouseS=0;
 	}
-	if(mouse_press(0,0,40,30)==2||mouse_press(53,90,280,190)==2)
+	if(mouse_press(0,0,40,30)==2||mouse_press(53,90,280,190)==2||mouse_press(26,130,46,150)==2\
+	||mouse_press(287,130,307,150)==2||mouse_press(100,300,200,360)==2)
 	{
 		MouseS=1;
 	}
@@ -62,9 +66,31 @@ void press_home()
 	{
 		draw_wel();
 	}
-	if(mouse_press(53,90,280,190)==1)
+	if(mouse_press(100,300,200,360)==1)
 	{
-		detailed_warehouse(total);
+		warehouse_list();
+	}
+	if(mouse_press(287,130,307,150)==1)
+	{
+		c_t--;
+		if(c_t<0)
+		{
+			c_t=2;
+		}
+		draw_home01();
+	}
+	if(mouse_press(26,130,46,150)==1)
+	{
+		c_t++;
+		if(c_t>2)
+		{
+			c_t=0;
+		}
+		draw_home01();
+	}
+	else if(mouse_press(53,90,280,190)==1)
+	{
+		detailed_warehouse(total[c_t]);
 	}
 }
 
@@ -85,19 +111,86 @@ void press_home()
 }*/
 
 //draw the board which show the cotton in warehouse
-void in_warehouse(int count)
+void in_warehouse(int count,int cotton_type)
 {
 	char str1[8];
+	int arr1[6]={32-5,140,47-5,132,47-5,148},arr2[6]={301+5,140,286+5,132,286+5,148};
 	setfillstyle(1,LIGHTGRAY);
+	setlinestyle(0,0,1);
 	bar(53,90,280,190);
 	puthz(60,110,"库存量：",16,16,WHITE);
 	puthz(200,110,"吨",16,16,WHITE);
 	puthz(60,145,"棉花种类：",16,16,WHITE);
-	puthz(138,145,"长绒棉",16,16,RED);
+	setfillstyle(1,BROWN);
+	bar(100,300,200,360);
+	puthz(115,320,"仓库列表",16,16,YELLOW);
+	switch (cotton_type)
+	{
+	case 0:
+		puthz(138,145,"长绒棉",16,16,RED);
+		break;
+	case 1:
+		puthz(138,145,"细绒棉",16,16,RED);
+		break;
+	case 2:
+		puthz(138,145,"粗绒棉",16,16,RED);
+		break;	
+	default:
+		break;
+	}
 	setcolor(RED);
 	itoa(count,str1,10);
 	settextstyle(1,0,2);
 	outtextxy(130,105,str1);
+	setfillstyle(1,LIGHTBLUE);
+	setcolor(BLUE);
+	fillellipse(41-5,140,10,10);
+	fillellipse(292+5,140,10,10);
+	setfillstyle(1,LIGHTGRAY);
+	fillpoly(3,arr1);
+	fillpoly(3,arr2);
+
+}
+
+void warehouse_list()
+{
+	//int i=0;
+	cleardevice();
+	setbkcolor(WHITE);
+	setfillstyle(1,LIGHTGRAY);
+	puthz(220,30,"当前仓库列表",32,32,BLUE);
+	bar(100,100,540,400);
+
+	quit();
+	last();
+
+	mouseinit();
+	while(1)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		press_warelist();
+		delay(15);
+	}
+}
+
+void press_warelist()
+{
+	if(mouse_press(0,0,40,30)==0||mouse_press(0,450,40,480)==0)
+	{
+		MouseS=0;
+	}
+	if(mouse_press(0,0,40,30)==2||mouse_press(0,450,40,480)==2)
+	{
+		MouseS=1;
+	}
+	if(mouse_press(0,450,40,480)==1)
+	{
+		draw_home01();
+	}
+	else if(mouse_press(0,0,40,30)==1)
+	{
+		draw_wel();
+	}
 }
 
 //detail message of warehouse
@@ -159,7 +252,7 @@ void press_detwarehouse(int count)
 	}
 	if(mouse_press(140,320,240,380)==1)
 	{
-		draw_simu01();
+		draw_simu01(x_max,y_max,5);
 	}
 	if(mouse_press(380,320,480,380)==1)
 	{

@@ -6,7 +6,7 @@
 #define y_start 120
 
 //attention: the warehouse moudule is made by file "HOME.H"
-void draw_simu01(void);//draw the process of harvest in animition
+void draw_simu01(long int x,long int y,int num);//draw the process of harvest in animition
 void press_start(void);//add the press moudules
 void init_field(int x,int y);//initialize the cotton field
 void init_tracktor01_f(int x,int y);//initialize the tarcker 01
