@@ -4,7 +4,7 @@
 
 void draw_home01(void);//the page of n-w warehouse
 //void draw_home00(void);//the page of Y-H warehouse
-void warehouse_list(void);
+void warehouse_list(struct user_warehouse * w,int num_ware);
 void press_warelist(void);
 void draw_warehouse(void);//draw the picture of warehouse
 void cot_mount(int x,int y);//draw the cotton in warehouse
@@ -20,6 +20,7 @@ void out_finish(void);
 typedef struct user_warehouse
 {
 	char ware_name[15];
+	int cotton_type;
 	long int total[3];
 }U_ware;
 

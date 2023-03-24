@@ -3,11 +3,12 @@ long int total[3];
 int c_t=0;
 char str[15];
 
+U_ware here={"ware01",1,{100,200,300}};
+
 //the page of n-w warehouse
 void draw_home01()
 {
-    int i,temp=0,num_ware=0;
-	U_ware here[10];
+    int i,temp=0;
     //int num;
     cleardevice();
     setbkcolor(WHITE);
@@ -68,7 +69,7 @@ void press_home()
 	}
 	if(mouse_press(100,300,200,360)==1)
 	{
-		warehouse_list();
+		warehouse_list(&here,1);
 	}
 	if(mouse_press(287,130,307,150)==1)
 	{
@@ -152,15 +153,54 @@ void in_warehouse(int count,int cotton_type)
 
 }
 
-void warehouse_list()
+void warehouse_list(U_ware *w,int num_ware)
 {
-	//int i=0;
+	int i;
+	char str[15];
 	cleardevice();
 	setbkcolor(WHITE);
 	setfillstyle(1,LIGHTGRAY);
 	puthz(220,30,"µ±«∞≤÷ø‚¡–±Ì",32,32,BLUE);
 	bar(100,100,540,400);
 
+	setfillstyle(1,WHITE);
+	for(i=0;i<num_ware;i++)
+	{
+		int up=100+100*i,down=160+i*100,type=w[i].cotton_type;
+		bar(100+2,up+2,540-2,down-2);
+		setlinestyle(0,0,1);
+		setcolor(LIGHTBLUE);
+		rectangle(100+3,up+3,540-3,down-3);
+		setcolor(RED);
+		puthz(104,up+10,"≤÷ø‚√˚£∫",16,16,DARKGRAY);
+		puthz(104,up+30,"√ﬁª®÷÷¿‡£∫",16,16,DARKGRAY);
+		puthz(320,up+30,"ø‚¥Ê¡ø£∫",16,16,DARKGRAY);
+		puthz(510,up+30,"∂÷",16,16,DARKGRAY);
+		switch (type)
+		{
+			case 0:
+			{
+				itoa(w[i].total[type],str,14);
+				puthz(184,up+30,"≥§»ﬁ√ﬁ",16,16,RED);
+				outtextxy(384,up+25,str);
+			}
+			case 1:
+			{
+				itoa(w[i].total[type],str,14);
+				puthz(184,up+30,"œ∏»ﬁ√ﬁ",16,16,RED);
+				outtextxy(384,up+25,str);
+			}
+			case 2:
+			{
+				itoa(w[i].total[type],str,14);
+				puthz(184,up+30,"¥÷»ﬁ√ﬁ",16,16,RED);
+				outtextxy(384,up+25,str);
+			}
+
+			default:
+				break;
+		}
+	}	
 	quit();
 	last();
 
@@ -192,6 +232,7 @@ void press_warelist()
 		draw_wel();
 	}
 }
+
 
 //detail message of warehouse
 void detailed_warehouse(int count)
