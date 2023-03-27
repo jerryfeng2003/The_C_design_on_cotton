@@ -1,14 +1,19 @@
 #include "TOTAL.H"
-long int total[3];
-int c_t=0;
 char str[15];
+int k=0;
 
-U_ware here={"ware01",1,{100,200,300}};
+U_ware here[5]={"ware01",0,{100,200,300},"ware02",1,{1000,2000,3000},\
+"ware03",2,{123,456,789},"ware04",1,{1234,4545,234},"ware05",0,{34535,3423,6465}};
 
 //the page of n-w warehouse
 void draw_home01()
 {
-    int i,temp=0;
+    int i,type=here[k].cotton_type;
+	long int temp=0, c_tal=here[k].total[type];
+	if(c_tal>ware_full||c_tal<0)
+	{
+		c_tal=ware_full;
+	}
     //int num;
     cleardevice();
     setbkcolor(WHITE);
@@ -29,29 +34,29 @@ void draw_home01()
 	if(strcmp(str,"\0"))
 	{
 		temp=atoi(str);
-		if(temp>total[c_t])
+		if(temp>c_tal)
 		{
-			temp=total[c_t];
+			temp=c_tal;
 		}
-		total[c_t]-=temp;
+		c_tal-=temp;
 		for(i=0;i<15;i++)
 		{
 			str[i]='\0';
 		}
 	}
-	in_warehouse(total[c_t],c_t);
+	in_warehouse(here+k);
     mouseinit();
 	quit();
 	for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		press_home(c_t);
+		press_home(&(here[k].cotton_type));
 		delay(15);
 	}
 }
 
 //add the press moudule
-void press_home()
+void press_home(int *c_t)
 {
 	if(mouse_press(0,0,40,30)==0||mouse_press(53,90,280,190)==0||mouse_press(26,130,46,150)==0\
 	||mouse_press(287,130,307,150)==0||mouse_press(100,300,200,360)==0)
@@ -69,29 +74,29 @@ void press_home()
 	}
 	if(mouse_press(100,300,200,360)==1)
 	{
-		warehouse_list(&here,1);
-	}
-	if(mouse_press(287,130,307,150)==1)
-	{
-		c_t--;
-		if(c_t<0)
-		{
-			c_t=2;
-		}
-		draw_home01();
+		warehouse_list(here,5);
 	}
 	if(mouse_press(26,130,46,150)==1)
 	{
-		c_t++;
-		if(c_t>2)
+		(*c_t)--;
+		if(*c_t<0)
 		{
-			c_t=0;
+			*c_t=2;
+		}
+		draw_home01();
+	}
+	if(mouse_press(287,130,307,150)==1)
+	{
+		(*c_t)++;
+		if(*c_t>2)
+		{
+			*c_t=0;
 		}
 		draw_home01();
 	}
 	else if(mouse_press(53,90,280,190)==1)
 	{
-		detailed_warehouse(total[c_t]);
+		detailed_warehouse(here[k].total[*c_t]);
 	}
 }
 
@@ -112,20 +117,24 @@ void press_home()
 }*/
 
 //draw the board which show the cotton in warehouse
-void in_warehouse(int count,int cotton_type)
+void in_warehouse(U_ware* now)
 {
 	char str1[8];
 	int arr1[6]={32-5,140,47-5,132,47-5,148},arr2[6]={301+5,140,286+5,132,286+5,148};
+	int type=now->cotton_type,count=now->total[type];
 	setfillstyle(1,LIGHTGRAY);
 	setlinestyle(0,0,1);
-	bar(53,90,280,190);
+	bar(53,70,280,190);
+	setcolor(RED);
+	settextstyle(1,0,3);
+	outtextxy(110,70,now->ware_name);
 	puthz(60,110,"ø‚¥Ê¡ø£∫",16,16,WHITE);
 	puthz(200,110,"∂÷",16,16,WHITE);
 	puthz(60,145,"√ﬁª®÷÷¿‡£∫",16,16,WHITE);
 	setfillstyle(1,BROWN);
 	bar(100,300,200,360);
 	puthz(115,320,"≤÷ø‚¡–±Ì",16,16,YELLOW);
-	switch (cotton_type)
+	switch (type)
 	{
 	case 0:
 		puthz(138,145,"≥§»ﬁ√ﬁ",16,16,RED);
@@ -156,7 +165,6 @@ void in_warehouse(int count,int cotton_type)
 void warehouse_list(U_ware *w,int num_ware)
 {
 	int i;
-	char str[15];
 	cleardevice();
 	setbkcolor(WHITE);
 	setfillstyle(1,LIGHTGRAY);
@@ -166,13 +174,15 @@ void warehouse_list(U_ware *w,int num_ware)
 	setfillstyle(1,WHITE);
 	for(i=0;i<num_ware;i++)
 	{
-		int up=100+100*i,down=160+i*100,type=w[i].cotton_type;
+		char str[15];
+		int up=100+60*i,down=160+i*60,type=w[i].cotton_type;
 		bar(100+2,up+2,540-2,down-2);
 		setlinestyle(0,0,1);
 		setcolor(LIGHTBLUE);
 		rectangle(100+3,up+3,540-3,down-3);
 		setcolor(RED);
 		puthz(104,up+10,"≤÷ø‚√˚£∫",16,16,DARKGRAY);
+		outtextxy(168,up+5,w[i].ware_name);
 		puthz(104,up+30,"√ﬁª®÷÷¿‡£∫",16,16,DARKGRAY);
 		puthz(320,up+30,"ø‚¥Ê¡ø£∫",16,16,DARKGRAY);
 		puthz(510,up+30,"∂÷",16,16,DARKGRAY);
@@ -180,21 +190,33 @@ void warehouse_list(U_ware *w,int num_ware)
 		{
 			case 0:
 			{
-				itoa(w[i].total[type],str,14);
+				if(w[i].total[type]<=ware_full)
+					itoa(w[i].total[type],str,10);
+				else
+					itoa(ware_full,str,10);
 				puthz(184,up+30,"≥§»ﬁ√ﬁ",16,16,RED);
 				outtextxy(384,up+25,str);
+				break;
 			}
 			case 1:
 			{
-				itoa(w[i].total[type],str,14);
+				if(w[i].total[type]<=ware_full)
+					itoa(w[i].total[type],str,10);
+				else
+					itoa(ware_full,str,10);
 				puthz(184,up+30,"œ∏»ﬁ√ﬁ",16,16,RED);
 				outtextxy(384,up+25,str);
+				break;
 			}
 			case 2:
 			{
-				itoa(w[i].total[type],str,14);
+				if(w[i].total[type]<=ware_full)
+					itoa(w[i].total[type],str,10);
+				else
+					itoa(ware_full,str,10);
 				puthz(184,up+30,"¥÷»ﬁ√ﬁ",16,16,RED);
 				outtextxy(384,up+25,str);
+				break;
 			}
 
 			default:
@@ -208,13 +230,33 @@ void warehouse_list(U_ware *w,int num_ware)
 	while(1)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		press_warelist();
+		press_warelist(num_ware);
 		delay(15);
 	}
 }
 
-void press_warelist()
+void press_warelist(int num_ware)
 {
+	int i;
+	for(i=0;i<num_ware;i++)
+	{
+		int up=100+60*i,down=160+i*60;
+		if(mouse_press(100+2,up+2,540-2,down-2)==0)
+		{
+			MouseS=0;
+			continue;
+		}
+		else if(mouse_press(100+2,up+2,540-2,down-2)==2)
+		{
+			MouseS=1;
+			return;
+		}
+		else if(mouse_press(100+2,up+2,540-2,down-2)==1)
+		{
+			k=i;
+			draw_home01();
+		}
+	}
 	if(mouse_press(0,0,40,30)==0||mouse_press(0,450,40,480)==0)
 	{
 		MouseS=0;
@@ -235,7 +277,7 @@ void press_warelist()
 
 
 //detail message of warehouse
-void detailed_warehouse(int count)
+void detailed_warehouse(long int count)
 {
 	char str1[8];
 	cleardevice();
@@ -271,7 +313,7 @@ void detailed_warehouse(int count)
 }
 
 
-void press_detwarehouse(int count)
+void press_detwarehouse(long int count)
 {
 	if(mouse_press(0,0,40,30)==0||mouse_press(140,320,240,380)==0||mouse_press(380,320,480,380)==0\
 	||mouse_press(0,450,40,480)==0)
@@ -302,7 +344,7 @@ void press_detwarehouse(int count)
 }
 
 //page of the cotton out
-void out_warehouse(int count)
+void out_warehouse(long int count)
 {
 	//int out;
 	//int kick=0;
@@ -332,7 +374,7 @@ void out_warehouse(int count)
 	//return out;
 }
 
-void press_outware(int count,char*str)
+void press_outware(long int count,char*str)
 {
 	if(mouse_press(0,0,40,30)==0||mouse_press(130,150,510,250)==0||mouse_press(270,320,370,380)==0\
 	||mouse_press(0,450,40,480)==0)

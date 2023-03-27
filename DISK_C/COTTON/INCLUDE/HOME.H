@@ -5,16 +5,16 @@
 void draw_home01(void);//the page of n-w warehouse
 //void draw_home00(void);//the page of Y-H warehouse
 void warehouse_list(struct user_warehouse * w,int num_ware);
-void press_warelist(void);
+void press_warelist(int num_ware);
 void draw_warehouse(void);//draw the picture of warehouse
 void cot_mount(int x,int y);//draw the cotton in warehouse
 void draw_trunk(void);//draw the trunk int the page
-void in_warehouse(int count,int cotton_type);//draw the board which show the cotton in warehouse
-void detailed_warehouse(int count);//detail message of warehouse
-void press_detwarehouse(int count);
-void press_home(int cotton_type);//add the press moudule
-void out_warehouse(int count);//page of the cotton out
-void press_outware(int count,char*str);
+void in_warehouse(struct user_warehouse *now);//draw the board which show the cotton in warehouse
+void detailed_warehouse(long int count);//detail message of warehouse
+void press_detwarehouse(long int count);
+void press_home(int *c_t);//add the press moudule
+void out_warehouse(long int count);//page of the cotton out
+void press_outware(long int count,char*str);
 void out_finish(void);
 
 typedef struct user_warehouse

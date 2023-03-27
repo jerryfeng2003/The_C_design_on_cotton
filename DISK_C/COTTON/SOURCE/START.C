@@ -11,7 +11,8 @@
 //draw the process of harvest in animition
 void draw_simu01(long int x,long int y,int num)
 {
-    long int time=25,temp=0;
+    long int time=25,temp=0,*tal=here[k].total;
+	int c_t=here[k].cotton_type;
 	char here[8];
 	itoa(time,here,10);
 	temp=x*y*0.01+rand()%100;
@@ -28,10 +29,10 @@ void draw_simu01(long int x,long int y,int num)
     mouseinit();
 	start_ainime(0,x,y,num);
 	pick_finish(temp);
-	total[c_t]+=temp;
-	if(total[c_t]>ware_full||total<0)
+	tal[c_t]+=temp;
+	if(tal[c_t]>ware_full||tal[c_t]<0)
 	{
-		total[c_t]=ware_full;
+		tal[c_t]=ware_full;
 	}
 	for(;;)
 	{

@@ -70,8 +70,8 @@
 #include "LOGIN.H"
 
 extern int location;//1 means the norwestern,0 means others
-extern long int total[3];
-extern int c_t;
+extern U_ware here[5];
+extern int k;
 void quit(void);//the leave button in every page
 void skip(void);
 void next(void);
