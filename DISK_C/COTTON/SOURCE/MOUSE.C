@@ -25,7 +25,7 @@ int flag=0;
 
 
 
-void mouseinit()//��ʼ��
+void mouseinit()//锟斤拷始锟斤拷
 {
 	int retcode;
 	int xmin,xmax,ymin,ymax,x_max=625,y_max=480;
@@ -63,16 +63,16 @@ void mouseinit()//��ʼ��
 
 /*****************************
 FUNCTION: mouse
-DESCRIPTION: ����ͬ��̬�����?
+DESCRIPTION: 锟斤拷锟斤拷同锟斤拷态锟斤拷锟斤拷锟?
 INPUT: x,y
-RETURN: ��
+RETURN: 锟斤拷
 ******************************/
 void mouse(int x,int y)
 {
 	
 	switch(MouseS)
 	{
-		case 1:                                  //�������?
+		case 1:                                  //锟斤拷锟斤拷锟斤拷锟?
 		{
 				setcolor(WHITE);
 				setlinestyle(0,0,1);
@@ -113,7 +113,7 @@ void mouse(int x,int y)
 				line(x+1,y+13,x-1,y+9);
 		}
 			break;
-		case 2:                        //���?
+		case 2:                        //锟斤拷锟?
 		{
 			setcolor(DARKGRAY);
 			setlinestyle(0,0,1);
@@ -122,7 +122,7 @@ void mouse(int x,int y)
 			line(x+5,y-1,x+5,y+15);
 		}
 			break;
-		case 3:                        //ʮ��
+		case 3:                        //十锟斤拷
 		{
 			setcolor(WHITE);
 			setlinestyle(0,0,1);
@@ -130,7 +130,7 @@ void mouse(int x,int y)
 			line(x+5,y-1,x+5,y+15);
 		}
 			break;
-		default:              //Ĭ�����?
+		default:              //默锟斤拷锟斤拷锟?
 		{
 			setlinestyle(0,0,1);
 			setcolor(WHITE);
@@ -164,7 +164,7 @@ void mouse(int x,int y)
 	}
 }
 
-/*void mou_pos(int *nx,int *ny,int*nbuttons)//�������λ��?
+/*void mou_pos(int *nx,int *ny,int*nbuttons)//锟斤拷锟斤拷锟斤拷锟轿伙拷锟?
 {
 	int x0=*nx,y0=*ny;
 
@@ -174,7 +174,7 @@ void mouse(int x,int y)
 	drawmous(*nx,*ny);
 }
 
-void mread(int *nx,int *ny,int*nbuttons)//�����겻��
+void mread(int *nx,int *ny,int*nbuttons)//锟斤拷锟斤拷锟疥不锟斤拷
 {
 	int x0=*nx,y0=*ny,buttons0=*nbuttons;
 	int xnew,ynew,buttonsnew;
@@ -200,9 +200,9 @@ void mread(int *nx,int *ny,int*nbuttons)//�����겻��
 
 /***************************************
 FUNCTION: mread
-DESCRIPTION: ��ȡ�µļĴ�����Ϣ
+DESCRIPTION: 锟斤拷取锟铰的寄达拷锟斤拷锟斤拷息
 INPUT: nx,ny,nbuttons
-RETURN: ��
+RETURN: 锟斤拷
 ****************************************/
 void mread(int *nx,int *ny,int *nbuttons)  
 {
@@ -215,9 +215,9 @@ void mread(int *nx,int *ny,int *nbuttons)
 
 /*******************************************
 FUNCTION: newmouse
-DESCRIPTION: ���״̬�����仯��������?
+DESCRIPTION: 锟斤拷锟阶刺拷锟斤拷锟斤拷浠拷锟斤拷锟斤拷锟斤拷锟?
 INPUT: nx,ny,nbuttons
-RETURN: ��
+RETURN: 锟斤拷
 ********************************************/
 void newmouse(int *nx,int *ny,int *nbuttons)
 {
@@ -228,15 +228,15 @@ void newmouse(int *nx,int *ny,int *nbuttons)
 	*ny = yn;
 	*nbuttons = buttonsn;
 	if(buttons0 == *nbuttons)
-		*nbuttons = 0;    //ʹ������������
+		*nbuttons = 0;    //使锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 	if(xn == x0 && yn == y0 && buttonsn == buttons0)
-		return;            //���״̬������ֱ�ӷ���S
-	clrmous(x0,y0);        //˵�����״̬�����˸ı�?
+		return;            //锟斤拷锟阶刺拷锟斤拷锟斤拷锟街憋拷臃锟斤拷锟絊
+	clrmous(x0,y0);        //说锟斤拷锟斤拷锟阶刺拷锟斤拷锟斤拷烁谋锟?
 	save_bk_mou(*nx,*ny);
 	drawmous(*nx,*ny);
 }
 
-void save_bk_mou(int nx,int ny)//����걳��?
+void save_bk_mou(int nx,int ny)//锟斤拷锟斤拷瓯筹拷锟?
 {
 	int size;
 
@@ -248,7 +248,7 @@ void save_bk_mou(int nx,int ny)//����걳��?
 		printf("Error");
 }
 
-void clrmous(int nx,int ny)//������
+void clrmous(int nx,int ny)//锟斤拷锟斤拷锟斤拷
 {
 	if(flag==1)
 	{
@@ -272,10 +272,10 @@ void drawmous(int nx,int ny)
 
 
 
-//����ڿ��е�����򷵻�1���ڿ���δ������򷵻�?2�����ڿ����򷵻�0
+//锟斤拷锟斤拷诳锟斤拷械锟斤拷锟斤拷锟津返伙拷1锟斤拷锟节匡拷锟斤拷未锟斤拷锟斤拷锟斤拷蚍祷锟?2锟斤拷锟斤拷锟节匡拷锟斤拷锟津返伙拷0
 int mouse_press(int x1, int y1, int x2, int y2)
 {
-	//�ڿ��е�����򷵻�?1
+	//锟节匡拷锟叫碉拷锟斤拷锟斤拷蚍祷锟?1
 	if(MouseX > x1 
 	&&MouseX < x2
 	&&MouseY > y1
@@ -285,7 +285,7 @@ int mouse_press(int x1, int y1, int x2, int y2)
 		return 1;
 	}
 	
-	//�ڿ���δ������򷵻�?2
+	//锟节匡拷锟斤拷未锟斤拷锟斤拷锟斤拷蚍祷锟?2
 	else if(MouseX > x1 
 	&&MouseX < x2
 	&&MouseY > y1
@@ -295,7 +295,7 @@ int mouse_press(int x1, int y1, int x2, int y2)
 		return 2;
 	}
 	
-	//�ڿ��е���Ҽ����򷵻�?3
+	//锟节匡拷锟叫碉拷锟斤拷壹锟斤拷锟斤拷蚍祷锟?3
 	else if(MouseX > x1 
 	&&MouseX < x2
 	&&MouseY > y1

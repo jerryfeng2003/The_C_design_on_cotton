@@ -1,12 +1,12 @@
 #include "TOTAL.H"
 
-/*int main()
+int main()
 {
 	int gd=VGA,gm=VGAHI; 
 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
-	draw_simu01();
+	select03();
 	return 0;
-}*/
+}
 
 //draw the process of harvest in animition
 void draw_simu01(long int x,long int y,int num)
@@ -534,4 +534,340 @@ void earth_fill03(int x,int y)
 		int x_temp=rand()%25,y_temp=rand()%50;
 		line(x_temp+x,y_temp+y,x_temp+x,y_temp+y);
 	}
+}
+
+void select02()
+{
+	int x[point_max],y[point_max],flag=0;
+	cleardevice();
+    setbkcolor(WHITE);
+	setcolor(GREEN);
+	setlinestyle(0,0,3);
+	rectangle(x_start,y_start,x_start+x_max,y_start+y_max);
+	puthz(170,30,"请依次在框内选点",32,32,BLUE);
+	setfillstyle(1,GREEN);
+	bar(200,70,280,115);
+	puthz(207,76,"开始",32,32,WHITE);
+	setfillstyle(1,RED);
+	bar(320,70,400,115);
+	puthz(327,76,"完成",32,32,WHITE);
+	settextstyle(3,0,4);
+	quit();
+
+	mouseinit();
+	while(1)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		press_select02(x,y,&flag);
+		delay(20);
+	}
+}
+
+void press_select02(int *x,int *y,int *flag)
+{
+	if(mouse_press(0,0,40,30)==0||mouse_press(200,70,280,115)==0||mouse_press(320,70,400,115)==0)
+	{
+		MouseS=0;
+	}
+	if(mouse_press(0,0,40,30)==2||mouse_press(200,70,280,115)==2||mouse_press(320,70,400,115)==2)
+	{
+		MouseS=1;
+	}
+	if(mouse_press(0,0,40,30)==1)
+	{
+		draw_wel();
+	}
+	if(mouse_press(200,70,280,115)==1&&(*flag)==0)
+	{
+		pick_start(x,y);
+		(*flag)++;
+		return;
+	}
+	if(mouse_press(200,70,280,115)==1&&(*flag)!=0)
+	{
+		pick_points(x,y,flag);
+		return;
+	}
+	if(mouse_press(320,70,400,115)==1)
+	{
+		init_field02(x,y,flag);
+		return;
+	}
+}
+
+void pick_wait()
+{
+	int i;
+	for(i=0;i<30;i++)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		delay(10);
+	}
+}
+
+void pick_start(int *x,int *y)
+{
+	while(1)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+		{
+			*x=MouseX;
+			*y=MouseY;
+			break;
+		}
+		delay(20);
+	}
+	clrmous(MouseX,MouseY);
+	setfillstyle(1,RED);
+	bar((*x)-5,(*y)-5,(*x)+5,(*y)+5);
+	setfillstyle(1,GREEN);
+	bar(200,70,280,115);
+	puthz(207,76,"继续",32,32,WHITE);
+	return;
+}
+
+void pick_points(int *x,int *y,int *flag)
+{
+	while((*flag)<point_max)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+		{
+			x[*flag]=MouseX;
+			y[*flag]=MouseY;
+			break;
+		}
+		delay(20);
+	}
+	clrmous(MouseX,MouseY);
+	setfillstyle(1,RED);
+	bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+	(*flag)++;
+	return;
+}
+
+void draw_points(int *x,int *y,int *flag,int *xy_m)
+{
+	int arr[point_max*2],i;
+	for(i=0;i<(*flag);i++)
+	{
+		if(x[i]<xy_m[0])
+		{
+			xy_m[0]=x[i];
+		}
+		if(y[i]<xy_m[1])
+		{
+			xy_m[1]=y[i];
+		}
+		if(x[i]>xy_m[2])
+		{
+			xy_m[2]=x[i];
+		}
+		if(y[i]>xy_m[3])
+		{
+			xy_m[3]=y[i];
+		}
+		arr[2*i]=x[i];
+		arr[2*i+1]=y[i];
+	}
+	setfillstyle(1,WHITE);
+	setcolor(WHITE);
+	fillpoly(i,arr);
+}
+
+/*void pick_points(int *x,int *y)
+{
+	int xn,yn,i=1;
+	setfillstyle(1,RED);
+	setlinestyle(0,0,1);
+	setcolor(BLUE);
+	while(xn<x[0]-5&&xn>x[0]+5&&yn<y[0]-5&&yn>x[0]+5)
+	{
+		pick_wait();
+		bar(xn-5,yn-5,xn+5,yn+5);
+		x[i]=xn;
+		y[i]=yn;
+		i++;
+		while(1)
+		{
+			newmouse(&MouseX,&MouseY,&press);
+			if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+			{
+				xn=MouseX;
+				yn=MouseY;
+				break;
+			}
+			delay(15);
+		}
+		line(x[i],y[i],xn,yn);
+	}
+	return;
+}*/
+
+
+void select03()
+{
+	int x[dense_points_max],y[dense_points_max],flag=0;
+	cleardevice();
+    setbkcolor(WHITE);
+	setcolor(GREEN);
+	setlinestyle(0,0,3);
+	rectangle(x_start,y_start,x_start+x_max,y_start+y_max);
+	puthz(170,30,"请缓慢移动鼠标勾勒图形",32,32,BLUE);
+	setfillstyle(1,GREEN);
+	bar(200,70,280,115);
+	puthz(207,76,"开始",32,32,WHITE);
+	setfillstyle(1,RED);
+	bar(320,70,400,115);
+	puthz(327,76,"完成",32,32,WHITE);
+	settextstyle(3,0,4);
+	quit();
+
+	mouseinit();
+	while(1)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		press_select03(x,y,&flag);
+		delay(20);
+	}
+}
+
+void press_select03(int *x,int *y,int *flag)
+{
+	if(mouse_press(0,0,40,30)==0||(mouse_press(200,70,280,115)==0&&(*flag==0))||mouse_press(320,70,400,115)==0)
+	{
+		MouseS=0;
+	}
+	if(mouse_press(0,0,40,30)==2||(mouse_press(200,70,280,115)==2&&(*flag==0))||mouse_press(320,70,400,115)==2)
+	{
+		MouseS=1;
+	}
+	if(mouse_press(0,0,40,30)==1)
+	{
+		draw_wel();
+	}
+	if(mouse_press(200,70,280,115)==1&&(*flag)==0)
+	{
+		dense_pick(x,y,flag);
+		return;
+	}
+	if(mouse_press(320,70,400,115)==1)
+	{
+		init_field03(x,y,flag);
+		return;
+	}
+}
+
+void dense_pick(int *x,int *y,int *flag)
+{
+	setfillstyle(1,WHITE);
+	clrmous(MouseX,MouseY);
+	bar(200,70,280,115);
+	setlinestyle(0,0,1);
+	setcolor(BLUE);
+	while((*flag)==0)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+		{
+			*x=MouseX;
+			*y=MouseY;
+			clrmous(MouseX,MouseY);
+			setfillstyle(1,GREEN);
+			bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+			(*flag)++;
+			break;
+		}
+		delay(20);
+	}
+	pick_wait();
+	setfillstyle(1,RED);
+	while((*flag)<dense_points_max)
+	{
+		if((abs((*flag)>=5&&MouseX-x[0])<=1&&abs(MouseY-y[0])<=1)||MouseX<=x_start||MouseX>=x_start+x_max\
+		||MouseY<=y_start||MouseY>=y_start+y_max)
+		{
+			return;
+		}
+		//line(x[(*flag)],y[(*flag)],x[(*flag)-1],y[(*flag)-1]);
+		if(abs(MouseX-x[(*flag)-1])>=1&&abs(MouseY-y[(*flag)-1])>=1)
+		{
+			x[*flag]=MouseX;
+			y[*flag]=MouseY;
+			clrmous(MouseX,MouseY);
+			bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+			(*flag)++;
+		}
+		pick_wait();
+	}
+	return;
+}
+
+void dense_draw_points(int *x,int *y,int *flag,int *xy_m)
+{
+	int arr[dense_points_max*2],i;
+	for(i=0;i<(*flag);i++)
+	{
+		if(x[i]<xy_m[0])
+		{
+			xy_m[0]=x[i];
+		}
+		if(y[i]<xy_m[1])
+		{
+			xy_m[1]=y[i];
+		}
+		if(x[i]>xy_m[2])
+		{
+			xy_m[2]=x[i];
+		}
+		if(y[i]>xy_m[3])
+		{
+			xy_m[3]=y[i];
+		}
+		arr[2*i]=x[i];
+		arr[2*i+1]=y[i];
+	}
+	setfillstyle(1,WHITE);
+	setcolor(WHITE);
+	fillpoly(i,arr);
+	return;
+}
+
+void init_field02(int *x,int *y,int *flag)
+{
+	//The meaning of elements in xy_m:
+	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
+	int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
+	setfillstyle(1,BROWN);
+	setlinestyle(0,0,3);
+	bar(x_start,y_start,x_start+x_max,y_start+y_max);
+	draw_points(x,y,flag,xy_m);
+	setcolor(BROWN);
+	for(i=0;i<(xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1])/20;i++)
+	{
+		int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
+		line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
+	}
+	return;
+}
+
+void init_field03(int *x,int *y,int *flag)
+{
+	//The meaning of elements in xy_m:
+	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
+	int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
+	setfillstyle(1,BROWN);
+	setlinestyle(0,0,3);
+	bar(x_start,y_start,x_start+x_max,y_start+y_max);
+	dense_draw_points(x,y,flag,xy_m);
+	//setcolor(GREEN);
+	//rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
+	setcolor(BROWN);
+	for(i=0;i<(xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1])/20;i++)
+	{
+		int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
+		line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
+	}
+	return;
 }

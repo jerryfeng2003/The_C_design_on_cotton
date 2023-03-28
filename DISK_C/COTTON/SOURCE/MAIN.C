@@ -1,6 +1,6 @@
 #include "TOTAL.H"
 
-int main()
+/*int main()
 {
     int gd=VGA,gm=VGAHI;
 	user *h;
@@ -8,7 +8,7 @@ int main()
     loginit(h);
 	draw_wel();
 	return 0;
-}
+}*/
 
 void quit(void)
 {
