@@ -4,6 +4,7 @@ int main()
 {
 	int gd=VGA,gm=VGAHI; 
 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+	//draw_simu01(x_max,y_max,2);
 	select03();
 	return 0;
 }
@@ -27,7 +28,7 @@ void draw_simu01(long int x,long int y,int num)
     //outtextxy()
 	quit();
     mouseinit();
-	start_ainime(0,x,y,num);
+	start_ainime01(0,x,y,num);
 	pick_finish(temp);
 	tal[c_t]+=temp;
 	if(tal[c_t]>ware_full||tal[c_t]<0)
@@ -49,7 +50,7 @@ void draw_simu01(long int x,long int y,int num)
 
 
 //start playing the picking video
-void start_ainime(int t_trac,int x,int y,int num)
+void start_ainime01(int t_trac,int x,int y,int num)
 {
 	int i,x_p=x_start,y_p=y_start+y-40,flag=0,out=0;
 	x/=num;
@@ -785,13 +786,13 @@ void dense_pick(int *x,int *y,int *flag)
 	setfillstyle(1,RED);
 	while((*flag)<dense_points_max)
 	{
-		if((abs((*flag)>=5&&MouseX-x[0])<=1&&abs(MouseY-y[0])<=1)||MouseX<=x_start||MouseX>=x_start+x_max\
+		if(((*flag)>=5&&abs(MouseX-x[0])<=1&&abs(MouseY-y[0])<=1)||MouseX<=x_start||MouseX>=x_start+x_max\
 		||MouseY<=y_start||MouseY>=y_start+y_max)
 		{
 			return;
 		}
 		//line(x[(*flag)],y[(*flag)],x[(*flag)-1],y[(*flag)-1]);
-		if(abs(MouseX-x[(*flag)-1])>=1&&abs(MouseY-y[(*flag)-1])>=1)
+		if(abs(MouseX-x[(*flag)-1])>=2&&abs(MouseY-y[(*flag)-1])>=2)
 		{
 			x[*flag]=MouseX;
 			y[*flag]=MouseY;
@@ -841,7 +842,7 @@ void init_field02(int *x,int *y,int *flag)
 	int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
 	setfillstyle(1,BROWN);
 	setlinestyle(0,0,3);
-	bar(x_start,y_start,x_start+x_max,y_start+y_max);
+	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
 	draw_points(x,y,flag,xy_m);
 	setcolor(BROWN);
 	for(i=0;i<(xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1])/20;i++)
@@ -859,7 +860,7 @@ void init_field03(int *x,int *y,int *flag)
 	int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
 	setfillstyle(1,BROWN);
 	setlinestyle(0,0,3);
-	bar(x_start,y_start,x_start+x_max,y_start+y_max);
+	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
 	dense_draw_points(x,y,flag,xy_m);
 	//setcolor(GREEN);
 	//rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
@@ -869,5 +870,213 @@ void init_field03(int *x,int *y,int *flag)
 		int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
 		line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
 	}
-	return;
+	delay(1000);
+	dense_init_tracktor01(x,y,flag,xy_m,3);
+}
+
+void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num)
+{
+	int x_d=xy_m[2]-xy_m[0],i,tra_d[tracktor_num_max][4];
+	x_d/=num;
+	for(i=0;i<num;i++)
+	{
+		int k=0;
+		tra_d[i][0]=xy_m[0]+i*x_d;
+		tra_d[i][2]=xy_m[0]+(i+1)*x_d;
+		tra_d[i][1]=xy_m[3];
+		tra_d[i][3]=xy_m[1];
+		while(k<(*flag))
+		{
+			int target=0;
+			if(x[k]>=tra_d[i][0]&&x[k]<=tra_d[i][2])
+			{
+				if(target==0)
+				{
+					target=1;
+				}
+				if(y[k]<tra_d[i][1])
+				{
+					tra_d[i][1]=y[k];
+				}
+				if(y[k]>tra_d[i][3])
+				{
+					tra_d[i][3]=y[k];
+				}
+			}
+			if(target!=0&&(x[k]<tra_d[i][0]||x[k]>tra_d[i][2]))
+			{
+				break;
+			}
+			else
+			{
+				k++;
+			}
+		}
+	}
+	start_ainime03_01(tra_d,num);
+}
+
+void start_ainime03_01(int (*tra_d)[4],int num)
+{
+	int mode[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
+	for(i=0;i<tracktor_num_max;i++)
+	{
+		mode[i]=0;
+		x_p[i]=tra_d[i][0];
+		y_p[i]=y_start+y_max-40;
+	}
+	while(1)
+	{
+		int count=0;
+		for(i=0;i<num;i++)
+		{
+			if((mode[i]!=0&&y_p[i]-40>=y_start+y_max)||x_p[i]+25>=tra_d[i][2])
+			{
+				count++;
+				init_tracktor01_f(x_p[i],y_p[i]);
+				continue;
+			}
+			else if(mode[i]==0)
+			{
+				earth_fill01(x_p[i],y_p[i]);
+				init_tracktor01_f(x_p[i],y_p[i]);
+				y_p[i]--;
+				if(y_p[i]<=tra_d[i][1])
+				{
+					earth_fill03(x_p[i],y_p[i]);
+					mode[i]=1;
+					x_p[i]+=25;
+				}
+				delay(20/num);
+				continue;
+			}
+			else if(mode[i]==1)
+			{
+				earth_fill02(x_p[i],y_p[i]);
+				init_tracktor01_b(x_p[i],y_p[i]);
+				y_p[i]++;
+				if(y_p[i]+40>=tra_d[i][3])
+				{
+					if(x_p[i]+25>tra_d[i][2])
+					{
+						mode[i]=3;
+					}
+					else
+					{
+						earth_fill03(x_p[i],y_p[i]);
+						mode[i]=2;
+						x_p[i]+=25;
+					}
+				}
+				delay(20/num);
+				continue;
+			}
+			else if (mode[i]=2)
+			{
+				earth_fill01(x_p[i],y_p[i]);
+				init_tracktor01_f(x_p[i],y_p[i]);
+				y_p[i]--;
+				if(y_p[i]<=tra_d[i][1])
+				{
+					earth_fill03(x_p[i],y_p[i]);
+					mode[i]=1;
+					x_p[i]+=25;
+				}
+				delay(20/num);
+				continue;
+			}
+			else if(mode[i]=3)
+			{
+				earth_fill02(x_p[i],y_p[i]);
+				init_tracktor01_b(x_p[i],y_p[i]);
+				y_p[i]++;
+			}
+		}
+		if(count>=num)
+		{
+			break;
+		}
+	}
+}
+
+void start_ainime03_02(int (*tra_d)[4],int num)
+{
+	int mode[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
+	for(i=0;i<tracktor_num_max;i++)
+	{
+		mode[i]=0;
+		x_p[i]=tra_d[i][0];
+		y_p[i]=y_start+y_max-40;
+	}
+	while(1)
+	{
+		int count=0;
+		for(i=0;i<num;i++)
+		{
+			if((mode[i]!=0&&y_p[i]-40>=y_start+y_max)||x_p[i]+25>=tra_d[i][2])
+			{
+				count++;
+				continue;
+			}
+			else if(mode[i]==0)
+			{
+				earth_fill01(x_p[i],y_p[i]);
+				init_tracktor02_f(x_p[i],y_p[i]);
+				y_p[i]--;
+				if(y_p[i]<=tra_d[i][1])
+				{
+					earth_fill03(x_p[i],y_p[i]);
+					mode[i]=1;
+					x_p[i]+=25;
+				}
+				delay(20/num);
+				continue;
+			}
+			else if(mode[i]==1)
+			{
+				earth_fill02(x_p[i],y_p[i]);
+				init_tracktor02_b(x_p[i],y_p[i]);
+				y_p[i]++;
+				if(y_p[i]+40>=tra_d[i][3])
+				{
+					if(x_p[i]+25>tra_d[i][2])
+					{
+						mode[i]=3;
+					}
+					else
+					{
+						earth_fill03(x_p[i],y_p[i]);
+						mode[i]=2;
+						x_p[i]+=25;
+					}
+				}
+				delay(20/num);
+				continue;
+			}
+			else if (mode[i]=2)
+			{
+				earth_fill01(x_p[i],y_p[i]);
+				init_tracktor02_f(x_p[i],y_p[i]);
+				y_p[i]--;
+				if(y_p[i]<=tra_d[i][1])
+				{
+					earth_fill03(x_p[i],y_p[i]);
+					mode[i]=1;
+					x_p[i]+=25;
+				}
+				delay(20/num);
+				continue;
+			}
+			else if(mode[i]=3)
+			{
+				earth_fill02(x_p[i],y_p[i]);
+				init_tracktor02_b(x_p[i],y_p[i]);
+				y_p[i]++;
+			}
+		}
+		if(count>=num)
+		{
+			break;
+		}
+	}
 }
