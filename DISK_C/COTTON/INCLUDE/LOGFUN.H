@@ -17,8 +17,6 @@ typedef struct Input
 
 
 
-<<<<<<< Updated upstream
-=======
 // 产区，面积，形状（坐标），收割机类型，名字
 
 // 产区：a--新疆；b--黄河；c--长江；分别对应：粗绒棉，长绒棉，细绒棉
@@ -38,7 +36,6 @@ typedef struct Parameter
 	int xyz[200];//坐标
 }parameter;
 
->>>>>>> Stashed changes
 typedef struct User
 {
     char username[10];
