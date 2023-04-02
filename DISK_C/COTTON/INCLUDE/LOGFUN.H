@@ -17,12 +17,35 @@ typedef struct Input
 
 
 
+<<<<<<< Updated upstream
+=======
+// 产区，面积，形状（坐标），收割机类型，名字
+
+// 产区：a--新疆；b--黄河；c--长江；分别对应：粗绒棉，长绒棉，细绒棉
+// 面积：123（数字）
+// 形状：a--矩形；b--圆形；c--多边形；d自定义形状
+// 坐标：c/d才用：x1,y1,x2,y2,x3,y3....
+// 收割机类型：a垂直/b水平
+// 名字：abcdefg
+
+typedef struct Parameter
+{
+    char name[10];//名字
+    char place;//产区
+	char shape;//土地形状
+    char type;//收割机类型
+	int S;//面积
+	int xyz[200];//坐标
+}parameter;
+
+>>>>>>> Stashed changes
 typedef struct User
 {
     char username[10];
     char password[10];
     char phonenumber[12];
-	//char parameter[30];
+	char parameter[10];//参数列表
+	int lenpar;//参数个数
 }user;
 
 

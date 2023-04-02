@@ -122,7 +122,7 @@ void draw_wel_cofield()
 }
 
 //enter the edit page
-void enter_next()
+void enter_next(struct User* h)
 {
 	if(mouse_press(450,110,550,170)==0||mouse_press(450,210,550,270)==0\
 	||mouse_press(450,310,550,370)==0||mouse_press(450,410,550,470)==0||\
@@ -140,7 +140,7 @@ void enter_next()
 	//Enter the edit page
 	if(mouse_press(450,110,550,170)==1)
 	{
-		draw_edit01();
+		edit(h);
 	}
 
 	//Enter the simulation page
@@ -185,7 +185,7 @@ void enter_next()
 }
 
 /*Draw the whole welcome page*/
-void draw_wel()
+void draw_wel(struct User* h)
 {
 	draw_wel_buttons();
 	draw_wel_cofield();
@@ -195,7 +195,7 @@ void draw_wel()
 	for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		enter_next();
+		enter_next(h);
 		delay(15);
 	}
 }

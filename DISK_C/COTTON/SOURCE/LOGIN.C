@@ -3,6 +3,7 @@
 
 void loginit_screen()
 {
+    clrmous(MouseX,MouseY);
     cleardevice();
     setbkcolor(WHITE);
     puthz(180,30,"棉花采摘模拟系统",32,32,BLUE);

@@ -10,7 +10,10 @@
     "HOME.C": "cpp",
     "LOGIN.C": "cpp",
     "LOGFUN.H": "cpp",
-    "LOGFUN.C": "cpp"
+    "LOGFUN.C": "cpp",
+    "PARAMETE.C": "cpp",
+    "REGISTER.C": "cpp",
+    "RESET.C": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

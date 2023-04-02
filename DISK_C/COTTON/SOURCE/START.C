@@ -1,5 +1,6 @@
 #include "TOTAL.H"
 
+<<<<<<< Updated upstream
 int main()
 {
 	int gd=VGA,gm=VGAHI; 
@@ -8,6 +9,15 @@ int main()
 	select03();
 	return 0;
 }
+=======
+// int main()
+// {
+// 	int gd=VGA,gm=VGAHI; 
+// 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+// 	select03();
+// 	return 0;
+// }
+>>>>>>> Stashed changes
 
 //draw the process of harvest in animition
 void draw_simu01(long int x,long int y,int num)

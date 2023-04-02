@@ -14,7 +14,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 			setlinestyle(0,0,1);
 			rectangle(word->x1,word->y1,word->x2,word->y2);
 			setcolor(DARKGRAY);
-			line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
+			//line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
 		}
 		else
 		{
@@ -24,7 +24,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 			setcolor(LIGHTGREEN);
 			setlinestyle(0,0,1);
 			rectangle(word->x1,word->y1,word->x2,word->y2);
-			line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
+			//line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
 		}	
 	}
 	
@@ -65,7 +65,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 			{
 				setcolor(DARKGRAY);
 				outtextxy(x,y,word->string);
-				line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
+				//line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
 			}
 			else
 			{
@@ -74,7 +74,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 				{
 					outtextxy(x+i*(2*size-2),y,"*");
 				}
-				line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
+				//line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
 			}
 		}
 	}
@@ -87,7 +87,7 @@ void wr_user(char username1[],char password1[],char phonenumber1[])
 {
 	FILE *fp;
 	user *u = (user*)malloc(sizeof(user));
-	//u->parameter="\0";
+	u->lenpar=0;
 	int i;
 	if((fp=fopen("User.txt","rt+"))==NULL)
 	{

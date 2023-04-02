@@ -2,11 +2,21 @@
 #define _EDIT_H_
 
 
-void draw_edit01(void);//The first in edit:choose area
-void draw_edit02(void);//The Second in edit:define size and shape of the field
-void draw_edit03(void);//Choose the type of tractors and cotton
-void press_edit(void);//add the press moudule
+void draw_edit01(struct Parameter *abc);//The first in edit:choose area
+int draw_edit02(struct Parameter *abc);//The Second in edit:define size and shape of the field
+int draw_edit03(struct Parameter *abc);//Choose the type of tractors and cotton
+//void press_edit();//add the press moudule
 
-void edit();
+void edit(struct User* h);
+
+// typedef struct
+// {
+//     char name[10];//名字
+//     int place;//产区
+// 	char shape;//土地形状
+//     char type;//收割机类型
+// 	int S;//面积
+// 	int xyz[200];//坐标
+// }parameter;
 
 #endif
