@@ -9,8 +9,8 @@ U_ware here[5]={"ware01",0,{100,200,300},"ware02",1,{1000,2000,3000},\
 void draw_home01()
 {
     static int i,type;
-	static long int temp=0, c_tal;
-	type=here[k].cotton_type;
+	static long int temp, c_tal;
+	type=here[k].cotton_type,temp=0;
 	c_tal=here[k].total[type];
 	if(c_tal>ware_full||c_tal<0)
 	{
