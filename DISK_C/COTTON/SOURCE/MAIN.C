@@ -1,9 +1,10 @@
 #include "TOTAL.H"
+struct User *h;//登录的用户
 
 int main()
 {
     int gd=VGA,gm=VGAHI;
-	user *h=(user*)malloc(sizeof(user));//登录的用户
+	h=(user*)malloc(sizeof(user));//登录的用户
 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
     loginit(h);
 	draw_wel();

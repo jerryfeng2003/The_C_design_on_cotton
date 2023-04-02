@@ -2,7 +2,7 @@
 #define _LOGUSER_H_
 
 void loginit_screen(void);
-void loginit(void);
+void loginit(struct User*h);
 int logenter(void);
 
 

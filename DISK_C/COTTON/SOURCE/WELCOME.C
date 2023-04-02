@@ -173,7 +173,10 @@ void enter_next(struct User* h)
 
 	if(mouse_press(0,450,40,480)==1)
 	{
-		loginit();
+		loginit(h);
+		draw_wel_buttons();
+		draw_wel_cofield();
+		draw_wel_tractors();
 	}
 
 	//Exit the program

@@ -56,7 +56,7 @@ int logenter()
     return 0;
 }
 
-void loginit()
+void loginit(struct User*h)
 {
     struct User * now;
     INPUT username = {220, 100, 520, 160,"",10,0,0};
@@ -71,6 +71,7 @@ void loginit()
         {
             if(logg(username.string,password.string,now)==1)
             {
+                h=now;
                 return;
             }
         }

@@ -86,9 +86,10 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 void wr_user(char username1[],char password1[],char phonenumber1[])
 {
 	FILE *fp;
+	int i;
 	user *u = (user*)malloc(sizeof(user));
 	u->lenpar=0;
-	int i;
+	
 	if((fp=fopen("User.txt","rt+"))==NULL)
 	{
 		puthz(120,300,"´ò¿ª´íÎó",32,32,BLUE);
