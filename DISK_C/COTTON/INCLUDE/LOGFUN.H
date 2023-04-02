@@ -3,7 +3,7 @@
 
 
 
-typedef struct 
+typedef struct Input
 {
 	int x1;//ÊäÈë¿ò×ø±ê
 	int y1;
@@ -17,7 +17,7 @@ typedef struct
 
 
 
-typedef struct 
+typedef struct User
 {
     char username[10];
     char password[10];
