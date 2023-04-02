@@ -12,17 +12,18 @@ int main()
 //draw the process of harvest in animition
 void draw_simu01(long int x,long int y,int num)
 {
-    long int time=25,temp=0,*tal=here[k].total;
-	int c_t=here[k].cotton_type;
-	char here[8];
-	itoa(time,here,10);
+    static long int time,temp,*tal;
+	static int c_t;
+	static char str[8];
+	time=25,temp=0,tal=here[k].total,c_t=here[k].cotton_type;
+	itoa(time,str,10);
 	temp=x*y*0.01+rand()%100;
     cleardevice();
     setbkcolor(WHITE);
 	puthz(150,30,"采摘完成还需",32,32,BLUE);
 	settextstyle(3,0,4);
 	setcolor(RED);
-	outtextxy(350,26,here);
+	outtextxy(350,26,str);
     puthz(400,30,"小时",32,32,BLUE);
 	init_field(x,y);
     //outtextxy()
@@ -52,7 +53,8 @@ void draw_simu01(long int x,long int y,int num)
 //start playing the picking video
 void start_ainime01(int t_trac,int x,int y,int num)
 {
-	int i,x_p=x_start,y_p=y_start+y-40,flag=0,out=0;
+	static int i,x_p,y_p,flag,out;
+	i=0,x_p=x_start,y_p=y_start+y-40,flag=0,out=0;
 	x/=num;
 	skip();
 	if(t_trac==0)
@@ -257,7 +259,8 @@ void press_start()
 //add press moudules in video page
 int pressed_anime(int x,int y)
 {
-	int re=0;
+	static int re;
+	re=0;
 	if(MouseX>=x_start&&MouseY>=y_start&&MouseX<=x_start+x&&MouseY<=y_start+y)
 	{
 		clrmous(MouseX,MouseY);
@@ -274,7 +277,7 @@ int pressed_anime(int x,int y)
 	{
 		draw_wel();
 	}
-	else if(mouse_press(585,450,625,480)==1)
+	if(mouse_press(585,450,625,480)==1)
 	{
 		anime_skip_result(x,y);
 		re=1;
@@ -285,7 +288,7 @@ int pressed_anime(int x,int y)
 //show after picking 
 void pick_finish(int count)
 {
-	char str[10];
+	static char str[10];
 	itoa(count,str,10);
 	setfillstyle(1,WHITE);
 	bar(160,170,470,340);
@@ -308,7 +311,7 @@ void pick_finish(int count)
 //moudules which skip the video and show the result
 void anime_skip_result(int x,int y)
 {
-	int i;
+	static int i=0;
 	setfillstyle(1,BROWN);
 	setcolor(WHITE);
 	bar(x_start,y_start,x_start+x,y_start+y);
@@ -322,7 +325,7 @@ void anime_skip_result(int x,int y)
 //initialize the cotton field
 void init_field(int x,int y)
 {
-	int i,j;
+	static int i,j;
 	setcolor(BROWN);
 	setlinestyle(0,0,1);
 	line(50,120,50+x,120);
@@ -348,7 +351,7 @@ void init_field(int x,int y)
 //initialize the tarcker 01
 void init_tracktor01_f(int x,int y)
 {
-	int i,j;
+	static int i;
 	setlinestyle(0,0,1);
 	setcolor(DARKGRAY);
 	//The main rectangle
@@ -386,7 +389,7 @@ void init_tracktor01_f(int x,int y)
 //initialize the tracktor type 1
 void init_tracktor01_b(int x,int y)
 {
-	int i,j;
+	static int i;
 	setlinestyle(0,0,1);
 	setcolor(DARKGRAY);
 	//The main rectangle
@@ -424,7 +427,7 @@ void init_tracktor01_b(int x,int y)
 //initialize the tarcker 02 in front 
 void init_tracktor02_f(int x,int y)
 {
-	int i,j;
+	static int i;
 	setlinestyle(0,0,1);
 	setcolor(DARKGRAY);
 	//The main rectangle
@@ -462,7 +465,7 @@ void init_tracktor02_f(int x,int y)
 //initialize the tracktor type 2 in backward
 void init_tracktor02_b(int x,int y)
 {
-	int i,j;
+	static int i;
 	setlinestyle(0,0,1);
 	setcolor(DARKGRAY);
 	//The main rectangle
@@ -526,7 +529,7 @@ void earth_fill02(int x,int y)
 //earth filling after pick, turn direction
 void earth_fill03(int x,int y)
 {
-	int i;
+	static int i;
 	setfillstyle(1,BROWN);
 	setcolor(WHITE);
 	bar(x-1,y,x+25,y+50);
@@ -539,7 +542,7 @@ void earth_fill03(int x,int y)
 
 void select02()
 {
-	int x[point_max],y[point_max],flag=0;
+	static int x[point_max],y[point_max],flag=0;
 	cleardevice();
     setbkcolor(WHITE);
 	setcolor(GREEN);
@@ -598,7 +601,7 @@ void press_select02(int *x,int *y,int *flag)
 
 void pick_wait()
 {
-	int i;
+	static int i;
 	for(i=0;i<30;i++)
 	{
 		newmouse(&MouseX,&MouseY,&press);
@@ -650,7 +653,7 @@ void pick_points(int *x,int *y,int *flag)
 
 void draw_points(int *x,int *y,int *flag,int *xy_m)
 {
-	int arr[point_max*2],i;
+	static int arr[point_max*2],i;
 	for(i=0;i<(*flag);i++)
 	{
 		if(x[i]<xy_m[0])
@@ -709,7 +712,7 @@ void draw_points(int *x,int *y,int *flag,int *xy_m)
 
 void select03()
 {
-	int x[dense_points_max],y[dense_points_max],flag=0;
+	static int x[dense_points_max],y[dense_points_max],flag=0;
 	cleardevice();
     setbkcolor(WHITE);
 	setcolor(GREEN);
@@ -807,7 +810,7 @@ void dense_pick(int *x,int *y,int *flag)
 
 void dense_draw_points(int *x,int *y,int *flag,int *xy_m)
 {
-	int arr[dense_points_max*2],i;
+	static int arr[dense_points_max*2],i;
 	for(i=0;i<(*flag);i++)
 	{
 		if(x[i]<xy_m[0])
@@ -839,7 +842,7 @@ void init_field02(int *x,int *y,int *flag)
 {
 	//The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
-	int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
+	static int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
 	setfillstyle(1,BROWN);
 	setlinestyle(0,0,3);
 	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
@@ -857,7 +860,7 @@ void init_field03(int *x,int *y,int *flag)
 {
 	//The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
-	int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
+	static int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
 	setfillstyle(1,BROWN);
 	setlinestyle(0,0,3);
 	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
@@ -876,7 +879,8 @@ void init_field03(int *x,int *y,int *flag)
 
 void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num)
 {
-	int x_d=xy_m[2]-xy_m[0],i,tra_d[tracktor_num_max][4];
+	static int x_d,i,tra_d[tracktor_num_max][4];
+	x_d=xy_m[2]-xy_m[0];
 	x_d/=num;
 	for(i=0;i<num;i++)
 	{
@@ -918,7 +922,7 @@ void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num)
 
 void start_ainime03_01(int (*tra_d)[4],int num)
 {
-	int mode[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
+	static int mode[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
 	for(i=0;i<tracktor_num_max;i++)
 	{
 		mode[i]=0;
@@ -1001,7 +1005,7 @@ void start_ainime03_01(int (*tra_d)[4],int num)
 
 void start_ainime03_02(int (*tra_d)[4],int num)
 {
-	int mode[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
+	static int mode[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
 	for(i=0;i<tracktor_num_max;i++)
 	{
 		mode[i]=0;

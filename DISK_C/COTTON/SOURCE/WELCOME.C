@@ -12,7 +12,6 @@ int location=0;
 //draw the buttons in welcome page
 void draw_wel_buttons(void)
 {
-	int i,d;
 	cleardevice();
 	setbkcolor(WHITE);
 	puthz(180,30,"棉花采摘模拟系统",32,32,BLUE);
@@ -174,12 +173,11 @@ void enter_next()
 
 	if(mouse_press(0,450,40,480)==1)
 	{
-		user *h;
-		loginit(h);
+		loginit();
 	}
 
 	//Exit the program
-	else if(mouse_press(0,0,40,30)==1)
+	if(mouse_press(0,0,40,30)==1)
 	{
 		exit(0);
 	}
@@ -189,7 +187,6 @@ void enter_next()
 /*Draw the whole welcome page*/
 void draw_wel()
 {
-	int i,d;
 	draw_wel_buttons();
 	draw_wel_cofield();
 	draw_wel_tractors();

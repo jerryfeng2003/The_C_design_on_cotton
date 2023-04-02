@@ -8,13 +8,16 @@ U_ware here[5]={"ware01",0,{100,200,300},"ware02",1,{1000,2000,3000},\
 //the page of n-w warehouse
 void draw_home01()
 {
-    int i,type=here[k].cotton_type;
-	long int temp=0, c_tal=here[k].total[type];
+    static int i,type;
+	static long int temp=0, c_tal;
+	type=here[k].cotton_type;
+	c_tal=here[k].total[type];
 	if(c_tal>ware_full||c_tal<0)
 	{
 		c_tal=ware_full;
 	}
     //int num;
+	settextstyle(3,0,4);
     cleardevice();
     setbkcolor(WHITE);
 	draw_warehouse();
@@ -94,7 +97,7 @@ void press_home(int *c_t)
 		}
 		draw_home01();
 	}
-	else if(mouse_press(53,90,280,190)==1)
+	if(mouse_press(53,90,280,190)==1)
 	{
 		detailed_warehouse(here[k].total[*c_t]);
 	}
@@ -119,9 +122,10 @@ void press_home(int *c_t)
 //draw the board which show the cotton in warehouse
 void in_warehouse(U_ware* now)
 {
-	char str1[8];
+	static char str1[8];
 	int arr1[6]={32-5,140,47-5,132,47-5,148},arr2[6]={301+5,140,286+5,132,286+5,148};
-	int type=now->cotton_type,count=now->total[type];
+	static int type,count;
+	type=now->cotton_type,count=now->total[type];
 	setfillstyle(1,LIGHTGRAY);
 	setlinestyle(0,0,1);
 	bar(53,70,280,190);
@@ -164,7 +168,7 @@ void in_warehouse(U_ware* now)
 
 void warehouse_list(U_ware *w,int num_ware)
 {
-	int i;
+	static int i;
 	cleardevice();
 	setbkcolor(WHITE);
 	setfillstyle(1,LIGHTGRAY);
@@ -237,7 +241,7 @@ void warehouse_list(U_ware *w,int num_ware)
 
 void press_warelist(int num_ware)
 {
-	int i;
+	static int i;
 	for(i=0;i<num_ware;i++)
 	{
 		int up=100+60*i,down=160+i*60;
@@ -279,7 +283,7 @@ void press_warelist(int num_ware)
 //detail message of warehouse
 void detailed_warehouse(long int count)
 {
-	char str1[8];
+	static char str1[8];
 	cleardevice();
 	setbkcolor(WHITE);
 	setfillstyle(1,LIGHTGRAY);

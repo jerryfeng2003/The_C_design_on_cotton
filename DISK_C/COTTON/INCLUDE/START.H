@@ -5,7 +5,7 @@
 #define x_start 50
 #define y_start 120
 #define point_max 50
-#define dense_points_max 10000
+#define dense_points_max 2000
 #define tracktor_num_max 10
 
 //attention: the warehouse moudule is made by file "HOME.H"

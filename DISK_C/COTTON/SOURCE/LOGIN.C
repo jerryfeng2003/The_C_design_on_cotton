@@ -55,8 +55,9 @@ int logenter()
     return 0;
 }
 
-void loginit(struct user * now)
+void loginit()
 {
+    struct User * now;
     INPUT username = {220, 100, 520, 160,"",10,0,0};
 	INPUT password = {220, 200, 520, 260,"",10,0,0};
     //struct user all[100];
