@@ -1,7 +1,7 @@
 #include "TOTAL.H"
 struct User *h;//登录的用户
 
-int main()
+/*int main()
 {
     int gd=VGA,gm=VGAHI;
 	h=(user*)malloc(sizeof(user));//登录的用户
@@ -9,7 +9,7 @@ int main()
     loginit(h);
 	draw_wel();
 	return 0;
-}
+}*/
 
 void quit(void)
 {

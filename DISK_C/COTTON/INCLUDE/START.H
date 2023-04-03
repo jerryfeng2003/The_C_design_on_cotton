@@ -36,9 +36,9 @@ void pick_wait(void);
 void select03(void);
 void press_select03(int *x,int *y,int *flag);
 void dense_pick(int *x,int *y,int *flag);
-void dense_draw_points(int *x,int *y,int *flag,int *xy_m);
+void dense_draw_points(int *x,int *y,int *flag,long int *xy_m);
 void init_field03(int *x,int *y,int *flag);
-void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num);
+void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);
 void start_ainime03_01(int (*tra_d)[4],int num);
 void start_ainime03_02(int (*tra_d)[4],int num);
 #endif

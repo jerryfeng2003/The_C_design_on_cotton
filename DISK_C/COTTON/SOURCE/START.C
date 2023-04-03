@@ -1,13 +1,13 @@
 #include "TOTAL.H"
 
-// int main()
-// {
-// 	int gd=VGA,gm=VGAHI; 
-// 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
-// 	//draw_simu01(x_max,y_max,2);
-// 	select03();
-// 	return 0;
-// }
+int main()
+{
+	int gd=VGA,gm=VGAHI; 
+	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+	//draw_simu01(x_max,y_max,2);
+	select02();
+	return 0;
+}
 // int main()
 // {
 // 	int gd=VGA,gm=VGAHI; 
@@ -295,7 +295,7 @@ int pressed_anime(int x,int y)
 //show after picking 
 void pick_finish(int count)
 {
-	static char str[10];
+	char str[10];
 	itoa(count,str,10);
 	setfillstyle(1,WHITE);
 	bar(160,170,470,340);
@@ -318,7 +318,7 @@ void pick_finish(int count)
 //moudules which skip the video and show the result
 void anime_skip_result(int x,int y)
 {
-	static int i=0;
+	int i=0;
 	setfillstyle(1,BROWN);
 	setcolor(WHITE);
 	bar(x_start,y_start,x_start+x,y_start+y);
@@ -332,7 +332,7 @@ void anime_skip_result(int x,int y)
 //initialize the cotton field
 void init_field(int x,int y)
 {
-	static int i,j;
+	int i,j;
 	setcolor(BROWN);
 	setlinestyle(0,0,1);
 	line(50,120,50+x,120);
@@ -358,7 +358,7 @@ void init_field(int x,int y)
 //initialize the tarcker 01
 void init_tracktor01_f(int x,int y)
 {
-	static int i;
+	int i;
 	setlinestyle(0,0,1);
 	setcolor(DARKGRAY);
 	//The main rectangle
@@ -396,7 +396,7 @@ void init_tracktor01_f(int x,int y)
 //initialize the tracktor type 1
 void init_tracktor01_b(int x,int y)
 {
-	static int i;
+	int i;
 	setlinestyle(0,0,1);
 	setcolor(DARKGRAY);
 	//The main rectangle
@@ -434,7 +434,7 @@ void init_tracktor01_b(int x,int y)
 //initialize the tarcker 02 in front 
 void init_tracktor02_f(int x,int y)
 {
-	static int i;
+	int i;
 	setlinestyle(0,0,1);
 	setcolor(DARKGRAY);
 	//The main rectangle
@@ -472,7 +472,7 @@ void init_tracktor02_f(int x,int y)
 //initialize the tracktor type 2 in backward
 void init_tracktor02_b(int x,int y)
 {
-	static int i;
+	int i;
 	setlinestyle(0,0,1);
 	setcolor(DARKGRAY);
 	//The main rectangle
@@ -536,7 +536,7 @@ void earth_fill02(int x,int y)
 //earth filling after pick, turn direction
 void earth_fill03(int x,int y)
 {
-	static int i;
+	int i;
 	setfillstyle(1,BROWN);
 	setcolor(WHITE);
 	bar(x-1,y,x+25,y+50);
@@ -590,8 +590,7 @@ void press_select02(int *x,int *y,int *flag)
 	}
 	if(mouse_press(200,70,280,115)==1&&(*flag)==0)
 	{
-		pick_start(x,y);
-		(*flag)++;
+		pick_points(x,y,flag);
 		return;
 	}
 	if(mouse_press(200,70,280,115)==1&&(*flag)!=0)
@@ -608,7 +607,7 @@ void press_select02(int *x,int *y,int *flag)
 
 void pick_wait()
 {
-	static int i;
+	int i;
 	for(i=0;i<30;i++)
 	{
 		newmouse(&MouseX,&MouseY,&press);
@@ -616,51 +615,115 @@ void pick_wait()
 	}
 }
 
-void pick_start(int *x,int *y)
+// void pick_start(int *x,int *y)
+// {
+// 	while(1)
+// 	{
+// 		newmouse(&MouseX,&MouseY,&press);
+// 		if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+// 		{
+// 			*x=MouseX;
+// 			*y=MouseY;
+// 			break;
+// 		}
+// 		delay(20);
+// 	}
+// 	clrmous(MouseX,MouseY);
+// 	setfillstyle(1,RED);
+// 	bar((*x)-5,(*y)-5,(*x)+5,(*y)+5);
+// 	setfillstyle(1,GREEN);
+// 	bar(200,70,280,115);
+// 	puthz(207,76,"¼ÌÐø",32,32,WHITE);
+// 	return;
+// }
+
+void pick_points(int *x,int *y,int *flag)
 {
-	while(1)
+	clrmous(MouseX,MouseY);
+	setfillstyle(1,WHITE);
+	bar(200,70,280,115);
+	mouseinit();
+	while(*flag==0)
 	{
 		newmouse(&MouseX,&MouseY,&press);
 		if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
 		{
 			*x=MouseX;
 			*y=MouseY;
-			break;
+			clrmous(MouseX,MouseY);
+			setfillstyle(1,GREEN);
+			bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+			(*flag)++;
 		}
 		delay(20);
 	}
-	clrmous(MouseX,MouseY);
-	setfillstyle(1,RED);
-	bar((*x)-5,(*y)-5,(*x)+5,(*y)+5);
-	setfillstyle(1,GREEN);
-	bar(200,70,280,115);
-	puthz(207,76,"¼ÌÐø",32,32,WHITE);
-	return;
-}
-
-void pick_points(int *x,int *y,int *flag)
-{
 	while((*flag)<point_max)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+		if(MouseX!=x[(*flag)-1]&&mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
 		{
 			x[*flag]=MouseX;
 			y[*flag]=MouseY;
-			break;
+			clrmous(MouseX,MouseY);
+			setfillstyle(1,RED);
+			bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+			setcolor(BLUE);
+			line(x[(*flag)-1],y[(*flag)-1],x[*flag],y[*flag]);
+			(*flag)++;
+		}
+		if(mouse_press(0,0,40,30)==0||mouse_press(320,70,400,115)==0)
+		{
+			MouseS=0;
+		}
+		if(mouse_press(0,0,40,30)==2||mouse_press(320,70,400,115)==2)
+		{
+			MouseS=1;
+		}
+		if(mouse_press(0,0,40,30)==1)
+		{
+			draw_wel();
+		}
+		// if(mouse_press(200,70,280,115)==1&&(*flag)==0)
+		// {
+		// 	pick_points(x,y,flag);
+		// 	return;
+		// }
+		// if(mouse_press(200,70,280,115)==1&&(*flag)!=0)
+		// {
+		// 	pick_points(x,y,flag);
+		// 	return;
+		// }
+		if(mouse_press(320,70,400,115)==1)
+		{
+			init_field02(x,y,flag);
 		}
 		delay(20);
 	}
-	clrmous(MouseX,MouseY);
-	setfillstyle(1,RED);
-	bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
-	(*flag)++;
-	return;
 }
+
+// void pick_points(int *x,int *y,int *flag)
+// {
+// 	while((*flag)<point_max)
+// 	{
+// 		newmouse(&MouseX,&MouseY,&press);
+// 		if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+// 		{
+// 			x[*flag]=MouseX;
+// 			y[*flag]=MouseY;
+// 			break;
+// 		}
+// 		delay(20);
+// 	}
+// 	clrmous(MouseX,MouseY);
+// 	setfillstyle(1,RED);
+// 	bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+// 	(*flag)++;
+// 	return;
+// }
 
 void draw_points(int *x,int *y,int *flag,int *xy_m)
 {
-	static int arr[point_max*2],i;
+	int arr[point_max*2],i;
 	for(i=0;i<(*flag);i++)
 	{
 		if(x[i]<xy_m[0])
@@ -796,18 +859,19 @@ void dense_pick(int *x,int *y,int *flag)
 	setfillstyle(1,RED);
 	while((*flag)<dense_points_max)
 	{
-		if(((*flag)>=5&&abs(MouseX-x[0])<=1&&abs(MouseY-y[0])<=1)||MouseX<=x_start||MouseX>=x_start+x_max\
+		if(((*flag)>=5&&abs(MouseX-x[0])<=3&&abs(MouseY-y[0])<=3)||MouseX<=x_start||MouseX>=x_start+x_max\
 		||MouseY<=y_start||MouseY>=y_start+y_max)
 		{
+			line(x[0],y[0],x[(*flag)-1],y[(*flag)-1]);
 			return;
 		}
-		//line(x[(*flag)],y[(*flag)],x[(*flag)-1],y[(*flag)-1]);
-		if(abs(MouseX-x[(*flag)-1])>=2&&abs(MouseY-y[(*flag)-1])>=2)
+		if((MouseX-x[(*flag)-1])*(MouseX-x[(*flag)-1])>=4&&(MouseY-y[(*flag)-1])*(MouseY-y[(*flag)-1])>=4)
 		{
 			x[*flag]=MouseX;
 			y[*flag]=MouseY;
 			clrmous(MouseX,MouseY);
 			bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+			line(x[(*flag)-1],y[(*flag)-1],x[(*flag)],y[(*flag)]);
 			(*flag)++;
 		}
 		pick_wait();
@@ -815,9 +879,9 @@ void dense_pick(int *x,int *y,int *flag)
 	return;
 }
 
-void dense_draw_points(int *x,int *y,int *flag,int *xy_m)
+void dense_draw_points(int *x,int *y,int *flag,long int *xy_m)
 {
-	static int arr[dense_points_max*2],i;
+	int arr[dense_points_max*2],i;
 	for(i=0;i<(*flag);i++)
 	{
 		if(x[i]<xy_m[0])
@@ -849,42 +913,76 @@ void init_field02(int *x,int *y,int *flag)
 {
 	//The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
-	static int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
+	static long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
 	setfillstyle(1,BROWN);
 	setlinestyle(0,0,3);
 	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
 	draw_points(x,y,flag,xy_m);
 	setcolor(BROWN);
-	for(i=0;i<(xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1])/20;i++)
+	for(i=xy_m[0];i<=xy_m[2];i+=25)
+	{
+		int temp=0,j;
+		for(j=xy_m[1];j<=xy_m[3];j+=2)
+		{
+			temp=rand()%2;
+			line(i+temp,j,i+temp,j);
+		}
+	}
+	for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))*0.01;i++)
 	{
 		int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
 		line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
 	}
-	return;
+	//setcolor(GREEN);
+	//rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
+	// setcolor(BROWN);
+	// for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))/20;i++)
+	// {
+	// 	int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
+	// 	line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
+	// }
+	delay(1000);
+	//dense_init_tracktor01(x,y,flag,xy_m,3);
 }
+
 
 void init_field03(int *x,int *y,int *flag)
 {
 	//The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
-	static int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
+	static long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
 	setfillstyle(1,BROWN);
 	setlinestyle(0,0,3);
 	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
 	dense_draw_points(x,y,flag,xy_m);
-	//setcolor(GREEN);
-	//rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
 	setcolor(BROWN);
-	for(i=0;i<(xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1])/20;i++)
+	for(i=xy_m[0];i<=xy_m[2];i+=25)
+	{
+		int temp=0,j;
+		for(j=xy_m[1];j<=xy_m[3];j+=2)
+		{
+			temp=rand()%2;
+			line(i+temp,j,i+temp,j);
+		}
+	}
+	for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))*0.01;i++)
 	{
 		int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
 		line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
 	}
+	//setcolor(GREEN);
+	//rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
+	// setcolor(BROWN);
+	// for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))/20;i++)
+	// {
+	// 	int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
+	// 	line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
+	// }
 	delay(1000);
 	dense_init_tracktor01(x,y,flag,xy_m,3);
 }
 
-void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num)
+void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num)
 {
 	static int x_d,i,tra_d[tracktor_num_max][4];
 	x_d=xy_m[2]-xy_m[0];
@@ -941,11 +1039,24 @@ void start_ainime03_01(int (*tra_d)[4],int num)
 		int count=0;
 		for(i=0;i<num;i++)
 		{
-			if((mode[i]!=0&&y_p[i]-40>=y_start+y_max)||x_p[i]+25>=tra_d[i][2])
+			if(mode[i]==4)
 			{
 				count++;
-				init_tracktor01_f(x_p[i],y_p[i]);
-				continue;
+			}
+		}
+		for(i=0;i<num;i++)
+		{
+			if((mode[i]!=0&&y_p[i]-40>=y_start+y_max)||x_p[i]>=tra_d[i][2])
+			{
+				if(mode[i]!=4)
+				{
+					init_tracktor01_f(x_p[i]-25,y_p[i]);
+					mode[i]=4;
+				}
+				else
+				{
+					continue;
+				}
 			}
 			else if(mode[i]==0)
 			{
@@ -954,11 +1065,11 @@ void start_ainime03_01(int (*tra_d)[4],int num)
 				y_p[i]--;
 				if(y_p[i]<=tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]);
+					earth_fill03(x_p[i],y_p[i]-7);
 					mode[i]=1;
 					x_p[i]+=25;
 				}
-				delay(20/num);
+				delay(20/(num-count));
 				continue;
 			}
 			else if(mode[i]==1)
@@ -974,12 +1085,13 @@ void start_ainime03_01(int (*tra_d)[4],int num)
 					}
 					else
 					{
-						earth_fill03(x_p[i],y_p[i]);
+						earth_fill03(x_p[i],y_p[i]-1);
+						earth_fill03(x_p[i],y_p[i]+2);
 						mode[i]=2;
 						x_p[i]+=25;
 					}
 				}
-				delay(20/num);
+				delay(20/(num-count));
 				continue;
 			}
 			else if (mode[i]=2)
@@ -989,11 +1101,11 @@ void start_ainime03_01(int (*tra_d)[4],int num)
 				y_p[i]--;
 				if(y_p[i]<=tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]);
+					earth_fill03(x_p[i],y_p[i]-7);
 					mode[i]=1;
 					x_p[i]+=25;
 				}
-				delay(20/num);
+				delay(20/(num-count));
 				continue;
 			}
 			else if(mode[i]=3)
@@ -1024,10 +1136,24 @@ void start_ainime03_02(int (*tra_d)[4],int num)
 		int count=0;
 		for(i=0;i<num;i++)
 		{
-			if((mode[i]!=0&&y_p[i]-40>=y_start+y_max)||x_p[i]+25>=tra_d[i][2])
+			if(mode[i]==4)
 			{
 				count++;
-				continue;
+			}
+		}
+		for(i=0;i<num;i++)
+		{
+			if((mode[i]!=0&&y_p[i]-40>=y_start+y_max)||x_p[i]>=tra_d[i][2])
+			{
+				if(mode[i]!=4)
+				{
+					init_tracktor02_f(x_p[i]-25,y_p[i]);
+					mode[i]=4;
+				}
+				else
+				{
+					continue;
+				}
 			}
 			else if(mode[i]==0)
 			{
@@ -1036,11 +1162,11 @@ void start_ainime03_02(int (*tra_d)[4],int num)
 				y_p[i]--;
 				if(y_p[i]<=tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]);
+					earth_fill03(x_p[i],y_p[i]-7);
 					mode[i]=1;
 					x_p[i]+=25;
 				}
-				delay(20/num);
+				delay(20/(num-count));
 				continue;
 			}
 			else if(mode[i]==1)
@@ -1056,12 +1182,13 @@ void start_ainime03_02(int (*tra_d)[4],int num)
 					}
 					else
 					{
-						earth_fill03(x_p[i],y_p[i]);
+						earth_fill03(x_p[i],y_p[i]-1);
+						earth_fill03(x_p[i],y_p[i]+2);
 						mode[i]=2;
 						x_p[i]+=25;
 					}
 				}
-				delay(20/num);
+				delay(20/(num-count));
 				continue;
 			}
 			else if (mode[i]=2)
@@ -1071,11 +1198,11 @@ void start_ainime03_02(int (*tra_d)[4],int num)
 				y_p[i]--;
 				if(y_p[i]<=tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]);
+					earth_fill03(x_p[i],y_p[i]-7);
 					mode[i]=1;
 					x_p[i]+=25;
 				}
-				delay(20/num);
+				delay(20/(num-count));
 				continue;
 			}
 			else if(mode[i]=3)

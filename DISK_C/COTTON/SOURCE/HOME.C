@@ -122,9 +122,9 @@ void press_home(int *c_t)
 //draw the board which show the cotton in warehouse
 void in_warehouse(U_ware* now)
 {
-	static char str1[8];
+	char str1[8];
 	int arr1[6]={32-5,140,47-5,132,47-5,148},arr2[6]={301+5,140,286+5,132,286+5,148};
-	static int type,count;
+	int type,count;
 	type=now->cotton_type,count=now->total[type];
 	setfillstyle(1,LIGHTGRAY);
 	setlinestyle(0,0,1);

@@ -188,8 +188,9 @@ void enter_next(struct User* h)
 }
 
 /*Draw the whole welcome page*/
-void draw_wel(struct User* h)
+void draw_wel()
 {
+	struct User* h;
 	draw_wel_buttons();
 	draw_wel_cofield();
 	draw_wel_tractors();
