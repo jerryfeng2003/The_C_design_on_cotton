@@ -7,6 +7,8 @@
 #define point_max 50
 #define dense_points_max 2000
 #define tracktor_num_max 10
+#define tra_start_l 50
+#define tra_start_d 35
 
 //attention: the warehouse moudule is made by file "HOME.H"
 void draw_simu01(long int x,long int y,int num);//draw the process of harvest in animition
@@ -41,4 +43,23 @@ void init_field03(int *x,int *y,int *flag);
 void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);
 void start_ainime03_01(int (*tra_d)[4],int num);
 void start_ainime03_02(int (*tra_d)[4],int num);
+
+void circle_field(long int r);
+void cal_tracktor_circle(long int r,int num);
+void start_ainime04_01(int (*tra_d)[4],int num);
+
+long int hellen(int x1,int y1,int x2,int y2,int x3,int y3);
+long int cal_field(int *x,int *y,int *flag);
+
+void init_tracktor01_r(int x,int y);
+void init_tracktor01_l(int x,int y);
+void init_tracktor02_r(int x,int y);
+void init_tracktor02_l(int x,int y);
+void tracktor_set_off(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_return(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+
+void init_picker_f(int x,int y);
+void init_picker_b(int x,int y);
+void init_picker_r(int x,int y);
+void init_picker_l(int x,int y);
 #endif

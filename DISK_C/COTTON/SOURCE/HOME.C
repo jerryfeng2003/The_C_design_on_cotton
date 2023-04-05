@@ -8,8 +8,8 @@ U_ware here[5]={"ware01",0,{100,200,300},"ware02",1,{1000,2000,3000},\
 //the page of n-w warehouse
 void draw_home01()
 {
-    static int i,type;
-	static long int temp, c_tal;
+    int i,type;
+	long int temp, c_tal;
 	type=here[k].cotton_type,temp=0;
 	c_tal=here[k].total[type];
 	if(c_tal>ware_full||c_tal<0)
@@ -41,7 +41,7 @@ void draw_home01()
 		{
 			temp=c_tal;
 		}
-		c_tal-=temp;
+		here[k].total[type]-=temp;
 		for(i=0;i<15;i++)
 		{
 			str[i]='\0';
@@ -50,12 +50,12 @@ void draw_home01()
 	in_warehouse(here+k);
     mouseinit();
 	quit();
-	for(;;)
-	{
-		newmouse(&MouseX,&MouseY,&press);
-		press_home(&(here[k].cotton_type));
-		delay(15);
-	}
+	// for(;;)
+	// {
+	// 	newmouse(&MouseX,&MouseY,&press);
+	// 	press_home(&(here[k].cotton_type));
+	// 	delay(15);
+	// }
 }
 
 //add the press moudule
@@ -73,11 +73,14 @@ void press_home(int *c_t)
 	}
 	if(mouse_press(0,0,40,30)==1)
 	{
-		draw_wel();
+		// draw_wel();
+		mode=0;
+		mode1=0;
 	}
 	if(mouse_press(100,300,200,360)==1)
 	{
-		warehouse_list(here,5);
+		// warehouse_list(here,5);
+		mode1=1;
 	}
 	if(mouse_press(26,130,46,150)==1)
 	{
@@ -86,7 +89,8 @@ void press_home(int *c_t)
 		{
 			*c_t=2;
 		}
-		draw_home01();
+		// draw_home01();
+		mode1=-1;
 	}
 	if(mouse_press(287,130,307,150)==1)
 	{
@@ -95,11 +99,13 @@ void press_home(int *c_t)
 		{
 			*c_t=0;
 		}
-		draw_home01();
+		// draw_home01();
+		mode1=-1;
 	}
 	if(mouse_press(53,90,280,190)==1)
 	{
-		detailed_warehouse(here[k].total[*c_t]);
+		// detailed_warehouse(here[k].total[*c_t]);
+		mode1=2;
 	}
 }
 
@@ -166,9 +172,9 @@ void in_warehouse(U_ware* now)
 
 }
 
-void warehouse_list(U_ware *w,int num_ware)
+void warehouse_list(U_ware *w)
 {
-	static int i;
+	int i;
 	cleardevice();
 	setbkcolor(WHITE);
 	setfillstyle(1,LIGHTGRAY);
@@ -231,17 +237,17 @@ void warehouse_list(U_ware *w,int num_ware)
 	last();
 
 	mouseinit();
-	while(1)
-	{
-		newmouse(&MouseX,&MouseY,&press);
-		press_warelist(num_ware);
-		delay(15);
-	}
+	// while(1)
+	// {
+	// 	newmouse(&MouseX,&MouseY,&press);
+	// 	press_warelist(num_ware);
+	// 	delay(15);
+	// }
 }
 
-void press_warelist(int num_ware)
+void press_warelist()
 {
-	static int i;
+	int i;
 	for(i=0;i<num_ware;i++)
 	{
 		int up=100+60*i,down=160+i*60;
@@ -258,7 +264,9 @@ void press_warelist(int num_ware)
 		else if(mouse_press(100+2,up+2,540-2,down-2)==1)
 		{
 			k=i;
-			draw_home01();
+			// draw_home01();
+			mode1=0;
+			return;
 		}
 	}
 	if(mouse_press(0,0,40,30)==0||mouse_press(0,450,40,480)==0)
@@ -271,11 +279,14 @@ void press_warelist(int num_ware)
 	}
 	if(mouse_press(0,450,40,480)==1)
 	{
-		draw_home01();
+		// draw_home01();
+		mode1=0;
 	}
 	else if(mouse_press(0,0,40,30)==1)
 	{
-		draw_wel();
+		// draw_wel();
+		mode=0;
+		mode1=0;
 	}
 }
 
@@ -283,7 +294,7 @@ void press_warelist(int num_ware)
 //detail message of warehouse
 void detailed_warehouse(long int count)
 {
-	static char str1[8];
+	char str1[8];
 	cleardevice();
 	setbkcolor(WHITE);
 	setfillstyle(1,LIGHTGRAY);
@@ -292,7 +303,23 @@ void detailed_warehouse(long int count)
 	puthz(120,130,"¿â´æÁ¿£º",32,32,WHITE);
 	puthz(400,130,"¶Ö",32,32,WHITE);
 	puthz(120,220,"ÃÞ»¨ÖÖÀà£º",32,32,WHITE);
-	puthz(280,220,"³¤ÈÞÃÞ",32,32,RED);
+	switch (here[k].cotton_type)
+	{
+	case 0:
+		puthz(280,220,"³¤ÈÞÃÞ",32,32,RED);
+		break;
+	
+	case 1:
+		puthz(280,220,"Ï¸ÈÞÃÞ",32,32,RED);
+		break;
+
+	case 2:
+		puthz(280,220,"´ÖÈÞÃÞ",32,32,RED);
+		break;
+
+	default:
+		break;
+	}
 	itoa(count,str1,10);
 	setcolor(RED);
 	settextstyle(1,0,4);
@@ -308,16 +335,16 @@ void detailed_warehouse(long int count)
 
 	mouseinit();
 	quit();
-	for(;;)
-	{
-		newmouse(&MouseX,&MouseY,&press);
-		press_detwarehouse(count);
-		delay(15);
-	}
+	// for(;;)
+	// {
+	// 	newmouse(&MouseX,&MouseY,&press);
+	// 	press_detwarehouse(count);
+	// 	delay(15);
+	// }
 }
 
 
-void press_detwarehouse(long int count)
+void press_detwarehouse()
 {
 	if(mouse_press(0,0,40,30)==0||mouse_press(140,320,240,380)==0||mouse_press(380,320,480,380)==0\
 	||mouse_press(0,450,40,480)==0)
@@ -331,24 +358,30 @@ void press_detwarehouse(long int count)
 	}
 	if(mouse_press(0,0,40,30)==1)
 	{
-		draw_wel();
+		// draw_wel();
+		mode=0;
+		mode1=0;
 	}
 	if(mouse_press(0,450,40,480)==1)
 	{
-		draw_home01();
+		// draw_home01();
+		mode1=0;
 	}
 	if(mouse_press(140,320,240,380)==1)
 	{
-		draw_simu01(x_max,y_max,5);
+		// draw_simu01(x_max,y_max,5);
+		mode=3;
+		mode1=0;
 	}
 	if(mouse_press(380,320,480,380)==1)
 	{
-		out_warehouse(count);
+		// out_warehouse(count);
+		mode1=3;
 	}
 }
 
 //page of the cotton out
-void out_warehouse(long int count)
+void out_warehouse()
 {
 	//int out;
 	//int kick=0;
@@ -369,37 +402,42 @@ void out_warehouse(long int count)
 
 	mouseinit();
 	quit();
-	for(;;)
-	{
-		newmouse(&MouseX,&MouseY,&press);
-		press_outware(count,str);
-		delay(15);
-	}
+	// for(;;)
+	// {
+	// 	newmouse(&MouseX,&MouseY,&press);
+	// 	press_outware(count,str);
+	// 	delay(15);
+	// }
 	//return out;
 }
 
-void press_outware(long int count,char*str)
+void press_outware()
 {
 	if(mouse_press(0,0,40,30)==0||mouse_press(130,150,510,250)==0||mouse_press(270,320,370,380)==0\
 	||mouse_press(0,450,40,480)==0)
 	{
 		MouseS=0;
-	}	if(mouse_press(0,0,40,30)==2||mouse_press(130,150,510,250)==2||mouse_press(270,320,370,380)==2\
+	}	
+	if(mouse_press(0,0,40,30)==2||mouse_press(130,150,510,250)==2||mouse_press(270,320,370,380)==2\
 	||mouse_press(0,450,40,480)==2)
 	{
 		MouseS=1;
 	}
 	if(mouse_press(0,0,40,30)==1)
 	{
-		draw_wel();
+		// draw_wel();
+		mode=0;
+		mode1=0;
 	}
 	if(mouse_press(0,450,40,480)==1)
 	{
-		detailed_warehouse(count);
+		// detailed_warehouse(count);
+		mode=2;
 	}
 	if(mouse_press(0,0,40,30)==1)
 	{
-		detailed_warehouse(count);
+		// detailed_warehouse(count);
+		mode=2;
 	}
 	if(mouse_press(130,150,510,250)==1)
 	{
@@ -422,7 +460,8 @@ void out_finish()
 	rectangle(200,160,430,240);
 	puthz(220,180,"³ö¿âÍê³É",48,48,RED);
 	delay(1000);
-	draw_home01();
+	// draw_home01();
+	mode1=0;
 }
 
 //draw the trunk int the page

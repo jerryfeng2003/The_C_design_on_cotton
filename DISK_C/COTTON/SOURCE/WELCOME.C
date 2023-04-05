@@ -122,7 +122,7 @@ void draw_wel_cofield()
 }
 
 //enter the edit page
-void enter_next(struct User* h)
+void enter_next()
 {
 	if(mouse_press(450,110,550,170)==0||mouse_press(450,210,550,270)==0\
 	||mouse_press(450,310,550,370)==0||mouse_press(450,410,550,470)==0||\
@@ -158,13 +158,15 @@ void enter_next(struct User* h)
 	//Enter the past arguments
 	if(mouse_press(450,410,550,470)==1)
 	{
-		draw_help01();
+		mode=5;
+		//draw_help01();
 	}
 
 	//Enter the home page
 	if(mouse_press(310,130,410,200)==1)
 	{
-		draw_home01();
+		// draw_home01();
+		mode=1;
 		/*else
 		{
 			draw_home00();
@@ -190,17 +192,16 @@ void enter_next(struct User* h)
 /*Draw the whole welcome page*/
 void draw_wel()
 {
-	struct User* h;
 	draw_wel_buttons();
 	draw_wel_cofield();
 	draw_wel_tractors();
 	quit();
-	mouseinit();
-	for(;;)
-	{
-		newmouse(&MouseX,&MouseY,&press);
-		enter_next(h);
-		delay(15);
-	}
+ 	mouseinit();
+// 	for(;;)
+// 	{
+// 		newmouse(&MouseX,&MouseY,&press);
+// 		enter_next(h);
+// 		delay(15);
+// 	}
 }
 //"C:\\BORLANDC\\BGI"

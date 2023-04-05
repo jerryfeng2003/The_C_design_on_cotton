@@ -1,15 +1,154 @@
 #include "TOTAL.H"
 struct User *h;//登录的用户
+int mode=0;
+int mode1=0;
 
-/*int main()
-{
-    int gd=VGA,gm=VGAHI;
-	h=(user*)malloc(sizeof(user));//登录的用户
-	initgraph(&gd,&gm,"..\\borlandc\\bgi");
-    loginit(h);
-	draw_wel();
-	return 0;
-}*/
+// int main()
+// {
+//     int gd=VGA,gm=VGAHI;
+// 	h=(user*)malloc(sizeof(user));//登录的用户
+// 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+//     loginit(h);
+//     while(1)
+//     {
+//         int pre_mode=mode,pre_mode1=mode1;
+//         switch (mode)
+//         {
+//             case 0:  //the welcome page
+//             {
+//                 draw_wel();
+//                 break;
+//             }
+
+//             case 1: //the home page
+//             {
+
+//                 switch(mode1)
+//                 {
+//                     case -1:
+//                     {
+//                         // draw_home01();
+//                         mode1=0;
+//                         break;
+//                     }
+//                     case 0: //the home main page
+//                     {
+//                         draw_home01();
+//                         break;
+//                     }
+//                     case 1: //the warehouse list page
+//                     {
+//                         warehouse_list(here);
+//                         break;
+//                     }
+//                     case 2: //the detailed warehouse page
+//                     {
+//                         detailed_warehouse(here[k].total[(here[k].cotton_type)]);
+//                         break;
+//                     }
+//                     case 3: //the export cotton page
+//                     {
+//                         out_warehouse(here[k].total[(here[k].cotton_type)]);
+//                         break;
+//                     }
+//                 }
+//                 break;
+//             }
+//             case 2: //the edit page
+//             {
+//                 break;
+//             }
+
+//             case 3: // the start page
+//             {
+//                 break;
+//             }
+
+//             case 4: //the past page
+//             {
+//                 break;
+//             }
+
+//             case 5:  //the help page
+//             {
+//                 draw_help01();
+//                 break;
+//             }
+            
+//             default:
+//                 break;
+//         }
+//         while(pre_mode==mode&&pre_mode1==mode1)
+//         {
+//             newmouse(&MouseX,&MouseY,&press);
+//             switch (mode)
+//             {
+//                 case 0:  //the welcome page
+//                 {
+//                     enter_next();
+//                     break;
+//                 }
+
+//                 case 1: //the home page
+//                 {
+//                     switch(mode1)
+//                     {
+//                         case -1: //refresh the home main page
+//                         {
+//                             // press_home(&(here[k].cotton_type));
+//                             mode1=0;
+//                             break;
+//                         }
+//                         case 0: //the home main page
+//                         {
+//                             press_home(&(here[k].cotton_type));
+//                             break;
+//                         }
+//                         case 1: //the warehouse list page
+//                         {
+//                             press_warelist();
+//                             break;
+//                         }
+//                         case 2: //the detailed warehouse page
+//                         {
+//                             press_detwarehouse();
+//                             break;
+//                         }
+//                         case 3: //the export cotton page
+//                         {
+//                             press_outware();
+//                             break;
+//                         }
+//                     }
+//                     break;
+//                 }
+//                 case 2: //the edit page
+//                 {
+//                     break;
+//                 }
+
+//                 case 3: // the start page
+//                 {
+//                     break;
+//                 }
+
+//                 case 4: //the past page
+//                 {
+//                     break;
+//                 }
+
+//                 case 5:  //the help page
+//                 {
+//                     press_help();
+//                     break;
+//                 }            
+//                 default:
+//                     break;
+//             }
+//             delay(20);
+//         }
+//     }
+// }
 
 void quit(void)
 {
