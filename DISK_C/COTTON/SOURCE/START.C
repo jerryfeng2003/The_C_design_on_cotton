@@ -13,7 +13,11 @@ int main()
 {
 	int gd=VGA,gm=VGAHI; 
 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
-	select02();
+	setbkcolor(WHITE);
+	setfillstyle(1,LIGHTGRAY);
+	bar(400,300,400+tra_start_l,300+tra_start_d);
+	tracktor_set_off(400,300,100,200,50,4);
+	delay(4000);
 	return 0;
 }
 
@@ -714,6 +718,47 @@ void earth_fill03(int x,int y)
 		int x_temp=rand()%25,y_temp=rand()%50;
 		line(x_temp+x,y_temp+y,x_temp+x,y_temp+y);
 	}
+}
+
+
+//earth filling  ,front and back
+void earth_cover01(int x,int y)
+{
+	setfillstyle(1,BROWN);
+	setcolor(WHITE);
+	bar(x-1,y,x+25,y+41);
+	// if(y%4==0)
+	// {
+	// 	int x_temp=rand()%25;
+	// 	line(x+x_temp,y+41,x+x_temp,y+41);
+	// }
+}
+
+//earth filling ,left and right
+void earth_cover02(int x,int y)
+{
+	setfillstyle(1,BROWN);
+	setcolor(WHITE);
+	bar(x-1,y-1,x-41,y+25);
+	// if(y%4==0)
+	// {
+	// 	int x_temp=rand()%25;
+	// 	line(x+x_temp,y-1,x+x_temp,y-1);
+	// }
+}
+
+//earth filling , turn direction
+void earth_cover03(int x,int y)
+{
+	int i;
+	setfillstyle(1,BROWN);
+	setcolor(WHITE);
+	bar(x-1,y,x+25,y+50);
+	// for(i=0;i<10;i++)
+	// {
+	// 	int x_temp=rand()%25,y_temp=rand()%50;
+	// 	line(x_temp+x,y_temp+y,x_temp+x,y_temp+y);
+	// }
 }
 
 void select02()
@@ -1620,7 +1665,7 @@ long int hellen(int x1,int y1,int x2,int y2,int x3,int y3)
 	return sqrt(p*(p-a)*(p-b)*(p-c));
 }
 
-long int cal_field(int *x,int *y,int *flag)
+long int cal_poly_field(int *x,int *y,int *flag)
 {
 	int x0=(x[0]+x[(*flag)/2])/2,y0=(y[0]+y[(*flag)/2])/2,i;
 	long int s_field=0;
@@ -1632,14 +1677,368 @@ long int cal_field(int *x,int *y,int *flag)
 	return s_field;
 }
 
+double cal_circle_field(int r)
+{
+	double pi= 3.1415926;
+	return pi*r*r;
+}
 
 
 void tracktor_set_off(int start_x,int start_y,int des_x,int des_y,int distance,int num)
 {
+	if(start_x<des_x&&start_y<des_y)
+	{
+		tracktor_set_off01(start_x,start_y,des_x,des_y,distance,num);
+	}
+	else if(start_x<des_x&&start_y>des_y)
+	{
+		tracktor_set_off02(start_x,start_y,des_x,des_y,distance,num);
+	}
+	else if(start_x>des_x&&start_y<des_y)
+	{
+		tracktor_set_off03(start_x,start_y,des_x,des_y,distance,num);
+	}
+	else
+	{
+		tracktor_set_off04(start_x,start_y,des_x,des_y,distance,num);
+	}
+}
 
+//start_x<des_x&&start_y<des_y
+void tracktor_set_off01(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+{
+	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
+	for(i=0;i<num;i++)
+	{
+		type[i]=0;
+		time[i]=i*distance;
+		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
+		y_p[i]=start_y+tra_start_d+1;
+	}
+	while(1)
+	{
+		int count=0;
+		for(i=0;i<num;i++)
+		{
+			if(time[i]>0)
+			{
+				time[i]--;
+				continue;
+			}
+			if(type[i]==2)
+			{
+				count++;
+				continue;
+			}
+			if(type[i]==0)
+			{
+				earth_cover01(x_p[i],y_p[i]);
+				y_p[i]++;
+				init_tracktor01_b(x_p[i],y_p[i]);
+				if(y_p[i]>=des_y)
+				{
+					earth_cover01(x_p[i],y_p[i]);
+					earth_cover01(x_p[i],y_p[i]+5);
+					type[i]=1;
+					x_p[i]+=tracktor_l;
+					init_tracktor01_r(x_p[i],y_p[i]);
+					continue;
+				}
+			}
+			if(type[i]==1)
+			{
+				earth_cover02(x_p[i],y_p[i]);
+				x_p[i]++;
+				init_tracktor01_r(x_p[i],y_p[i]);
+				if(x_p[i]>=des_x+(num-i-1)*distance)
+				{
+					earth_cover02(x_p[i],y_p[i]);
+					earth_cover02(x_p[i]+7,y_p[i]);
+					type[i]=2;
+					init_tracktor01_f(x_p[i],y_p[i]-35);
+					continue;
+				}
+			}
+		}
+		if(count>=num)
+		{
+			break;
+		}
+		delay(20);
+	}
+}
+
+//start_x<des_x&&start_y>des_y
+void tracktor_set_off02(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+{
+	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
+	for(i=0;i<num;i++)
+	{
+		type[i]=0;
+		time[i]=i*distance;
+		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
+		y_p[i]=start_y-tra_start_d-1-tracktor_l;
+	}
+	while(1)
+	{
+		int count=0;
+		for(i=0;i<num;i++)
+		{
+			if(time[i]>0)
+			{
+				time[i]--;
+				continue;
+			}
+			if(type[i]==2)
+			{
+				count++;
+				continue;
+			}
+			if(type[i]==0)
+			{
+				earth_cover01(x_p[i],y_p[i]);
+				y_p[i]--;
+				init_tracktor01_f(x_p[i],y_p[i]);
+				if(y_p[i]<=des_y)
+				{
+					earth_cover01(x_p[i],y_p[i]);
+					earth_cover01(x_p[i],y_p[i]-7);
+					type[i]=1;
+					x_p[i]+=tracktor_l;
+					init_tracktor01_r(x_p[i],y_p[i]);
+					continue;
+				}
+			}
+			if(type[i]==1)
+			{
+				earth_cover02(x_p[i],y_p[i]);
+				x_p[i]++;
+				init_tracktor01_r(x_p[i],y_p[i]);
+				if(x_p[i]>=des_x+(num-i-1)*distance)
+				{
+					earth_cover02(x_p[i],y_p[i]);
+					earth_cover02(x_p[i]+7,y_p[i]);
+					type[i]=2;
+					init_tracktor01_f(x_p[i],y_p[i]-35);
+					continue;
+				}
+			}
+		}
+		if(count>=num)
+		{
+			break;
+		}
+		delay(20);
+	}
+}
+
+//start_x>des_x&&start_y<des_y
+void tracktor_set_off03(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+{
+	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
+	for(i=0;i<num;i++)
+	{
+		type[i]=0;
+		time[i]=i*distance;
+		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
+		y_p[i]=start_y+tra_start_d+1;
+	}
+	while(1)
+	{
+		int count=0;
+		for(i=0;i<num;i++)
+		{
+			if(time[i]>0)
+			{
+				time[i]--;
+				continue;
+			}
+			if(type[i]==2)
+			{
+				count++;
+				continue;
+			}
+			if(type[i]==0)
+			{
+				earth_cover01(x_p[i],y_p[i]);
+				y_p[i]++;
+				init_tracktor01_b(x_p[i],y_p[i]);
+				if(y_p[i]>=des_y)
+				{
+					earth_cover01(x_p[i],y_p[i]);
+					earth_cover01(x_p[i],y_p[i]+5);
+					type[i]=1;
+					x_p[i]+=tracktor_l;
+					init_tracktor01_l(x_p[i],y_p[i]);
+					continue;
+				}
+			}
+			if(type[i]==1)
+			{
+				earth_cover02(x_p[i]+5,y_p[i]);
+				x_p[i]--;
+				init_tracktor01_l(x_p[i],y_p[i]);
+				if(x_p[i]<=des_x+i*distance)
+				{
+					earth_cover02(x_p[i]+2,y_p[i]);
+					earth_cover02(x_p[i]-5,y_p[i]);
+					type[i]=2;
+					init_tracktor01_f(x_p[i]-50,y_p[i]-35);
+					continue;
+				}
+			}
+		}
+		if(count>=num)
+		{
+			break;
+		}
+		delay(20);
+	}
+}
+
+//start_x>=des_x&&start_y>=des_y
+void tracktor_set_off04(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+{
+	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
+	for(i=0;i<num;i++)
+	{
+		type[i]=0;
+		time[i]=i*distance;
+		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
+		y_p[i]=start_y-tra_start_d-1-tracktor_l;
+	}
+	while(1)
+	{
+		int count=0;
+		for(i=0;i<num;i++)
+		{
+			if(time[i]>0)
+			{
+				time[i]--;
+				continue;
+			}
+			if(type[i]==2)
+			{
+				count++;
+				continue;
+			}
+			if(type[i]==0)
+			{
+				earth_cover01(x_p[i],y_p[i]);
+				y_p[i]--;
+				init_tracktor01_f(x_p[i],y_p[i]);
+				if(y_p[i]<=des_y)
+				{
+					earth_cover01(x_p[i],y_p[i]);
+					earth_cover01(x_p[i],y_p[i]-7);
+					type[i]=1;
+					x_p[i]+=tracktor_l;
+					init_tracktor01_r(x_p[i],y_p[i]);
+					continue;
+				}
+			}
+			if(type[i]==1)
+			{
+				earth_cover02(x_p[i]+7,y_p[i]);
+				x_p[i]--;
+				init_tracktor01_l(x_p[i],y_p[i]);
+				if(x_p[i]<=des_x+i*distance)
+				{
+					earth_cover02(x_p[i]+2,y_p[i]);
+					earth_cover02(x_p[i]-5,y_p[i]);
+					type[i]=2;
+					init_tracktor01_f(x_p[i]-50,y_p[i]-35);
+					continue;
+				}
+			}
+		}
+		if(count>=num)
+		{
+			break;
+		}
+		delay(20);
+	}
 }
 
 void tracktor_return(int start_x,int start_y,int des_x,int des_y,int distance,int num)
 {
+	if(start_x<des_x&&start_y<des_y)
+	{
+		tracktor_return01(start_x,start_y,des_x,des_y,distance,num);
+	}
+	else if(start_x<des_x&&start_y>des_y)
+	{
+		tracktor_return02(start_x,start_y,des_x,des_y,distance,num);
+	}
+	else if(start_x>des_x&&start_y<des_y)
+	{
+		tracktor_return03(start_x,start_y,des_x,des_y,distance,num);
+	}
+	else
+	{
+		tracktor_return04(start_x,start_y,des_x,des_y,distance,num);
+	}
+}
 
+void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+{
+	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
+	for(i=0;i<num;i++)
+	{
+		type[i]=0;
+		time[i]=i*distance;
+		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
+		y_p[i]=start_y+tra_start_d+1;
+	}
+	while(1)
+	{
+		int count=0;
+		for(i=0;i<num;i++)
+		{
+			if(time[i]>0)
+			{
+				time[i]--;
+				continue;
+			}
+			if(type[i]==2)
+			{
+				count++;
+				continue;
+			}
+			if(type[i]==0)
+			{
+				earth_cover01(x_p[i],y_p[i]);
+				y_p[i]++;
+				init_tracktor01_b(x_p[i],y_p[i]);
+				if(y_p[i]>=des_y)
+				{
+					earth_cover01(x_p[i],y_p[i]);
+					earth_cover01(x_p[i],y_p[i]+5);
+					type[i]=1;
+					x_p[i]+=tracktor_l;
+					init_tracktor01_r(x_p[i],y_p[i]);
+					continue;
+				}
+			}
+			if(type[i]==1)
+			{
+				earth_cover02(x_p[i],y_p[i]);
+				x_p[i]++;
+				init_tracktor01_r(x_p[i],y_p[i]);
+				if(x_p[i]>=des_x+(num-i-1)*distance)
+				{
+					earth_cover02(x_p[i],y_p[i]);
+					earth_cover02(x_p[i]+7,y_p[i]);
+					type[i]=2;
+					init_tracktor01_f(x_p[i],y_p[i]-35);
+					continue;
+				}
+			}
+		}
+		if(count>=num)
+		{
+			break;
+		}
+		delay(20);
+	}
 }
