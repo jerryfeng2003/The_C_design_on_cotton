@@ -189,7 +189,6 @@ void enter_next()
 
 /*Draw the whole welcome page*/
 void draw_wel()
-void draw_wel()
 {
 	draw_wel_buttons();
 	draw_wel_cofield();

@@ -149,7 +149,8 @@ int main()
 
                 case 5:  //the help page
                 {
-                    press_help();
+                    cleardevice();
+                    mode=0;
                     break;
                 }            
                 default:
