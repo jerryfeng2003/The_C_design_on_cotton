@@ -1,5 +1,5 @@
 #include "TOTAL.H"
-int location=0;
+int location = 0;
 /*void main()
 {
 	int gdriver,gmode;
@@ -9,101 +9,101 @@ int location=0;
 	closegraph();
 }*/
 
-//draw the buttons in welcome page
+// draw the buttons in welcome page
 void draw_wel_buttons(void)
 {
 	cleardevice();
 	setbkcolor(WHITE);
-	puthz(180,30,"棉花采摘模拟系统",32,32,BLUE);
-	setlinestyle(0,0,1);
+	puthz(180, 30, "棉花采摘模拟系统", 32, 32, BLUE);
+	setlinestyle(0, 0, 1);
 	setcolor(DARKGRAY);
 
-	setfillstyle(1,13);
-	rectangle(450,110,550,170);
-	puthz(470,130,"编辑参数",16,16,BLUE);
-	rectangle(450,210,550,270);
-	puthz(470,230,"开始模拟",16,16,BLUE);
-	rectangle(450,310,550,370);
-	puthz(470,330,"过往参数",16,16,BLUE);
-	rectangle(450,410,550,470);
-	puthz(460,430,"帮助及说明",16,16,BLUE);
+	setfillstyle(1, 13);
+	rectangle(450, 110, 550, 170);
+	puthz(470, 130, "编辑参数", 16, 16, BLUE);
+	rectangle(450, 210, 550, 270);
+	puthz(470, 230, "开始模拟", 16, 16, BLUE);
+	rectangle(450, 310, 550, 370);
+	puthz(470, 330, "过往参数", 16, 16, BLUE);
+	rectangle(450, 410, 550, 470);
+	puthz(460, 430, "帮助及说明", 16, 16, BLUE);
 
-	line(300,130,360,100);
-	line(360,100,420,130);
-	line(300,130,420,130);
-	rectangle(310,130,410,200);
-	puthz(330,150,"仓库管理",16,16,BLUE);
+	line(300, 130, 360, 100);
+	line(360, 100, 420, 130);
+	line(300, 130, 420, 130);
+	rectangle(310, 130, 410, 200);
+	puthz(330, 150, "仓库管理", 16, 16, BLUE);
 
 	last();
 }
 
-//draw the tractor in welcome page
+// draw the tractor in welcome page
 void draw_wel_tractors()
 {
-	//The wheels
-	int i,d;
+	// The wheels
+	int i, d;
 	setcolor(BROWN);
-	setfillstyle(1,BLUE);
-	bar(94,185,100,215);
-	bar(200,185,206,215);
-	bar(94,265,100,295);
-	bar(200,265,206,295);
-	setfillstyle(1,RED);
-   
-	//The rectangle of the machine
-	bar(100,150,200,310);
-	rectangle(105,155,195,305);
-	setfillstyle(1,YELLOW);
-	setlinestyle(0,0,1);
+	setfillstyle(1, BLUE);
+	bar(94, 185, 100, 215);
+	bar(200, 185, 206, 215);
+	bar(94, 265, 100, 295);
+	bar(200, 265, 206, 295);
+	setfillstyle(1, RED);
 
-	//The small bar 
-	for(i=0,d=80;i<8;i++)
+	// The rectangle of the machine
+	bar(100, 150, 200, 310);
+	rectangle(105, 155, 195, 305);
+	setfillstyle(1, YELLOW);
+	setlinestyle(0, 0, 1);
+
+	// The small bar
+	for (i = 0, d = 80; i < 8; i++)
 	{
-		bar(d-2,125,d+2,155);
-		rectangle(d-3,125,d+3,155);
-		d+=20;
+		bar(d - 2, 125, d + 2, 155);
+		rectangle(d - 3, 125, d + 3, 155);
+		d += 20;
 	}
-	setlinestyle(0,0,3);
-	bar(80,130,220,150);
-	rectangle(80,130,220,150);
-	for(i=0,d=100;i<6;i++)
+	setlinestyle(0, 0, 3);
+	bar(80, 130, 220, 150);
+	rectangle(80, 130, 220, 150);
+	for (i = 0, d = 100; i < 6; i++)
 	{
-		line(d,130,d,150);
-		d+=20;
+		line(d, 130, d, 150);
+		d += 20;
 	}
-	setfillstyle(1,RED);
-	bar(130,120,170,160);
-	rectangle(130,120,170,160);
+	setfillstyle(1, RED);
+	bar(130, 120, 170, 160);
+	rectangle(130, 120, 170, 160);
 }
 
-//draw the cotton field in welcome page
+// draw the cotton field in welcome page
 void draw_wel_cofield()
 {
-	//The cotton field
-	int i,d;
+	// The cotton field
+	int i, d;
 	setcolor(BROWN);
-	rectangle(50,100,300,400);
-	setlinestyle(0,0,3);
-	for(d=58;d<=300;d+=20)
+	rectangle(50, 100, 300, 400);
+	setlinestyle(0, 0, 3);
+	for (d = 58; d <= 300; d += 20)
 	{
-		for(i=100;i<=400;i+=2)
+		for (i = 100; i <= 400; i += 2)
 		{
-			int temp=rand()%2;
-			line(d+temp,i,d+temp,i);
+			int temp = rand() % 2;
+			line(d + temp, i, d + temp, i);
 		}
 	}
-	for(i=0;i<1000;i++)
+	for (i = 0; i < 1000; i++)
 	{
-		int t1=rand()%250,t2=rand()%300;
-		line(t1+50,t2+100,t1+50,t2+100);
+		int t1 = rand() % 250, t2 = rand() % 300;
+		line(t1 + 50, t2 + 100, t1 + 50, t2 + 100);
 	}
-	setfillstyle(1,BROWN);
-	bar(78,130,222,400);
+	setfillstyle(1, BROWN);
+	bar(78, 130, 222, 400);
 	setcolor(WHITE);
-	for(i=0;i<100;i++)
+	for (i = 0; i < 100; i++)
 	{
-		int t1=rand()%144,t2=rand()%270;
-		line(t1+78,t2+130,t1+78,t2+130);
+		int t1 = rand() % 144, t2 = rand() % 270;
+		line(t1 + 78, t2 + 130, t1 + 78, t2 + 130);
 	}
 	/*setfillstyle(1,BROWN);
 	bar(50,100,300,400);
@@ -121,48 +121,60 @@ void draw_wel_cofield()
 	}*/
 }
 
-//enter the edit page
-void enter_next(struct User* h)
+// enter the edit page
+void enter_next()
 {
-	if(mouse_press(450,110,550,170)==0||mouse_press(450,210,550,270)==0\
-	||mouse_press(450,310,550,370)==0||mouse_press(450,410,550,470)==0||\
-	mouse_press(310,130,410,200)==0||mouse_press(0,0,40,30)==0||mouse_press(0,450,40,480)==0)
+	if (mouse_press(450, 110, 550, 170) == 0 || mouse_press(450, 210, 550, 270) == 0 || mouse_press(450, 310, 550, 370) == 0 || mouse_press(450, 410, 550, 470) == 0 ||
+		mouse_press(310, 130, 410, 200) == 0 || mouse_press(0, 0, 40, 30) == 0 || mouse_press(0, 450, 40, 480) == 0)
 	{
-		MouseS=0;
+		MouseS = 0;
 	}
-	if(mouse_press(450,110,550,170)==2||mouse_press(450,210,550,270)==2\
-	||mouse_press(450,310,550,370)==2||mouse_press(450,410,550,470)==2||\
-	mouse_press(310,130,410,200)==2||mouse_press(0,0,40,30)==2||mouse_press(0,450,40,480)==2)
+	if (mouse_press(450, 110, 550, 170) == 2 || mouse_press(450, 210, 550, 270) == 2 || mouse_press(450, 310, 550, 370) == 2 || mouse_press(450, 410, 550, 470) == 2 ||
+		mouse_press(310, 130, 410, 200) == 2 || mouse_press(0, 0, 40, 30) == 2 || mouse_press(0, 450, 40, 480) == 2)
 	{
-		MouseS=1;
+		MouseS = 1;
 	}
 
-	//Enter the edit page
-	if(mouse_press(450,110,550,170)==1)
+	// Enter the edit page
+	if (mouse_press(450, 110, 550, 170) == 1)
 	{
-		edit(h);
+		edit();
+		clrmous(MouseX, MouseY);
+		draw_wel_buttons();
+		draw_wel_cofield();
+		draw_wel_tractors();
+		quit();
 	}
 
-	//Enter the simulation page
-	if(mouse_press(450,210,550,270)==1)
+	// Enter the simulation page
+	if (mouse_press(450, 210, 550, 270) == 1)
 	{
-		draw_simu01(x_max,y_max,5);
+		draw_simu01(x_max, y_max, 5);
 	}
 
-	//Enter the past arguments
-	if(mouse_press(450,310,550,370)==1)
+	// Enter the past arguments
+	if (mouse_press(450, 310, 550, 370) == 1)
 	{
-		draw_past01();
+		past();
+		clrmous(MouseX, MouseY);
+		draw_wel_buttons();
+		draw_wel_cofield();
+		draw_wel_tractors();
+		quit();
 	}
 
-	//Enter the past arguments
-	if(mouse_press(450,410,550,470)==1)
+	// Enter the past arguments
+	if (mouse_press(450, 410, 550, 470) == 1)
 	{
 		draw_help01();
+		draw_wel_buttons();
+		draw_wel_cofield();
+		draw_wel_tractors();
+		quit();
 	}
 
-	//Enter the home page
-	if(mouse_press(310,130,410,200)==1)
+	// Enter the home page
+	if (mouse_press(310, 130, 410, 200) == 1)
 	{
 		draw_home01();
 		/*else
@@ -171,34 +183,35 @@ void enter_next(struct User* h)
 		}*/
 	}
 
-	if(mouse_press(0,450,40,480)==1)
-	{
-		loginit(h);
-		draw_wel_buttons();
-		draw_wel_cofield();
-		draw_wel_tractors();
-	}
+	// if (mouse_press(0, 450, 40, 480) == 1)
+	// {
+	// 	loginit();
+	// 	draw_wel_buttons();
+	// 	draw_wel_cofield();
+	// 	draw_wel_tractors();
+	// 	quit();
+	// }
 
-	//Exit the program
-	if(mouse_press(0,0,40,30)==1)
+	// Exit the program
+	if (mouse_press(0, 0, 40, 30) == 1)
 	{
 		exit(0);
 	}
-	
 }
 
 /*Draw the whole welcome page*/
-void draw_wel(struct User* h)
+void draw_wel()
 {
 	draw_wel_buttons();
 	draw_wel_cofield();
 	draw_wel_tractors();
 	quit();
+	// outtextxy(200,200,h->username);
 	mouseinit();
-	for(;;)
+	for (;;)
 	{
-		newmouse(&MouseX,&MouseY,&press);
-		enter_next(h);
+		newmouse(&MouseX, &MouseY, &press);
+		enter_next();
 		delay(15);
 	}
 }

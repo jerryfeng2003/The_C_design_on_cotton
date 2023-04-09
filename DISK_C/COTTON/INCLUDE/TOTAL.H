@@ -72,6 +72,7 @@
 extern int location;//1 means the norwestern,0 means others
 extern U_ware here[5];
 extern int k;
+extern struct User* h;
 void quit(void);//the leave button in every page
 void skip(void);
 void next(void);
