@@ -5,7 +5,7 @@
 #define x_start 50
 #define y_start 120
 #define point_max 50
-#define dense_points_max 2000
+#define dense_points_max 500
 #define tracktor_num_max 10
 #define tracktor_w 25
 #define tracktor_l 30
