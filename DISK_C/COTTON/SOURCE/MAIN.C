@@ -149,6 +149,16 @@ int mode1=0;
 //         }
 //     }
 // }
+// int main()
+// {
+//     int gd=VGA,gm=VGAHI;
+// 	h=(user*)malloc(sizeof(user));//µÇÂ¼µÄÓÃ»§
+// 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+//     loginit();
+// 	draw_wel();
+//     free(h);
+// 	return 0;
+// }
 
 void quit(void)
 {

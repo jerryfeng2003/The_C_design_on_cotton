@@ -1,250 +1,523 @@
 #include "TOTAL.H"
 
-void draw_edit01(struct Parameter *abc)
+int draw_edit01(struct Parameter *abc)
 {
-	void *buffer,*buffer1,*buffer2;
-	unsigned s,s1,s2;
-    //int i;
-	clrmous(MouseX,MouseY);
-    cleardevice();
-    setbkcolor(WHITE);
-	puthz(240,30,"请选择地区",32,32,BLUE);
+	void *buffer, *buffer1, *buffer2;
+	unsigned s, s1, s2;
+	INPUT name = {230, 80, 520, 130, "", 10, 0, 0};
+	// int i;
+	clrmous(MouseX, MouseY);
+	cleardevice();
+	setbkcolor(WHITE);
+	puthz(240, 30, "请选择地区", 32, 32, BLUE);
 	quit();
 	last();
-	mouseinit();
-	setcolor(12);//淡红色
-	rectangle(50,100,590,420);
+	//mouseinit();
+	setcolor(12); // 淡红色
+	rectangle(50, 150, 590, 420);
 
-	//按钮
-	puthz(80,150,"新疆地区",32,32,BLUE);
-	puthz(400,150,"长江地区",32,32,BLUE);
-	puthz(250,300,"黄河地区",32,32,BLUE);
+	// 参数名字
+	puthz(50, 90, "参数名字：", 32, 32, BLUE);
+
+	// 按钮
+	puthz(80, 150, "新疆地区", 32, 32, BLUE);
+	puthz(400, 150, "长江地区", 32, 32, BLUE);
+	puthz(250, 300, "黄河地区", 32, 32, BLUE);
 	setcolor(CYAN);
-	bar(120,200,150,230);
-	bar(440,200,470,230);
-	bar(290,350,320,380);
+	bar(120, 200, 150, 230);
+	bar(440, 200, 470, 230);
+	bar(290, 350, 320, 380);
 
-	//按钮,按下去
-	setfillstyle(1,MAGENTA);
-	s=imagesize(100,180,170,250);
-	buffer=malloc(s);
-	getimage(100,180,170,250,buffer);
+	// 按钮,按下去
+	setfillstyle(1, MAGENTA);
+	s = imagesize(100, 180, 170, 250);
+	buffer = malloc(s);
+	getimage(100, 180, 170, 250, buffer);
 
-	s1=imagesize(420,180,490,250);
-	buffer1=malloc(s1);
-	getimage(420,180,490,250,buffer1);
+	s1 = imagesize(420, 180, 490, 250);
+	buffer1 = malloc(s1);
+	getimage(420, 180, 490, 250, buffer1);
 
-	s2=imagesize(270,330,340,400);
-	buffer2=malloc(s2);
-	getimage(270,330,340,400,buffer2);
-	for(;;)
+	s2 = imagesize(270, 330, 340, 400);
+	buffer2 = malloc(s2);
+	getimage(270, 330, 340, 400, buffer2);
+	for (;;)
 	{
-		newmouse(&MouseX,&MouseY,&press);
-		//press_edit();
-		if(mouse_press(100,180,170,250)==2)//新疆
+		newmouse(&MouseX, &MouseY, &press);
+		// press_edit();
+		input_s(233, 80, &name, 16, 0);
+		if (mouse_press(100, 180, 170, 250) == 2) // 新疆
 		{
-			pieslice(135,215,0,360,20);
+			pieslice(135, 215, 0, 360, 20);
 		}
 		else
 		{
-			putimage(100,180,buffer,COPY_PUT);
+			putimage(100, 180, buffer, COPY_PUT);
 		}
-		if(mouse_press(100,180,170,250)==1)
+		if (mouse_press(100, 180, 170, 250) == 1)
 		{
-			abc->place='a';
-			return;
+			if (judgename(name.string) == 1)
+			{
+				strcpy(abc->name, name.string);
+				abc->place = 'a';
+				free(buffer);
+				free(buffer1);
+				free(buffer2);
+				return;
+			}
 		}
 
-		if(mouse_press(420,180,490,250)==2)//黄河
+		if (mouse_press(420, 180, 490, 250) == 2) // 长江
 		{
-			pieslice(455,215,0,360,20);
+			pieslice(455, 215, 0, 360, 20);
 		}
 		else
 		{
-			putimage(420,180,buffer1,COPY_PUT);
+			putimage(420, 180, buffer1, COPY_PUT);
 		}
-		if(mouse_press(420,180,490,250)==1)
+		if (mouse_press(420, 180, 490, 250) == 1)
 		{
-			abc->place='b';
-			return;
+			if (judgename(name.string) == 1)
+			{
+				strcpy(abc->name, name.string);
+				abc->place = 'c';
+				free(buffer);
+				free(buffer1);
+				free(buffer2);
+				return;
+			}
 		}
 
-		if(mouse_press(270,330,340,400)==2)//长江
+		if (mouse_press(270, 330, 340, 400) == 2) // 黄河
 		{
-			pieslice(305,365,0,360,20);
+			pieslice(305, 365, 0, 360, 20);
 		}
 		else
 		{
-			putimage(270,330,buffer2,COPY_PUT);
+			putimage(270, 330, buffer2, COPY_PUT);
 		}
-		if(mouse_press(270,330,340,400)==1)
+		if (mouse_press(270, 330, 340, 400) == 1)
 		{
-			abc->place='c';
-			return;
+			if (judgename(name.string) == 1)
+			{
+				strcpy(abc->name, name.string);
+				abc->place = 'b';
+				free(buffer);
+				free(buffer1);
+				free(buffer2);
+				return;
+			}
 		}
 
-		//quit
-		if(mouse_press(0,0,40,30)==0)
+		// quit
+		if (mouse_press(0, 0, 40, 30) == 0)
 		{
-			MouseS=0;
+			MouseS = 0;
 		}
-		if(mouse_press(0,0,40,30)==2)
+		if (mouse_press(0, 0, 40, 30) == 2)
 		{
-			MouseS=1;
+			MouseS = 1;
 		}
-		if(mouse_press(0,0,40,30)==1)
+		if (mouse_press(0, 0, 40, 30) == 1)
 		{
 			exit(0);
 		}
 
-		//last
-		if(mouse_press(0,450,40,480)==0)
+		// last
+		if (mouse_press(0, 450, 40, 480) == 0)
 		{
-			MouseS=0;
+			MouseS = 0;
 		}
-		if(mouse_press(0,450,40,480)==2)
+		if (mouse_press(0, 450, 40, 480) == 2)
 		{
-			MouseS=1;
+			MouseS = 1;
 		}
-		if(mouse_press(0,450,40,480)==1)
+		if (mouse_press(0, 450, 40, 480) == 1)
 		{
-			draw_wel();
+			return 1;
 		}
 		delay(15);
 	}
-	//bmp_convert(".\\photo\\map.bmp",".\\photo\\map.dbm");
-	//show_dbm(5,100,".\\photo\\map.dbm");
-	//getchar();
-	//closegraph();
+	// bmp_convert(".\\photo\\map.bmp",".\\photo\\map.dbm");
+	// show_dbm(5,100,".\\photo\\map.dbm");
+	// getchar();
+	// closegraph();
 }
 
 int draw_edit02(struct Parameter *abc)
 {
-	int flag=0;//返回键判断
-	INPUT S = {330, 30, 490, 90,"",6,0,0};
-	clrmous(MouseX,MouseY);
+	// void *buffer,*buffer1,*buffer2,*buffer3;
+	// unsigned s,s1,s2,s3;
+	int flag = 0; // 返回键判断
+	int flagcan = 0;
+	INPUT S = {330, 30, 490, 90, "", 6, 0, 0};
+	
+	clrmous(MouseX, MouseY);
 	cleardevice();
-    setbkcolor(WHITE);
+	setbkcolor(WHITE);
 
 	quit();
 	last();
 
-	//bar(100,40,360,90);
-	puthz(70,40,"请输入土地面积：",32,32,BLUE);
-	puthz(490,40,"公顷",32,32,BLUE);
-	puthz(90,100,"本地推荐种植的棉花种类为：",32,32,BLUE);
-	if (abc->place=='a')
+	puthz(70, 40, "请输入土地面积：", 32, 32, BLUE);
+	puthz(490, 40, "公顷", 32, 32, BLUE);
+	puthz(70, 100, "本地推荐种植的棉花种类为：", 32, 32, BLUE);
+
+	if (abc->place == 'a')
 	{
-		puthz(500,100,"粗绒棉",32,32,BLUE);
+		puthz(480, 100, "粗绒棉", 32, 32, BLUE);
 	}
-	else if(abc->place=='b')
+	else if (abc->place == 'b')
 	{
-		puthz(500,100,"长绒棉",32,32,BLUE);
+		puthz(480, 100, "长绒棉", 32, 32, BLUE);
 	}
-	else 
+	else
 	{
-		puthz(500,100,"细绒棉",32,32,BLUE);
+		puthz(480, 100, "细绒棉", 32, 32, BLUE);
 	}
 
-	for(;;)
+	// 土地形状
+	setfillstyle(1, LIGHTGRAY);
+	bar(0, 150, 160, 200);
+	bar(0, 230, 160, 280);
+	bar(0, 310, 160, 360);
+	bar(0, 380, 160, 430);
+	puthz(20, 160, "矩形", 32, 32, BLUE);
+	puthz(20, 235, "圆形", 32, 32, BLUE);
+	puthz(10, 315, "多边形", 32, 32, BLUE);
+	puthz(0, 390, "自定义形状", 32, 32, BLUE);
+
+	setfillstyle(1, WHITE);
+	bar(200, 150, 600, 460);
+	setcolor(RED);
+	rectangle(200, 150, 600, 460);
+
+	for (;;)
 	{
-		newmouse(&MouseX,&MouseY,&press);
+		newmouse(&MouseX, &MouseY, &press);
 		delay(15);
-		input_s(333, 30, &S, 16 , 0);
-		
-		
-		//quit
-		if(mouse_press(0,0,40,30)==0)
+		input_s(333, 30, &S, 16, 0);
+
+		// 土地形状按钮，停留在上面
+		if (mouse_press(0, 150, 160, 200) == 2) // 矩形
 		{
-			MouseS=0;
+			MouseS = 1;
+			setfillstyle(1, MAGENTA);
+			bar(0, 150, 160, 200);
+			puthz(20, 160, "矩形", 32, 32, BLUE);
+			setfillstyle(10, BROWN);
+			rectangle(240, 190, 560, 420);
+			bar(241, 191, 559, 419);
+
+			flagcan = 0;
 		}
-		if(mouse_press(0,0,40,30)==2)
+		else if (mouse_press(0, 230, 160, 280) == 2) // 圆形
 		{
-			MouseS=1;
+			MouseS = 1;
+			setfillstyle(1, MAGENTA);
+			bar(0, 230, 160, 280);
+			puthz(20, 235, "圆形", 32, 32, BLUE);
+			setfillstyle(10, LIGHTGRAY);
+			circle(400, 305, 121);
+			pieslice(400, 305, 0, 360, 120);
+			line(280,305,520,305);
+			line(400,185,400,425);
+
+			flagcan = 0;
 		}
-		if(mouse_press(0,0,40,30)==1)
+		else if (mouse_press(0, 310, 160, 360) == 2) // 多边形
 		{
-			draw_wel();
+			int dindian[8] = {220, 270, 350, 270, 285, 170, 220, 270}, dindian2[10] = {560, 420, 560, 330, 400, 330, 400, 400, 560, 420}; // 200,150,600,460
+			MouseS = 1;
+			setfillstyle(1, MAGENTA);
+			bar(0, 310, 160, 360);
+			puthz(10, 315, "多边形", 32, 32, BLUE);
+			setfillstyle(1, LIGHTGRAY);
+			drawpoly(4, dindian);
+			drawpoly(5, dindian2);
+			setlinestyle(0, 0, 3);
+			line(220, 440, 580, 170);
+
+			flagcan = 0;
+		}
+		else if (mouse_press(0, 380, 160, 430) == 2) // 自定义图形
+		{
+			MouseS = 1;
+			setlinestyle(0, 0, 15);
+			setfillstyle(1, MAGENTA);
+			bar(0, 380, 160, 430);
+			puthz(0, 390, "自定义图形", 32, 32, BLUE);
+			setfillstyle(1, LIGHTGRAY);
+			arc(400, 230, -90, 180, 60);
+			line(400, 290, 400, 370);
+			setfillstyle(1, BLACK);
+			circle(400, 390, 10);
+
+			flagcan = 0;
+		}
+		else
+		{
+			if (flagcan == 0)
+			{
+				MouseS = 0;
+				setfillstyle(1, LIGHTGRAY);
+				bar(0, 150, 160, 200);
+				puthz(20, 160, "矩形", 32, 32, BLUE);
+				bar(0, 380, 160, 430);
+				puthz(0, 390, "自定义图形", 32, 32, BLUE);
+				bar(0, 310, 160, 360);
+				puthz(10, 315, "多边形", 32, 32, BLUE);
+				bar(0, 230, 160, 280);
+				puthz(20, 235, "圆形", 32, 32, BLUE);
+				setfillstyle(1, WHITE);
+				bar(200, 150, 600, 460);
+				setcolor(RED);
+				rectangle(200, 150, 600, 460);
+				flagcan = 1;
+			}
 		}
 
-		//last
-		if(mouse_press(0,450,40,480)==0)
+		if (mouse_press(0, 150, 160, 200) == 1) // 矩形
 		{
-			MouseS=0;
+			if (judgeS(S.string) == 1)
+			{
+				strcpy(abc->S,S.string);
+				abc->shape = 'a';
+				return 0;
+			}
 		}
-		if(mouse_press(0,450,40,480)==2)
+		else if (mouse_press(0, 230, 160, 280) == 1) // 圆形
 		{
-			MouseS=1;
+			if (judgeS(S.string) == 1)
+			{
+				strcpy(abc->S,S.string);
+				abc->shape = 'b';
+				return 0;
+			}
 		}
-		if(mouse_press(0,450,40,480)==1)
+		else if (mouse_press(0, 300, 160, 350) == 1) // 多边形
+		{
+			if (judgeS(S.string) == 1)
+			{
+				strcpy(abc->S,S.string);
+				abc->shape = 'c';
+				return 0;
+			}
+		}
+		else if (mouse_press(0, 370, 160, 420) == 1) // 自定义图形
+		{
+			if (judgeS(S.string) == 1)
+			{
+				strcpy(abc->S,S.string);
+				abc->shape = 'd';
+				return 0;
+			}
+		}
+
+		// quit
+		if (mouse_press(0, 0, 40, 30) == 0)
+		{
+			MouseS = 0;
+		}
+		if (mouse_press(0, 0, 40, 30) == 2)
+		{
+			MouseS = 1;
+		}
+		if (mouse_press(0, 0, 40, 30) == 1)
+		{
+			exit(0);
+		}
+
+		// last
+		if (mouse_press(0, 450, 40, 480) == 0)
+		{
+			MouseS = 0;
+		}
+		if (mouse_press(0, 450, 40, 480) == 2)
+		{
+			MouseS = 1;
+		}
+		if (mouse_press(0, 450, 40, 480) == 1)
 		{
 			return 1;
 		}
 	}
-
 }
 
 int draw_edit03(struct Parameter *abc)
 {
-	clrmous(MouseX,MouseY);
+	int dindian0[10] = {100, 150, 100, 200, 250, 200, 250, 150, 100, 150};
+	int flag=0;
+	clrmous(MouseX, MouseY);
 	cleardevice();
-    setbkcolor(WHITE);
+	setbkcolor(WHITE);
 
 	quit();
 	last();
 
-	for(;;)
+	puthz(160, 30, "请选择收割机类型", 32, 32, BLUE);
+	puthz(140, 70, "（自动计算所需数量）", 32, 32, BLUE);
+
+	setfillstyle(1, LIGHTGRAY);
+	bar(70, 120, 570, 420);
+
+	setfillstyle(1, RED);
+	bar(100, 150, 250, 350);
+	setcolor(0); // 白色
+	setlinestyle(0, 0, 3);
+	drawpoly(5, dindian0);
+	rectangle(100, 240, 250, 275);
+	rectangle(100, 275, 250, 300);
+	setlinestyle(0, 0, 5);
+	rectangle(100, 300, 250, 325);
+	rectangle(100, 325, 250, 340);
+	setlinestyle(0, 0, 2);
+	rectangle(150, 340, 200, 350);
+	bar(150, 350, 200, 380);
+	setfillstyle(1, YELLOW);
+	bar(100, 340, 150, 350);
+	bar(200, 340, 250, 350);
+	setfillstyle(1, BLUE);
+	bar(90, 170, 100, 220);
+	bar(90 + 160, 170, 100 + 160, 220);
+	bar(90, 250, 100, 300);
+	bar(90 + 160, 250, 100 + 160, 300);
+
+	setfillstyle(1, GREEN);
+	bar(100 + 290, 150, 250 + 290, 350);
+	setcolor(0); // 白色
+	setlinestyle(0, 0, 3);
+	rectangle(100 + 290, 150, 250 + 290, 200);
+	rectangle(100 + 290, 240, 250 + 290, 275);
+	rectangle(100 + 290, 275, 250 + 290, 300);
+	setlinestyle(0, 0, 5);
+	rectangle(100 + 290, 300, 250 + 290, 325);
+	rectangle(100 + 290, 325, 250 + 290, 340);
+	setlinestyle(0, 0, 2);
+	rectangle(150 + 290, 340, 200 + 290, 350);
+	setfillstyle(1, YELLOW);
+	bar(100 + 290 - 25, 340, 150 + 290, 350);
+	bar(200 + 290, 340, 250 + 290 + 25, 350);
+	setfillstyle(1, BLUE);
+	bar(90 + 290, 170, 100 + 290, 220);
+	bar(90 + 160 + 290, 170, 100 + 160 + 290, 220);
+	bar(90 + 290, 250, 100 + 290, 300);
+	bar(90 + 160 + 290, 250, 100 + 160 + 290, 300);
+
+	puthz(110, 130, "垂直式收割机", 16, 16, BLUE);
+	puthz(400, 130, "水平式收割机", 16, 16, BLUE);
+	for (;;)
 	{
-		newmouse(&MouseX,&MouseY,&press);
+		newmouse(&MouseX, &MouseY, &press);
 		delay(15);
-		
-		
-		
-		//quit
-		if(mouse_press(0,0,40,30)==0)
+
+		// 收割机按钮 70, 120, 570, 420
+		if (mouse_press(70, 120, 300, 420) == 2)
 		{
-			MouseS=0;
+			if (flag==0)
+			{
+				MouseS = 1;
+				setcolor(RED);
+				setlinestyle(0, 0, 5);
+				rectangle(70, 120, 300, 420);
+
+				flag=1;
+			}
 		}
-		if(mouse_press(0,0,40,30)==2)
+		else if (mouse_press(70, 120, 300, 420) == 1)
 		{
-			MouseS=1;
+			abc->type='a';
+			return 0;
 		}
-		if(mouse_press(0,0,40,30)==1)
+		else if (mouse_press(340, 120, 570, 420) == 2)
 		{
-			draw_wel();
+			if (flag==0)
+			{
+				MouseS = 1;
+				setcolor(RED);
+				setlinestyle(0, 0, 5);
+				rectangle(340, 120, 570, 420);
+
+				flag=1;
+			}
+		}
+		else if (mouse_press(340, 120, 570, 420) == 1)
+		{
+			abc->type='b';
+			return 0;
+		}
+		else
+		{
+			if (flag==1)
+			{
+				MouseS = 0;
+				setlinestyle(0, 0, 5);
+				setcolor(LIGHTGRAY);
+				rectangle(340, 120, 570, 420);
+				rectangle(70, 120, 300, 420);
+				flag=0;
+			}
 		}
 
-		//last
-		if(mouse_press(0,450,40,480)==0)
+		// quit
+		if (mouse_press(0, 0, 40, 30) == 0)
 		{
-			MouseS=0;
+			MouseS = 0;
 		}
-		if(mouse_press(0,450,40,480)==2)
+		if (mouse_press(0, 0, 40, 30) == 2)
 		{
-			MouseS=1;
+			MouseS = 1;
 		}
-		if(mouse_press(0,450,40,480)==1)
+		if (mouse_press(0, 0, 40, 30) == 1)
+		{
+			exit(0);
+		}
+
+		// last
+		if (mouse_press(0, 450, 40, 480) == 0)
+		{
+			MouseS = 0;
+		}
+		if (mouse_press(0, 450, 40, 480) == 2)
+		{
+			MouseS = 1;
+		}
+		if (mouse_press(0, 450, 40, 480) == 1)
 		{
 			return 1;
 		}
-	}
+	}   
 }
+// 产区，面积，形状（坐标），收割机类型，名字
+// 产区place：a--新疆；b--黄河；c--长江；分别对应：粗绒棉，长绒棉，细绒棉
+// 面积S：123（数字）
+// 形状shape：a--矩形；b--圆形；c--多边形；d自定义形状
+// 坐标xyz：c/d才用：x1,y1,x2,y2,x3,y3....
+// 收割机类型type：a垂直/b水平
+// 名字name：abcdefg
 
-void edit(struct User* h)
+// 土地形状按钮，按下去
+void edit()
 {
-	parameter *abc=(parameter*)malloc(sizeof(parameter));
+	parameter *abc = (parameter *)malloc(sizeof(parameter));
 
-	edit01:
-	draw_edit01(abc);
-	
-	edit02:
-	if (draw_edit02(abc)==1)
+edit01:
+	if (draw_edit01(abc)==1)
+	{
+		return;
+	}
+
+edit02:
+	if (draw_edit02(abc) == 1)
 	{
 		goto edit01;
 	}
 
-	if (draw_edit03(abc)==1)
+	if (draw_edit03(abc) == 1)
 	{
 		goto edit02;
 	}
+	wr_parameter(abc);
+	free(abc);
+	//h->parameter[h->lenpar]=*abc;
 }

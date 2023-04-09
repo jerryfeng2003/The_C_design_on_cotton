@@ -2,12 +2,12 @@
 #define _EDIT_H_
 
 
-void draw_edit01(struct Parameter *abc);//The first in edit:choose area
+int draw_edit01(struct Parameter *abc);//The first in edit:choose area
 int draw_edit02(struct Parameter *abc);//The Second in edit:define size and shape of the field
 int draw_edit03(struct Parameter *abc);//Choose the type of tractors and cotton
 //void press_edit();//add the press moudule
 
-void edit(struct User* h);
+void edit();
 
 // typedef struct
 // {
