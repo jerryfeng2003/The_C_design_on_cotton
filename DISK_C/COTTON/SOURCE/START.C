@@ -9,17 +9,17 @@
 // 	delay(5000);
 // 	return 0;
 // }
-int main()
-{
-	int gd=VGA,gm=VGAHI; 
-	initgraph(&gd,&gm,"..\\borlandc\\bgi");
-	setbkcolor(WHITE);
-	setfillstyle(1,LIGHTGRAY);
-	bar(400,300,400+tra_start_l,300+tra_start_d);
-	tracktor_set_off(400,300,100,200,50,4);
-	delay(4000);
-	return 0;
-}
+// int main()
+// {
+// 	int gd=VGA,gm=VGAHI; 
+// 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+// 	setbkcolor(WHITE);
+// 	setfillstyle(1,LIGHTGRAY);
+// 	bar(400,300,400+tra_start_l,300+tra_start_d);
+// 	tracktor_set_off(400,300,100,200,50,4);
+// 	delay(4000);
+// 	return 0;
+// }
 
 //draw the process of harvest in animition
 void draw_simu01(long int x,long int y,int num)
@@ -1966,18 +1966,18 @@ void tracktor_return(int start_x,int start_y,int des_x,int des_y,int distance,in
 	{
 		tracktor_return01(start_x,start_y,des_x,des_y,distance,num);
 	}
-	else if(start_x<des_x&&start_y>des_y)
-	{
-		tracktor_return02(start_x,start_y,des_x,des_y,distance,num);
-	}
-	else if(start_x>des_x&&start_y<des_y)
-	{
-		tracktor_return03(start_x,start_y,des_x,des_y,distance,num);
-	}
-	else
-	{
-		tracktor_return04(start_x,start_y,des_x,des_y,distance,num);
-	}
+	// else if(start_x<des_x&&start_y>des_y)
+	// {
+	// 	tracktor_return02(start_x,start_y,des_x,des_y,distance,num);
+	// }
+	// else if(start_x>des_x&&start_y<des_y)
+	// {
+	// 	tracktor_return03(start_x,start_y,des_x,des_y,distance,num);
+	// }
+	// else
+	// {
+	// 	tracktor_return04(start_x,start_y,des_x,des_y,distance,num);
+	// }
 }
 
 void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,int num)

@@ -140,7 +140,7 @@ void enter_next()
 	//Enter the edit page
 	if(mouse_press(450,110,550,170)==1)
 	{
-		edit(h);
+		mode=2;
 	}
 
 	//Enter the simulation page
@@ -152,7 +152,8 @@ void enter_next()
 	//Enter the past arguments
 	if(mouse_press(450,310,550,370)==1)
 	{
-		draw_past01();
+		mode=4;
+		//draw_past01();
 	}
 
 	//Enter the past arguments
@@ -175,7 +176,7 @@ void enter_next()
 
 	if(mouse_press(0,450,40,480)==1)
 	{
-		loginit(h);
+		loginit();
 		draw_wel_buttons();
 		draw_wel_cofield();
 		draw_wel_tractors();
