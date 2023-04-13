@@ -70,12 +70,11 @@
 #include "PARAMETE.H"
 
 
-extern int location;//1 means the norwestern,0 means others
-extern U_ware here[5];
+//extern U_ware here[5];
 extern int k;
 extern int mode;
 extern int mode1;
-extern char str[15];
+//extern char str[15];
 extern struct User*h;
 void quit(void);//the leave button in every page
 void skip(void);
