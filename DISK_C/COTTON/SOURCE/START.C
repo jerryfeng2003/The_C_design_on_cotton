@@ -2,7 +2,7 @@
 
 // int main()
 // {
-// 	int gd=VGA,gm=VGAHI; 
+// 	int gd=VGA,gm=VGAHI;
 // 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
 // 	setbkcolor(WHITE);
 // 	cal_tracktor_circle(200,3);
@@ -11,7 +11,7 @@
 // }
 // int main()
 // {
-// 	int gd=VGA,gm=VGAHI; 
+// 	int gd=VGA,gm=VGAHI;
 // 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
 // 	setbkcolor(WHITE);
 // 	setfillstyle(1,LIGHTGRAY);
@@ -21,712 +21,709 @@
 // 	return 0;
 // }
 
-//draw the process of harvest in animition
-void draw_simu01(long int x,long int y,int num)
+// draw the process of harvest in animition
+void draw_simu01(long int x, long int y, int num)
 {
-    static long int time,temp,*tal;
+	static long int time, temp, *tal;
 	static int c_t;
 	static char str[8];
-	time=25,temp=0,tal=here[k].total,c_t=here[k].cotton_type;
-	itoa(time,str,10);
-	temp=x*y*0.01+rand()%100;
-    cleardevice();
-    setbkcolor(WHITE);
-	puthz(150,30,"采摘完成还需",32,32,BLUE);
-	settextstyle(3,0,4);
+	time = 25, temp = 0, tal = here[k].total, c_t = here[k].cotton_type;
+	itoa(time, str, 10);
+	temp = x * y * 0.01 + rand() % 100;
+	cleardevice();
+	setbkcolor(WHITE);
+	puthz(150, 30, "采摘完成还需", 32, 32, BLUE);
+	settextstyle(3, 0, 4);
 	setcolor(RED);
-	outtextxy(350,26,str);
-    puthz(400,30,"小时",32,32,BLUE);
-	init_field(x,y);
-    //outtextxy()
+	outtextxy(350, 26, str);
+	puthz(400, 30, "小时", 32, 32, BLUE);
+	init_field(x, y);
+	// outtextxy()
 	quit();
-    mouseinit();
-	start_ainime01(0,x,y,num);
+	mouseinit();
+	start_ainime01(0, x, y, num);
 	pick_finish(temp);
-	tal[c_t]+=temp;
-	if(tal[c_t]>ware_full||tal[c_t]<0)
+	tal[c_t] += temp;
+	if (tal[c_t] > ware_full || tal[c_t] < 0)
 	{
-		tal[c_t]=ware_full;
+		tal[c_t] = ware_full;
 	}
-	for(;;)
+	for (;;)
 	{
-		newmouse(&MouseX,&MouseY,&press);
+		newmouse(&MouseX, &MouseY, &press);
 		press_start();
 		delay(20);
 	}
-	
-	//bmp_convert(".\\photo\\map.bmp",".\\photo\\map.dbm");
-	//show_dbm(5,100,".\\photo\\map.dbm");
-	//getchar();
-	//closegraph();
+
+	// bmp_convert(".\\photo\\map.bmp",".\\photo\\map.dbm");
+	// show_dbm(5,100,".\\photo\\map.dbm");
+	// getchar();
+	// closegraph();
 }
 
-
-//start playing the picking video
-void start_ainime01(int t_trac,int x,int y,int num)
+// start playing the picking video
+void start_ainime01(int t_trac, int x, int y, int num)
 {
-	static int i,x_p,y_p,flag,out;
-	i=0,x_p=x_start,y_p=y_start+y-40,flag=0,out=0;
-	x/=num;
+	static int i, x_p, y_p, flag, out;
+	i = 0, x_p = x_start, y_p = y_start + y - 40, flag = 0, out = 0;
+	x /= num;
 	skip();
-	if(t_trac==0)
+	if (t_trac == 0)
 	{
-		earth_fill01(x_p,y_p);
-		init_tracktor01_f(x_p,y_p);
-		while(1)
+		earth_fill01(x_p, y_p);
+		init_tracktor01_f(x_p, y_p);
+		while (1)
 		{
-			if(x_p>=50+x)
+			if (x_p >= 50 + x)
 			{
 				break;
 			}
-			for(i=0;i<num;i++)
+			for (i = 0; i < num; i++)
 			{
-				newmouse(&MouseX,&MouseY,&press);
-				if(flag==0)
+				newmouse(&MouseX, &MouseY, &press);
+				if (flag == 0)
 				{
-					if(y_p==120+y-45)
+					if (y_p == 120 + y - 45)
 					{
-						earth_fill03(x_p+i*x,y_p-4);
+						earth_fill03(x_p + i * x, y_p - 4);
 					}
-					if(y_p>=120+7)
+					if (y_p >= 120 + 7)
 					{
-						earth_fill01(x_p+i*x,y_p);
-						init_tracktor01_f(x_p+i*x,y_p);
+						earth_fill01(x_p + i * x, y_p);
+						init_tracktor01_f(x_p + i * x, y_p);
 					}
-					if(y_p<=120+7)
+					if (y_p <= 120 + 7)
 					{
-						earth_fill03(x_p+i*x,120);
+						earth_fill03(x_p + i * x, 120);
 					}
 				}
 				else
 				{
-					if(y_p==120+7)
+					if (y_p == 120 + 7)
 					{
-						earth_fill01(x_p+i*x,y_p-7);
+						earth_fill01(x_p + i * x, y_p - 7);
 					}
-					if(y_p<=120+y-45)
+					if (y_p <= 120 + y - 45)
 					{
-						earth_fill02(x_p+i*x,y_p);
-						init_tracktor01_b(x_p+i*x,y_p);
+						earth_fill02(x_p + i * x, y_p);
+						init_tracktor01_b(x_p + i * x, y_p);
 					}
-					if(y_p>=120+y-45)
+					if (y_p >= 120 + y - 45)
 					{
-						earth_fill03(x_p+i*x,120+y-49);
+						earth_fill03(x_p + i * x, 120 + y - 49);
 					}
 				}
-				delay(20/num);
+				delay(20 / num);
 			}
-			if(flag==0)
+			if (flag == 0)
 			{
 				y_p--;
-				if(y_p<=120+7)
+				if (y_p <= 120 + 7)
 				{
-					for(i=0;i<num;i++)
-						earth_fill03(x_p+i*x,120);
-					flag=1;
-					x_p+=25;
+					for (i = 0; i < num; i++)
+						earth_fill03(x_p + i * x, 120);
+					flag = 1;
+					x_p += 25;
 				}
 			}
 			else
 			{
 				y_p++;
-				if(y_p>=120+y-45)
+				if (y_p >= 120 + y - 45)
 				{
-					for(i=0;i<num;i++)
-						earth_fill03(x_p+i*x,120+y-49);
-					flag=0;
-					x_p+=25;
+					for (i = 0; i < num; i++)
+						earth_fill03(x_p + i * x, 120 + y - 49);
+					flag = 0;
+					x_p += 25;
 				}
 			}
-			out=pressed_anime(x*num,y);
-			if(out!=0)
+			out = pressed_anime(x * num, y);
+			if (out != 0)
 			{
-				for(i=1;i<=num;i++)
+				for (i = 1; i <= num; i++)
 				{
-					init_tracktor01_f(x_start+i*x-x%25,y_start+7);
+					init_tracktor01_f(x_start + i * x - x % 25, y_start + 7);
 				}
 				return;
 			}
-			//delay(15*num);
+			// delay(15*num);
 		}
-		for(i=1;i<=num;i++)
+		for (i = 1; i <= num; i++)
 		{
-			if(flag==1)
-				init_tracktor01_f(x_start+i*x-x%25,y_start+7);
+			if (flag == 1)
+				init_tracktor01_f(x_start + i * x - x % 25, y_start + 7);
 			else
-				init_tracktor01_b(x_start+i*x-x%25,y_start+y-45);
+				init_tracktor01_b(x_start + i * x - x % 25, y_start + y - 45);
 		}
 	}
 	else
 	{
-		earth_fill01(x_p,y_p);
-		init_tracktor02_f(x_p,y_p);
-		while(1)
+		earth_fill01(x_p, y_p);
+		init_tracktor02_f(x_p, y_p);
+		while (1)
 		{
-			if(x_p>=50+x)
+			if (x_p >= 50 + x)
 			{
 				break;
 			}
-			for(i=0;i<num;i++)
+			for (i = 0; i < num; i++)
 			{
-				newmouse(&MouseX,&MouseY,&press);
-				if(flag==0)
+				newmouse(&MouseX, &MouseY, &press);
+				if (flag == 0)
 				{
-					if(y_p==120+y-45)
+					if (y_p == 120 + y - 45)
 					{
-						earth_fill03(x_p+i*x,y_p-4);
+						earth_fill03(x_p + i * x, y_p - 4);
 					}
-					if(y_p>=120+7)
+					if (y_p >= 120 + 7)
 					{
-						earth_fill01(x_p+i*x,y_p);
-						init_tracktor02_f(x_p+i*x,y_p);
+						earth_fill01(x_p + i * x, y_p);
+						init_tracktor02_f(x_p + i * x, y_p);
 					}
-					if(y_p<=120+7)
+					if (y_p <= 120 + 7)
 					{
-						earth_fill03(x_p+i*x,120);
+						earth_fill03(x_p + i * x, 120);
 					}
 				}
 				else
 				{
-					if(y_p==120+7)
+					if (y_p == 120 + 7)
 					{
-						earth_fill01(x_p+i*x,y_p-7);
+						earth_fill01(x_p + i * x, y_p - 7);
 					}
-					if(y_p<=120+y-45)
+					if (y_p <= 120 + y - 45)
 					{
-						earth_fill02(x_p+i*x,y_p);
-						init_tracktor02_b(x_p+i*x,y_p);
+						earth_fill02(x_p + i * x, y_p);
+						init_tracktor02_b(x_p + i * x, y_p);
 					}
-					if(y_p>=120+y-45)
+					if (y_p >= 120 + y - 45)
 					{
-						earth_fill03(x_p+i*x,120+y-49);
+						earth_fill03(x_p + i * x, 120 + y - 49);
 					}
 				}
-				delay(20/num);
+				delay(20 / num);
 			}
-			if(flag==0)
+			if (flag == 0)
 			{
 				y_p--;
-				if(y_p<=120+7)
+				if (y_p <= 120 + 7)
 				{
-					for(i=0;i<num;i++)
-						earth_fill03(x_p+i*x,120);
-					flag=1;
-					x_p+=25;
+					for (i = 0; i < num; i++)
+						earth_fill03(x_p + i * x, 120);
+					flag = 1;
+					x_p += 25;
 				}
 			}
 			else
 			{
 				y_p++;
-				if(y_p>=120+y-45)
+				if (y_p >= 120 + y - 45)
 				{
-					for(i=0;i<num;i++)
-						earth_fill03(x_p+i*x,120+y-49);
-					flag=0;
-					x_p+=25;
+					for (i = 0; i < num; i++)
+						earth_fill03(x_p + i * x, 120 + y - 49);
+					flag = 0;
+					x_p += 25;
 				}
 			}
-			out=pressed_anime(x*num,y);
-			if(out!=0)
+			out = pressed_anime(x * num, y);
+			if (out != 0)
 			{
-				for(i=1;i<=num;i++)
+				for (i = 1; i <= num; i++)
 				{
-					init_tracktor02_f(x_start+i*x-x%25,y_start+7);
+					init_tracktor02_f(x_start + i * x - x % 25, y_start + 7);
 				}
 				return;
 			}
-			//delay(15*num);
+			// delay(15*num);
 		}
-		for(i=1;i<=num;i++)
+		for (i = 1; i <= num; i++)
 		{
-			if(flag==1)
-				init_tracktor02_f(x_start+i*x-x%25,y_start+7);
+			if (flag == 1)
+				init_tracktor02_f(x_start + i * x - x % 25, y_start + 7);
 			else
-				init_tracktor02_b(x_start+i*x-x%25,y_start+y-45);
+				init_tracktor02_b(x_start + i * x - x % 25, y_start + y - 45);
 		}
 	}
 }
 
-//add the press moudules in start page
+// add the press moudules in start page
 void press_start()
 {
-	if(mouse_press(0,0,40,30)==0||mouse_press(265,350,365,410)==0)
+	if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(265, 350, 365, 410) == 0)
 	{
-		MouseS=0;
+		MouseS = 0;
 	}
-	if(mouse_press(0,0,40,30)==2||mouse_press(265,350,365,410)==2)
+	if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(265, 350, 365, 410) == 2)
 	{
-		MouseS=1;
+		MouseS = 1;
 	}
-	if(mouse_press(0,0,40,30)==1)
+	if (mouse_press(0, 0, 40, 30) == 1)
 	{
 		draw_wel();
 	}
-	else if(mouse_press(265,350,365,410)==1)
+	else if (mouse_press(265, 350, 365, 410) == 1)
 	{
 		draw_home01();
 	}
 }
 
-//add press moudules in video page
-int pressed_anime(int x,int y)
+// add press moudules in video page
+int pressed_anime(int x, int y)
 {
 	static int re;
-	re=0;
-	if(MouseX>=x_start&&MouseY>=y_start&&MouseX<=x_start+x&&MouseY<=y_start+y)
+	re = 0;
+	if (MouseX >= x_start && MouseY >= y_start && MouseX <= x_start + x && MouseY <= y_start + y)
 	{
-		clrmous(MouseX,MouseY);
+		clrmous(MouseX, MouseY);
 	}
-	if(mouse_press(0,0,40,30)==0||mouse_press(585,450,625,480)==0)
+	if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(585, 450, 625, 480) == 0)
 	{
-		MouseS=0;
+		MouseS = 0;
 	}
-	if(mouse_press(0,0,40,30)==2||mouse_press(585,450,625,480)==2)
+	if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(585, 450, 625, 480) == 2)
 	{
-		MouseS=1;
+		MouseS = 1;
 	}
-	if(mouse_press(0,0,40,30)==1)
+	if (mouse_press(0, 0, 40, 30) == 1)
 	{
 		draw_wel();
 	}
-	if(mouse_press(585,450,625,480)==1)
+	if (mouse_press(585, 450, 625, 480) == 1)
 	{
-		anime_skip_result(x,y);
-		re=1;
+		anime_skip_result(x, y);
+		re = 1;
 	}
-    return re;
+	return re;
 }
 
-//show after picking 
+// show after picking
 void pick_finish(int count)
 {
 	char str[10];
-	itoa(count,str,10);
-	setfillstyle(1,WHITE);
-	bar(160,170,470,340);
+	itoa(count, str, 10);
+	setfillstyle(1, WHITE);
+	bar(160, 170, 470, 340);
 	setcolor(RED);
-	setlinestyle(0,0,3);
-	rectangle(165,175,465,335);
+	setlinestyle(0, 0, 3);
+	rectangle(165, 175, 465, 335);
 
-	puthz(210,190,"采摘完成",32,32,BLUE);
-	puthz(210,230,"共计：",32,32,BLUE);
-	settextstyle(3,0,4);
-	puthz(380,230,"吨",32,32,BLUE);
-	outtextxy(300,225,str);
-	switch(here[k].cotton_type)
+	puthz(210, 190, "采摘完成", 32, 32, BLUE);
+	puthz(210, 230, "共计：", 32, 32, BLUE);
+	settextstyle(3, 0, 4);
+	puthz(380, 230, "吨", 32, 32, BLUE);
+	outtextxy(300, 225, str);
+	switch (here[k].cotton_type)
 	{
-		case 0:
-		{
-			puthz(210,270,"种类：长绒棉",32,32,BLUE);
-			break;
-		}
-		case 1:
-		{
-			puthz(210,270,"种类：细绒棉",32,32,BLUE);
-			break;
-		}
-		case 2:
-		{
-			puthz(210,270,"种类：粗绒棉",32,32,BLUE);
-			break;
-		}
-		default:
-			break;
+	case 0:
+	{
+		puthz(210, 270, "种类：长绒棉", 32, 32, BLUE);
+		break;
+	}
+	case 1:
+	{
+		puthz(210, 270, "种类：细绒棉", 32, 32, BLUE);
+		break;
+	}
+	case 2:
+	{
+		puthz(210, 270, "种类：粗绒棉", 32, 32, BLUE);
+		break;
+	}
+	default:
+		break;
 	}
 
-	setfillstyle(1,YELLOW);
-	bar(265,350,365,410);
-	puthz(278,360,"入库",32,32,RED);
+	setfillstyle(1, YELLOW);
+	bar(265, 350, 365, 410);
+	puthz(278, 360, "入库", 32, 32, RED);
 }
 
-//moudules which skip the video and show the result
-void anime_skip_result(int x,int y)
+// moudules which skip the video and show the result
+void anime_skip_result(int x, int y)
 {
-	int i=0;
-	setfillstyle(1,BROWN);
+	int i = 0;
+	setfillstyle(1, BROWN);
 	setcolor(WHITE);
-	bar(x_start,y_start,x_start+x,y_start+y);
-	for(i=0;i<2000;i++)
+	bar(x_start, y_start, x_start + x, y_start + y);
+	for (i = 0; i < 2000; i++)
 	{
-		int x_t=rand()%x,y_t=rand()%y;
-		line(x_start+x_t,y_start+y_t,x_start+x_t,y_start+y_t);
+		int x_t = rand() % x, y_t = rand() % y;
+		line(x_start + x_t, y_start + y_t, x_start + x_t, y_start + y_t);
 	}
 }
 
-//initialize the cotton field
-void init_field(int x,int y)
+// initialize the cotton field
+void init_field(int x, int y)
 {
-	int i,j;
+	int i, j;
 	setcolor(BROWN);
-	setlinestyle(0,0,1);
-	line(50,120,50+x,120);
-	line(50,120+y,50+x,120+y);
-	for(i=50;i<=50+x;i+=25)
+	setlinestyle(0, 0, 1);
+	line(50, 120, 50 + x, 120);
+	line(50, 120 + y, 50 + x, 120 + y);
+	for (i = 50; i <= 50 + x; i += 25)
 	{
-		int temp=0;
-		for(j=120;j<=120+y;j+=1)
+		int temp = 0;
+		for (j = 120; j <= 120 + y; j += 1)
 		{
-			temp=rand()%2;
-			line(i+temp,j,i+temp,j);
+			temp = rand() % 2;
+			line(i + temp, j, i + temp, j);
 		}
 	}
-	for(i=0;i<5000;i++)
+	for (i = 0; i < 5000; i++)
 	{
-		int x_temp=0,y_temp=0;
-		x_temp=rand()%x;
-		y_temp=rand()%y;
-		line(50+x_temp,120+y_temp,50+x_temp,120+y_temp);
+		int x_temp = 0, y_temp = 0;
+		x_temp = rand() % x;
+		y_temp = rand() % y;
+		line(50 + x_temp, 120 + y_temp, 50 + x_temp, 120 + y_temp);
 	}
 }
 
-//initialize the tarcker 01
-void init_tracktor01_f(int x,int y)
+// initialize the tarcker 01
+void init_tracktor01_f(int x, int y)
 {
 	int i;
-	setlinestyle(0,0,1);
+	setlinestyle(0, 0, 1);
 	setcolor(DARKGRAY);
-	//The main rectangle
-	setfillstyle(1,RED);
-	bar(x+3,y-3,x+22,y+38);
-	rectangle(x+3,y-3,x+22,y+38);
-	setlinestyle(0,0,3);
-	rectangle(x+6,y-6,x+19,y+35);
+	// The main rectangle
+	setfillstyle(1, RED);
+	bar(x + 3, y - 3, x + 22, y + 38);
+	rectangle(x + 3, y - 3, x + 22, y + 38);
+	setlinestyle(0, 0, 3);
+	rectangle(x + 6, y - 6, x + 19, y + 35);
 
-	//The samll bars
+	// The samll bars
 	setcolor(DARKGRAY);
-	setlinestyle(0,0,1);
-	setfillstyle(1,YELLOW);
-	bar(x,y,x+25,y-3);
-	rectangle(x,y,x+25,y+3);
-	for(i=x;i<=25+x;i+=2)
+	setlinestyle(0, 0, 1);
+	setfillstyle(1, YELLOW);
+	bar(x, y, x + 25, y - 3);
+	rectangle(x, y, x + 25, y + 3);
+	for (i = x; i <= 25 + x; i += 2)
 	{
-		bar(i-1,y+1,i+1,y-4);
-		rectangle(i-1,y+1,i+1,y-4);
+		bar(i - 1, y + 1, i + 1, y - 4);
+		rectangle(i - 1, y + 1, i + 1, y - 4);
 	}
 
-	//The driver site
-	setfillstyle(1,RED);
-	bar(x+7,y-5,x+18,y+6);
-	rectangle(x+7,y-5,x+18,y+6);
+	// The driver site
+	setfillstyle(1, RED);
+	bar(x + 7, y - 5, x + 18, y + 6);
+	rectangle(x + 7, y - 5, x + 18, y + 6);
 
-	//The wheels
-	setfillstyle(1,BLUE);
-	bar(x+1,y+9,x+3,y+15);
-	bar(x+22,y+9,x+24,y+15);
-	bar(x+1,y+26,x+3,y+32);
-	bar(x+22,y+26,x+24,y+32);
+	// The wheels
+	setfillstyle(1, BLUE);
+	bar(x + 1, y + 9, x + 3, y + 15);
+	bar(x + 22, y + 9, x + 24, y + 15);
+	bar(x + 1, y + 26, x + 3, y + 32);
+	bar(x + 22, y + 26, x + 24, y + 32);
 }
 
-//initialize the tracktor type 1
-void init_tracktor01_b(int x,int y)
+// initialize the tracktor type 1
+void init_tracktor01_b(int x, int y)
 {
 	int i;
-	setlinestyle(0,0,1);
+	setlinestyle(0, 0, 1);
 	setcolor(DARKGRAY);
-	//The main rectangle
-	setfillstyle(1,RED);
-	bar(x+3,y,x+22,y+41);
-	rectangle(x+3,y,x+22,y+41);
-	setlinestyle(0,0,3);
-	rectangle(x+6,y+3,x+19,y+38);
+	// The main rectangle
+	setfillstyle(1, RED);
+	bar(x + 3, y, x + 22, y + 41);
+	rectangle(x + 3, y, x + 22, y + 41);
+	setlinestyle(0, 0, 3);
+	rectangle(x + 6, y + 3, x + 19, y + 38);
 
-	//The samll bars
+	// The samll bars
 	setcolor(DARKGRAY);
-	setlinestyle(0,0,1);
-	setfillstyle(1,YELLOW);
-	bar(x,y+38,x+25,y+41);
-	rectangle(x,y+38,x+25,y+41);
-	for(i=x;i<=25+x;i+=2)
+	setlinestyle(0, 0, 1);
+	setfillstyle(1, YELLOW);
+	bar(x, y + 38, x + 25, y + 41);
+	rectangle(x, y + 38, x + 25, y + 41);
+	for (i = x; i <= 25 + x; i += 2)
 	{
-		bar(i-1,y+41,i+1,y+37);
-		rectangle(i-1,y+41,i+1,y+37);
+		bar(i - 1, y + 41, i + 1, y + 37);
+		rectangle(i - 1, y + 41, i + 1, y + 37);
 	}
 
-	//The driver site
-	setfillstyle(1,RED);
-	bar(x+7,y+43,x+18,y+32);
-	rectangle(x+7,y+43,x+18,y+32);
+	// The driver site
+	setfillstyle(1, RED);
+	bar(x + 7, y + 43, x + 18, y + 32);
+	rectangle(x + 7, y + 43, x + 18, y + 32);
 
-	//The wheels
-	setfillstyle(1,BLUE);
-	bar(x+1,y+29,x+3,y+23);
-	bar(x+22,y+29,x+24,y+23);
-	bar(x+1,y+12,x+3,y+6);
-	bar(x+22,y+12,x+24,y+6);
+	// The wheels
+	setfillstyle(1, BLUE);
+	bar(x + 1, y + 29, x + 3, y + 23);
+	bar(x + 22, y + 29, x + 24, y + 23);
+	bar(x + 1, y + 12, x + 3, y + 6);
+	bar(x + 22, y + 12, x + 24, y + 6);
 }
 
-
-void init_tracktor01_r(int x,int y)
+void init_tracktor01_r(int x, int y)
 {
 	int i;
-	setlinestyle(0,0,1);
+	setlinestyle(0, 0, 1);
 	setcolor(DARKGRAY);
-	//The main rectangle
-	setfillstyle(1,RED);
-	bar(x-3,y+3,x-38,y+22);
-	rectangle(x-3,y+3,x-38,y+22);
-	setlinestyle(0,0,3);
-	rectangle(x-6,y+6,x-35,y+19);
+	// The main rectangle
+	setfillstyle(1, RED);
+	bar(x - 3, y + 3, x - 38, y + 22);
+	rectangle(x - 3, y + 3, x - 38, y + 22);
+	setlinestyle(0, 0, 3);
+	rectangle(x - 6, y + 6, x - 35, y + 19);
 
-	//The samll bars
+	// The samll bars
 	setcolor(DARKGRAY);
-	setlinestyle(0,0,1);
-	setfillstyle(1,YELLOW);
-	bar(x,y,x-3,y+25);
-	rectangle(x,y,x-3,y+25);
-	for(i=y;i<=25+y;i+=2)
+	setlinestyle(0, 0, 1);
+	setfillstyle(1, YELLOW);
+	bar(x, y, x - 3, y + 25);
+	rectangle(x, y, x - 3, y + 25);
+	for (i = y; i <= 25 + y; i += 2)
 	{
-		bar(x+1,i-1,x-4,i+1);
-		rectangle(x+1,i-1,x-4,i+1);
+		bar(x + 1, i - 1, x - 4, i + 1);
+		rectangle(x + 1, i - 1, x - 4, i + 1);
 	}
 
-	//The driver site
-	setfillstyle(1,RED);
-	bar(x-5,y+7,x+6,y+18);
-	rectangle(x-5,y+7,x+6,y+18);
+	// The driver site
+	setfillstyle(1, RED);
+	bar(x - 5, y + 7, x + 6, y + 18);
+	rectangle(x - 5, y + 7, x + 6, y + 18);
 
-	//The wheels
-	setfillstyle(1,BLUE);
-	bar(x-9,y+1,x-15,y+3);
-	bar(x-9,y+22,x-15,y+24);
-	bar(x-26,y+1,x-32,y+3);
-	bar(x-26,y+22,x-32,y+24);
+	// The wheels
+	setfillstyle(1, BLUE);
+	bar(x - 9, y + 1, x - 15, y + 3);
+	bar(x - 9, y + 22, x - 15, y + 24);
+	bar(x - 26, y + 1, x - 32, y + 3);
+	bar(x - 26, y + 22, x - 32, y + 24);
 }
 
-void init_tracktor01_l(int x,int y)
+void init_tracktor01_l(int x, int y)
 {
 	int i;
-	setlinestyle(0,0,1);
+	setlinestyle(0, 0, 1);
 	setcolor(DARKGRAY);
-	//The main rectangle
-	setfillstyle(1,RED);
-	bar(x,y+3,x-41,y+22);
-	rectangle(x,y+3,x-41,y+22);
-	setlinestyle(0,0,3);
-	rectangle(x-3,y+6,x-38,y+19);
+	// The main rectangle
+	setfillstyle(1, RED);
+	bar(x, y + 3, x - 41, y + 22);
+	rectangle(x, y + 3, x - 41, y + 22);
+	setlinestyle(0, 0, 3);
+	rectangle(x - 3, y + 6, x - 38, y + 19);
 
-	//The samll bars
+	// The samll bars
 	setcolor(DARKGRAY);
-	setlinestyle(0,0,1);
-	setfillstyle(1,YELLOW);
-	bar(x-38,y,x-41,y+25);
-	rectangle(x-38,y,x-41,y+25);
-	for(i=y;i<=25+y;i+=2)
+	setlinestyle(0, 0, 1);
+	setfillstyle(1, YELLOW);
+	bar(x - 38, y, x - 41, y + 25);
+	rectangle(x - 38, y, x - 41, y + 25);
+	for (i = y; i <= 25 + y; i += 2)
 	{
-		bar(x-41,i-1,x-37,i+1);
-		rectangle(x-41,i-1,x-37,i+1);
+		bar(x - 41, i - 1, x - 37, i + 1);
+		rectangle(x - 41, i - 1, x - 37, i + 1);
 	}
 
-	//The driver site
-	setfillstyle(1,RED);
-	bar(x-43,y+7,x-32,y+18);
-	rectangle(x-43,y+7,x-32,y+18);
+	// The driver site
+	setfillstyle(1, RED);
+	bar(x - 43, y + 7, x - 32, y + 18);
+	rectangle(x - 43, y + 7, x - 32, y + 18);
 
-	//The wheels
-	setfillstyle(1,BLUE);
-	bar(x-29,y+1,x-23,y+3);
-	bar(x-29,y+22,x-23,y+24);
-	bar(x-12,y+1,x-6,y+3);
-	bar(x-12,y+22,x-6,y+24);
+	// The wheels
+	setfillstyle(1, BLUE);
+	bar(x - 29, y + 1, x - 23, y + 3);
+	bar(x - 29, y + 22, x - 23, y + 24);
+	bar(x - 12, y + 1, x - 6, y + 3);
+	bar(x - 12, y + 22, x - 6, y + 24);
 }
 
-//initialize the tarcker 02 in front 
-void init_tracktor02_f(int x,int y)
+// initialize the tarcker 02 in front
+void init_tracktor02_f(int x, int y)
 {
 	int i;
-	setlinestyle(0,0,1);
+	setlinestyle(0, 0, 1);
 	setcolor(DARKGRAY);
-	//The main rectangle
-	setfillstyle(1,GREEN);
-	bar(x+3,y-3,x+22,y+38);
-	rectangle(x+3,y-3,x+22,y+38);
-	setlinestyle(0,0,3);
-	rectangle(x+6,y-6,x+19,y+35);
+	// The main rectangle
+	setfillstyle(1, GREEN);
+	bar(x + 3, y - 3, x + 22, y + 38);
+	rectangle(x + 3, y - 3, x + 22, y + 38);
+	setlinestyle(0, 0, 3);
+	rectangle(x + 6, y - 6, x + 19, y + 35);
 
-	//The samll bars
+	// The samll bars
 	setcolor(DARKGRAY);
-	setlinestyle(0,0,1);
-	setfillstyle(1,YELLOW);
-	bar(x,y,x+25,y-3);
-	rectangle(x,y,x+25,y+3);
-	for(i=x;i<=25+x;i+=2)
+	setlinestyle(0, 0, 1);
+	setfillstyle(1, YELLOW);
+	bar(x, y, x + 25, y - 3);
+	rectangle(x, y, x + 25, y + 3);
+	for (i = x; i <= 25 + x; i += 2)
 	{
-		bar(i-1,y+1,i+1,y-4);
-		rectangle(i-1,y+1,i+1,y-4);
+		bar(i - 1, y + 1, i + 1, y - 4);
+		rectangle(i - 1, y + 1, i + 1, y - 4);
 	}
 
-	//The driver site
-	setfillstyle(1,GREEN);
-	bar(x+7,y-5,x+18,y+6);
-	rectangle(x+7,y-5,x+18,y+6);
+	// The driver site
+	setfillstyle(1, GREEN);
+	bar(x + 7, y - 5, x + 18, y + 6);
+	rectangle(x + 7, y - 5, x + 18, y + 6);
 
-	//The wheels
-	setfillstyle(1,BLUE);
-	bar(x+1,y+9,x+3,y+15);
-	bar(x+22,y+9,x+24,y+15);
-	bar(x+1,y+26,x+3,y+32);
-	bar(x+22,y+26,x+24,y+32);
+	// The wheels
+	setfillstyle(1, BLUE);
+	bar(x + 1, y + 9, x + 3, y + 15);
+	bar(x + 22, y + 9, x + 24, y + 15);
+	bar(x + 1, y + 26, x + 3, y + 32);
+	bar(x + 22, y + 26, x + 24, y + 32);
 }
 
-//initialize the tracktor type 2 in backward
-void init_tracktor02_b(int x,int y)
+// initialize the tracktor type 2 in backward
+void init_tracktor02_b(int x, int y)
 {
 	int i;
-	setlinestyle(0,0,1);
+	setlinestyle(0, 0, 1);
 	setcolor(DARKGRAY);
-	//The main rectangle
-	setfillstyle(1,GREEN);
-	bar(x+3,y,x+22,y+41);
-	rectangle(x+3,y,x+22,y+41);
-	setlinestyle(0,0,3);
-	rectangle(x+6,y+3,x+19,y+38);
+	// The main rectangle
+	setfillstyle(1, GREEN);
+	bar(x + 3, y, x + 22, y + 41);
+	rectangle(x + 3, y, x + 22, y + 41);
+	setlinestyle(0, 0, 3);
+	rectangle(x + 6, y + 3, x + 19, y + 38);
 
-	//The samll bars
+	// The samll bars
 	setcolor(DARKGRAY);
-	setlinestyle(0,0,1);
-	setfillstyle(1,YELLOW);
-	bar(x,y+38,x+25,y+41);
-	rectangle(x,y+38,x+25,y+41);
-	for(i=x;i<=25+x;i+=2)
+	setlinestyle(0, 0, 1);
+	setfillstyle(1, YELLOW);
+	bar(x, y + 38, x + 25, y + 41);
+	rectangle(x, y + 38, x + 25, y + 41);
+	for (i = x; i <= 25 + x; i += 2)
 	{
-		bar(i-1,y+41,i+1,y+37);
-		rectangle(i-1,y+41,i+1,y+37);
+		bar(i - 1, y + 41, i + 1, y + 37);
+		rectangle(i - 1, y + 41, i + 1, y + 37);
 	}
 
-	//The driver site
-	setfillstyle(1,GREEN);
-	bar(x+7,y+43,x+18,y+32);
-	rectangle(x+7,y+43,x+18,y+32);
+	// The driver site
+	setfillstyle(1, GREEN);
+	bar(x + 7, y + 43, x + 18, y + 32);
+	rectangle(x + 7, y + 43, x + 18, y + 32);
 
-	//The wheels
-	setfillstyle(1,BLUE);
-	bar(x+1,y+29,x+3,y+23);
-	bar(x+22,y+29,x+24,y+23);
-	bar(x+1,y+12,x+3,y+6);
-	bar(x+22,y+12,x+24,y+6);
+	// The wheels
+	setfillstyle(1, BLUE);
+	bar(x + 1, y + 29, x + 3, y + 23);
+	bar(x + 22, y + 29, x + 24, y + 23);
+	bar(x + 1, y + 12, x + 3, y + 6);
+	bar(x + 22, y + 12, x + 24, y + 6);
 }
 
-void init_tracktor02_r(int x,int y)
+void init_tracktor02_r(int x, int y)
 {
 	int i;
-	setlinestyle(0,0,1);
+	setlinestyle(0, 0, 1);
 	setcolor(DARKGRAY);
-	//The main rectangle
-	setfillstyle(1,GREEN);
-	bar(x-3,y+3,x-38,y+22);
-	rectangle(x-3,y+3,x-38,y+22);
-	setlinestyle(0,0,3);
-	rectangle(x-6,y+6,x-35,y+19);
+	// The main rectangle
+	setfillstyle(1, GREEN);
+	bar(x - 3, y + 3, x - 38, y + 22);
+	rectangle(x - 3, y + 3, x - 38, y + 22);
+	setlinestyle(0, 0, 3);
+	rectangle(x - 6, y + 6, x - 35, y + 19);
 
-	//The samll bars
+	// The samll bars
 	setcolor(DARKGRAY);
-	setlinestyle(0,0,1);
-	setfillstyle(1,YELLOW);
-	bar(x,y,x-3,y+25);
-	rectangle(x,y,x-3,y+25);
-	for(i=y;i<=25+y;i+=2)
+	setlinestyle(0, 0, 1);
+	setfillstyle(1, YELLOW);
+	bar(x, y, x - 3, y + 25);
+	rectangle(x, y, x - 3, y + 25);
+	for (i = y; i <= 25 + y; i += 2)
 	{
-		bar(x+1,i-1,x-4,i+1);
-		rectangle(x+1,i-1,x-4,i+1);
+		bar(x + 1, i - 1, x - 4, i + 1);
+		rectangle(x + 1, i - 1, x - 4, i + 1);
 	}
 
-	//The driver site
-	setfillstyle(1,GREEN);
-	bar(x-5,y+7,x+6,y+18);
-	rectangle(x-5,y+7,x+6,y+18);
+	// The driver site
+	setfillstyle(1, GREEN);
+	bar(x - 5, y + 7, x + 6, y + 18);
+	rectangle(x - 5, y + 7, x + 6, y + 18);
 
-	//The wheels
-	setfillstyle(1,BLUE);
-	bar(x-9,y+1,x-15,y+3);
-	bar(x-9,y+22,x-15,y+24);
-	bar(x-26,y+1,x-32,y+3);
-	bar(x-26,y+22,x-32,y+24);
+	// The wheels
+	setfillstyle(1, BLUE);
+	bar(x - 9, y + 1, x - 15, y + 3);
+	bar(x - 9, y + 22, x - 15, y + 24);
+	bar(x - 26, y + 1, x - 32, y + 3);
+	bar(x - 26, y + 22, x - 32, y + 24);
 }
 
-void init_tracktor02_l(int x,int y)
+void init_tracktor02_l(int x, int y)
 {
 	int i;
-	setlinestyle(0,0,1);
+	setlinestyle(0, 0, 1);
 	setcolor(DARKGRAY);
-	//The main rectangle
-	setfillstyle(1,GREEN);
-	bar(x,y+3,x-41,y+22);
-	rectangle(x,y+3,x-41,y+22);
-	setlinestyle(0,0,3);
-	rectangle(x-3,y+6,x-38,y+19);
+	// The main rectangle
+	setfillstyle(1, GREEN);
+	bar(x, y + 3, x - 41, y + 22);
+	rectangle(x, y + 3, x - 41, y + 22);
+	setlinestyle(0, 0, 3);
+	rectangle(x - 3, y + 6, x - 38, y + 19);
 
-	//The samll bars
+	// The samll bars
 	setcolor(DARKGRAY);
-	setlinestyle(0,0,1);
-	setfillstyle(1,YELLOW);
-	bar(x-38,y,x-41,y+25);
-	rectangle(x-38,y,x-41,y+25);
-	for(i=y;i<=25+y;i+=2)
+	setlinestyle(0, 0, 1);
+	setfillstyle(1, YELLOW);
+	bar(x - 38, y, x - 41, y + 25);
+	rectangle(x - 38, y, x - 41, y + 25);
+	for (i = y; i <= 25 + y; i += 2)
 	{
-		bar(x-41,i-1,x-37,i+1);
-		rectangle(x-41,i-1,x-37,i+1);
+		bar(x - 41, i - 1, x - 37, i + 1);
+		rectangle(x - 41, i - 1, x - 37, i + 1);
 	}
 
-	//The driver site
-	setfillstyle(1,GREEN);
-	bar(x-43,y+7,x-32,y+18);
-	rectangle(x-43,y+7,x-32,y+18);
+	// The driver site
+	setfillstyle(1, GREEN);
+	bar(x - 43, y + 7, x - 32, y + 18);
+	rectangle(x - 43, y + 7, x - 32, y + 18);
 
-	//The wheels
-	setfillstyle(1,BLUE);
-	bar(x-29,y+1,x-23,y+3);
-	bar(x-29,y+22,x-23,y+24);
-	bar(x-12,y+1,x-6,y+3);
-	bar(x-12,y+22,x-6,y+24);
+	// The wheels
+	setfillstyle(1, BLUE);
+	bar(x - 29, y + 1, x - 23, y + 3);
+	bar(x - 29, y + 22, x - 23, y + 24);
+	bar(x - 12, y + 1, x - 6, y + 3);
+	bar(x - 12, y + 22, x - 6, y + 24);
 }
 
-//earth filling after pick ,front
-void earth_fill01(int x,int y)
+// earth filling after pick ,front
+void earth_fill01(int x, int y)
 {
-	setfillstyle(1,BROWN);
+	setfillstyle(1, BROWN);
 	setcolor(WHITE);
-	bar(x-1,y,x+25,y+41);
-	if(y%4==0)
+	bar(x - 1, y, x + 25, y + 41);
+	if (y % 4 == 0)
 	{
-		int x_temp=rand()%25;
-		line(x+x_temp,y+41,x+x_temp,y+41);
+		int x_temp = rand() % 25;
+		line(x + x_temp, y + 41, x + x_temp, y + 41);
 	}
 }
 
-//earth filling after pick,back
-void earth_fill02(int x,int y)
+// earth filling after pick,back
+void earth_fill02(int x, int y)
 {
-	setfillstyle(1,BROWN);
+	setfillstyle(1, BROWN);
 	setcolor(WHITE);
-	bar(x-1,y-1,x+25,y+41);
-	if(y%4==0)
+	bar(x - 1, y - 1, x + 25, y + 41);
+	if (y % 4 == 0)
 	{
-		int x_temp=rand()%25;
-		line(x+x_temp,y-1,x+x_temp,y-1);
+		int x_temp = rand() % 25;
+		line(x + x_temp, y - 1, x + x_temp, y - 1);
 	}
 }
 
-//earth filling after pick, turn direction
-void earth_fill03(int x,int y)
+// earth filling after pick, turn direction
+void earth_fill03(int x, int y)
 {
 	int i;
-	setfillstyle(1,BROWN);
+	setfillstyle(1, BROWN);
 	setcolor(WHITE);
-	bar(x-1,y,x+25,y+50);
-	for(i=0;i<10;i++)
+	bar(x - 1, y, x + 25, y + 50);
+	for (i = 0; i < 10; i++)
 	{
-		int x_temp=rand()%25,y_temp=rand()%50;
-		line(x_temp+x,y_temp+y,x_temp+x,y_temp+y);
+		int x_temp = rand() % 25, y_temp = rand() % 50;
+		line(x_temp + x, y_temp + y, x_temp + x, y_temp + y);
 	}
 }
 
-
-//earth filling  ,front and back
-void earth_cover01(int x,int y)
+// earth filling  ,front and back
+void earth_cover01(int x, int y)
 {
-	setfillstyle(1,BROWN);
+	setfillstyle(1, BROWN);
 	setcolor(WHITE);
-	bar(x-1,y,x+25,y+41);
+	bar(x - 1, y, x + 25, y + 41);
 	// if(y%4==0)
 	// {
 	// 	int x_temp=rand()%25;
@@ -734,12 +731,12 @@ void earth_cover01(int x,int y)
 	// }
 }
 
-//earth filling ,left and right
-void earth_cover02(int x,int y)
+// earth filling ,left and right
+void earth_cover02(int x, int y)
 {
-	setfillstyle(1,BROWN);
+	setfillstyle(1, BROWN);
 	setcolor(WHITE);
-	bar(x-1,y-1,x-41,y+25);
+	bar(x - 1, y - 1, x - 41, y + 25);
 	// if(y%4==0)
 	// {
 	// 	int x_temp=rand()%25;
@@ -747,13 +744,13 @@ void earth_cover02(int x,int y)
 	// }
 }
 
-//earth filling , turn direction
-void earth_cover03(int x,int y)
+// earth filling , turn direction
+void earth_cover03(int x, int y)
 {
 	int i;
-	setfillstyle(1,BROWN);
+	setfillstyle(1, BROWN);
 	setcolor(WHITE);
-	bar(x-1,y,x+25,y+50);
+	bar(x - 1, y, x + 25, y + 50);
 	// for(i=0;i<10;i++)
 	// {
 	// 	int x_temp=rand()%25,y_temp=rand()%50;
@@ -761,50 +758,60 @@ void earth_cover03(int x,int y)
 	// }
 }
 
-void select02()
+void select02(struct Parameter *abc)
 {
-	static int x[point_max],y[point_max],flag=0;
+	int x[point_max], y[point_max], flag = 0, back = 0,i;
 	cleardevice();
-    setbkcolor(WHITE);
+	setbkcolor(WHITE);
 	setcolor(GREEN);
-	setlinestyle(0,0,3);
-	rectangle(x_start,y_start,x_start+x_max,y_start+y_max);
-	puthz(170,30,"请依次在框内选点",32,32,BLUE);
-	setfillstyle(1,GREEN);
-	bar(200,70,280,115);
-	puthz(207,76,"开始",32,32,WHITE);
-	setfillstyle(1,RED);
-	bar(320,70,400,115);
-	puthz(327,76,"完成",32,32,WHITE);
-	settextstyle(3,0,4);
+	setlinestyle(0, 0, 3);
+	rectangle(x_start, y_start, x_start + x_max, y_start + y_max);
+	puthz(170, 30, "请依次在框内选点", 32, 32, BLUE);
+	setfillstyle(1, GREEN);
+	bar(200, 70, 280, 115);
+	puthz(207, 76, "开始", 32, 32, WHITE);
+	setfillstyle(1, RED);
+	bar(320, 70, 400, 115);
+	puthz(327, 76, "完成", 32, 32, WHITE);
+	settextstyle(3, 0, 4);
 	quit();
 
 	mouseinit();
-	while(1)
+	while (1)
 	{
-		newmouse(&MouseX,&MouseY,&press);
-		press_select02(x,y,&flag);
+		if (back != 0)
+		{
+			return;
+		}
+		newmouse(&MouseX, &MouseY, &press);
+		press_select02(x, y, &flag, &back);
 		delay(20);
+	}
+	abc->lenxy=flag;
+	for (i=0;i<dense_points_max;i++)
+	{
+		abc->x[i]=x[i];
+		abc->y[i]=y[i];
 	}
 }
 
-void press_select02(int *x,int *y,int *flag)
+void press_select02(int *x, int *y, int *flag, int *back)
 {
-	if(mouse_press(0,0,40,30)==0||mouse_press(200,70,280,115)==0||mouse_press(320,70,400,115)==0)
+	if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(200, 70, 280, 115) == 0 || mouse_press(320, 70, 400, 115) == 0)
 	{
-		MouseS=0;
+		MouseS = 0;
 	}
-	if(mouse_press(0,0,40,30)==2||mouse_press(200,70,280,115)==2||mouse_press(320,70,400,115)==2)
+	if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(200, 70, 280, 115) == 2 || mouse_press(320, 70, 400, 115) == 2)
 	{
-		MouseS=1;
+		MouseS = 1;
 	}
-	if(mouse_press(0,0,40,30)==1)
+	if (mouse_press(0, 0, 40, 30) == 1)
 	{
 		draw_wel();
 	}
-	if(mouse_press(200,70,280,115)==1)
+	if (mouse_press(200, 70, 280, 115) == 1)
 	{
-		pick_points(x,y,flag);
+		pick_points(x, y, flag);
 		return;
 	}
 	// if(mouse_press(200,70,280,115)==1&&(*flag)!=0)
@@ -812,18 +819,19 @@ void press_select02(int *x,int *y,int *flag)
 	// 	pick_points(x,y,flag);
 	// 	return;
 	// }
-	if(mouse_press(320,70,400,115)==1)
+	if (mouse_press(320, 70, 400, 115) == 1)
 	{
-		init_field02(x,y,flag);
+		init_field02(x, y, flag);
+		*back = 1;
 	}
 }
 
 void pick_wait()
 {
 	int i;
-	for(i=0;i<30;i++)
+	for (i = 0; i < 30; i++)
 	{
-		newmouse(&MouseX,&MouseY,&press);
+		newmouse(&MouseX, &MouseY, &press);
 		delay(10);
 	}
 }
@@ -850,49 +858,49 @@ void pick_wait()
 // 	return;
 // }
 
-void pick_points(int *x,int *y,int *flag)
+void pick_points(int *x, int *y, int *flag)
 {
-	clrmous(MouseX,MouseY);
-	setfillstyle(1,WHITE);
-	bar(200,70,280,115);
-	//mouseinit();
-	while(*flag==0)
+	clrmous(MouseX, MouseY);
+	setfillstyle(1, WHITE);
+	bar(200, 70, 280, 115);
+	// mouseinit();
+	while (*flag == 0)
 	{
-		newmouse(&MouseX,&MouseY,&press);
-		if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+		newmouse(&MouseX, &MouseY, &press);
+		if (mouse_press(x_start, y_start, x_start + x_max, y_start + y_max) == 1)
 		{
-			*x=MouseX;
-			*y=MouseY;
-			clrmous(MouseX,MouseY);
-			setfillstyle(1,GREEN);
-			bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+			*x = MouseX;
+			*y = MouseY;
+			clrmous(MouseX, MouseY);
+			setfillstyle(1, GREEN);
+			bar(x[*flag] - 5, y[*flag] - 5, x[*flag] + 5, y[*flag] + 5);
 			(*flag)++;
 		}
 		delay(20);
 	}
-	while((*flag)<point_max)
+	while ((*flag) < point_max)
 	{
-		newmouse(&MouseX,&MouseY,&press);
-		if(MouseX!=x[(*flag)-1]&&mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+		newmouse(&MouseX, &MouseY, &press);
+		if (MouseX != x[(*flag) - 1] && mouse_press(x_start, y_start, x_start + x_max, y_start + y_max) == 1)
 		{
-			x[*flag]=MouseX;
-			y[*flag]=MouseY;
-			clrmous(MouseX,MouseY);
-			setfillstyle(1,RED);
-			bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+			x[*flag] = MouseX;
+			y[*flag] = MouseY;
+			clrmous(MouseX, MouseY);
+			setfillstyle(1, RED);
+			bar(x[*flag] - 5, y[*flag] - 5, x[*flag] + 5, y[*flag] + 5);
 			setcolor(BLUE);
-			line(x[(*flag)-1],y[(*flag)-1],x[*flag],y[*flag]);
+			line(x[(*flag) - 1], y[(*flag) - 1], x[*flag], y[*flag]);
 			(*flag)++;
 		}
-		if(mouse_press(0,0,40,30)==0||mouse_press(320,70,400,115)==0)
+		if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(320, 70, 400, 115) == 0)
 		{
-			MouseS=0;
+			MouseS = 0;
 		}
-		if(mouse_press(0,0,40,30)==2||mouse_press(320,70,400,115)==2)
+		if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(320, 70, 400, 115) == 2)
 		{
-			MouseS=1;
+			MouseS = 1;
 		}
-		if(mouse_press(0,0,40,30)==1)
+		if (mouse_press(0, 0, 40, 30) == 1)
 		{
 			draw_wel();
 		}
@@ -906,10 +914,10 @@ void pick_points(int *x,int *y,int *flag)
 		// 	pick_points(x,y,flag);
 		// 	return;
 		// }
-		if(mouse_press(320,70,400,115)==1)
+		if (mouse_press(320, 70, 400, 115) == 1)
 		{
 			break;
-			//init_field02(x,y,flag);
+			// init_field02(x,y,flag);
 		}
 		delay(20);
 	}
@@ -936,33 +944,33 @@ void pick_points(int *x,int *y,int *flag)
 // 	return;
 // }
 
-void draw_points(int *x,int *y,int *flag,int *xy_m)
+void draw_points(int *x, int *y, int *flag, int *xy_m)
 {
-	int arr[point_max*2],i;
-	for(i=0;i<(*flag);i++)
+	int arr[point_max * 2], i;
+	for (i = 0; i < (*flag); i++)
 	{
-		if(x[i]<xy_m[0])
+		if (x[i] < xy_m[0])
 		{
-			xy_m[0]=x[i];
+			xy_m[0] = x[i];
 		}
-		if(y[i]<xy_m[1])
+		if (y[i] < xy_m[1])
 		{
-			xy_m[1]=y[i];
+			xy_m[1] = y[i];
 		}
-		if(x[i]>xy_m[2])
+		if (x[i] > xy_m[2])
 		{
-			xy_m[2]=x[i];
+			xy_m[2] = x[i];
 		}
-		if(y[i]>xy_m[3])
+		if (y[i] > xy_m[3])
 		{
-			xy_m[3]=y[i];
+			xy_m[3] = y[i];
 		}
-		arr[2*i]=x[i];
-		arr[2*i+1]=y[i];
+		arr[2 * i] = x[i];
+		arr[2 * i + 1] = y[i];
 	}
-	setfillstyle(1,WHITE);
+	setfillstyle(1, WHITE);
 	setcolor(WHITE);
-	fillpoly(i,arr);
+	fillpoly(i, arr);
 	return;
 }
 
@@ -995,99 +1003,107 @@ void draw_points(int *x,int *y,int *flag,int *xy_m)
 	return;
 }*/
 
-
-void select03()
+void select03(struct Parameter *abc)
 {
-	static int x[dense_points_max],y[dense_points_max],flag=0;
+	int x[dense_points_max], y[dense_points_max], flag = 0, back=0,i;
 	cleardevice();
-    setbkcolor(WHITE);
+	setbkcolor(WHITE);
 	setcolor(GREEN);
-	setlinestyle(0,0,3);
-	rectangle(x_start,y_start,x_start+x_max,y_start+y_max);
-	puthz(170,30,"请缓慢移动鼠标勾勒图形",32,32,BLUE);
-	setfillstyle(1,GREEN);
-	bar(200,70,280,115);
-	puthz(207,76,"开始",32,32,WHITE);
-	setfillstyle(1,RED);
-	bar(320,70,400,115);
-	puthz(327,76,"完成",32,32,WHITE);
-	settextstyle(3,0,4);
+	setlinestyle(0, 0, 3);
+	rectangle(x_start, y_start, x_start + x_max, y_start + y_max);
+	puthz(170, 30, "请缓慢移动鼠标勾勒图形", 32, 32, BLUE);
+	setfillstyle(1, GREEN);
+	bar(200, 70, 280, 115);
+	puthz(207, 76, "开始", 32, 32, WHITE);
+	setfillstyle(1, RED);
+	bar(320, 70, 400, 115);
+	puthz(327, 76, "完成", 32, 32, WHITE);
+	settextstyle(3, 0, 4);
 	quit();
 
 	mouseinit();
-	while(1)
+	while (1)
 	{
-		newmouse(&MouseX,&MouseY,&press);
-		press_select03(x,y,&flag);
+		if (back != 0)
+		{
+			return;
+		}
+		newmouse(&MouseX, &MouseY, &press);
+		press_select03(x, y, &flag,&back);
 		delay(20);
+	}
+	abc->lenxy=flag;
+	for (i=0;i<dense_points_max;i++)
+	{
+		abc->x[i]=x[i];
+		abc->y[i]=y[i];
 	}
 }
 
-void press_select03(int *x,int *y,int *flag)
+void press_select03(int *x, int *y, int *flag,int *back)
 {
-	if(mouse_press(0,0,40,30)==0||(mouse_press(200,70,280,115)==0&&(*flag==0))||mouse_press(320,70,400,115)==0)
+	if (mouse_press(0, 0, 40, 30) == 0 || (mouse_press(200, 70, 280, 115) == 0 && (*flag == 0)) || mouse_press(320, 70, 400, 115) == 0)
 	{
-		MouseS=0;
+		MouseS = 0;
 	}
-	if(mouse_press(0,0,40,30)==2||(mouse_press(200,70,280,115)==2&&(*flag==0))||mouse_press(320,70,400,115)==2)
+	if (mouse_press(0, 0, 40, 30) == 2 || (mouse_press(200, 70, 280, 115) == 2 && (*flag == 0)) || mouse_press(320, 70, 400, 115) == 2)
 	{
-		MouseS=1;
+		MouseS = 1;
 	}
-	if(mouse_press(0,0,40,30)==1)
+	if (mouse_press(0, 0, 40, 30) == 1)
 	{
 		draw_wel();
 	}
-	if(mouse_press(200,70,280,115)==1&&(*flag)==0)
+	if (mouse_press(200, 70, 280, 115) == 1 && (*flag) == 0)
 	{
-		dense_pick(x,y,flag);
+		dense_pick(x, y, flag);
 		return;
 	}
-	if(mouse_press(320,70,400,115)==1)
+	if (mouse_press(320, 70, 400, 115) == 1)
 	{
-		init_field03(x,y,flag);
-		return;
+		init_field03(x, y, flag);
+		back=1;
 	}
 }
 
-void dense_pick(int *x,int *y,int *flag)
+void dense_pick(int *x, int *y, int *flag)
 {
-	setfillstyle(1,WHITE);
-	clrmous(MouseX,MouseY);
-	bar(200,70,280,115);
-	setlinestyle(0,0,1);
+	setfillstyle(1, WHITE);
+	clrmous(MouseX, MouseY);
+	bar(200, 70, 280, 115);
+	setlinestyle(0, 0, 1);
 	setcolor(BLUE);
-	while((*flag)==0)
+	while ((*flag) == 0)
 	{
-		newmouse(&MouseX,&MouseY,&press);
-		if(mouse_press(x_start,y_start,x_start+x_max,y_start+y_max)==1)
+		newmouse(&MouseX, &MouseY, &press);
+		if (mouse_press(x_start, y_start, x_start + x_max, y_start + y_max) == 1)
 		{
-			*x=MouseX;
-			*y=MouseY;
-			clrmous(MouseX,MouseY);
-			setfillstyle(1,GREEN);
-			bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
+			*x = MouseX;
+			*y = MouseY;
+			clrmous(MouseX, MouseY);
+			setfillstyle(1, GREEN);
+			bar(x[*flag] - 5, y[*flag] - 5, x[*flag] + 5, y[*flag] + 5);
 			(*flag)++;
 			break;
 		}
 		delay(20);
 	}
 	pick_wait();
-	setfillstyle(1,RED);
-	while((*flag)<dense_points_max)
+	setfillstyle(1, RED);
+	while ((*flag) < dense_points_max)
 	{
-		if(((*flag)>=5&&abs(MouseX-x[0])<=3&&abs(MouseY-y[0])<=3)||MouseX<=x_start||MouseX>=x_start+x_max\
-		||MouseY<=y_start||MouseY>=y_start+y_max)
+		if (((*flag) >= 5 && abs(MouseX - x[0]) <= 3 && abs(MouseY - y[0]) <= 3) || MouseX <= x_start || MouseX >= x_start + x_max || MouseY <= y_start || MouseY >= y_start + y_max)
 		{
-			line(x[0],y[0],x[(*flag)-1],y[(*flag)-1]);
+			line(x[0], y[0], x[(*flag) - 1], y[(*flag) - 1]);
 			return;
 		}
-		if((MouseX-x[(*flag)-1])*(MouseX-x[(*flag)-1])>=4&&(MouseY-y[(*flag)-1])*(MouseY-y[(*flag)-1])>=4)
+		if ((MouseX - x[(*flag) - 1]) * (MouseX - x[(*flag) - 1]) >= 4 && (MouseY - y[(*flag) - 1]) * (MouseY - y[(*flag) - 1]) >= 4)
 		{
-			x[*flag]=MouseX;
-			y[*flag]=MouseY;
-			clrmous(MouseX,MouseY);
-			bar(x[*flag]-5,y[*flag]-5,x[*flag]+5,y[*flag]+5);
-			line(x[(*flag)-1],y[(*flag)-1],x[(*flag)],y[(*flag)]);
+			x[*flag] = MouseX;
+			y[*flag] = MouseY;
+			clrmous(MouseX, MouseY);
+			bar(x[*flag] - 5, y[*flag] - 5, x[*flag] + 5, y[*flag] + 5);
+			line(x[(*flag) - 1], y[(*flag) - 1], x[(*flag)], y[(*flag)]);
 			(*flag)++;
 		}
 		pick_wait();
@@ -1095,167 +1111,166 @@ void dense_pick(int *x,int *y,int *flag)
 	return;
 }
 
-void dense_draw_points(int *x,int *y,int *flag,long int *xy_m)
+void dense_draw_points(int *x, int *y, int *flag, long int *xy_m)
 {
-	int arr[dense_points_max*2],i;
-	for(i=0;i<(*flag);i++)
+	int arr[dense_points_max * 2], i;
+	for (i = 0; i < (*flag); i++)
 	{
-		if(x[i]<xy_m[0])
+		if (x[i] < xy_m[0])
 		{
-			xy_m[0]=x[i];
+			xy_m[0] = x[i];
 		}
-		if(y[i]<xy_m[1])
+		if (y[i] < xy_m[1])
 		{
-			xy_m[1]=y[i];
+			xy_m[1] = y[i];
 		}
-		if(x[i]>xy_m[2])
+		if (x[i] > xy_m[2])
 		{
-			xy_m[2]=x[i];
+			xy_m[2] = x[i];
 		}
-		if(y[i]>xy_m[3])
+		if (y[i] > xy_m[3])
 		{
-			xy_m[3]=y[i];
+			xy_m[3] = y[i];
 		}
-		arr[2*i]=x[i];
-		arr[2*i+1]=y[i];
+		arr[2 * i] = x[i];
+		arr[2 * i + 1] = y[i];
 	}
-	setfillstyle(1,WHITE);
+	setfillstyle(1, WHITE);
 	setcolor(WHITE);
-	fillpoly(i,arr);
+	fillpoly(i, arr);
 	return;
 }
 
-void init_field02(int *x,int *y,int *flag)
+void init_field02(int *x, int *y, int *flag)
 {
-	//The meaning of elements in xy_m:
+	// The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
-	static long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
+	static long int xy_m[4] = {x_start + x_max, y_start + y_max, x_start, y_start};
 	int i;
-	setfillstyle(1,BROWN);
-	setlinestyle(0,0,3);
-	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
-	draw_points(x,y,flag,xy_m);
+	setfillstyle(1, BROWN);
+	setlinestyle(0, 0, 3);
+	bar(x_start - 5, y_start - 5, x_start + x_max + 5, y_start + y_max + 5);
+	draw_points(x, y, flag, xy_m);
 	setcolor(BROWN);
-	for(i=xy_m[0];i<=xy_m[2];i+=25)
+	for (i = xy_m[0]; i <= xy_m[2]; i += 25)
 	{
-		int temp=0,j;
-		for(j=xy_m[1];j<=xy_m[3];j+=2)
+		int temp = 0, j;
+		for (j = xy_m[1]; j <= xy_m[3]; j += 2)
 		{
-			temp=rand()%2;
-			line(i+temp,j,i+temp,j);
+			temp = rand() % 2;
+			line(i + temp, j, i + temp, j);
 		}
 	}
-	for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))*0.01;i++)
+	for (i = 0; i < ((xy_m[2] - xy_m[0]) * (xy_m[3] - xy_m[1])) * 0.01; i++)
 	{
-		int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
-		line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
+		int x_r = rand() % (xy_m[2] - xy_m[0]), y_r = rand() % (xy_m[3] - xy_m[1]);
+		line(xy_m[0] + x_r, xy_m[1] + y_r, xy_m[0] + x_r, xy_m[1] + y_r);
 	}
-	for(i=xy_m[0];i<=xy_m[2];i+=25)
+	for (i = xy_m[0]; i <= xy_m[2]; i += 25)
 	{
-		int j=0;
-		for(j=xy_m[1];j<=xy_m[3];j++)
+		int j = 0;
+		for (j = xy_m[1]; j <= xy_m[3]; j++)
 		{
-			int temp=rand()%2;
-			line(i+temp,j,i+temp,j);
+			int temp = rand() % 2;
+			line(i + temp, j, i + temp, j);
 		}
 	}
-	//setcolor(GREEN);
-	//rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
-	// setcolor(BROWN);
-	// for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))/20;i++)
-	// {
-	// 	int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
-	// 	line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
-	// }
+	// setcolor(GREEN);
+	// rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
+	//  setcolor(BROWN);
+	//  for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))/20;i++)
+	//  {
+	//  	int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
+	//  	line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
+	//  }
 	delay(1000);
-	dense_init_tracktor01(x,y,flag,xy_m,3);
+	dense_init_tracktor01(x, y, flag, xy_m, 3);
 }
 
-
-void init_field03(int *x,int *y,int *flag)
+void init_field03(int *x, int *y, int *flag)
 {
-	//The meaning of elements in xy_m:
+	// The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
-	static long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start},i;
-	setfillstyle(1,BROWN);
-	setlinestyle(0,0,3);
-	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
-	dense_draw_points(x,y,flag,xy_m);
+	static long int xy_m[4] = {x_start + x_max, y_start + y_max, x_start, y_start}, i;
+	setfillstyle(1, BROWN);
+	setlinestyle(0, 0, 3);
+	bar(x_start - 5, y_start - 5, x_start + x_max + 5, y_start + y_max + 5);
+	dense_draw_points(x, y, flag, xy_m);
 	setcolor(BROWN);
-	for(i=xy_m[0];i<=xy_m[2];i+=25)
+	for (i = xy_m[0]; i <= xy_m[2]; i += 25)
 	{
-		int temp=0,j;
-		for(j=xy_m[1];j<=xy_m[3];j+=2)
+		int temp = 0, j;
+		for (j = xy_m[1]; j <= xy_m[3]; j += 2)
 		{
-			temp=rand()%2;
-			line(i+temp,j,i+temp,j);
+			temp = rand() % 2;
+			line(i + temp, j, i + temp, j);
 		}
 	}
-	for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))*0.01;i++)
+	for (i = 0; i < ((xy_m[2] - xy_m[0]) * (xy_m[3] - xy_m[1])) * 0.01; i++)
 	{
-		int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
-		line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
+		int x_r = rand() % (xy_m[2] - xy_m[0]), y_r = rand() % (xy_m[3] - xy_m[1]);
+		line(xy_m[0] + x_r, xy_m[1] + y_r, xy_m[0] + x_r, xy_m[1] + y_r);
 	}
-	for(i=xy_m[0];i<=xy_m[2];i+=25)
+	for (i = xy_m[0]; i <= xy_m[2]; i += 25)
 	{
-		int j=0;
-		for(j=xy_m[1];j<=xy_m[3];j++)
+		int j = 0;
+		for (j = xy_m[1]; j <= xy_m[3]; j++)
 		{
-			int temp=rand()%2;
-			line(i+temp,j,i+temp,j);
+			int temp = rand() % 2;
+			line(i + temp, j, i + temp, j);
 		}
 	}
-	//setcolor(GREEN);
-	//rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
-	// setcolor(BROWN);
-	// for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))/20;i++)
-	// {
-	// 	int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
-	// 	line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
-	// }
+	// setcolor(GREEN);
+	// rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
+	//  setcolor(BROWN);
+	//  for(i=0;i<((xy_m[2]-xy_m[0])*(xy_m[3]-xy_m[1]))/20;i++)
+	//  {
+	//  	int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
+	//  	line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
+	//  }
 	delay(1000);
-	dense_init_tracktor01(x,y,flag,xy_m,3);
+	dense_init_tracktor01(x, y, flag, xy_m, 3);
 }
 
-void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num)
+void dense_init_tracktor01(int *x, int *y, int *flag, long int *xy_m, int num)
 {
-	static int x_d,i,tra_d[tracktor_num_max][4];
-	x_d=xy_m[2]-xy_m[0];
-	x_d/=num;
-	for(i=0;i<num;i++)
+	static int x_d, i, tra_d[tracktor_num_max][4];
+	x_d = xy_m[2] - xy_m[0];
+	x_d /= num;
+	for (i = 0; i < num; i++)
 	{
-		int k=0;
-		tra_d[i][0]=xy_m[0]+i*x_d;
-		tra_d[i][2]=xy_m[0]+(i+1)*x_d;
-		tra_d[i][1]=xy_m[3];
-		tra_d[i][3]=xy_m[1];
-		while(k<(*flag))
+		int k = 0;
+		tra_d[i][0] = xy_m[0] + i * x_d;
+		tra_d[i][2] = xy_m[0] + (i + 1) * x_d;
+		tra_d[i][1] = xy_m[3];
+		tra_d[i][3] = xy_m[1];
+		while (k < (*flag))
 		{
-			int target=0;
-			if(x[k]>=tra_d[i][0]&&x[k]<=tra_d[i][2])
+			int target = 0;
+			if (x[k] >= tra_d[i][0] && x[k] <= tra_d[i][2])
 			{
-				if(target==0)
+				if (target == 0)
 				{
-					target=1;
+					target = 1;
 				}
-				if(y[k]<tra_d[i][1])
+				if (y[k] < tra_d[i][1])
 				{
-					tra_d[i][1]=y[k];
+					tra_d[i][1] = y[k];
 				}
-				if(y[k]>tra_d[i][3])
+				if (y[k] > tra_d[i][3])
 				{
-					tra_d[i][3]=y[k];
+					tra_d[i][3] = y[k];
 				}
 			}
-			if(target!=0&&(x[k]<tra_d[i][0]||x[k]>tra_d[i][2]))
+			if (target != 0 && (x[k] < tra_d[i][0] || x[k] > tra_d[i][2]))
 			{
-				if(y[k]<tra_d[i][1])
+				if (y[k] < tra_d[i][1])
 				{
-					tra_d[i][1]=y[k];
+					tra_d[i][1] = y[k];
 				}
-				if(y[k]>tra_d[i][3])
+				if (y[k] > tra_d[i][3])
 				{
-					tra_d[i][3]=y[k];
+					tra_d[i][3] = y[k];
 				}
 				break;
 			}
@@ -1265,197 +1280,197 @@ void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num)
 			}
 		}
 	}
-	start_ainime03_01(tra_d,num);
+	start_ainime03_01(tra_d, num);
 }
 
-void start_ainime03_01(int (*tra_d)[4],int num)
+void start_ainime03_01(int (*tra_d)[4], int num)
 {
-	static int type[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
-	for(i=0;i<num;i++)
+	static int type[tracktor_num_max], x_p[tracktor_num_max], y_p[tracktor_num_max], i;
+	for (i = 0; i < num; i++)
 	{
-		type[i]=0;
-		x_p[i]=tra_d[i][0];
-		y_p[i]=y_start+y_max-40;
+		type[i] = 0;
+		x_p[i] = tra_d[i][0];
+		y_p[i] = y_start + y_max - 40;
 	}
-	while(1)
+	while (1)
 	{
-		int count=0;
-		for(i=0;i<num;i++)
+		int count = 0;
+		for (i = 0; i < num; i++)
 		{
-			if(type[i]==4)
+			if (type[i] == 4)
 			{
 				count++;
 			}
 		}
-		for(i=0;i<num;i++)
+		for (i = 0; i < num; i++)
 		{
-			if((type[i]!=0&&y_p[i]-40>=y_start+y_max)||x_p[i]>=tra_d[i][2])
+			if ((type[i] != 0 && y_p[i] - 40 >= y_start + y_max) || x_p[i] >= tra_d[i][2])
 			{
-				if(type[i]!=4)
+				if (type[i] != 4)
 				{
-					init_tracktor01_f(x_p[i]-25,y_p[i]);
-					type[i]=4;
+					init_tracktor01_f(x_p[i] - 25, y_p[i]);
+					type[i] = 4;
 				}
 				else
 				{
 					continue;
 				}
 			}
-			else if(type[i]==0)
+			else if (type[i] == 0)
 			{
-				earth_fill01(x_p[i],y_p[i]);
-				init_tracktor01_f(x_p[i],y_p[i]);
+				earth_fill01(x_p[i], y_p[i]);
+				init_tracktor01_f(x_p[i], y_p[i]);
 				y_p[i]--;
-				if(y_p[i]<=tra_d[i][1])
+				if (y_p[i] <= tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]-7);
-					type[i]=1;
-					x_p[i]+=25;
+					earth_fill03(x_p[i], y_p[i] - 7);
+					type[i] = 1;
+					x_p[i] += 25;
 				}
-				delay(20/(num-count));
+				delay(20 / (num - count));
 				continue;
 			}
-			else if(type[i]==1)
+			else if (type[i] == 1)
 			{
-				earth_fill02(x_p[i],y_p[i]);
-				init_tracktor01_b(x_p[i],y_p[i]);
+				earth_fill02(x_p[i], y_p[i]);
+				init_tracktor01_b(x_p[i], y_p[i]);
 				y_p[i]++;
-				if(y_p[i]+40>=tra_d[i][3])
+				if (y_p[i] + 40 >= tra_d[i][3])
 				{
-					if(x_p[i]+25>tra_d[i][2])
+					if (x_p[i] + 25 > tra_d[i][2])
 					{
-						type[i]=3;
+						type[i] = 3;
 					}
 					else
 					{
-						earth_fill03(x_p[i],y_p[i]-1);
-						earth_fill03(x_p[i],y_p[i]+2);
-						type[i]=2;
-						x_p[i]+=25;
+						earth_fill03(x_p[i], y_p[i] - 1);
+						earth_fill03(x_p[i], y_p[i] + 2);
+						type[i] = 2;
+						x_p[i] += 25;
 					}
 				}
-				delay(20/(num-count));
+				delay(20 / (num - count));
 				continue;
 			}
-			else if (type[i]=2)
+			else if (type[i] = 2)
 			{
-				earth_fill01(x_p[i],y_p[i]);
-				init_tracktor01_f(x_p[i],y_p[i]);
+				earth_fill01(x_p[i], y_p[i]);
+				init_tracktor01_f(x_p[i], y_p[i]);
 				y_p[i]--;
-				if(y_p[i]<=tra_d[i][1])
+				if (y_p[i] <= tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]-7);
-					type[i]=1;
-					x_p[i]+=25;
+					earth_fill03(x_p[i], y_p[i] - 7);
+					type[i] = 1;
+					x_p[i] += 25;
 				}
-				delay(20/(num-count));
+				delay(20 / (num - count));
 				continue;
 			}
-			else if(type[i]=3)
+			else if (type[i] = 3)
 			{
-				earth_fill02(x_p[i],y_p[i]);
-				init_tracktor01_b(x_p[i],y_p[i]);
+				earth_fill02(x_p[i], y_p[i]);
+				init_tracktor01_b(x_p[i], y_p[i]);
 				y_p[i]++;
 			}
 		}
-		if(count>=num)
+		if (count >= num)
 		{
 			break;
 		}
 	}
 }
 
-void start_ainime03_02(int (*tra_d)[4],int num)
+void start_ainime03_02(int (*tra_d)[4], int num)
 {
-	static int type[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
-	for(i=0;i<num;i++)
+	static int type[tracktor_num_max], x_p[tracktor_num_max], y_p[tracktor_num_max], i;
+	for (i = 0; i < num; i++)
 	{
-		type[i]=0;
-		x_p[i]=tra_d[i][0];
-		y_p[i]=y_start+y_max-40;
+		type[i] = 0;
+		x_p[i] = tra_d[i][0];
+		y_p[i] = y_start + y_max - 40;
 	}
-	while(1)
+	while (1)
 	{
-		int count=0;
-		for(i=0;i<num;i++)
+		int count = 0;
+		for (i = 0; i < num; i++)
 		{
-			if(type[i]==4)
+			if (type[i] == 4)
 			{
 				count++;
 			}
 		}
-		for(i=0;i<num;i++)
+		for (i = 0; i < num; i++)
 		{
-			if((type[i]!=0&&y_p[i]-40>=y_start+y_max)||x_p[i]>=tra_d[i][2])
+			if ((type[i] != 0 && y_p[i] - 40 >= y_start + y_max) || x_p[i] >= tra_d[i][2])
 			{
-				if(type[i]!=4)
+				if (type[i] != 4)
 				{
-					init_tracktor02_f(x_p[i]-25,y_p[i]);
-					type[i]=4;
+					init_tracktor02_f(x_p[i] - 25, y_p[i]);
+					type[i] = 4;
 				}
 				else
 				{
 					continue;
 				}
 			}
-			else if(type[i]==0)
+			else if (type[i] == 0)
 			{
-				earth_fill01(x_p[i],y_p[i]);
-				init_tracktor02_f(x_p[i],y_p[i]);
+				earth_fill01(x_p[i], y_p[i]);
+				init_tracktor02_f(x_p[i], y_p[i]);
 				y_p[i]--;
-				if(y_p[i]<=tra_d[i][1])
+				if (y_p[i] <= tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]-7);
-					type[i]=1;
-					x_p[i]+=25;
+					earth_fill03(x_p[i], y_p[i] - 7);
+					type[i] = 1;
+					x_p[i] += 25;
 				}
-				delay(20/(num-count));
+				delay(20 / (num - count));
 				continue;
 			}
-			else if(type[i]==1)
+			else if (type[i] == 1)
 			{
-				earth_fill02(x_p[i],y_p[i]);
-				init_tracktor02_b(x_p[i],y_p[i]);
+				earth_fill02(x_p[i], y_p[i]);
+				init_tracktor02_b(x_p[i], y_p[i]);
 				y_p[i]++;
-				if(y_p[i]+40>=tra_d[i][3])
+				if (y_p[i] + 40 >= tra_d[i][3])
 				{
-					if(x_p[i]+25>tra_d[i][2])
+					if (x_p[i] + 25 > tra_d[i][2])
 					{
-						type[i]=3;
+						type[i] = 3;
 					}
 					else
 					{
-						earth_fill03(x_p[i],y_p[i]-1);
-						earth_fill03(x_p[i],y_p[i]+2);
-						type[i]=2;
-						x_p[i]+=25;
+						earth_fill03(x_p[i], y_p[i] - 1);
+						earth_fill03(x_p[i], y_p[i] + 2);
+						type[i] = 2;
+						x_p[i] += 25;
 					}
 				}
-				delay(20/(num-count));
+				delay(20 / (num - count));
 				continue;
 			}
-			else if (type[i]=2)
+			else if (type[i] = 2)
 			{
-				earth_fill01(x_p[i],y_p[i]);
-				init_tracktor02_f(x_p[i],y_p[i]);
+				earth_fill01(x_p[i], y_p[i]);
+				init_tracktor02_f(x_p[i], y_p[i]);
 				y_p[i]--;
-				if(y_p[i]<=tra_d[i][1])
+				if (y_p[i] <= tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]-7);
-					type[i]=1;
-					x_p[i]+=25;
+					earth_fill03(x_p[i], y_p[i] - 7);
+					type[i] = 1;
+					x_p[i] += 25;
 				}
-				delay(20/(num-count));
+				delay(20 / (num - count));
 				continue;
 			}
-			else if(type[i]=3)
+			else if (type[i] = 3)
 			{
-				earth_fill02(x_p[i],y_p[i]);
-				init_tracktor02_b(x_p[i],y_p[i]);
+				earth_fill02(x_p[i], y_p[i]);
+				init_tracktor02_b(x_p[i], y_p[i]);
 				y_p[i]++;
 			}
 		}
-		if(count>=num)
+		if (count >= num)
 		{
 			break;
 		}
@@ -1463,60 +1478,60 @@ void start_ainime03_02(int (*tra_d)[4],int num)
 }
 void circle_field(long int r)
 {
-	long int x0=(2*x_start+x_max)/2,y0=(2*y_start+y_max)/2;
+	long int x0 = (2 * x_start + x_max) / 2, y0 = (2 * y_start + y_max) / 2;
 	int i;
-	setfillstyle(1,BROWN);
-	bar(x_start,y_start,x_start+x_max,y_start+y_max);
-	if(r>=y_max/2-3)
+	setfillstyle(1, BROWN);
+	bar(x_start, y_start, x_start + x_max, y_start + y_max);
+	if (r >= y_max / 2 - 3)
 	{
-		r=y_max/2-3;
+		r = y_max / 2 - 3;
 	}
-	setfillstyle(1,WHITE);
-	fillellipse(x0,y0,r,r);
+	setfillstyle(1, WHITE);
+	fillellipse(x0, y0, r, r);
 	setcolor(BROWN);
-	for(i=0;i<4*r*r/20;i++)
+	for (i = 0; i < 4 * r * r / 20; i++)
 	{
-		int x_r=rand()%(2*r),y_r=rand()%(2*r);
-		line(x0-r+x_r,y0-r+y_r,x0-r+x_r,y0-r+y_r);
+		int x_r = rand() % (2 * r), y_r = rand() % (2 * r);
+		line(x0 - r + x_r, y0 - r + y_r, x0 - r + x_r, y0 - r + y_r);
 	}
-	for(i=x0-r;i<=x0+r;i+=25)
+	for (i = x0 - r; i <= x0 + r; i += 25)
 	{
-		int j=0;
-		for(j=y0-r;j<=y0+r;j++)
+		int j = 0;
+		for (j = y0 - r; j <= y0 + r; j++)
 		{
-			int temp=rand()%2;
-			line(i+temp,j,i+temp,j);
+			int temp = rand() % 2;
+			line(i + temp, j, i + temp, j);
 		}
 	}
 }
 
-void cal_tracktor_circle(long int r,int num)
+void cal_tracktor_circle(long int r, int num)
 {
-	long int x0=(2*x_start+x_max)/2,y0=(2*y_start+y_max)/2;
-	int tra_d[tracktor_num_max][4],i,d;
-	if(r>=y_max/2-3)
+	long int x0 = (2 * x_start + x_max) / 2, y0 = (2 * y_start + y_max) / 2;
+	int tra_d[tracktor_num_max][4], i, d;
+	if (r >= y_max / 2 - 3)
 	{
-		r=y_max/2-3;
+		r = y_max / 2 - 3;
 	}
-	d=2*r/num;
-	for(i=0;i<num;i++)
+	d = 2 * r / num;
+	for (i = 0; i < num; i++)
 	{
-		tra_d[i][0]=x0-r+i*d;
-		tra_d[i][2]=tra_d[i][0]+d;
-		if(tra_d[i][0]<=x0)
+		tra_d[i][0] = x0 - r + i * d;
+		tra_d[i][2] = tra_d[i][0] + d;
+		if (tra_d[i][0] <= x0)
 		{
-			tra_d[i][1]=y0-sqrt(r*r-(r-d*(i+1))*(r-d*(i+1)));
+			tra_d[i][1] = y0 - sqrt(r * r - (r - d * (i + 1)) * (r - d * (i + 1)));
 		}
 		else
 		{
-			tra_d[i][1]=y0-sqrt(r*r-(r-d*i)*(r-d*i));
+			tra_d[i][1] = y0 - sqrt(r * r - (r - d * i) * (r - d * i));
 		}
-		tra_d[i][3]=2*y0-tra_d[i][1];
+		tra_d[i][3] = 2 * y0 - tra_d[i][1];
 	}
-	tra_d[num/2-1][1]=y0-r;
-	tra_d[num/2-1][3]=y0+r;
-	tra_d[num/2][1]=y0-r;
-	tra_d[num/2][3]=y0+r;
+	tra_d[num / 2 - 1][1] = y0 - r;
+	tra_d[num / 2 - 1][3] = y0 + r;
+	tra_d[num / 2][1] = y0 - r;
+	tra_d[num / 2][3] = y0 + r;
 	// if(num%2==0)
 	// {
 	// 	for(i=0;i<num/2;i++)
@@ -1556,211 +1571,209 @@ void cal_tracktor_circle(long int r,int num)
 	// 	}
 	// }
 	circle_field(r);
-	start_ainime04_01(tra_d,num);
+	start_ainime04_01(tra_d, num);
 }
 
-void start_ainime04_01(int (*tra_d)[4],int num)
+void start_ainime04_01(int (*tra_d)[4], int num)
 {
-	int x0=(2*x_start+x_max)/2,y0=(2*y_start+y_max)/2,type[tracktor_num_max],i\
-	,x_p[tracktor_num_max],y_p[tracktor_num_max];
-	for(i=0;i<num;i++)
+	int x0 = (2 * x_start + x_max) / 2, y0 = (2 * y_start + y_max) / 2, type[tracktor_num_max], i, x_p[tracktor_num_max], y_p[tracktor_num_max];
+	for (i = 0; i < num; i++)
 	{
-		type[i]=0;
-		x_p[i]=tra_d[i][0];
-		y_p[i]=y_start+y_max-40;
+		type[i] = 0;
+		x_p[i] = tra_d[i][0];
+		y_p[i] = y_start + y_max - 40;
 	}
-	while(1)
+	while (1)
 	{
-		int count=0;
-		for(i=0;i<num;i++)
+		int count = 0;
+		for (i = 0; i < num; i++)
 		{
-			if(type[i]==4)
+			if (type[i] == 4)
 			{
 				count++;
 			}
 		}
-		for(i=0;i<num;i++)
+		for (i = 0; i < num; i++)
 		{
-			if((type[i]!=0&&y_p[i]-40>=y_start+y_max)||x_p[i]>=tra_d[i][2])
+			if ((type[i] != 0 && y_p[i] - 40 >= y_start + y_max) || x_p[i] >= tra_d[i][2])
 			{
-				if(type[i]!=4)
+				if (type[i] != 4)
 				{
-					init_tracktor01_f(x_p[i]-25,y_p[i]);
-					type[i]=4;
+					init_tracktor01_f(x_p[i] - 25, y_p[i]);
+					type[i] = 4;
 				}
 				else
 				{
 					continue;
 				}
 			}
-			else if(type[i]==0)
+			else if (type[i] == 0)
 			{
-				earth_fill01(x_p[i],y_p[i]);
-				init_tracktor01_f(x_p[i],y_p[i]);
+				earth_fill01(x_p[i], y_p[i]);
+				init_tracktor01_f(x_p[i], y_p[i]);
 				y_p[i]--;
-				if(y_p[i]<=tra_d[i][1])
+				if (y_p[i] <= tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]-7);
-					type[i]=1;
-					x_p[i]+=25;
+					earth_fill03(x_p[i], y_p[i] - 7);
+					type[i] = 1;
+					x_p[i] += 25;
 				}
-				delay(20/(num-count));
+				delay(20 / (num - count));
 				continue;
 			}
-			else if(type[i]==1)
+			else if (type[i] == 1)
 			{
-				earth_fill02(x_p[i],y_p[i]);
-				init_tracktor01_b(x_p[i],y_p[i]);
+				earth_fill02(x_p[i], y_p[i]);
+				init_tracktor01_b(x_p[i], y_p[i]);
 				y_p[i]++;
-				if(y_p[i]+40>=tra_d[i][3])
+				if (y_p[i] + 40 >= tra_d[i][3])
 				{
-					if(x_p[i]+25>tra_d[i][2])
+					if (x_p[i] + 25 > tra_d[i][2])
 					{
-						type[i]=3;
+						type[i] = 3;
 					}
 					else
 					{
-						earth_fill03(x_p[i],y_p[i]-1);
-						earth_fill03(x_p[i],y_p[i]+2);
-						type[i]=2;
-						x_p[i]+=25;
+						earth_fill03(x_p[i], y_p[i] - 1);
+						earth_fill03(x_p[i], y_p[i] + 2);
+						type[i] = 2;
+						x_p[i] += 25;
 					}
 				}
-				delay(20/(num-count));
+				delay(20 / (num - count));
 				continue;
 			}
-			else if (type[i]=2)
+			else if (type[i] = 2)
 			{
-				earth_fill01(x_p[i],y_p[i]);
-				init_tracktor01_f(x_p[i],y_p[i]);
+				earth_fill01(x_p[i], y_p[i]);
+				init_tracktor01_f(x_p[i], y_p[i]);
 				y_p[i]--;
-				if(y_p[i]<=tra_d[i][1])
+				if (y_p[i] <= tra_d[i][1])
 				{
-					earth_fill03(x_p[i],y_p[i]-7);
-					type[i]=1;
-					x_p[i]+=25;
+					earth_fill03(x_p[i], y_p[i] - 7);
+					type[i] = 1;
+					x_p[i] += 25;
 				}
-				delay(20/(num-count));
+				delay(20 / (num - count));
 				continue;
 			}
-			else if(type[i]=3)
+			else if (type[i] = 3)
 			{
-				earth_fill02(x_p[i],y_p[i]);
-				init_tracktor01_b(x_p[i],y_p[i]);
+				earth_fill02(x_p[i], y_p[i]);
+				init_tracktor01_b(x_p[i], y_p[i]);
 				y_p[i]++;
 			}
 		}
-		if(count>=num)
+		if (count >= num)
 		{
 			break;
 		}
 	}
 }
 
-long int hellen(int x1,int y1,int x2,int y2,int x3,int y3)
+long int hellen(int x1, int y1, int x2, int y2, int x3, int y3)
 {
-	long int a=sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)),b=sqrt((x1-x3)*(x1-x3)+(y1-y3)*(y1-y3)),\
-	c=sqrt((x3-x2)*(x3-x2)+(y3-y2)*(y3-y2)),p=(a+b+c)/2;
+	long int a = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)), b = sqrt((x1 - x3) * (x1 - x3) + (y1 - y3) * (y1 - y3)),
+			 c = sqrt((x3 - x2) * (x3 - x2) + (y3 - y2) * (y3 - y2)), p = (a + b + c) / 2;
 
-	return sqrt(p*(p-a)*(p-b)*(p-c));
+	return sqrt(p * (p - a) * (p - b) * (p - c));
 }
 
-long int cal_poly_field(int *x,int *y,int *flag)
+long int cal_poly_field(int *x, int *y, int *flag)
 {
-	int x0=(x[0]+x[(*flag)/2])/2,y0=(y[0]+y[(*flag)/2])/2,i;
-	long int s_field=0;
-	for(i=0;i<(*flag)-2;i++)
+	int x0 = (x[0] + x[(*flag) / 2]) / 2, y0 = (y[0] + y[(*flag) / 2]) / 2, i;
+	long int s_field = 0;
+	for (i = 0; i < (*flag) - 2; i++)
 	{
-		s_field+=hellen(x0,y0,x[i],y[i],x[i+1],y[i+1]);
+		s_field += hellen(x0, y0, x[i], y[i], x[i + 1], y[i + 1]);
 	}
-	s_field+=hellen(x0,x0,x[i],y[i],x[0],x[0]);
+	s_field += hellen(x0, x0, x[i], y[i], x[0], x[0]);
 	return s_field;
 }
 
 double cal_circle_field(int r)
 {
-	double pi= 3.1415926;
-	return pi*r*r;
+	double pi = 3.1415926;
+	return pi * r * r;
 }
 
-
-void tracktor_set_off(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_set_off(int start_x, int start_y, int des_x, int des_y, int distance, int num)
 {
-	if(start_x<des_x&&start_y<des_y)
+	if (start_x < des_x && start_y < des_y)
 	{
-		tracktor_set_off01(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_set_off01(start_x, start_y, des_x, des_y, distance, num);
 	}
-	else if(start_x<des_x&&start_y>des_y)
+	else if (start_x < des_x && start_y > des_y)
 	{
-		tracktor_set_off02(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_set_off02(start_x, start_y, des_x, des_y, distance, num);
 	}
-	else if(start_x>des_x&&start_y<des_y)
+	else if (start_x > des_x && start_y < des_y)
 	{
-		tracktor_set_off03(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_set_off03(start_x, start_y, des_x, des_y, distance, num);
 	}
 	else
 	{
-		tracktor_set_off04(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_set_off04(start_x, start_y, des_x, des_y, distance, num);
 	}
 }
 
-//start_x<des_x&&start_y<des_y
-void tracktor_set_off01(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+// start_x<des_x&&start_y<des_y
+void tracktor_set_off01(int start_x, int start_y, int des_x, int des_y, int distance, int num)
 {
-	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
-	for(i=0;i<num;i++)
+	int x_p[tracktor_num_max], y_p[tracktor_num_max], type[tracktor_num_max], time[tracktor_num_max], i;
+	for (i = 0; i < num; i++)
 	{
-		type[i]=0;
-		time[i]=i*distance;
-		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
-		y_p[i]=start_y+tra_start_d+1;
+		type[i] = 0;
+		time[i] = i * distance;
+		x_p[i] = (2 * start_x + tra_start_l) / 2 - tracktor_w / 2;
+		y_p[i] = start_y + tra_start_d + 1;
 	}
-	while(1)
+	while (1)
 	{
-		int count=0;
-		for(i=0;i<num;i++)
+		int count = 0;
+		for (i = 0; i < num; i++)
 		{
-			if(time[i]>0)
+			if (time[i] > 0)
 			{
 				time[i]--;
 				continue;
 			}
-			if(type[i]==2)
+			if (type[i] == 2)
 			{
 				count++;
 				continue;
 			}
-			if(type[i]==0)
+			if (type[i] == 0)
 			{
-				earth_cover01(x_p[i],y_p[i]);
+				earth_cover01(x_p[i], y_p[i]);
 				y_p[i]++;
-				init_tracktor01_b(x_p[i],y_p[i]);
-				if(y_p[i]>=des_y)
+				init_tracktor01_b(x_p[i], y_p[i]);
+				if (y_p[i] >= des_y)
 				{
-					earth_cover01(x_p[i],y_p[i]);
-					earth_cover01(x_p[i],y_p[i]+5);
-					type[i]=1;
-					x_p[i]+=tracktor_l;
-					init_tracktor01_r(x_p[i],y_p[i]);
+					earth_cover01(x_p[i], y_p[i]);
+					earth_cover01(x_p[i], y_p[i] + 5);
+					type[i] = 1;
+					x_p[i] += tracktor_l;
+					init_tracktor01_r(x_p[i], y_p[i]);
 					continue;
 				}
 			}
-			if(type[i]==1)
+			if (type[i] == 1)
 			{
-				earth_cover02(x_p[i],y_p[i]);
+				earth_cover02(x_p[i], y_p[i]);
 				x_p[i]++;
-				init_tracktor01_r(x_p[i],y_p[i]);
-				if(x_p[i]>=des_x+(num-i-1)*distance)
+				init_tracktor01_r(x_p[i], y_p[i]);
+				if (x_p[i] >= des_x + (num - i - 1) * distance)
 				{
-					earth_cover02(x_p[i],y_p[i]);
-					earth_cover02(x_p[i]+7,y_p[i]);
-					type[i]=2;
-					init_tracktor01_f(x_p[i],y_p[i]-35);
+					earth_cover02(x_p[i], y_p[i]);
+					earth_cover02(x_p[i] + 7, y_p[i]);
+					type[i] = 2;
+					init_tracktor01_f(x_p[i], y_p[i] - 35);
 					continue;
 				}
 			}
 		}
-		if(count>=num)
+		if (count >= num)
 		{
 			break;
 		}
@@ -1768,63 +1781,63 @@ void tracktor_set_off01(int start_x,int start_y,int des_x,int des_y,int distance
 	}
 }
 
-//start_x<des_x&&start_y>des_y
-void tracktor_set_off02(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+// start_x<des_x&&start_y>des_y
+void tracktor_set_off02(int start_x, int start_y, int des_x, int des_y, int distance, int num)
 {
-	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
-	for(i=0;i<num;i++)
+	int x_p[tracktor_num_max], y_p[tracktor_num_max], type[tracktor_num_max], time[tracktor_num_max], i;
+	for (i = 0; i < num; i++)
 	{
-		type[i]=0;
-		time[i]=i*distance;
-		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
-		y_p[i]=start_y-tra_start_d-1-tracktor_l;
+		type[i] = 0;
+		time[i] = i * distance;
+		x_p[i] = (2 * start_x + tra_start_l) / 2 - tracktor_w / 2;
+		y_p[i] = start_y - tra_start_d - 1 - tracktor_l;
 	}
-	while(1)
+	while (1)
 	{
-		int count=0;
-		for(i=0;i<num;i++)
+		int count = 0;
+		for (i = 0; i < num; i++)
 		{
-			if(time[i]>0)
+			if (time[i] > 0)
 			{
 				time[i]--;
 				continue;
 			}
-			if(type[i]==2)
+			if (type[i] == 2)
 			{
 				count++;
 				continue;
 			}
-			if(type[i]==0)
+			if (type[i] == 0)
 			{
-				earth_cover01(x_p[i],y_p[i]);
+				earth_cover01(x_p[i], y_p[i]);
 				y_p[i]--;
-				init_tracktor01_f(x_p[i],y_p[i]);
-				if(y_p[i]<=des_y)
+				init_tracktor01_f(x_p[i], y_p[i]);
+				if (y_p[i] <= des_y)
 				{
-					earth_cover01(x_p[i],y_p[i]);
-					earth_cover01(x_p[i],y_p[i]-7);
-					type[i]=1;
-					x_p[i]+=tracktor_l;
-					init_tracktor01_r(x_p[i],y_p[i]);
+					earth_cover01(x_p[i], y_p[i]);
+					earth_cover01(x_p[i], y_p[i] - 7);
+					type[i] = 1;
+					x_p[i] += tracktor_l;
+					init_tracktor01_r(x_p[i], y_p[i]);
 					continue;
 				}
 			}
-			if(type[i]==1)
+			if (type[i] == 1)
 			{
-				earth_cover02(x_p[i],y_p[i]);
+				earth_cover02(x_p[i], y_p[i]);
 				x_p[i]++;
-				init_tracktor01_r(x_p[i],y_p[i]);
-				if(x_p[i]>=des_x+(num-i-1)*distance)
+				init_tracktor01_r(x_p[i], y_p[i]);
+				if (x_p[i] >= des_x + (num - i - 1) * distance)
 				{
-					earth_cover02(x_p[i],y_p[i]);
-					earth_cover02(x_p[i]+7,y_p[i]);
-					type[i]=2;
-					init_tracktor01_f(x_p[i],y_p[i]-35);
+					earth_cover02(x_p[i], y_p[i]);
+					earth_cover02(x_p[i] + 7, y_p[i]);
+					type[i] = 2;
+					init_tracktor01_f(x_p[i], y_p[i] - 35);
 					continue;
 				}
 			}
 		}
-		if(count>=num)
+		if (count >= num)
 		{
 			break;
 		}
@@ -1832,63 +1845,63 @@ void tracktor_set_off02(int start_x,int start_y,int des_x,int des_y,int distance
 	}
 }
 
-//start_x>des_x&&start_y<des_y
-void tracktor_set_off03(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+// start_x>des_x&&start_y<des_y
+void tracktor_set_off03(int start_x, int start_y, int des_x, int des_y, int distance, int num)
 {
-	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
-	for(i=0;i<num;i++)
+	int x_p[tracktor_num_max], y_p[tracktor_num_max], type[tracktor_num_max], time[tracktor_num_max], i;
+	for (i = 0; i < num; i++)
 	{
-		type[i]=0;
-		time[i]=i*distance;
-		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
-		y_p[i]=start_y+tra_start_d+1;
+		type[i] = 0;
+		time[i] = i * distance;
+		x_p[i] = (2 * start_x + tra_start_l) / 2 - tracktor_w / 2;
+		y_p[i] = start_y + tra_start_d + 1;
 	}
-	while(1)
+	while (1)
 	{
-		int count=0;
-		for(i=0;i<num;i++)
+		int count = 0;
+		for (i = 0; i < num; i++)
 		{
-			if(time[i]>0)
+			if (time[i] > 0)
 			{
 				time[i]--;
 				continue;
 			}
-			if(type[i]==2)
+			if (type[i] == 2)
 			{
 				count++;
 				continue;
 			}
-			if(type[i]==0)
+			if (type[i] == 0)
 			{
-				earth_cover01(x_p[i],y_p[i]);
+				earth_cover01(x_p[i], y_p[i]);
 				y_p[i]++;
-				init_tracktor01_b(x_p[i],y_p[i]);
-				if(y_p[i]>=des_y)
+				init_tracktor01_b(x_p[i], y_p[i]);
+				if (y_p[i] >= des_y)
 				{
-					earth_cover01(x_p[i],y_p[i]);
-					earth_cover01(x_p[i],y_p[i]+5);
-					type[i]=1;
-					x_p[i]+=tracktor_l;
-					init_tracktor01_l(x_p[i],y_p[i]);
+					earth_cover01(x_p[i], y_p[i]);
+					earth_cover01(x_p[i], y_p[i] + 5);
+					type[i] = 1;
+					x_p[i] += tracktor_l;
+					init_tracktor01_l(x_p[i], y_p[i]);
 					continue;
 				}
 			}
-			if(type[i]==1)
+			if (type[i] == 1)
 			{
-				earth_cover02(x_p[i]+5,y_p[i]);
+				earth_cover02(x_p[i] + 5, y_p[i]);
 				x_p[i]--;
-				init_tracktor01_l(x_p[i],y_p[i]);
-				if(x_p[i]<=des_x+i*distance)
+				init_tracktor01_l(x_p[i], y_p[i]);
+				if (x_p[i] <= des_x + i * distance)
 				{
-					earth_cover02(x_p[i]+2,y_p[i]);
-					earth_cover02(x_p[i]-5,y_p[i]);
-					type[i]=2;
-					init_tracktor01_f(x_p[i]-50,y_p[i]-35);
+					earth_cover02(x_p[i] + 2, y_p[i]);
+					earth_cover02(x_p[i] - 5, y_p[i]);
+					type[i] = 2;
+					init_tracktor01_f(x_p[i] - 50, y_p[i] - 35);
 					continue;
 				}
 			}
 		}
-		if(count>=num)
+		if (count >= num)
 		{
 			break;
 		}
@@ -1896,63 +1909,63 @@ void tracktor_set_off03(int start_x,int start_y,int des_x,int des_y,int distance
 	}
 }
 
-//start_x>=des_x&&start_y>=des_y
-void tracktor_set_off04(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+// start_x>=des_x&&start_y>=des_y
+void tracktor_set_off04(int start_x, int start_y, int des_x, int des_y, int distance, int num)
 {
-	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
-	for(i=0;i<num;i++)
+	int x_p[tracktor_num_max], y_p[tracktor_num_max], type[tracktor_num_max], time[tracktor_num_max], i;
+	for (i = 0; i < num; i++)
 	{
-		type[i]=0;
-		time[i]=i*distance;
-		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
-		y_p[i]=start_y-tra_start_d-1-tracktor_l;
+		type[i] = 0;
+		time[i] = i * distance;
+		x_p[i] = (2 * start_x + tra_start_l) / 2 - tracktor_w / 2;
+		y_p[i] = start_y - tra_start_d - 1 - tracktor_l;
 	}
-	while(1)
+	while (1)
 	{
-		int count=0;
-		for(i=0;i<num;i++)
+		int count = 0;
+		for (i = 0; i < num; i++)
 		{
-			if(time[i]>0)
+			if (time[i] > 0)
 			{
 				time[i]--;
 				continue;
 			}
-			if(type[i]==2)
+			if (type[i] == 2)
 			{
 				count++;
 				continue;
 			}
-			if(type[i]==0)
+			if (type[i] == 0)
 			{
-				earth_cover01(x_p[i],y_p[i]);
+				earth_cover01(x_p[i], y_p[i]);
 				y_p[i]--;
-				init_tracktor01_f(x_p[i],y_p[i]);
-				if(y_p[i]<=des_y)
+				init_tracktor01_f(x_p[i], y_p[i]);
+				if (y_p[i] <= des_y)
 				{
-					earth_cover01(x_p[i],y_p[i]);
-					earth_cover01(x_p[i],y_p[i]-7);
-					type[i]=1;
-					x_p[i]+=tracktor_l;
-					init_tracktor01_r(x_p[i],y_p[i]);
+					earth_cover01(x_p[i], y_p[i]);
+					earth_cover01(x_p[i], y_p[i] - 7);
+					type[i] = 1;
+					x_p[i] += tracktor_l;
+					init_tracktor01_r(x_p[i], y_p[i]);
 					continue;
 				}
 			}
-			if(type[i]==1)
+			if (type[i] == 1)
 			{
-				earth_cover02(x_p[i]+7,y_p[i]);
+				earth_cover02(x_p[i] + 7, y_p[i]);
 				x_p[i]--;
-				init_tracktor01_l(x_p[i],y_p[i]);
-				if(x_p[i]<=des_x+i*distance)
+				init_tracktor01_l(x_p[i], y_p[i]);
+				if (x_p[i] <= des_x + i * distance)
 				{
-					earth_cover02(x_p[i]+2,y_p[i]);
-					earth_cover02(x_p[i]-5,y_p[i]);
-					type[i]=2;
-					init_tracktor01_f(x_p[i]-50,y_p[i]-35);
+					earth_cover02(x_p[i] + 2, y_p[i]);
+					earth_cover02(x_p[i] - 5, y_p[i]);
+					type[i] = 2;
+					init_tracktor01_f(x_p[i] - 50, y_p[i] - 35);
 					continue;
 				}
 			}
 		}
-		if(count>=num)
+		if (count >= num)
 		{
 			break;
 		}
@@ -1960,11 +1973,11 @@ void tracktor_set_off04(int start_x,int start_y,int des_x,int des_y,int distance
 	}
 }
 
-void tracktor_return(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return(int start_x, int start_y, int des_x, int des_y, int distance, int num)
 {
-	if(start_x<des_x&&start_y<des_y)
+	if (start_x < des_x && start_y < des_y)
 	{
-		tracktor_return01(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_return01(start_x, start_y, des_x, des_y, distance, num);
 	}
 	// else if(start_x<des_x&&start_y>des_y)
 	// {
@@ -1980,62 +1993,62 @@ void tracktor_return(int start_x,int start_y,int des_x,int des_y,int distance,in
 	// }
 }
 
-void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return01(int start_x, int start_y, int des_x, int des_y, int distance, int num)
 {
-	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],time[tracktor_num_max],i;
-	for(i=0;i<num;i++)
+	int x_p[tracktor_num_max], y_p[tracktor_num_max], type[tracktor_num_max], time[tracktor_num_max], i;
+	for (i = 0; i < num; i++)
 	{
-		type[i]=0;
-		time[i]=i*distance;
-		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
-		y_p[i]=start_y+tra_start_d+1;
+		type[i] = 0;
+		time[i] = i * distance;
+		x_p[i] = (2 * start_x + tra_start_l) / 2 - tracktor_w / 2;
+		y_p[i] = start_y + tra_start_d + 1;
 	}
-	while(1)
+	while (1)
 	{
-		int count=0;
-		for(i=0;i<num;i++)
+		int count = 0;
+		for (i = 0; i < num; i++)
 		{
-			if(time[i]>0)
+			if (time[i] > 0)
 			{
 				time[i]--;
 				continue;
 			}
-			if(type[i]==2)
+			if (type[i] == 2)
 			{
 				count++;
 				continue;
 			}
-			if(type[i]==0)
+			if (type[i] == 0)
 			{
-				earth_cover01(x_p[i],y_p[i]);
+				earth_cover01(x_p[i], y_p[i]);
 				y_p[i]++;
-				init_tracktor01_b(x_p[i],y_p[i]);
-				if(y_p[i]>=des_y)
+				init_tracktor01_b(x_p[i], y_p[i]);
+				if (y_p[i] >= des_y)
 				{
-					earth_cover01(x_p[i],y_p[i]);
-					earth_cover01(x_p[i],y_p[i]+5);
-					type[i]=1;
-					x_p[i]+=tracktor_l;
-					init_tracktor01_r(x_p[i],y_p[i]);
+					earth_cover01(x_p[i], y_p[i]);
+					earth_cover01(x_p[i], y_p[i] + 5);
+					type[i] = 1;
+					x_p[i] += tracktor_l;
+					init_tracktor01_r(x_p[i], y_p[i]);
 					continue;
 				}
 			}
-			if(type[i]==1)
+			if (type[i] == 1)
 			{
-				earth_cover02(x_p[i],y_p[i]);
+				earth_cover02(x_p[i], y_p[i]);
 				x_p[i]++;
-				init_tracktor01_r(x_p[i],y_p[i]);
-				if(x_p[i]>=des_x+(num-i-1)*distance)
+				init_tracktor01_r(x_p[i], y_p[i]);
+				if (x_p[i] >= des_x + (num - i - 1) * distance)
 				{
-					earth_cover02(x_p[i],y_p[i]);
-					earth_cover02(x_p[i]+7,y_p[i]);
-					type[i]=2;
-					init_tracktor01_f(x_p[i],y_p[i]-35);
+					earth_cover02(x_p[i], y_p[i]);
+					earth_cover02(x_p[i] + 7, y_p[i]);
+					type[i] = 2;
+					init_tracktor01_f(x_p[i], y_p[i] - 35);
 					continue;
 				}
 			}
 		}
-		if(count>=num)
+		if (count >= num)
 		{
 			break;
 		}

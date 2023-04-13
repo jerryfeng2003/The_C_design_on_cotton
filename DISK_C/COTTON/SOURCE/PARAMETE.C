@@ -83,7 +83,7 @@ void wr_parameter(struct Parameter *abc)
     FILE *fp;
     user *u = (user *)malloc(sizeof(user));
     int i, j, k, all;
-    if ((fp = fopen("User.txt", "rt+")) == NULL)
+    if ((fp = fopen("User.dat", "rb+")) == NULL)
     {
         puthz(120, 300, "打开错误", 32, 32, BLUE);
         delay(3000);
@@ -119,10 +119,12 @@ void wr_parameter(struct Parameter *abc)
             h->parameter[h->lenpar].shape = abc->shape;
             h->parameter[h->lenpar].type = abc->type;
             strcpy(h->parameter[h->lenpar].S, abc->S);
-            for (k = 0; k < N; k++)
+            for (k = 0; k < dense_points_max; k++)
             {
-                h->parameter[h->lenpar].xyz[k] = abc->xyz[k];
+                h->parameter[h->lenpar].x[k] = abc->x[k];
+                h->parameter[h->lenpar].y[k] = abc->y[k];
             }
+            h->parameter[h->lenpar].lenxy = abc->lenxy;
             h->lenpar += 1;
             fseek(fp, i * sizeof(user), SEEK_SET);
             fwrite(h, sizeof(user), 1, fp);
@@ -149,7 +151,7 @@ void wr_h(void)
     FILE *fp;
     user *u = (user *)malloc(sizeof(user));
     int i, j, k, all;
-    if ((fp = fopen("User.txt", "rt+")) == NULL)
+    if ((fp = fopen("User.dat", "rb+")) == NULL)
     {
         puthz(120, 300, "打开错误", 32, 32, BLUE);
         delay(3000);
@@ -190,7 +192,7 @@ void wr_h(void)
 // 删除参数
 void deletepar(int par)
 {
-    int i, j;
+    int i, j, k;
     par -= 1;
     for (i = par; i < h->lenpar; i++)
     {
@@ -202,10 +204,12 @@ void deletepar(int par)
         h->parameter[par].shape = h->parameter[par + 1].shape;
         h->parameter[par].type = h->parameter[par + 1].type;
         strcpy(h->parameter[par].S, h->parameter[par + 1].S);
-        for (j = 0; j < N; j++)
+        for (k = 0; k < dense_points_max; k++)
         {
-            h->parameter[par].xyz[j] = h->parameter[par + 1].xyz[j];
+            h->parameter[par].x[k] = h->parameter[par + 1].x[k];
+            h->parameter[par].y[k] = h->parameter[par + 1].y[k];
         }
+        h->parameter[par].lenxy = h->parameter[par + 1].lenxy;
     }
     h->lenpar -= 1;
     wr_h();
@@ -244,6 +248,7 @@ int changeplace(int par)
 
         if (mouse_press(305, 240, 335, 270) == 1) // 长江
         {
+            clrmous(MouseX, MouseY);
             choose = 'c';
             setfillstyle(1, BROWN);
             bar(180, 240, 460, 270);
@@ -255,6 +260,7 @@ int changeplace(int par)
         }
         if (mouse_press(180, 240, 210, 270) == 1) // 新疆
         {
+            clrmous(MouseX, MouseY);
             choose = 'a';
             setfillstyle(1, BROWN);
             bar(180, 240, 460, 270);
@@ -266,6 +272,7 @@ int changeplace(int par)
         }
         if (mouse_press(430, 240, 460, 270) == 1) // 黄河
         {
+            clrmous(MouseX, MouseY);
             choose = 'b';
             setfillstyle(1, BROWN);
             bar(180, 240, 460, 270);
@@ -319,6 +326,7 @@ int changeshape(int par)
         newmouse(&MouseX, &MouseY, &press);
         if (mouse_press(150, 220, 190, 360) == 1) // 矩形
         {
+            clrmous(MouseX, MouseY);
             choose = 'a';
             setfillstyle(1, BROWN);
             bar(150, 220, 490, 260);
@@ -331,6 +339,7 @@ int changeshape(int par)
         }
         if (mouse_press(250, 220, 290, 360) == 1) // 圆形
         {
+            clrmous(MouseX, MouseY);
             choose = 'b';
             setfillstyle(1, BROWN);
             bar(150, 220, 490, 260);
@@ -343,6 +352,7 @@ int changeshape(int par)
         }
         if (mouse_press(350, 220, 390, 360) == 1) // 多边形
         {
+            clrmous(MouseX, MouseY);
             choose = 'c';
             setfillstyle(1, BROWN);
             bar(150, 220, 490, 260);
@@ -355,6 +365,7 @@ int changeshape(int par)
         }
         if (mouse_press(450, 220, 490, 360) == 1) // 自定义图形
         {
+            clrmous(MouseX, MouseY);
             choose = 'd';
             setfillstyle(1, BROWN);
             bar(150, 220, 490, 260);
@@ -371,6 +382,14 @@ int changeshape(int par)
         }
         if (mouse_press(400, 290, 490, 340) == 1) // 确认
         {
+            if (choose == 'c')
+            {
+                select02(&(h->parameter[par - 1]));
+            }
+            else if (choose == 'd')
+            {
+                select03(&(h->parameter[par - 1]));
+            }
             h->parameter[par - 1].shape = choose;
             wr_h();
             return 1;
@@ -404,6 +423,7 @@ int changetype(int par)
         newmouse(&MouseX, &MouseY, &press);
         if (mouse_press(180, 220, 220, 260) == 1) // 垂直式
         {
+            clrmous(MouseX, MouseY);
             choose = 'a';
             setfillstyle(1, BROWN);
             bar(180, 220, 460, 260);
@@ -414,6 +434,7 @@ int changetype(int par)
         }
         if (mouse_press(420, 220, 460, 260) == 1) // 水平式
         {
+            clrmous(MouseX, MouseY);
             choose = 'b';
             setfillstyle(1, BROWN);
             bar(180, 220, 460, 260);

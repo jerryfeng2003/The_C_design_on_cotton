@@ -1,60 +1,64 @@
 #include "TOTAL.H"
 
-int draw_edit01(struct Parameter *abc)
+void edit01_screen(struct Parameter *abc)
 {
-	void *buffer, *buffer1, *buffer2;
-	unsigned s, s1, s2;
-	INPUT name = {230, 80, 520, 130, "", 10, 0, 0};
-	// int i;
 	clrmous(MouseX, MouseY);
 	cleardevice();
 	setbkcolor(WHITE);
+	bmp_convert(".\\photo\\map.bmp", ".\\photo\\map.dbm");
+	show_dbm(5, 100, ".\\photo\\map.dbm");
 	puthz(240, 30, "请选择地区", 32, 32, BLUE);
 	quit();
 	last();
-	//mouseinit();
+	// mouseinit();
 	setcolor(12); // 淡红色
-	rectangle(50, 150, 590, 420);
+	//rectangle(50, 150, 590, 420);
 
 	// 参数名字
 	puthz(50, 90, "参数名字：", 32, 32, BLUE);
 
 	// 按钮
-	puthz(80, 150, "新疆地区", 32, 32, BLUE);
-	puthz(400, 150, "长江地区", 32, 32, BLUE);
-	puthz(250, 300, "黄河地区", 32, 32, BLUE);
+	puthz(80 - 30, 150, "新疆地区", 32, 32, BLUE);
+	puthz(400 - 40, 150 + 30, "黄河地区", 32, 32, BLUE);
+	puthz(250 - 20, 300 + 20, "长江地区", 32, 32, BLUE);
 	setcolor(CYAN);
-	bar(120, 200, 150, 230);
-	bar(440, 200, 470, 230);
-	bar(290, 350, 320, 380);
+	bar(120 - 30, 200, 150 - 30, 230);
+	bar(440 - 40, 200 + 30, 470 - 40, 230 + 30);
+	bar(290 - 20, 350 + 20, 320 - 20, 380 + 20);
+}
 
+int edit01(struct Parameter *abc)
+{
+	void *buffer, *buffer1, *buffer2;
+	unsigned s, s1, s2;
+	INPUT name = {230, 80, 520, 130, "", 10, 0, 0};
+	edit01_screen(abc);
 	// 按钮,按下去
 	setfillstyle(1, MAGENTA);
-	s = imagesize(100, 180, 170, 250);
+	s = imagesize(100 - 30, 180, 170 - 30, 250);
 	buffer = malloc(s);
-	getimage(100, 180, 170, 250, buffer);
+	getimage(100 - 30, 180, 170 - 30, 250, buffer);
 
-	s1 = imagesize(420, 180, 490, 250);
+	s1 = imagesize(420 - 40, 180 + 30, 490 - 40, 250 + 30);
 	buffer1 = malloc(s1);
-	getimage(420, 180, 490, 250, buffer1);
+	getimage(420 - 40, 180 + 30, 490 - 40, 250 + 30, buffer1);
 
-	s2 = imagesize(270, 330, 340, 400);
+	s2 = imagesize(270 - 20, 330 + 20, 340 - 20, 400 + 20);
 	buffer2 = malloc(s2);
-	getimage(270, 330, 340, 400, buffer2);
+	getimage(270 - 20, 330 + 20, 340 - 20, 400 + 20, buffer2);
 	for (;;)
 	{
 		newmouse(&MouseX, &MouseY, &press);
-		// press_edit();
 		input_s(233, 80, &name, 16, 0);
-		if (mouse_press(100, 180, 170, 250) == 2) // 新疆
+		if (mouse_press(100 - 30, 180, 170 - 30, 250) == 2) // 新疆
 		{
-			pieslice(135, 215, 0, 360, 20);
+			pieslice(135 - 30, 215, 0, 360, 20);
 		}
 		else
 		{
-			putimage(100, 180, buffer, COPY_PUT);
+			putimage(100 - 30, 180, buffer, COPY_PUT);
 		}
-		if (mouse_press(100, 180, 170, 250) == 1)
+		if (mouse_press(100 - 30, 180, 170 - 30, 250) == 1)
 		{
 			if (judgename(name.string) == 1)
 			{
@@ -67,20 +71,20 @@ int draw_edit01(struct Parameter *abc)
 			}
 		}
 
-		if (mouse_press(420, 180, 490, 250) == 2) // 长江
+		if (mouse_press(420 - 40, 180 + 30, 490 - 40, 250 + 30) == 2) // 黄河
 		{
-			pieslice(455, 215, 0, 360, 20);
+			pieslice(455 - 40, 215 + 30, 0, 360, 20);
 		}
 		else
 		{
-			putimage(420, 180, buffer1, COPY_PUT);
+			putimage(420 - 40, 180 + 30, buffer1, COPY_PUT);
 		}
-		if (mouse_press(420, 180, 490, 250) == 1)
+		if (mouse_press(420 - 40, 180 + 30, 490 - 40, 250 + 30) == 1)
 		{
 			if (judgename(name.string) == 1)
 			{
 				strcpy(abc->name, name.string);
-				abc->place = 'c';
+				abc->place = 'b';
 				free(buffer);
 				free(buffer1);
 				free(buffer2);
@@ -88,20 +92,20 @@ int draw_edit01(struct Parameter *abc)
 			}
 		}
 
-		if (mouse_press(270, 330, 340, 400) == 2) // 黄河
+		if (mouse_press(270 - 20, 330 + 20, 340 - 20, 400 + 20) == 2) // 长江
 		{
-			pieslice(305, 365, 0, 360, 20);
+			pieslice(305 - 20, 365 + 20, 0, 360, 20);
 		}
 		else
 		{
-			putimage(270, 330, buffer2, COPY_PUT);
+			putimage(270 - 20, 330 + 20, buffer2, COPY_PUT);
 		}
-		if (mouse_press(270, 330, 340, 400) == 1)
+		if (mouse_press(270 - 20, 330 + 20, 340 - 20, 400 + 20) == 1)
 		{
 			if (judgename(name.string) == 1)
 			{
 				strcpy(abc->name, name.string);
-				abc->place = 'b';
+				abc->place = 'c';
 				free(buffer);
 				free(buffer1);
 				free(buffer2);
@@ -138,20 +142,12 @@ int draw_edit01(struct Parameter *abc)
 		}
 		delay(15);
 	}
-	// bmp_convert(".\\photo\\map.bmp",".\\photo\\map.dbm");
-	// show_dbm(5,100,".\\photo\\map.dbm");
 	// getchar();
 	// closegraph();
 }
 
-int draw_edit02(struct Parameter *abc)
+void edit02_screen(struct Parameter *abc)
 {
-	// void *buffer,*buffer1,*buffer2,*buffer3;
-	// unsigned s,s1,s2,s3;
-	int flag = 0; // 返回键判断
-	int flagcan = 0;
-	INPUT S = {330, 30, 490, 90, "", 6, 0, 0};
-	
 	clrmous(MouseX, MouseY);
 	cleardevice();
 	setbkcolor(WHITE);
@@ -191,6 +187,15 @@ int draw_edit02(struct Parameter *abc)
 	bar(200, 150, 600, 460);
 	setcolor(RED);
 	rectangle(200, 150, 600, 460);
+}
+
+int edit02(struct Parameter *abc)
+{
+	int flag = 0; // 返回键判断
+	int flagcan = 0;
+	INPUT S = {330, 30, 490, 90, "", 6, 0, 0};
+
+	edit02_screen(abc);
 
 	for (;;)
 	{
@@ -220,8 +225,8 @@ int draw_edit02(struct Parameter *abc)
 			setfillstyle(10, LIGHTGRAY);
 			circle(400, 305, 121);
 			pieslice(400, 305, 0, 360, 120);
-			line(280,305,520,305);
-			line(400,185,400,425);
+			line(280, 305, 520, 305);
+			line(400, 185, 400, 425);
 
 			flagcan = 0;
 		}
@@ -237,7 +242,6 @@ int draw_edit02(struct Parameter *abc)
 			drawpoly(5, dindian2);
 			setlinestyle(0, 0, 3);
 			line(220, 440, 580, 170);
-
 			flagcan = 0;
 		}
 		else if (mouse_press(0, 380, 160, 430) == 2) // 自定义图形
@@ -259,6 +263,7 @@ int draw_edit02(struct Parameter *abc)
 		{
 			if (flagcan == 0)
 			{
+				clrmous(MouseX, MouseY);
 				MouseS = 0;
 				setfillstyle(1, LIGHTGRAY);
 				bar(0, 150, 160, 200);
@@ -281,7 +286,7 @@ int draw_edit02(struct Parameter *abc)
 		{
 			if (judgeS(S.string) == 1)
 			{
-				strcpy(abc->S,S.string);
+				strcpy(abc->S, S.string);
 				abc->shape = 'a';
 				return 0;
 			}
@@ -290,7 +295,7 @@ int draw_edit02(struct Parameter *abc)
 		{
 			if (judgeS(S.string) == 1)
 			{
-				strcpy(abc->S,S.string);
+				strcpy(abc->S, S.string);
 				abc->shape = 'b';
 				return 0;
 			}
@@ -299,8 +304,9 @@ int draw_edit02(struct Parameter *abc)
 		{
 			if (judgeS(S.string) == 1)
 			{
-				strcpy(abc->S,S.string);
+				strcpy(abc->S, S.string);
 				abc->shape = 'c';
+				select02(abc);
 				return 0;
 			}
 		}
@@ -308,8 +314,9 @@ int draw_edit02(struct Parameter *abc)
 		{
 			if (judgeS(S.string) == 1)
 			{
-				strcpy(abc->S,S.string);
+				strcpy(abc->S, S.string);
 				abc->shape = 'd';
+				select03(abc);
 				return 0;
 			}
 		}
@@ -344,10 +351,9 @@ int draw_edit02(struct Parameter *abc)
 	}
 }
 
-int draw_edit03(struct Parameter *abc)
+void edit03_screen(struct Parameter *abc)
 {
 	int dindian0[10] = {100, 150, 100, 200, 250, 200, 250, 150, 100, 150};
-	int flag=0;
 	clrmous(MouseX, MouseY);
 	cleardevice();
 	setbkcolor(WHITE);
@@ -406,6 +412,14 @@ int draw_edit03(struct Parameter *abc)
 
 	puthz(110, 130, "垂直式收割机", 16, 16, BLUE);
 	puthz(400, 130, "水平式收割机", 16, 16, BLUE);
+}
+
+int edit03(struct Parameter *abc)
+{
+	int flag = 0;
+
+	edit03_screen(abc);
+
 	for (;;)
 	{
 		newmouse(&MouseX, &MouseY, &press);
@@ -414,48 +428,48 @@ int draw_edit03(struct Parameter *abc)
 		// 收割机按钮 70, 120, 570, 420
 		if (mouse_press(70, 120, 300, 420) == 2)
 		{
-			if (flag==0)
+			if (flag == 0)
 			{
 				MouseS = 1;
 				setcolor(RED);
 				setlinestyle(0, 0, 5);
 				rectangle(70, 120, 300, 420);
 
-				flag=1;
+				flag = 1;
 			}
 		}
 		else if (mouse_press(70, 120, 300, 420) == 1)
 		{
-			abc->type='a';
+			abc->type = 'a';
 			return 0;
 		}
 		else if (mouse_press(340, 120, 570, 420) == 2)
 		{
-			if (flag==0)
+			if (flag == 0)
 			{
 				MouseS = 1;
 				setcolor(RED);
 				setlinestyle(0, 0, 5);
 				rectangle(340, 120, 570, 420);
 
-				flag=1;
+				flag = 1;
 			}
 		}
 		else if (mouse_press(340, 120, 570, 420) == 1)
 		{
-			abc->type='b';
+			abc->type = 'b';
 			return 0;
 		}
 		else
 		{
-			if (flag==1)
+			if (flag == 1)
 			{
 				MouseS = 0;
 				setlinestyle(0, 0, 5);
 				setcolor(LIGHTGRAY);
 				rectangle(340, 120, 570, 420);
 				rectangle(70, 120, 300, 420);
-				flag=0;
+				flag = 0;
 			}
 		}
 
@@ -486,7 +500,7 @@ int draw_edit03(struct Parameter *abc)
 		{
 			return 1;
 		}
-	}   
+	}
 }
 // 产区，面积，形状（坐标），收割机类型，名字
 // 产区place：a--新疆；b--黄河；c--长江；分别对应：粗绒棉，长绒棉，细绒棉
@@ -502,22 +516,22 @@ void edit()
 	parameter *abc = (parameter *)malloc(sizeof(parameter));
 
 edit01:
-	if (draw_edit01(abc)==1)
+	if (edit01(abc) == 1)
 	{
 		return;
 	}
 
 edit02:
-	if (draw_edit02(abc) == 1)
+	if (edit02(abc) == 1)
 	{
 		goto edit01;
 	}
 
-	if (draw_edit03(abc) == 1)
+	if (edit03(abc) == 1)
 	{
 		goto edit02;
 	}
 	wr_parameter(abc);
 	free(abc);
-	//h->parameter[h->lenpar]=*abc;
+	// h->parameter[h->lenpar]=*abc;
 }

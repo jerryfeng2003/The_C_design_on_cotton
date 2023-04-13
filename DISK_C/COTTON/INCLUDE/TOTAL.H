@@ -68,6 +68,7 @@
 #include "RESET.H"
 #include "LOGFUN.H"
 #include "PARAMETE.H"
+#include "IMAGE.h"
 
 
 extern int location;//1 means the norwestern,0 means others

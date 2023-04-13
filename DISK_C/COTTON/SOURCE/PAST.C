@@ -197,12 +197,7 @@ int past01()
 	}
 }
 
-void past02_screen(void)
-{
-
-}
-
-int past02(int par)
+void past02_screen(int par)
 {
 	int i;
 	clrmous(MouseX, MouseY);
@@ -278,6 +273,12 @@ int past02(int par)
 	setcolor(BLACK);
 	rectangle(399, 29, 481, 81);
 	puthz(409, 38, "É¾³ý", 32, 32, BLUE);
+}
+
+int past02(int par)
+{
+	int i;
+	past02_screen(par);
 
 	for (;;)
 	{

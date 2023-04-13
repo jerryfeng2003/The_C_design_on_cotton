@@ -4,7 +4,7 @@
 #define y_max 320
 #define x_start 50
 #define y_start 120
-#define point_max 50
+#define point_max 500
 #define dense_points_max 500
 #define tracktor_num_max 10
 #define tracktor_w 25
@@ -35,16 +35,16 @@ int pressed_anime(int x,int y);
 void anime_skip_result(int x,int y);
 void pick_finish(int count);
 
-void select02(void);
-void press_select02(int *x,int *y,int *flag);
+void select02(struct Parameter *abc);
+void press_select02(int *x,int *y,int *flag,int *back);
 void pick_start(int *x,int *y);
 void pick_points(int *x,int *y,int *flag);
 void draw_points(int *x,int *y,int *flag,int *xy_m);
 void init_field02(int *x,int *y,int *flag);
 
 void pick_wait(void);
-void select03(void);
-void press_select03(int *x,int *y,int *flag);
+void select03(struct Parameter *abc);
+void press_select03(int *x,int *y,int *flag,int *back);
 void dense_pick(int *x,int *y,int *flag);
 void dense_draw_points(int *x,int *y,int *flag,long int *xy_m);
 void init_field03(int *x,int *y,int *flag);
