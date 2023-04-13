@@ -24,12 +24,28 @@ int main()
 // 	int gd=VGA,gm=VGAHI,start_x=400,start_y=100,des_x=100,des_y=300; 
 // 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
 // 	setbkcolor(WHITE);
-// 	setfillstyle(1,LIGHTGRAY);
-// 	bar(start_x,start_y,start_x+tra_start_l,start_y+tra_start_d);
-// 	tracktor_return(start_x,start_y,des_x,des_y,50,4);
-// 	delay(4000);
+//  	h=(user*)malloc(sizeof(user));//登录的用户
+// 	strcpy(h->parameter[0].name,"abc");
+// 	strcpy(h->parameter[1].name,"acc");
+// 	//strcpy(&h->parameter[0].type,"a");
+// 	h->parameter[1].type='a';
+// 	h->parameter[1].place='a';
+// 	//strcpy(&h->parameter[0].shape,"a");
+// 	h->parameter[1].shape='b';
+// 	strcpy(h->parameter[1].S,"300");
+// 	start();	
+// 	delay(5000);
 // 	return 0;
 // }
+int main()
+{
+	int gd=VGA,gm=VGAHI,xy[2]; 
+	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+	setbkcolor(WHITE);
+	select_setoff01(xy,300,300);
+	delay(3000);
+	return 0;
+}
 
 void start()
 {
@@ -68,27 +84,27 @@ void start()
 	{
 		case 'a':
 		{
-			draw_simu01(time);
+			//draw_simu01(time);
 			switch(h->parameter[i].shape)
 			{
 				case 'a':
 				{
-					start_ainime01(0,space);
+					start_ainime01(0,space,time);
 					break;
 				}
 				case 'b':
 				{
-					cal_tracktor_circle(0,space);
+					cal_tracktor_circle(0,space,time);
 					break;
 				}
 				case 'c':
 				{
-					init_field02(h->parameter[i].x,h->parameter[i].y,&h->parameter[i].lenxy,0);
+					init_field02(h->parameter[i].x,h->parameter[i].y,&h->parameter[i].lenxy,0,time);
 					break;
 				}
 				case 'd':
 				{
-					init_field03(h->parameter[i].x,h->parameter[i].y,&h->parameter[i].lenxy,0);
+					init_field03(h->parameter[i].x,h->parameter[i].y,&h->parameter[i].lenxy,0,time);
 					break;
 				}
 			}
@@ -105,22 +121,22 @@ void start()
 			{
 				case 'a':
 				{
-					start_ainime01(1,space);
+					start_ainime01(1,space,time*0.8);
 					break;
 				}
 				case 'b':
 				{
-					cal_tracktor_circle(1,space);
+					cal_tracktor_circle(1,space,time*0.8);
 					break;
 				}
 				case 'c':
 				{
-					init_field02(h->parameter[i].x,h->parameter[i].y,&h->parameter[i].lenxy,1);
+					init_field02(h->parameter[i].x,h->parameter[i].y,&h->parameter[i].lenxy,1,time*0.8);
 					break;
 				}
 				case 'd':
 				{
-					init_field03(h->parameter[i].x,h->parameter[i].y,&h->parameter[i].lenxy,1);
+					init_field03(h->parameter[i].x,h->parameter[i].y,&h->parameter[i].lenxy,1,time*0.8);
 					break;
 				}
 			}
@@ -205,16 +221,21 @@ void init_based_field()
 }
 
 //start playing the picking video
-void start_ainime01(int t_trac,double space)
+void start_ainime01(int t_trac,double space,int time)
 {
-	int i,x_p,y_p,flag,out,x,y,num;
+	int i,x_p,y_p,flag,out,x,y,num,xy[2];
 	double temp_x,temp_y;
 	temp_y=sqrt(space/55*32)*10;
 	temp_x=temp_y*55/32;
 	x=temp_x,y=temp_y,num=temp_x/(tracktor_w*4);
-	x/=num;
+	if(num==0)
+		num=1;
 	i=0,x_p=x_start,y_p=y_start+y-40,flag=0,out=0;
+	select_setoff01(xy,x_start+x,y_start+y);
+	x/=num;
+	draw_simu01(time);
 	skip();
+	init_field(x,y);
 	init_field(x,y);
 	if(t_trac==0)
 	{
@@ -1214,31 +1235,31 @@ void select03(struct Parameter *abc)
 	}
 }
 
-void press_select03(int *x, int *y, int *flag,int *back)
-{
-	if (mouse_press(0, 0, 40, 30) == 0 || (mouse_press(200, 70, 280, 115) == 0 && (*flag == 0)) || mouse_press(320, 70, 400, 115) == 0)
-	{
-		MouseS = 0;
-	}
-	if (mouse_press(0, 0, 40, 30) == 2 || (mouse_press(200, 70, 280, 115) == 2 && (*flag == 0)) || mouse_press(320, 70, 400, 115) == 2)
-	{
-		MouseS = 1;
-	}
-	if (mouse_press(0, 0, 40, 30) == 1)
-	{
-		draw_wel();
-	}
-	if (mouse_press(200, 70, 280, 115) == 1 && (*flag) == 0)
-	{
-		dense_pick(x, y, flag);
-		return;
-	}
-	if (mouse_press(320, 70, 400, 115) == 1)
-	{
-		init_field03(x, y, flag);
-		back=1;
-	}
-}
+// void press_select03(int *x,int *y,int *flag)
+// {
+// 	if(mouse_press(0,0,40,30)==0||(mouse_press(200,70,280,115)==0&&(*flag==0))||mouse_press(320,70,400,115)==0)
+// 	{
+// 		MouseS=0;
+// 	}
+// 	if(mouse_press(0,0,40,30)==2||(mouse_press(200,70,280,115)==2&&(*flag==0))||mouse_press(320,70,400,115)==2)
+// 	{
+// 		MouseS=1;
+// 	}
+// 	if(mouse_press(0,0,40,30)==1)
+// 	{
+// 		draw_wel();
+// 	}
+// 	if(mouse_press(200,70,280,115)==1&&(*flag)==0)
+// 	{
+// 		dense_pick(x,y,flag);
+// 		return;
+// 	}
+// 	if(mouse_press(320,70,400,115)==1)
+// 	{
+// 		init_field03(x,y,flag,0);
+// 		return;
+// 	}
+// }
 
 void dense_pick(int *x, int *y, int *flag)
 {
@@ -1315,10 +1336,12 @@ void dense_draw_points(int *x, int *y, int *flag, long int *xy_m)
 	return;
 }
 
-void init_field02(int *x,int *y,int *flag,int type)
+void init_field02(int *x,int *y,int *flag,int type,int time)
 {
 	// The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
+	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
+	int i,num=0;
 	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
 	int i,num=0;
 	setfillstyle(1,BROWN);
@@ -1368,10 +1391,15 @@ void init_field02(int *x,int *y,int *flag,int type)
 }
 
 
-void init_field03(int *x,int *y,int *flag,int type)
+void init_field03(int *x,int *y,int *flag,int type,int time)
 {
 	// The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
+	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
+	int i,num=0;
+	// setfillstyle(1,BROWN);
+	// setlinestyle(0,0,3);
+	// bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
 	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
 	int i,num=0;
 	// setfillstyle(1,BROWN);
@@ -1748,7 +1776,7 @@ void circle_field(long int r)
 	}
 }
 
-void cal_tracktor_circle(int type,double space)
+void cal_tracktor_circle(int type,double space,int time)
 {
 	long int x0=(2*x_start+x_max)/2,y0=(2*y_start+y_max)/2,r;
 	int tra_d[tracktor_num_max][4],i,d,num;
@@ -2046,7 +2074,88 @@ double cal_circle_field(int r)
 	return pi * r * r;
 }
 
-void tracktor_set_off(int start_x, int start_y, int des_x, int des_y, int distance, int num)
+
+void select_setoff01(int *xy,int x_end,int y_end)
+{
+	//int i=0;
+	cleardevice();
+	setbkcolor(WHITE);   
+	puthz(150,30,"请在框外选择农机出发点",32,32,BLUE);
+	init_based_field();
+	setlinestyle(0,0,3);
+	setcolor(GREEN);
+	rectangle(x_start,y_start,x_end,y_end);
+	mouseinit();
+	// for(i=0;i<100;i++)
+	// {
+	// 	newmouse(&MouseX,&MouseY,&press);
+	// 	delay(10);
+	// }
+	while(1)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		if(mouse_press(0,y_start,x_start,480)==1||mouse_press(x_start,y_end,x_end,480)==1||mouse_press(x_end,y_start,615,480)==1)
+		{
+			xy[0]=MouseX;
+			xy[1]=MouseY;
+			break;
+		}
+		delay(20);
+	}
+	if(xy[0]<=x_start&&xy[0]+tra_start_l>=x_start)
+	{
+		xy[0]=x_start-tra_start_l;
+	}
+	if(xy[0]>=x_start&&xy[0]<=x_end&&xy[1]<=y_end)
+	{
+		xy[1]=y_end;
+	}
+	setfillstyle(1,LIGHTGRAY);
+	bar(xy[0],xy[1],xy[0]+tra_start_l,xy[1]+tra_start_d);
+	return;
+}
+
+void select_setoff02(int *xy,int x_end,int y_end)
+{
+	//int i=0;
+	cleardevice();
+	setbkcolor(WHITE);   
+	puthz(150,30,"请在框外选择农机出发点",32,32,BLUE);
+	init_based_field();
+	setlinestyle(0,0,3);
+	setcolor(GREEN);
+	rectangle(x_start,y_start,x_end,y_end);
+	mouseinit();
+	// for(i=0;i<100;i++)
+	// {
+	// 	newmouse(&MouseX,&MouseY,&press);
+	// 	delay(10);
+	// }
+	while(1)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		if(mouse_press(0,y_start,x_start,480)==1||mouse_press(x_start,y_end,x_end,480)==1||mouse_press(x_end,y_start,615,480)==1)
+		{
+			xy[0]=MouseX;
+			xy[1]=MouseY;
+			break;
+		}
+		delay(20);
+	}
+	if(xy[0]<=x_start&&xy[0]+tra_start_l>=x_start)
+	{
+		xy[0]=x_start-tra_start_l;
+	}
+	if(xy[0]>=x_start&&xy[0]<=x_end&&xy[1]<=y_end)
+	{
+		xy[1]=y_end;
+	}
+	setfillstyle(1,LIGHTGRAY);
+	bar(xy[0],xy[1],xy[0]+tra_start_l,xy[1]+tra_start_d);
+	return;
+}
+
+void tracktor_set_off(int start_x,int start_y,int des_x,int des_y,int distance,int num)
 {
 	if (start_x < des_x && start_y < des_y)
 	{
@@ -2587,7 +2696,7 @@ void tracktor_return04(int start_x,int start_y,int des_x,int des_y,int distance,
 			break;
 		}
 		delay(20);
-	}
+	}      
 }
 
 void tracktor_set_off0(int start_x,int start_y,int des_x,int des_y,int distance,int num)
