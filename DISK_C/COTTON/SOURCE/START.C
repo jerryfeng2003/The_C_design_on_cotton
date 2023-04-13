@@ -1,8 +1,26 @@
 #include "TOTAL.H"
 
+int main()
+{
+	int gd=VGA,gm=VGAHI; 
+	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+	setbkcolor(WHITE);
+ 	h=(user*)malloc(sizeof(user));//登录的用户
+	strcpy(h->parameter[0].name,"abc");
+	strcpy(h->parameter[1].name,"acc");
+	//strcpy(&h->parameter[0].type,"a");
+	h->parameter[1].type='a';
+	h->parameter[1].place='a';
+	//strcpy(&h->parameter[0].shape,"a");
+	h->parameter[1].shape='b';
+	strcpy(h->parameter[1].S,"300");
+	start();	
+	delay(5000);
+	return 0;
+}
 // int main()
 // {
-// 	int gd=VGA,gm=VGAHI; 
+// 	int gd=VGA,gm=VGAHI,start_x=400,start_y=100,des_x=100,des_y=300; 
 // 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
 // 	setbkcolor(WHITE);
 //  	h=(user*)malloc(sizeof(user));//登录的用户
@@ -197,7 +215,7 @@ void draw_simu01(int time)
 void init_based_field()
 {
 	setfillstyle(1,BROWN);
-	bar(0,60,615,500);
+	bar(0,100,615,500);
 	return;
 }
 
@@ -216,6 +234,7 @@ void start_ainime01(int t_trac,double space,int time)
 	x/=num;
 	draw_simu01(time);
 	skip();
+	init_field(x,y);
 	init_field(x,y);
 	if(t_trac==0)
 	{
@@ -1305,6 +1324,8 @@ void init_field02(int *x,int *y,int *flag,int type,int time)
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
 	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
 	int i,num=0;
+	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
+	int i,num=0;
 	setfillstyle(1,BROWN);
 	setlinestyle(0,0,3);
 	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
@@ -1356,6 +1377,11 @@ void init_field03(int *x,int *y,int *flag,int type,int time)
 {
 	//The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
+	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
+	int i,num=0;
+	// setfillstyle(1,BROWN);
+	// setlinestyle(0,0,3);
+	// bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
 	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
 	int i,num=0;
 	// setfillstyle(1,BROWN);

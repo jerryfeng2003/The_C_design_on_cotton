@@ -15,8 +15,16 @@
 #define Xinjinag_har 2.1
 #define Huanghe_har 1.3
 #define Chnagjiang_har 1.1
+#define pick_ph 2.4
+#define Xinjinag_har 2.1
+#define Huanghe_har 1.3
+#define Chnagjiang_har 1.1
 
 //attention: the warehouse moudule is made by file "HOME.H"
+void start(void);
+void draw_simu01(int time);//draw the process of harvest in animition
+void press_start(int *bk);//add the press moudules
+void init_based_field(void);
 void start(void);
 void draw_simu01(int time);//draw the process of harvest in animition
 void press_start(int *bk);//add the press moudules
@@ -55,6 +63,7 @@ void dense_pick(int *x,int *y,int *flag);
 void dense_draw_points(int *x,int *y,int *flag,long int *xy_m);
 void init_field03(int *x,int *y,int *flag,int type,int time);
 void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);
+void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);
 void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);
 void start_ainime03_01(int (*tra_d)[4],int num);
 void start_ainime03_02(int (*tra_d)[4],int num);

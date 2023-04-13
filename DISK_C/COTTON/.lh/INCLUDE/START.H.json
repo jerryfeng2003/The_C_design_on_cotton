@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1681365047248,
@@ -44,6 +44,10 @@
                 {
                     "date": 1681378305209,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,9 +71,9 @@\n void init_tracktor01_r(int x,int y);\r\n void init_tracktor01_l(int x,int y);\r\n void init_tracktor02_r(int x,int y);\r\n void init_tracktor02_l(int x,int y);\r\n-void select_setoff(int *xy,int x_end,int y_end);\r\n+void select_setoff01(int *xy,int x_end,int y_end);\r\n void tracktor_set_off01(int start_x,int start_y,int des_x,int des_y,int distance,int num);\r\n void tracktor_set_off01(int start_x,int start_y,int des_x,int des_y,int distance,int num);\r\n void tracktor_set_off02(int start_x,int start_y,int des_x,int des_y,int distance,int num);\r\n void tracktor_set_off03(int start_x,int start_y,int des_x,int des_y,int distance,int num);\r\n"
+                },
+                {
+                    "date": 1681383559162,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,14 +14,22 @@\n #define pick_ph 2.4\r\n #define Xinjinag_har 2.1\r\n #define Huanghe_har 1.3\r\n #define Chnagjiang_har 1.1\r\n+#define pick_ph 2.4\r\n+#define Xinjinag_har 2.1\r\n+#define Huanghe_har 1.3\r\n+#define Chnagjiang_har 1.1\r\n \r\n //attention: the warehouse moudule is made by file \"HOME.H\"\r\n void start(void);\r\n void draw_simu01(int time);//draw the process of harvest in animition\r\n void press_start(int *bk);//add the press moudules\r\n void init_based_field(void);\r\n+void start(void);\r\n+void draw_simu01(int time);//draw the process of harvest in animition\r\n+void press_start(int *bk);//add the press moudules\r\n+void init_based_field(void);\r\n void init_field(int x,int y);//initialize the cotton field\r\n void init_tracktor01_f(int x,int y);//initialize the tarcker 01\r\n void init_tracktor01_b(int x,int y);\r\n \r\n@@ -55,8 +63,9 @@\n void dense_draw_points(int *x,int *y,int *flag,long int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n+void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n void start_ainime03_01(int (*tra_d)[4],int num);\r\n void start_ainime03_02(int (*tra_d)[4],int num);\r\n \r\n void circle_field(long int r);\r\n"
                 }
             ],
             "date": 1681365047248,
