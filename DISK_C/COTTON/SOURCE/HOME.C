@@ -2,16 +2,45 @@
 char str[15];
 int k=0;
 
-U_ware here[5]={"ware01",0,{100,200,300},"ware02",1,{1000,2000,3000},\
-"ware03",2,{123,456,789},"ware04",1,{1234,4545,234},"ware05",0,{34535,3423,6465}};
+// U_ware here[5]={"ware01",0,{100,200,300},"ware02",1,{1000,2000,3000},\
+// "ware03",2,{123,456,789},"ware04",1,{1234,4545,234},"ware05",0,{34535,3423,6465}};
 
 //the page of n-w warehouse
 void draw_home01()
 {
-    int i,type;
+    int i,type,location;//1 means the norwestern,0 means others
 	long int temp, c_tal;
-	type=here[k].cotton_type,temp=0;
-	c_tal=here[k].total[type];
+	for(i=0;i<10;i++)
+	{
+		if(h->parameter[i].name=='\0')
+		{
+			i--;
+			break;
+		}
+	}
+	switch (h->parameter[i].place)
+	{
+		case 'a':
+		{
+			location=1;
+			break;
+		}
+		case 'b':
+		{
+			location=0;
+			break;
+		}
+		case 'c':
+		{
+			location=0;
+			break;
+		}
+		
+		default:
+			break;
+	}
+	type=h->here[k].cotton_type,temp=0;
+	c_tal=h->here[k].total[type];
 	if(c_tal>ware_full||c_tal<0)
 	{
 		c_tal=ware_full;
@@ -24,7 +53,7 @@ void draw_home01()
 	draw_trunk();
 	if(location==1)
 	{
-		puthz(180,30,"西北地区：室外仓库",32,32,BLUE);
+		puthz(180,30,"新疆地区：室外仓库",32,32,BLUE);
 	}
 	else
 	{
@@ -41,13 +70,13 @@ void draw_home01()
 		{
 			temp=c_tal;
 		}
-		here[k].total[type]-=temp;
+		h->here[k].total[type]-=temp;
 		for(i=0;i<15;i++)
 		{
 			str[i]='\0';
 		}
 	}
-	in_warehouse(here+k);
+	in_warehouse(h->here+k);
     mouseinit();
 	quit();
 	// for(;;)
@@ -303,7 +332,7 @@ void detailed_warehouse(long int count)
 	puthz(120,130,"库存量：",32,32,WHITE);
 	puthz(400,130,"吨",32,32,WHITE);
 	puthz(120,220,"棉花种类：",32,32,WHITE);
-	switch (here[k].cotton_type)
+	switch (h->here[k].cotton_type)
 	{
 	case 0:
 		puthz(280,220,"长绒棉",32,32,RED);

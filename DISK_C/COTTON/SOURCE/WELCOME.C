@@ -1,5 +1,4 @@
 #include "TOTAL.H"
-int location = 0;
 /*void main()
 {
 	int gdriver,gmode;
@@ -203,7 +202,7 @@ void enter_next()
 	// Enter the simulation page
 	if (mouse_press(450, 210, 550, 270) == 1)
 	{
-		draw_simu01(x_max, y_max, 5);
+		mode=3;
 	}
 
 	// Enter the past arguments
@@ -213,7 +212,7 @@ void enter_next()
 		// draw_past01();
 	}
 
-	// Enter the past arguments
+	// Enter the help arguments
 	if (mouse_press(450, 410, 550, 470) == 1)
 	{
 		mode = 5;
@@ -234,9 +233,6 @@ void enter_next()
 	if (mouse_press(0, 450, 40, 480) == 1)
 	{
 		loginit();
-		draw_wel_buttons();
-		draw_wel_cofield();
-		draw_wel_tractors();
 	}
 
 	// Exit the program

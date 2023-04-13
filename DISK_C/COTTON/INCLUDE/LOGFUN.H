@@ -21,7 +21,7 @@ typedef struct Input
 
 // 产区，面积，形状（坐标），收割机类型，名字
 
-// 产区place：a--新疆；b--黄河；c--长江；分别对应：粗绒棉，长绒棉，细绒棉
+// 产区place：a--新疆；b--黄河；c--长江；分别对应：长绒棉，细绒棉，粗绒棉
 // 面积S：123（数字）
 // 形状shape：a--矩形；b--圆形；c--多边形；d自定义形状
 // 坐标xyz：c/d才用：x1,y1,x2,y2,x3,y3....
@@ -46,6 +46,7 @@ typedef struct User
     char password[10];
     char phonenumber[12];
 	struct Parameter parameter[10];//参数列表
+	struct user_warehouse here[5];
 	int lenpar;//参数个数
 	struct user_warehouse here[5];//仓库
 }user;

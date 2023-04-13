@@ -11,10 +11,16 @@
 #define tracktor_l 30
 #define tra_start_l 50
 #define tra_start_d 35
+#define pick_ph 2.4
+#define Xinjinag_har 2.1
+#define Huanghe_har 1.3
+#define Chnagjiang_har 1.1
 
 //attention: the warehouse moudule is made by file "HOME.H"
-void draw_simu01(long int x,long int y,int num);//draw the process of harvest in animition
-void press_start(void);//add the press moudules
+void start(void);
+void draw_simu01(int time);//draw the process of harvest in animition
+void press_start(int *bk);//add the press moudules
+void init_based_field(void);
 void init_field(int x,int y);//initialize the cotton field
 void init_tracktor01_f(int x,int y);//initialize the tarcker 01
 void init_tracktor01_b(int x,int y);
@@ -28,7 +34,7 @@ void earth_cover02(int x,int y);
 void earth_cover03(int x,int y);
 
 void earn_anim(int x,int y);
-void start_ainime01(int t_trac,int x,int y,int num);
+void start_ainime01(int t_trac,double space);
 void init_tracktor02_f(int x,int y);
 void init_tracktor02_b(int x,int y);
 int pressed_anime(int x,int y);
@@ -40,21 +46,23 @@ void press_select02(int *x,int *y,int *flag,int *back);
 void pick_start(int *x,int *y);
 void pick_points(int *x,int *y,int *flag);
 void draw_points(int *x,int *y,int *flag,int *xy_m);
-void init_field02(int *x,int *y,int *flag);
+void init_field02(int *x,int *y,int *flag,int type);
 
 void pick_wait(void);
 void select03(struct Parameter *abc);
 void press_select03(int *x,int *y,int *flag,int *back);
 void dense_pick(int *x,int *y,int *flag);
 void dense_draw_points(int *x,int *y,int *flag,long int *xy_m);
-void init_field03(int *x,int *y,int *flag);
+void init_field03(int *x,int *y,int *flag,int type);
 void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);
+void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);
 void start_ainime03_01(int (*tra_d)[4],int num);
 void start_ainime03_02(int (*tra_d)[4],int num);
 
 void circle_field(long int r);
-void cal_tracktor_circle(long int r,int num);
+void cal_tracktor_circle(int tpye,double space);
 void start_ainime04_01(int (*tra_d)[4],int num);
+void start_ainime04_02(int (*tra_d)[4],int num);
 
 long int hellen(int x1,int y1,int x2,int y2,int x3,int y3);
 long int cal_poly_field(int *x,int *y,int *flag);
@@ -75,6 +83,18 @@ void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,
 void tracktor_return02(int start_x,int start_y,int des_x,int des_y,int distance,int num);
 void tracktor_return03(int start_x,int start_y,int des_x,int des_y,int distance,int num);
 void tracktor_return04(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+
+void tracktor_set_off0(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_set_off001(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_set_off002(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_set_off003(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_set_off004(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+
+void tracktor_return0(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_return001(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_return002(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_return003(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_return004(int start_x,int start_y,int des_x,int des_y,int distance,int num);
 
 void init_picker_f(int x,int y);
 void init_picker_b(int x,int y);
