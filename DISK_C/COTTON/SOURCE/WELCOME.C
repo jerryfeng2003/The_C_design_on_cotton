@@ -120,9 +120,10 @@ void draw_wel_cofield()
 	}*/
 }
 
-//enter the edit page
+// enter the edit page
 void enter_next()
 {
+	static int flag = 0;
 	if (mouse_press(450, 110, 550, 170) == 0 || mouse_press(450, 210, 550, 270) == 0 || mouse_press(450, 310, 550, 370) == 0 || mouse_press(450, 410, 550, 470) == 0 ||
 		mouse_press(310, 130, 410, 200) == 0 || mouse_press(0, 0, 40, 30) == 0 || mouse_press(0, 450, 40, 480) == 0)
 	{
@@ -134,10 +135,68 @@ void enter_next()
 		MouseS = 1;
 	}
 
+	// rectangle(450, 110, 550, 170);
+	// puthz(470, 130, "编辑参数", 16, 16, BLUE);
+	// rectangle(450, 210, 550, 270);
+	// puthz(470, 230, "开始模拟", 16, 16, BLUE);
+	// rectangle(450, 310, 550, 370);
+	// puthz(470, 330, "过往参数", 16, 16, BLUE);
+	// rectangle(450, 410, 550, 470);
+	// puthz(460, 430, "帮助及说明", 16, 16, BLUE);
+	if (mouse_press(450, 110, 550, 170) == 2)
+	{
+		setfillstyle(1, CYAN);
+		bar(450, 110, 550, 170);
+		puthz(470, 130, "编辑参数", 16, 16, BLUE);
+
+		flag = 0;
+	}
+	else if (mouse_press(450, 210, 550, 270) == 2)
+	{
+		setfillstyle(1, CYAN);
+		bar(450, 210, 550, 270);
+		puthz(470, 230, "开始模拟", 16, 16, BLUE);
+		flag = 0;
+	}
+	else if (mouse_press(450, 310, 550, 370) == 2)
+	{
+		setfillstyle(1, CYAN);
+		bar(450, 310, 550, 370);
+		puthz(470, 330, "过往参数", 16, 16, BLUE);
+		flag = 0;
+	}
+	else if (mouse_press(450, 410, 550, 470) == 2)
+	{
+		setfillstyle(1, CYAN);
+		bar(450, 410, 550, 470);
+		puthz(460, 430, "帮助及说明", 16, 16, BLUE);
+		flag = 0;
+	}
+	else if (flag == 0)
+	{
+		clrmous(MouseX, MouseY);
+		setfillstyle(1,0);
+		bar(450, 110, 550, 170);
+		bar(450, 210, 550, 270);
+		bar(450, 310, 550, 370);
+		bar(450, 410, 550, 470);
+
+		rectangle(450, 110, 550, 170);
+		puthz(470, 130, "编辑参数", 16, 16, BLUE);
+		rectangle(450, 210, 550, 270);
+		puthz(470, 230, "开始模拟", 16, 16, BLUE);
+		rectangle(450, 310, 550, 370);
+		puthz(470, 330, "过往参数", 16, 16, BLUE);
+		rectangle(450, 410, 550, 470);
+		puthz(460, 430, "帮助及说明", 16, 16, BLUE);
+
+		flag=1;
+	}
+
 	// Enter the edit page
 	if (mouse_press(450, 110, 550, 170) == 1)
 	{
-		mode=2;
+		mode = 2;
 	}
 
 	// Enter the simulation page
@@ -149,29 +208,29 @@ void enter_next()
 	// Enter the past arguments
 	if (mouse_press(450, 310, 550, 370) == 1)
 	{
-		mode=4;
-		//draw_past01();
+		mode = 4;
+		// draw_past01();
 	}
 
 	// Enter the help arguments
 	if (mouse_press(450, 410, 550, 470) == 1)
 	{
-		mode=5;
-		//draw_help01();
+		mode = 5;
+		// draw_help01();
 	}
 
 	// Enter the home page
 	if (mouse_press(310, 130, 410, 200) == 1)
 	{
 		// draw_home01();
-		mode=1;
+		mode = 1;
 		/*else
 		{
 			draw_home00();
 		}*/
 	}
 
-	if(mouse_press(0,450,40,480)==1)
+	if (mouse_press(0, 450, 40, 480) == 1)
 	{
 		loginit();
 	}
@@ -190,12 +249,12 @@ void draw_wel()
 	draw_wel_cofield();
 	draw_wel_tractors();
 	quit();
- 	mouseinit();
-// 	for(;;)
-// 	{
-// 		newmouse(&MouseX,&MouseY,&press);
-// 		enter_next(h);
-// 		delay(15);
-// 	}
+	mouseinit();
+	// 	for(;;)
+	// 	{
+	// 		newmouse(&MouseX,&MouseY,&press);
+	// 		enter_next(h);
+	// 		delay(15);
+	// 	}
 }
 //"C:\\BORLANDC\\BGI"

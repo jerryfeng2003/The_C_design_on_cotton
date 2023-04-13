@@ -87,8 +87,11 @@ void wr_user(char username1[], char password1[], char phonenumber1[])
 	int i;
 	user *u = (user *)malloc(sizeof(user));
 	u->lenpar = 0;
-
-	if ((fp = fopen("User.txt", "rt+")) == NULL)
+	for (i = 0; i < 3; i++)
+	{
+		u->here[i].cotton_type = 0;
+	}
+	if ((fp = fopen("User.dat", "rb+")) == NULL)
 	{
 		puthz(120, 300, "打开错误", 32, 32, BLUE);
 		delay(3000);
@@ -122,7 +125,7 @@ int username_same(char username0[])
 	FILE *fp;
 	user *u = (user *)malloc(sizeof(user));
 	int i, j, all, flag = 0;
-	if ((fp = fopen("User.txt", "rt+")) == NULL)
+	if ((fp = fopen("User.dat", "rb+")) == NULL)
 	{
 		puthz(120, 300, "打开错误", 32, 32, BLUE);
 		delay(3000);
@@ -163,8 +166,6 @@ int username_same(char username0[])
 			flag = 1;
 			free(buffer);
 		}
-		free(u);
-		u = NULL;
 	}
 	if (flag == 0)
 	{
@@ -182,6 +183,8 @@ int username_same(char username0[])
 	}
 	fclose(fp);
 	return flag;
+	free(u);
+	u = NULL;
 }
 
 // 登录，判断账号是否存在and密码是否正确
@@ -189,9 +192,9 @@ int logg(char username0[], char password0[])
 {
 	FILE *fp;
 	user *u = (user *)malloc(sizeof(user));
-	static int i, j, k, l, o, flag = 0, all;
+	int i, j, k, l, o, flag = 0, all;
 
-	if ((fp = fopen("User.txt", "rt+")) == NULL)
+	if ((fp = fopen("User.dat", "rb+")) == NULL)
 	{
 		puthz(120, 300, "打开错误", 32, 32, BLUE);
 		delay(3000);
@@ -206,6 +209,7 @@ int logg(char username0[], char password0[])
 		fread(u, sizeof(user), 1, fp);
 		// outtextxy(100+200*i,180,u->username);
 		// outtextxy(100+200*i,280,u->password);
+		// outtextxy(100+200*i,380,"666");
 		//delay(2000);
 
 		for (j = 0; j < 10; j++) // 查找账号位置
@@ -236,16 +240,6 @@ int logg(char username0[], char password0[])
 			}
 			if (k == 10)
 			{
-				// outtextxy(100+200*i,180,u->username);
-				// outtextxy(100+200*i,280,u->password);
-
-				flag = 1;
-				// for (l=0;l<10;l++)
-				// {
-				// 	h->username[l]=u->username[l];
-				// }
-				//outtextxy(100+200*i,380,h->password);
-				//delay(2000);
 				strcpy(h->username, u->username);
 				strcpy(h->password, u->password);
 				strcpy(h->phonenumber, u->phonenumber);
@@ -259,16 +253,30 @@ int logg(char username0[], char password0[])
 					h->parameter[l].place = u->parameter[l].place;
 					h->parameter[l].shape = u->parameter[l].shape;
 					h->parameter[l].type = u->parameter[l].type;
-					strcpy(h->parameter[l].S , u->parameter[l].S);
-					for (o = 0; o < N; o++)
+					strcpy(h->parameter[l].S, u->parameter[l].S);
+					for (k = 0; k < dense_points_max; k++)
 					{
-						h->parameter[l].xyz[o] = u->parameter[l].xyz[o];
+						h->parameter[l].x[k] = u->parameter[l].x[k];
+						h->parameter[l].y[k] = u->parameter[l].y[k];
 					}
+					h->parameter[l].lenxy = u->parameter[l].lenxy;
 				}
+				for (l = 0; l < 5; l++)
+				{
+					for (k = 0; k < 15; k++)
+					{
+						h->here[l].ware_name[k] = u->here[l].ware_name[k];
+					}
+					for (k = 0; k < 3; k++)
+					{
+						h->here[l].total[k] = u->here[l].total[k];
+					}
+					h->here[l].cotton_type = u->here[l].cotton_type;
+				}
+				flag=1;
 				break;
 			}
 		}
-
 	}
 	if (flag == 0)
 	{
@@ -284,9 +292,6 @@ int logg(char username0[], char password0[])
 		putimage(220, 100, buffer, COPY_PUT);
 		free(buffer);
 	}
-	// outtextxy(100+300*i,380,h->username);
-	// printf("\n\n\n\t\t\t%c",h->lenpar);
-	//delay(2000);
 	fclose(fp);
 	free(u);
 	u = NULL;
@@ -299,7 +304,7 @@ int changepassword(char username0[], char newpassword0[], char phonenumber0[])
 	user *u = (user *)malloc(sizeof(user));
 	int i, j, k, flag = 0, all;
 
-	if ((fp = fopen("User.txt", "rt+")) == NULL)
+	if ((fp = fopen("User.dat", "rb+")) == NULL)
 	{
 		puthz(120, 300, "打开错误", 32, 32, BLUE);
 		delay(3000);

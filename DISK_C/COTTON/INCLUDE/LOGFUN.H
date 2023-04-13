@@ -35,10 +35,9 @@ typedef struct Parameter
 	char shape;//土地形状
     char type;//收割机类型
 	char S[10];//面积
-	int xyz[500];
-	int x[dense_points_max];//坐标
-	int y[dense_points_max];
-	int lenxy;//点的数量
+	int x[dense_points_max];
+	int y[dense_points_max];//坐标
+	int lenxy;//坐标数量
 }parameter;
 
 typedef struct User
@@ -49,6 +48,7 @@ typedef struct User
 	struct Parameter parameter[10];//参数列表
 	struct user_warehouse here[5];
 	int lenpar;//参数个数
+	struct user_warehouse here[5];//仓库
 }user;
 
 

@@ -68,6 +68,7 @@
 #include "RESET.H"
 #include "LOGFUN.H"
 #include "PARAMETE.H"
+#include "IMAGE.h"
 
 
 //extern U_ware here[5];

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.C": "html",
+        "image.h": "c"
+    }
+}
