@@ -46,7 +46,6 @@ typedef struct User
     char password[10];
     char phonenumber[12];
 	struct Parameter parameter[10];//参数列表
-	struct user_warehouse here[5];
 	int lenpar;//参数个数
 	struct user_warehouse here[5];//仓库
 }user;

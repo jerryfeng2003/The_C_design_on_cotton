@@ -1,23 +1,23 @@
 #include "TOTAL.H"
 
-int main()
-{
-	int gd=VGA,gm=VGAHI; 
-	initgraph(&gd,&gm,"..\\borlandc\\bgi");
-	setbkcolor(WHITE);
- 	h=(user*)malloc(sizeof(user));//登录的用户
-	strcpy(h->parameter[0].name,"abc");
-	strcpy(h->parameter[1].name,"acc");
-	//strcpy(&h->parameter[0].type,"a");
-	h->parameter[1].type='a';
-	h->parameter[1].place='a';
-	//strcpy(&h->parameter[0].shape,"a");
-	h->parameter[1].shape='b';
-	strcpy(h->parameter[1].S,"300");
-	start();	
-	delay(5000);
-	return 0;
-}
+// int main()
+// {
+// 	int gd=VGA,gm=VGAHI; 
+// 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+// 	setbkcolor(WHITE);
+//  	h=(user*)malloc(sizeof(user));//登录的用户
+// 	strcpy(h->parameter[0].name,"abc");
+// 	strcpy(h->parameter[1].name,"acc");
+// 	//strcpy(&h->parameter[0].type,"a");
+// 	h->parameter[1].type='a';
+// 	h->parameter[1].place='a';
+// 	//strcpy(&h->parameter[0].shape,"a");
+// 	h->parameter[1].shape='b';
+// 	strcpy(h->parameter[1].S,"300");
+// 	start();	
+// 	delay(5000);
+// 	return 0;
+// }
 // int main()
 // {
 // 	int gd=VGA,gm=VGAHI;
@@ -37,15 +37,15 @@ int main()
 // 	delay(5000);
 // 	return 0;
 // }
-int main()
-{
-	int gd=VGA,gm=VGAHI,xy[2]; 
-	initgraph(&gd,&gm,"..\\borlandc\\bgi");
-	setbkcolor(WHITE);
-	select_setoff01(xy,300,300);
-	delay(3000);
-	return 0;
-}
+// int main()
+// {
+// 	int gd=VGA,gm=VGAHI,xy[2]; 
+// 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+// 	setbkcolor(WHITE);
+// 	select_setoff01(xy,300,300);
+// 	delay(3000);
+// 	return 0;
+// }
 
 void start()
 {
@@ -1016,7 +1016,7 @@ void press_select02(int *x, int *y, int *flag, int *back)
 	// }
 	if (mouse_press(320, 70, 400, 115) == 1)
 	{
-		init_field02(x, y, flag);
+		//init_field02(x, y, flag);
 		*back = 1;
 	}
 }
@@ -1235,31 +1235,32 @@ void select03(struct Parameter *abc)
 	}
 }
 
-// void press_select03(int *x,int *y,int *flag)
-// {
-// 	if(mouse_press(0,0,40,30)==0||(mouse_press(200,70,280,115)==0&&(*flag==0))||mouse_press(320,70,400,115)==0)
-// 	{
-// 		MouseS=0;
-// 	}
-// 	if(mouse_press(0,0,40,30)==2||(mouse_press(200,70,280,115)==2&&(*flag==0))||mouse_press(320,70,400,115)==2)
-// 	{
-// 		MouseS=1;
-// 	}
-// 	if(mouse_press(0,0,40,30)==1)
-// 	{
-// 		draw_wel();
-// 	}
-// 	if(mouse_press(200,70,280,115)==1&&(*flag)==0)
-// 	{
-// 		dense_pick(x,y,flag);
-// 		return;
-// 	}
-// 	if(mouse_press(320,70,400,115)==1)
-// 	{
-// 		init_field03(x,y,flag,0);
-// 		return;
-// 	}
-// }
+void press_select03(int *x,int *y,int *flag,int *back)
+{
+	if(mouse_press(0,0,40,30)==0||(mouse_press(200,70,280,115)==0&&(*flag==0))||mouse_press(320,70,400,115)==0)
+	{
+		MouseS=0;
+	}
+	if(mouse_press(0,0,40,30)==2||(mouse_press(200,70,280,115)==2&&(*flag==0))||mouse_press(320,70,400,115)==2)
+	{
+		MouseS=1;
+	}
+	if(mouse_press(0,0,40,30)==1)
+	{
+		draw_wel();
+	}
+	if(mouse_press(200,70,280,115)==1&&(*flag)==0)
+	{
+		dense_pick(x,y,flag);
+		return;
+	}
+	if(mouse_press(320,70,400,115)==1)
+	{
+		//init_field03(x,y,flag,0);
+		*back=1;
+		return;
+	}
+}
 
 void dense_pick(int *x, int *y, int *flag)
 {
@@ -1342,8 +1343,6 @@ void init_field02(int *x,int *y,int *flag,int type,int time)
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
 	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
 	int i,num=0;
-	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
-	int i,num=0;
 	setfillstyle(1,BROWN);
 	setlinestyle(0,0,3);
 	bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
@@ -1395,11 +1394,6 @@ void init_field03(int *x,int *y,int *flag,int type,int time)
 {
 	// The meaning of elements in xy_m:
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
-	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
-	int i,num=0;
-	// setfillstyle(1,BROWN);
-	// setlinestyle(0,0,3);
-	// bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
 	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
 	int i,num=0;
 	// setfillstyle(1,BROWN);
