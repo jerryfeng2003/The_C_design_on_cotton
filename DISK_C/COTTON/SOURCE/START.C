@@ -1,24 +1,24 @@
 #include "TOTAL.H"
 
-int main()
-{
-	int gd=VGA,gm=VGAHI; 
-	initgraph(&gd,&gm,"..\\borlandc\\bgi");
-	setbkcolor(WHITE);
- 	h=(user*)malloc(sizeof(user));//登录的用户
-	//select03(&(h->parameter[1]));
-	strcpy(h->parameter[0].name,"abc");
-	strcpy(h->parameter[1].name,"acc");
-	//strcpy(&h->parameter[0].type,"a");
-	h->parameter[1].type='a';
-	h->parameter[1].place='a';
-	//strcpy(&h->parameter[0].shape,"a");
-	h->parameter[1].shape='a';
-	strcpy(h->parameter[1].S,"500");
-	start();	
-	delay(5000);
-	return 0;
-}
+// int main()
+// {
+// 	int gd=VGA,gm=VGAHI; 
+// 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+// 	setbkcolor(WHITE);
+//  	h=(user*)malloc(sizeof(user));//登录的用户
+// 	//select03(&(h->parameter[1]));
+// 	strcpy(h->parameter[0].name,"abc");
+// 	strcpy(h->parameter[1].name,"acc");
+// 	//strcpy(&h->parameter[0].type,"a");
+// 	h->parameter[1].type='a';
+// 	h->parameter[1].place='a';
+// 	//strcpy(&h->parameter[0].shape,"a");
+// 	h->parameter[1].shape='a';
+// 	strcpy(h->parameter[1].S,"500");
+// 	start();	
+// 	delay(5000);
+// 	return 0;
+// }
 // int main()
 // {
 // 	int gd=VGA,gm=VGAHI;
@@ -1845,7 +1845,7 @@ void start_ainime03_02(int (*tra_d)[4], int num)
 	for(i=0;i<num;i++)
 	{
 		earth_fill03(x_p[i]-25,y_p[i]);
-		earth_fill03(x_p[i]-25,y_p[i]-8);
+		earth_fill03(x_p[i]-25,y_p[i]-6);
 	}
 }
 void circle_field(long int r)
