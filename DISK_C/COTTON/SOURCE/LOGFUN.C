@@ -182,9 +182,9 @@ int username_same(char username0[])
 		free(buffer);
 	}
 	fclose(fp);
-	return flag;
 	free(u);
 	u = NULL;
+	return flag;
 }
 
 // 登录，判断账号是否存在and密码是否正确
