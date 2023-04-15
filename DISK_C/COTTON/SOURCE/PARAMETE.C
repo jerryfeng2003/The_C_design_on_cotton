@@ -511,7 +511,7 @@ void parcpy(struct Parameter *a, struct Parameter *b)
     a->lenxy = b->lenxy;
 }
 
-int *search(char *str, int pagepar)
+int *search(char *str)
 {
     int i, j, k;
     int par[PAR]; // 优先度数组，与参数一一对应，无对应则为0

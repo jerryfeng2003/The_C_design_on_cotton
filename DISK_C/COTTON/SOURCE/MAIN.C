@@ -3,12 +3,18 @@ struct User *h;//登录的用户
 int mode=0;
 int mode1=0;
 
-int main()
+void main()
 {
-    int gd=VGA,gm=VGAHI;
+    int gd=VGA,gm=VGAHI,i=0;
 	h=(user*)malloc(sizeof(user));//登录的用户
 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
     loginit();
+    for(i=0;i<5;i++)
+    {
+        char s[10]="ware0";
+        s[5]='0'+i+1;
+        strcpy(h->here[i].ware_name,s);
+    }
     while(1)
     {
         int pre_mode=mode,pre_mode1=mode1;
@@ -164,7 +170,7 @@ int main()
             delay(20);
         }
     }
-    free(h);
+    //free(h);
 }
 
 void quit(void)

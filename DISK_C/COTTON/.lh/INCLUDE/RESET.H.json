@@ -1,0 +1,18 @@
+{
+    "sourceFile": "INCLUDE/RESET.H",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1681526402459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1681526402459,
+            "name": "Commit-0",
+            "content": "#ifndef _RESET_H_\r\n#define _RESET_H_\r\n#include \"TOTAL.H\"\r\n\r\n\r\nvoid reset_screen(void);\r\nvoid reset(void);\r\n\r\n\r\n\r\n\r\n\r\n#endif"
+        }
+    ]
+}

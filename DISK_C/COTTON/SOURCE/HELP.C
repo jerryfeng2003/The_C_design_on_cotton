@@ -39,7 +39,7 @@ void draw_help01()
 		}
 		if (mouse_press(0, 450, 40, 480) == 1)
 		{
-			return -1;
+			return;
 		}
 		delay(15);
 	}

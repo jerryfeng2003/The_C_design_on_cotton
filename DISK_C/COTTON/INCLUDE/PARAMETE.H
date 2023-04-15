@@ -30,7 +30,7 @@ void deletepar(int par);
 void wr_h(void);
 
 //搜索函数
-int *search(char *str,int pagepar);
+int *search(char *str);
 
 //把第二个参数赋给第一个参数
 void parcpy(struct Parameter *a,struct Parameter *b);
