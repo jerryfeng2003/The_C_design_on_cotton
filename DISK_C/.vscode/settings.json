@@ -1,6 +1,8 @@
 {
     "files.associations": {
-        "*.C": "html",
-        "image.h": "c"
+        "*.C": "cpp",
+        "image.h": "c",
+        "system_error": "cpp",
+        "xlocale": "cpp"
     }
 }

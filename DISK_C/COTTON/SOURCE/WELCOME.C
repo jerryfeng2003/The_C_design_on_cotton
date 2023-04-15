@@ -11,6 +11,7 @@
 // draw the buttons in welcome page
 void draw_wel_buttons(void)
 {
+	clrmous(MouseX, MouseY);
 	cleardevice();
 	setbkcolor(WHITE);
 	puthz(180, 30, "棉花采摘模拟系统", 32, 32, BLUE);
@@ -23,7 +24,7 @@ void draw_wel_buttons(void)
 	rectangle(450, 210, 550, 270);
 	puthz(470, 230, "开始模拟", 16, 16, BLUE);
 	rectangle(450, 310, 550, 370);
-	puthz(470, 330, "过往参数", 16, 16, BLUE);
+	puthz(470, 330, "参数列表", 16, 16, BLUE);
 	rectangle(450, 410, 550, 470);
 	puthz(460, 430, "帮助及说明", 16, 16, BLUE);
 
@@ -33,7 +34,8 @@ void draw_wel_buttons(void)
 	rectangle(310, 130, 410, 200);
 	puthz(330, 150, "仓库管理", 16, 16, BLUE);
 
-	last();
+	quit();
+	//last();
 }
 
 // draw the tractor in welcome page
@@ -124,6 +126,7 @@ void draw_wel_cofield()
 void enter_next()
 {
 	static int flag = 0;
+	int dian[8] = {300, 130, 360, 100, 420, 130, 300, 130};
 	if (mouse_press(450, 110, 550, 170) == 0 || mouse_press(450, 210, 550, 270) == 0 || mouse_press(450, 310, 550, 370) == 0 || mouse_press(450, 410, 550, 470) == 0 ||
 		mouse_press(310, 130, 410, 200) == 0 || mouse_press(0, 0, 40, 30) == 0 || mouse_press(0, 450, 40, 480) == 0)
 	{
@@ -135,14 +138,6 @@ void enter_next()
 		MouseS = 1;
 	}
 
-	// rectangle(450, 110, 550, 170);
-	// puthz(470, 130, "编辑参数", 16, 16, BLUE);
-	// rectangle(450, 210, 550, 270);
-	// puthz(470, 230, "开始模拟", 16, 16, BLUE);
-	// rectangle(450, 310, 550, 370);
-	// puthz(470, 330, "过往参数", 16, 16, BLUE);
-	// rectangle(450, 410, 550, 470);
-	// puthz(460, 430, "帮助及说明", 16, 16, BLUE);
 	if (mouse_press(450, 110, 550, 170) == 2)
 	{
 		setfillstyle(1, CYAN);
@@ -162,7 +157,7 @@ void enter_next()
 	{
 		setfillstyle(1, CYAN);
 		bar(450, 310, 550, 370);
-		puthz(470, 330, "过往参数", 16, 16, BLUE);
+		puthz(470, 330, "参数列表", 16, 16, BLUE);
 		flag = 0;
 	}
 	else if (mouse_press(450, 410, 550, 470) == 2)
@@ -172,10 +167,18 @@ void enter_next()
 		puthz(460, 430, "帮助及说明", 16, 16, BLUE);
 		flag = 0;
 	}
+	else if (mouse_press(310, 130, 410, 200) == 2)
+	{
+		setfillstyle(1, CYAN);
+		bar(310, 130, 410, 200);
+		puthz(330, 150, "仓库管理", 16, 16, BLUE);
+		fillpoly(4, dian);
+		flag = 0;
+	}
 	else if (flag == 0)
 	{
 		clrmous(MouseX, MouseY);
-		setfillstyle(1,0);
+		setfillstyle(1, 0);
 		bar(450, 110, 550, 170);
 		bar(450, 210, 550, 270);
 		bar(450, 310, 550, 370);
@@ -186,11 +189,18 @@ void enter_next()
 		rectangle(450, 210, 550, 270);
 		puthz(470, 230, "开始模拟", 16, 16, BLUE);
 		rectangle(450, 310, 550, 370);
-		puthz(470, 330, "过往参数", 16, 16, BLUE);
+		puthz(470, 330, "参数列表", 16, 16, BLUE);
 		rectangle(450, 410, 550, 470);
 		puthz(460, 430, "帮助及说明", 16, 16, BLUE);
+		setfillstyle(1, 0);
+		bar(300, 100, 420, 200);
+		puthz(330, 150, "仓库管理", 16, 16, BLUE);
+		rectangle(310, 130, 410, 200);
+		line(300, 130, 360, 100);
+		line(360, 100, 420, 130);
+		line(300, 130, 420, 130);
 
-		flag=1;
+		flag = 1;
 	}
 
 	// Enter the edit page
@@ -202,7 +212,7 @@ void enter_next()
 	// Enter the simulation page
 	if (mouse_press(450, 210, 550, 270) == 1)
 	{
-		mode=3;
+		mode = 3;
 	}
 
 	// Enter the past arguments
@@ -230,10 +240,14 @@ void enter_next()
 		}*/
 	}
 
-	if (mouse_press(0, 450, 40, 480) == 1)
-	{
-		loginit();
-	}
+	// if (mouse_press(0, 450, 40, 480) == 1)
+	// {
+	// 	loginit();
+	// 	draw_wel_buttons();
+	// 	draw_wel_cofield();
+	// 	draw_wel_tractors();
+	// 	quit();
+	// }
 
 	// Exit the program
 	if (mouse_press(0, 0, 40, 30) == 1)

@@ -28,4 +28,10 @@ void deletepar(int par);
 
 //把当前登录的用户重新写进文件
 void wr_h(void);
+
+//搜索函数
+int *search(char *str,int pagepar);
+
+//把第二个参数赋给第一个参数
+void parcpy(struct Parameter *a,struct Parameter *b);
 #endif

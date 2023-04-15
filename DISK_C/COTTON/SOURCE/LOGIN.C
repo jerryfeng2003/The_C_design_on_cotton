@@ -17,8 +17,10 @@ void loginit_screen()
     //rectangle(123, 203, 523, 253);
     bar(120, 200, 220, 260);        
     setfillstyle(1,LIGHTGREEN);
-    bar(220, 100, 520, 160);  
-    bar(220, 200, 520, 260);   
+    rectangle(220, 100, 520, 160);
+    rectangle(220, 200, 520, 260);
+    //bar(220, 100, 520, 160);  
+    //bar(220, 200, 520, 260);   
 
     bar(280, 300, 360, 340);          
 
@@ -38,7 +40,6 @@ int logenter()
     if(mouse_press(0,0,40,30)==1)
 	{
 		exit(0);
-        return 0;
         
 	}
     if(mouse_press(280, 300, 360, 340)==1)
@@ -53,7 +54,8 @@ void loginit()
     INPUT username = {220, 100, 520, 160,"",10,0,0};
 	INPUT password = {220, 200, 520, 260,"",10,0,0};
     loginit_screen();
-    mouseinit();
+    clrmous(MouseX, MouseY);
+    //mouseinit();
     for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);

@@ -10,15 +10,18 @@ void past01_screen(void)
 	last();
 
 	setfillstyle(1, LIGHTGRAY);
-	bar(50, 100, 590, 420);
+	bar(50, 80, 590, 420);
 	settextstyle(0, 0, 2);
 	settextjustify(1, 1);
 }
 
 int past01()
 {
-	int i, j, flag = 1; // 判断是否换页
+	int i, j, flag = 1, searchflag = 0;					  // 判断是否换页,是否按搜索输出
+	//INPUT searchname = {220, 80, 500, 125, "", 10, 0, 0}; // 搜索
 	char page[3] = {'1', '/', '1'};
+	int temp;
+	struct Parameter parpar[PAR], temppar;
 	int barcolor[11] = {1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14};
 	page[3] = '\0';
 	for (i = 0; i < 10; i++)
@@ -37,6 +40,7 @@ int past01()
 		}
 	}
 	past01_screen();
+	delay(15);
 
 	for (;;)
 	{
@@ -46,38 +50,91 @@ int past01()
 		page2[0] = page[0];
 		pagepar = atoi(page2) - 1;
 		newmouse(&MouseX, &MouseY, &press);
+		// if (h->lenpar != 0)
+		// {
+		// 	input_s(223, 80, &searchname, 16, 0);
+		// }
 		// flag为1则换页
 		if (flag == 1)
 		{
-			setfillstyle(1, LIGHTGRAY);
-			bar(50, 100, 590, 420);
-			outtextxy(320, 405, page);
-			outtextxy(280, 405, "<<");
-			outtextxy(360, 405, ">>");
-			for (i = 0, j = pagepar * 4; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++, j++)
+			if (h->lenpar == 0)
 			{
-				setfillstyle(1, barcolor[rand() % 12]);
-				bar(90, 150 + 60 * i, 300, 150 + 40 + 60 * i);
-				outtextxy(195, 170 + 60 * i, h->parameter[j].name);
+				setfillstyle(1, LIGHTGRAY);
+				bar(50, 80, 590, 420);
+				settextjustify(1, 1);
+				settextstyle(0, 0, 4);
+				setcolor(RED);
+				outtextxy(320, 250, "No Parameter");
+				flag = 0;
 			}
-			for (i = 0; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++)
+			else
 			{
-				setfillstyle(1, 14);
-				bar(460, 150 + 60 * i, 520, 150 + 40 + 60 * i);
-				puthz(470, 160 + 60 * i, "查看", 16, 16, BLUE);
-			}
-			flag = 0;
-		}
+				setfillstyle(1, LIGHTGRAY);
+				bar(50, 80, 590, 420);
+				settextstyle(0, 0, 2);
+				outtextxy(320, 405, page);
+				outtextxy(280, 405, "<<");
+				outtextxy(360, 405, ">>");
+				settextstyle(0, 0, 3);
+				setcolor(DARKGRAY);
 
+				// setcolor(BLUE);
+				// rectangle(510, 80, 580, 125);
+				// puthz(130, 85, "搜索", 32, 32, BLUE);
+				// puthz(510, 85, "查询", 32, 32, BLUE);
+
+				if (searchflag == 0)
+				{
+					for (i = 0, j = pagepar * 4; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++, j++)
+					{
+						setfillstyle(1, barcolor[rand() % 12]);
+						bar(90, 150 + 60 * i, 300, 150 + 40 + 60 * i);
+						outtextxy(195, 170 + 60 * i, h->parameter[j].name);
+					}
+				}
+				else
+				{
+					for (i = 0, j = pagepar * 4; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++, j++)
+					{
+						setfillstyle(1, barcolor[rand() % 12]);
+						bar(90, 150 + 60 * i, 300, 150 + 40 + 60 * i);
+						outtextxy(195, 170 + 60 * i, parpar[i].name);
+					}
+				}
+				for (i = 0; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++)
+				{
+					setfillstyle(1, 14);
+					bar(460, 150 + 60 * i, 520, 150 + 40 + 60 * i);
+					puthz(470, 160 + 60 * i, "查看", 16, 16, BLUE);
+				}
+				flag = 0;
+			}
+		}
+		// search
+		// if (mouse_press(510, 80, 580, 125) == 1)
+		// {
+		// 	int *p;
+		// 	p = search(searchname.string, pagepar);
+		// 	flag = 1;
+		// 	searchflag = 1;
+		// 	for (i = 0; i < h->lenpar; i++)
+		// 	{
+		// 		for (k = 0; k < h->lenpar; k++)
+		// 		{
+		// 			if (p[k] < p[k + 1])
+		// 			{
+		// 				temp = p[k];
+		// 				p[k] = p[k + 1];
+		// 				p[k + 1] = temp;
+
+		// 				parcpy(&temppar, &parpar[k]);
+		// 				parcpy(&parpar[k], &parpar[k + 1]);
+		// 				parcpy(&parpar[k + 1], &temppar);
+		// 			}
+		// 		}
+		// 	}
+		// }
 		// page last
-		if (mouse_press(260, 395, 310, 415) == 0)
-		{
-			MouseS = 0;
-		}
-		if (mouse_press(260, 395, 310, 415) == 2)
-		{
-			MouseS = 1;
-		}
 		if (mouse_press(260, 395, 310, 415) == 1)
 		{
 			if (page[0] > '1')
@@ -96,15 +153,8 @@ int past01()
 				puthz(240, 30, "参数列表", 32, 32, BLUE);
 			}
 		}
+
 		// page next
-		if (mouse_press(330, 395, 380, 415) == 0)
-		{
-			MouseS = 0;
-		}
-		if (mouse_press(330, 395, 380, 415) == 2)
-		{
-			MouseS = 1;
-		}
 		if (mouse_press(330, 395, 380, 415) == 1)
 		{
 			if (page[0] < page[2])
@@ -166,34 +216,25 @@ int past01()
 			return (pagepar)*4 + 4;
 		}
 
-		// quit
-		if (mouse_press(0, 0, 40, 30) == 0)
+		// enter
+		if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(0, 450, 40, 480) == 0 || mouse_press(260, 395, 310, 415) == 0 || mouse_press(330, 395, 380, 415) == 0 || mouse_press(510, 80, 580, 125) == 0)
 		{
 			MouseS = 0;
 		}
-		if (mouse_press(0, 0, 40, 30) == 2)
+		if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(0, 450, 40, 480) == 2 || mouse_press(260, 395, 310, 415) == 2 || mouse_press(330, 395, 380, 415) == 2 || mouse_press(510, 80, 580, 125) == 2)
 		{
 			MouseS = 1;
 		}
+		// quit
 		if (mouse_press(0, 0, 40, 30) == 1)
 		{
 			exit(0);
 		}
-
 		// last
-		if (mouse_press(0, 450, 40, 480) == 0)
-		{
-			MouseS = 0;
-		}
-		if (mouse_press(0, 450, 40, 480) == 2)
-		{
-			MouseS = 1;
-		}
 		if (mouse_press(0, 450, 40, 480) == 1)
 		{
 			return -1;
 		}
-		delay(15);
 	}
 }
 
@@ -291,7 +332,7 @@ int past02(int par)
 			return 1;
 		}
 
-		//四个修改按钮
+		// 四个修改按钮
 		if (mouse_press(500, 118 + 60 * 0, 550, 118 + 40 + 60 * 0) == 1) // place
 		{
 			changeplace(par);
@@ -313,12 +354,12 @@ int past02(int par)
 			return -1;
 		}
 
-		// quit
-		if (mouse_press(0, 0, 40, 30) == 0)
+		// quit,last
+		if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(80, 120 + 60 * 4, 150, 160 + 60 * 4) == 0)
 		{
 			MouseS = 0;
 		}
-		if (mouse_press(0, 0, 40, 30) == 2)
+		if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(80, 120 + 60 * 4, 150, 160 + 60 * 4) == 2)
 		{
 			MouseS = 1;
 		}
@@ -328,14 +369,6 @@ int past02(int par)
 		}
 
 		// last
-		if (mouse_press(80, 120 + 60 * 4, 150, 160 + 60 * 4) == 0)
-		{
-			MouseS = 0;
-		}
-		if (mouse_press(80, 120 + 60 * 4, 150, 160 + 60 * 4) == 2)
-		{
-			MouseS = 1;
-		}
 		if (mouse_press(80, 120 + 60 * 4, 150, 160 + 60 * 4) == 1)
 		{
 			return 1;
@@ -354,8 +387,8 @@ void past()
 		{
 			return;
 		}
-		there:
-		if (past02(act)==-1)
+	there:
+		if (past02(act) == -1)
 		{
 			goto there;
 		}

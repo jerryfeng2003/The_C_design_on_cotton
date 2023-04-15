@@ -31,7 +31,7 @@ int edit01(struct Parameter *abc)
 {
 	void *buffer, *buffer1, *buffer2;
 	unsigned s, s1, s2;
-	INPUT name = {230, 80, 520, 130, "", 10, 0, 0};
+	INPUT name = {230, 80, 520, 135, "", 10, 0, 0};
 	edit01_screen(abc);
 	// 按钮,按下去
 	setfillstyle(1, MAGENTA);
@@ -237,7 +237,7 @@ int edit02(struct Parameter *abc)
 			setfillstyle(1, MAGENTA);
 			bar(0, 310, 160, 360);
 			puthz(10, 315, "多边形", 32, 32, BLUE);
-			setfillstyle(1, LIGHTGRAY);
+			setfillstyle(10, LIGHTGRAY);
 			drawpoly(4, dindian);
 			drawpoly(5, dindian2);
 			setlinestyle(0, 0, 3);
