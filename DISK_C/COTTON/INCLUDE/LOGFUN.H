@@ -52,7 +52,6 @@ typedef struct User
 
 
 void input_s(int x,int y,INPUT *word,int size,int mode);//¼üÅÌÊäÈë
-void reset();//Íü¼ÇÃÜÂë
 void wr_user(char username[],char password[],char phonenumber[]);
 int changepassword(char username0[],char newpassword0[],char phonenumber0[]);
 int logg(char username0[],char password0[]);

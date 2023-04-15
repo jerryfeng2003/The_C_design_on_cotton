@@ -129,7 +129,7 @@ int username_same(char username0[])
 	{
 		puthz(120, 300, "打开错误", 32, 32, BLUE);
 		delay(3000);
-		return;
+		return 0;
 	}
 	fseek(fp, 0, SEEK_END);
 	all = ftell(fp) / sizeof(user);
@@ -198,7 +198,7 @@ int logg(char username0[], char password0[])
 	{
 		puthz(120, 300, "打开错误", 32, 32, BLUE);
 		delay(3000);
-		return;
+		return 0;
 	}
 	fseek(fp, 0, SEEK_END);
 	all = ftell(fp) / sizeof(user);
@@ -308,7 +308,7 @@ int changepassword(char username0[], char newpassword0[], char phonenumber0[])
 	{
 		puthz(120, 300, "打开错误", 32, 32, BLUE);
 		delay(3000);
-		return;
+		return 0;
 	}
 	fseek(fp, 0, SEEK_END);
 	all = ftell(fp) / sizeof(user);

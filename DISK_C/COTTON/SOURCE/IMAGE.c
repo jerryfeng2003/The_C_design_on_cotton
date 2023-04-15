@@ -103,7 +103,7 @@ int show_dbm(int x,int y,char *dbm)	//����dbmp��·��,��(x,y)
 	if((fdbm=fopen(dbm,"rb"))==NULL)
 	{
 		printf("%s",dbm);
-		getchar();
+		//getchar();
 		printf("Open Error!");
 		return 1;
 	}
@@ -148,7 +148,7 @@ void cir_bar(int x1,int y1,int x2,int y2,int color)	//��ָ��λ�û��
     line(5+x1,h+y1,5+w-10+x1,h+y1);
 }
 
-void movetopage(int x1, int y1, int x2, int y2,int page1 ,int page2)	//��ʾҳ��ֲ�ͼ�����ݴ��䣬�������Ͻ����꼰���Ͻ����꣬��page1�ƶ���page2
+void movetopage(int x1, int y1, int x2, int y2,int page1 )	//��ʾҳ��ֲ�ͼ�����ݴ��䣬�������Ͻ����꼰���Ͻ����꣬��page1�ƶ���page2
 {	
 	int per1, per2;
 	int hangsize = (x2 - x1) / 8;

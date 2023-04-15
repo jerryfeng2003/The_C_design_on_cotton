@@ -238,6 +238,7 @@ void enter_next()
 	// Exit the program
 	if (mouse_press(0, 0, 40, 30) == 1)
 	{
+		free(h);
 		exit(0);
 	}
 }

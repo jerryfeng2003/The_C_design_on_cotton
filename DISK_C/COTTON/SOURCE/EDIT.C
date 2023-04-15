@@ -1,6 +1,6 @@
 #include "TOTAL.H"
 
-void edit01_screen(struct Parameter *abc)
+void edit01_screen()
 {
 	clrmous(MouseX, MouseY);
 	cleardevice();
@@ -32,7 +32,7 @@ int edit01(struct Parameter *abc)
 	void *buffer, *buffer1, *buffer2;
 	unsigned s, s1, s2;
 	INPUT name = {230, 80, 520, 130, "", 10, 0, 0};
-	edit01_screen(abc);
+	edit01_screen();
 	// 按钮,按下去
 	setfillstyle(1, MAGENTA);
 	s = imagesize(100 - 30, 180, 170 - 30, 250);
@@ -67,7 +67,7 @@ int edit01(struct Parameter *abc)
 				free(buffer);
 				free(buffer1);
 				free(buffer2);
-				return;
+				return 0;
 			}
 		}
 
@@ -88,7 +88,7 @@ int edit01(struct Parameter *abc)
 				free(buffer);
 				free(buffer1);
 				free(buffer2);
-				return;
+				return 0;
 			}
 		}
 
@@ -109,7 +109,7 @@ int edit01(struct Parameter *abc)
 				free(buffer);
 				free(buffer1);
 				free(buffer2);
-				return;
+				return 0;
 			}
 		}
 
@@ -191,7 +191,7 @@ void edit02_screen(struct Parameter *abc)
 
 int edit02(struct Parameter *abc)
 {
-	int flag = 0; // 返回键判断
+	//int flag = 0; // 返回键判断
 	int flagcan = 0;
 	INPUT S = {330, 30, 490, 90, "", 6, 0, 0};
 
@@ -351,7 +351,7 @@ int edit02(struct Parameter *abc)
 	}
 }
 
-void edit03_screen(struct Parameter *abc)
+void edit03_screen()
 {
 	int dindian0[10] = {100, 150, 100, 200, 250, 200, 250, 150, 100, 150};
 	clrmous(MouseX, MouseY);
@@ -418,7 +418,7 @@ int edit03(struct Parameter *abc)
 {
 	int flag = 0;
 
-	edit03_screen(abc);
+	edit03_screen();
 
 	for (;;)
 	{

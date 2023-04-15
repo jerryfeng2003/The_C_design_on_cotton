@@ -1,0 +1,26 @@
+{
+    "sourceFile": "INCLUDE/IMAGE.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1681530155636,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681530635729,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,16 @@\n #ifndef _IMAGE_H_\r\n #define _IMAGE_H_\r\n \r\n-int bmp_convert(char *bmp,char *dbm);\t//�? *.bmp 变为 *.dbm,字符串bmp中为bmp所在地址，字dbmp为输出地址\r\n-int show_dbm(int x,int y,char *dbm);\t//输入dbmp的路�?,�?(x,y)输出图片(x需�?8的倍数)\r\n-void cir_bar(int x1,int y1,int x2,int y2,int color);\t//在指定位置画出一个圆角矩形框 \r\n+int bmp_convert(char *bmp,char *dbm);\t//灏� *.bmp 鍙樹负 *.dbm,瀛楃涓瞓mp涓负bmp鎵€鍦ㄥ湴鍧€锛屽瓧dbmp涓鸿緭鍑哄湴鍧€\r\n+int show_dbm(int x,int y,char *dbm);\t//杈撳叆dbmp鐨勮矾寰�,鍦�(x,y)杈撳嚭鍥剧墖(x闇€涓�8鐨勫€嶆暟)\r\n+void cir_bar(int x1,int y1,int x2,int y2,int color);\t//鍦ㄦ寚瀹氫綅缃敾鍑轰竴涓渾瑙掔煩褰㈡ \r\n void movetopage(int x1, int y1, int x2, int y2,int page1 ,int page2);\r\n-void set_color(int color_no,int red,int green,int blue); //指定颜色编号，修改其对应的rgb�? \r\n+void set_color(int color_no,int red,int green,int blue); //鎸囧畾棰滆壊缂栧彿锛屼慨鏀瑰叾瀵瑰簲鐨剅gb鍊� \r\n \r\n-/*此为用汇编编写的支持跨段寻址的数据传输函数，来自《VGA页面图形数据移动技术在特殊显示效果中的应用》一�?*/\r\n-int quick_move_1(int Start,int End,int Size);\t//Start为原处首地址，End为目标位置首地址 \r\n-int quick_move_2(int Start,int End,int Size);\t//Start为原处首地址，End为目标位置首地址 \r\n-void close_display();\t\t//关闭屏幕显示\r\n-void open_display();\t\t//打开屏幕显示\r\n+/*姝や负鐢ㄦ眹缂栫紪鍐欑殑鏀寔璺ㄦ瀵诲潃鐨勬暟鎹紶杈撳嚱鏁帮紝鏉ヨ嚜銆奦GA椤甸潰鍥惧舰鏁版嵁绉诲姩鎶€鏈湪鐗规畩鏄剧ず鏁堟灉涓殑搴旂敤銆嬩竴鏂�*/\r\n+int quick_move_1(int Start,int End,int Size);\t//Start涓哄師澶勯鍦板潃锛孍nd涓虹洰鏍囦綅缃鍦板潃 \r\n+int quick_move_2(int Start,int End,int Size);\t//Start涓哄師澶勯鍦板潃锛孍nd涓虹洰鏍囦綅缃鍦板潃 \r\n+void close_display();\t\t//鍏抽棴灞忓箷鏄剧ず\r\n+void open_display();\t\t//鎵撳紑灞忓箷鏄剧ず\r\n  \r\n #endif\r\n"
+                },
+                {
+                    "date": 1681530674878,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,16 @@\n #ifndef _IMAGE_H_\r\n #define _IMAGE_H_\r\n \r\n-int bmp_convert(char *bmp,char *dbm);\t//�? *.bmp 变为 *.dbm,字符串bmp中为bmp所在地址，字dbmp为输出地址\r\n-int show_dbm(int x,int y,char *dbm);\t//输入dbmp的路�?,�?(x,y)输出图片(x需�?8的倍数)\r\n-void cir_bar(int x1,int y1,int x2,int y2,int color);\t//在指定位置画出一个圆角矩形框 \r\n+int bmp_convert(char *bmp,char *dbm);\t//灏� *.bmp 鍙樹负 *.dbm,瀛楃涓瞓mp涓负bmp鎵€鍦ㄥ湴鍧€锛屽瓧dbmp涓鸿緭鍑哄湴鍧€\r\n+int show_dbm(int x,int y,char *dbm);\t//杈撳叆dbmp鐨勮矾寰�,鍦�(x,y)杈撳嚭鍥剧墖(x闇€涓�8鐨勫€嶆暟)\r\n+void cir_bar(int x1,int y1,int x2,int y2,int color);\t//鍦ㄦ寚瀹氫綅缃敾鍑轰竴涓渾瑙掔煩褰㈡ \r\n void movetopage(int x1, int y1, int x2, int y2,int page1 );\r\n-void set_color(int color_no,int red,int green,int blue); //指定颜色编号，修改其对应的rgb�? \r\n+void set_color(int color_no,int red,int green,int blue); //鎸囧畾棰滆壊缂栧彿锛屼慨鏀瑰叾瀵瑰簲鐨剅gb鍊� \r\n \r\n-/*此为用汇编编写的支持跨段寻址的数据传输函数，来自《VGA页面图形数据移动技术在特殊显示效果中的应用》一�?*/\r\n-int quick_move_1(int Start,int End,int Size);\t//Start为原处首地址，End为目标位置首地址 \r\n-int quick_move_2(int Start,int End,int Size);\t//Start为原处首地址，End为目标位置首地址 \r\n-void close_display();\t\t//关闭屏幕显示\r\n-void open_display();\t\t//打开屏幕显示\r\n+/*姝や负鐢ㄦ眹缂栫紪鍐欑殑鏀寔璺ㄦ瀵诲潃鐨勬暟鎹紶杈撳嚱鏁帮紝鏉ヨ嚜銆奦GA椤甸潰鍥惧舰鏁版嵁绉诲姩鎶€鏈湪鐗规畩鏄剧ず鏁堟灉涓殑搴旂敤銆嬩竴鏂�*/\r\n+int quick_move_1(int Start,int End,int Size);\t//Start涓哄師澶勯鍦板潃锛孍nd涓虹洰鏍囦綅缃鍦板潃 \r\n+int quick_move_2(int Start,int End,int Size);\t//Start涓哄師澶勯鍦板潃锛孍nd涓虹洰鏍囦綅缃鍦板潃 \r\n+void close_display();\t\t//鍏抽棴灞忓箷鏄剧ず\r\n+void open_display();\t\t//鎵撳紑灞忓箷鏄剧ず\r\n  \r\n #endif\r\n"
+                }
+            ],
+            "date": 1681530155636,
+            "name": "Commit-0",
+            "content": "#ifndef _IMAGE_H_\r\n#define _IMAGE_H_\r\n\r\nint bmp_convert(char *bmp,char *dbm);\t//灏� *.bmp 鍙樹负 *.dbm,瀛楃涓瞓mp涓负bmp鎵€鍦ㄥ湴鍧€锛屽瓧dbmp涓鸿緭鍑哄湴鍧€\r\nint show_dbm(int x,int y,char *dbm);\t//杈撳叆dbmp鐨勮矾寰�,鍦�(x,y)杈撳嚭鍥剧墖(x闇€涓�8鐨勫€嶆暟)\r\nvoid cir_bar(int x1,int y1,int x2,int y2,int color);\t//鍦ㄦ寚瀹氫綅缃敾鍑轰竴涓渾瑙掔煩褰㈡ \r\nvoid movetopage(int x1, int y1, int x2, int y2,int page1 ,int page2);\r\nvoid set_color(int color_no,int red,int green,int blue); //鎸囧畾棰滆壊缂栧彿锛屼慨鏀瑰叾瀵瑰簲鐨剅gb鍊� \r\n\r\n/*姝や负鐢ㄦ眹缂栫紪鍐欑殑鏀寔璺ㄦ瀵诲潃鐨勬暟鎹紶杈撳嚱鏁帮紝鏉ヨ嚜銆奦GA椤甸潰鍥惧舰鏁版嵁绉诲姩鎶€鏈湪鐗规畩鏄剧ず鏁堟灉涓殑搴旂敤銆嬩竴鏂�*/\r\nint quick_move1(int Start,int End,int Size);\t//Start涓哄師澶勯鍦板潃锛孍nd涓虹洰鏍囦綅缃鍦板潃 \r\nint quick_move2(int Start,int End,int Size);\t//Start涓哄師澶勯鍦板潃锛孍nd涓虹洰鏍囦綅缃鍦板潃 \r\nvoid close_display();\t\t//鍏抽棴灞忓箷鏄剧ず\r\nvoid open_display();\t\t//鎵撳紑灞忓箷鏄剧ず\r\n \r\n#endif\r\n"
+        }
+    ]
+}

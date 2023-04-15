@@ -79,7 +79,7 @@ void draw_home01()
 	in_warehouse(h->here+k);
     mouseinit();
 	quit();
-	wr_h();
+	//wr_h();
 	// for(;;)
 	// {
 	// 	newmouse(&MouseX,&MouseY,&press);

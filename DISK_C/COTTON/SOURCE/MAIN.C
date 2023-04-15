@@ -3,7 +3,7 @@ struct User *h;//登录的用户
 int mode=0;
 int mode1=0;
 
-int main()
+void main()
 {
     int gd=VGA,gm=VGAHI,i=0;
 	h=(user*)malloc(sizeof(user));//登录的用户
@@ -170,7 +170,7 @@ int main()
             delay(20);
         }
     }
-    free(h);
+    //free(h);
 }
 
 void quit(void)

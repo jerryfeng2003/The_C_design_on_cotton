@@ -3,8 +3,8 @@
 #include "TOTAL.H"
 
 
-void reset_screen();
-void reset();
+void reset_screen(void);
+void reset(void);
 
 
 
