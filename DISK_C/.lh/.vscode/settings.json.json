@@ -1,0 +1,22 @@
+{
+    "sourceFile": ".vscode/settings.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1681392741896,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681521722093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n {\r\n     \"files.associations\": {\r\n         \"*.C\": \"cpp\",\r\n-        \"image.h\": \"c\"\r\n+        \"image.h\": \"c\",\r\n+        \"system_error\": \"cpp\",\r\n+        \"xlocale\": \"cpp\"\r\n     }\r\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1681392741896,
+            "name": "Commit-0",
+            "content": "{\r\n    \"files.associations\": {\r\n        \"*.C\": \"cpp\",\r\n        \"image.h\": \"c\"\r\n    }\r\n}"
+        }
+    ]
+}

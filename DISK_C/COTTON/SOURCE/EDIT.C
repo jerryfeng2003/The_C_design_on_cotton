@@ -237,7 +237,7 @@ int edit02(struct Parameter *abc)
 			setfillstyle(1, MAGENTA);
 			bar(0, 310, 160, 360);
 			puthz(10, 315, "¶à±ßÐÎ", 32, 32, BLUE);
-			setfillstyle(1, LIGHTGRAY);
+			setfillstyle(10, LIGHTGRAY);
 			drawpoly(4, dindian);
 			drawpoly(5, dindian2);
 			setlinestyle(0, 0, 3);

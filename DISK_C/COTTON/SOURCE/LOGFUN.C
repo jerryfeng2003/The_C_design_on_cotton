@@ -1,8 +1,18 @@
 #include "TOTAL.H"
 
-// 键盘输入
+// 键盘输入   mode为0输出文字，mode为1输出*
 void input_s(int x, int y, INPUT *word, int size, int mode)
 {
+	static int p=0;//画一个框
+	int k = 0;//判断是否输出文字
+	if(p==0)
+	{
+		setcolor(BLUE);
+		rectangle(word->x1, word->y1, word->x2, word->y2);
+		setfillstyle(1, 0);
+		bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
+		p=1;
+	}
 	if (press == 1)
 	{
 		if (mouse_press(word->x1, word->y1, word->x2, word->y2) == 1)
@@ -14,17 +24,35 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 			setlinestyle(0, 0, 1);
 			rectangle(word->x1, word->y1, word->x2, word->y2);
 			setcolor(DARKGRAY);
-			// line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
+			k=1;
 		}
 		else
 		{
 			word->flag = 0;
 
 			clrmous(MouseX, MouseY);
-			setcolor(LIGHTGREEN);
+			setcolor(BLUE);
 			setlinestyle(0, 0, 1);
 			rectangle(word->x1, word->y1, word->x2, word->y2);
-			// line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
+			//不可输入则把光标遮蔽掉
+			if (mode == 0)
+			{
+				setfillstyle(1, 0);
+				bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
+				setcolor(DARKGRAY);
+				outtextxy(x, y, word->string);
+			}
+			else
+			{
+				int i;
+				setfillstyle(1, 0);
+				bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
+				for (i = 0; i < word->cursor; i++)
+				{
+					outtextxy(x + i * (2 * size - 2), y, "*");
+				}
+				setcolor(DARKGRAY);
+			}
 		}
 	}
 
@@ -43,6 +71,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 				{
 					(word->string)[word->cursor - 1] = '\0';
 					(word->cursor)--;
+					k=1;
 				}
 			}
 			else if (t >= '!' && t <= '~')
@@ -52,9 +81,12 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 					(word->string)[word->cursor] = t;
 					(word->string)[word->cursor + 1] = '\0';
 					(word->cursor)++;
+					k=1;
 				}
 			}
-
+		}
+		if (k == 1)
+		{
 			setcolor(DARKGRAY);
 			setlinestyle(0, 0, 1);
 			setfillstyle(SOLID_FILL, WHITE);
@@ -65,7 +97,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 			{
 				setcolor(DARKGRAY);
 				outtextxy(x, y, word->string);
-				// line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
+				line(x + (word->cursor) * (2 * size - 6) + 2, word->y1 + 3, x + (word->cursor) * (2 * size - 6) + 2, word->y2 - 3);
 			}
 			else
 			{
@@ -74,7 +106,8 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 				{
 					outtextxy(x + i * (2 * size - 2), y, "*");
 				}
-				// line(x+(word->cursor)*(2*size-2)+2,y,x+(word->cursor)*(2*size-2)+2,y+2*(2*size-2));
+				setcolor(DARKGRAY);
+				line(x + (word->cursor) * (2 * size - 2) + 2, word->y1 + 3, x + (word->cursor) * (2 * size - 2) + 2, word->y2 - 3);
 			}
 		}
 	}
@@ -193,6 +226,8 @@ int logg(char username0[], char password0[])
 	FILE *fp;
 	user *u = (user *)malloc(sizeof(user));
 	int i, j, k, l, o, flag = 0, all;
+	// char a[2];
+	// a[2] = '\0';
 
 	if ((fp = fopen("User.dat", "rb+")) == NULL)
 	{
@@ -202,15 +237,18 @@ int logg(char username0[], char password0[])
 	}
 	fseek(fp, 0, SEEK_END);
 	all = ftell(fp) / sizeof(user);
+	// itoa(all, a, 10);
+	// outtextxy(200, 200, a);
 	for (i = 0; i < all; i++)
 	{
 
 		fseek(fp, i * sizeof(user), SEEK_SET);
 		fread(u, sizeof(user), 1, fp);
-		// outtextxy(100+200*i,180,u->username);
-		// outtextxy(100+200*i,280,u->password);
-		// outtextxy(100+200*i,380,"666");
-		//delay(2000);
+
+		// outtextxy(100 + 100 * i, 180, u->username);
+		// outtextxy(100 + 100 * i, 280, u->password);
+		// outtextxy(100 + 100 * i, 380, "666");
+		// delay(2000);
 
 		for (j = 0; j < 10; j++) // 查找账号位置
 		{
@@ -273,7 +311,7 @@ int logg(char username0[], char password0[])
 					}
 					h->here[l].cotton_type = u->here[l].cotton_type;
 				}
-				flag=1;
+				flag = 1;
 				break;
 			}
 		}

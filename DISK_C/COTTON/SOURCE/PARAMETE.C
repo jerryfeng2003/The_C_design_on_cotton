@@ -491,3 +491,200 @@ int changeS(int par)
         }
     }
 }
+
+void parcpy(struct Parameter *a, struct Parameter *b)
+{
+    int k;
+    for (k = 0; k < 10; k++)
+    {
+        a->name[k] = b->name[k];
+    }
+    a->place = b->place;
+    a->shape = b->shape;
+    a->type = b->type;
+    strcpy(a->S, b->S);
+    for (k = 0; k < dense_points_max; k++)
+    {
+        a->x[k] = b->x[k];
+        a->y[k] = b->y[k];
+    }
+    a->lenxy = b->lenxy;
+}
+
+int *search(char *str, int pagepar)
+{
+    int i, j, k;
+    int par[PAR]; // 优先度数组，与参数一一对应，无对应则为0
+    //int temp;
+    //struct Parameter parpar[PAR], temppar;
+    for (i = 0; i < h->lenpar; i++) // 第i个参数
+    {
+        par[i] = 1;
+        for (j = 0; j < strlen(str); j++) // str中第j个字符
+        {
+            for (k = 0; k < strlen(h->parameter[i].name); k++) // 第i个参数中第k个字符
+            {
+                if (str[j] == h->parameter[i].name[k])
+                {
+                    par[i] += 1; // 有相同的则其优先度+1
+                }
+            }
+        }
+        //parcpy(&parpar[i], &(h->parameter[i]));
+    }
+    // 按优先度大到小排序
+    // for (i = 0; i < h->lenpar; i++)
+    // {
+    //     for (k = 0; k < h->lenpar; k++)
+    //     {
+    //         if (par[k] < par[k + 1])
+    //         {
+    //             temp = par[k];
+    //             par[k] = par[k + 1];
+    //             par[k + 1] = temp;
+
+    //             parcpy(&temppar, &parpar[k]);
+    //             parcpy(&parpar[k], &parpar[k + 1]);
+    //             parcpy(&parpar[k + 1], &temppar);
+    //         }
+    //     }
+    // }
+    return par;
+}
+    // if (flag == 1)
+    // {
+    // setfillstyle(1, LIGHTGRAY);
+    // bar(50, 80, 590, 420);
+    // settextstyle(0, 0, 2);
+    // outtextxy(320, 405, page);
+    // outtextxy(280, 405, "<<");
+    // outtextxy(360, 405, ">>");
+    // settextstyle(0, 0, 3);
+    // setcolor(DARKGRAY);
+
+    // setcolor(BLUE);
+    // rectangle(510, 80, 580, 125);
+    //puthz(200, 85, "搜索结果", 32, 32, BLUE);
+    // puthz(510, 85, "查询", 32, 32, BLUE);
+
+    // for (i = 0, j = pagepar * 4; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++, j++)
+    // {
+    //     setfillstyle(1, barcolor[rand() % 12]);
+    //     bar(90, 150 + 60 * i, 300, 150 + 40 + 60 * i);
+    //     outtextxy(195, 170 + 60 * i, parpar[i].name);
+    // }
+    // for (i = 0; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++)
+    // {
+    //     setfillstyle(1, 14);
+    //     bar(460, 150 + 60 * i, 520, 150 + 40 + 60 * i);
+    //     puthz(470, 160 + 60 * i, "查看", 16, 16, BLUE);
+    // }
+
+    // for (;;)
+    // {
+    //     newmouse(&MouseX, &MouseY, &press);
+    //     delay(15);
+    //     // 四个查看按钮
+    //     if ((mouse_press(460, 150 + 60 * 0, 520, 150 + 40 + 60 * 0) == 1) && ((h->lenpar - (pagepar * 4)) > 0))
+    //     {
+    //         int pagepar;
+    //         char page2[1];
+    //         page2[1] = '\0';
+    //         page2[0] = page[0];
+    //         pagepar = atoi(page2) - 1;
+
+    //         return (pagepar)*4 + 1;
+    //     }
+    //     if ((mouse_press(460, 150 + 60 * 1, 520, 150 + 40 + 60 * 1) == 1) && ((h->lenpar - (pagepar * 4)) > 1))
+    //     {
+    //         int pagepar;
+    //         char page2[1];
+    //         page2[1] = '\0';
+    //         page2[0] = page[0];
+    //         pagepar = atoi(page2) - 1;
+
+    //         return (pagepar)*4 + 2;
+    //     }
+    //     if ((mouse_press(460, 150 + 60 * 2, 520, 150 + 40 + 60 * 2) == 1) && ((h->lenpar - (pagepar * 4)) > 2))
+    //     {
+    //         int pagepar;
+    //         char page2[1];
+    //         page2[1] = '\0';
+    //         page2[0] = page[0];
+    //         pagepar = atoi(page2) - 1;
+
+    //         return (pagepar)*4 + 3;
+    //     }
+    //     if ((mouse_press(460, 150 + 60 * 3, 520, 150 + 40 + 60 * 3) == 1) && ((h->lenpar - (pagepar * 4)) > 3))
+    //     {
+    //         int pagepar;
+    //         char page2[1];
+    //         page2[1] = '\0';
+    //         page2[0] = page[0];
+    //         pagepar = atoi(page2) - 1;
+
+    //         return (pagepar)*4 + 4;
+    //     }
+    //     //page last
+    //     if (mouse_press(260, 395, 310, 415) == 1)
+	// 	{
+	// 		if (page[0] > '1')
+	// 		{
+	// 			page[0] -= 1;
+	// 			flag = 1;
+	// 		}
+	// 		else
+	// 		{
+	// 			setfillstyle(1, CYAN);
+	// 			bar(230, 30, 450, 80);
+	// 			puthz(240, 30, "第一页啦", 32, 32, BLUE);
+	// 			delay(300);
+	// 			setfillstyle(1, 0);
+	// 			bar(230, 30, 450, 80);
+	// 			puthz(240, 30, "参数列表", 32, 32, BLUE);
+	// 		}
+	// 	}
+
+	// 	// page next
+	// 	if (mouse_press(330, 395, 380, 415) == 1)
+	// 	{
+	// 		if (page[0] < page[2])
+	// 		{
+	// 			page[0] += 1;
+	// 			flag = 1;
+	// 		}
+	// 		else if (page[0] == page[2])
+	// 		{
+	// 			setfillstyle(1, CYAN);
+	// 			bar(230, 30, 450, 80);
+	// 			puthz(240, 30, "最后一页啦", 32, 32, BLUE);
+	// 			delay(300);
+	// 			setfillstyle(1, 0);
+	// 			bar(230, 30, 450, 80);
+	// 			puthz(240, 30, "参数列表", 32, 32, BLUE);
+	// 		}
+	// 	}
+
+    //     // enter
+    //     if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(0, 450, 40, 480) == 0 || mouse_press(260, 395, 310, 415) == 0 )
+    //     {
+    //         MouseS = 0;
+    //     }
+    //     if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(0, 450, 40, 480) == 2 || mouse_press(260, 395, 310, 415) == 2 )
+    //     {
+    //         MouseS = 1;
+    //     }
+    //     // quit
+    //     if (mouse_press(0, 0, 40, 30) == 1)
+    //     {
+    //         exit(0);
+    //     }
+    //     // last
+    //     if (mouse_press(0, 450, 40, 480) == 1)
+    //     {
+    //         return 100;
+    //     }
+    // }
+    // flag = 0;
+    // }
+//}

@@ -2,8 +2,7 @@
 #ifndef _LOGFUN_H_
 #define _LOGFUN_H_
 
-#define N 200
-
+#define PAR 10
 
 typedef struct Input
 {
@@ -14,7 +13,7 @@ typedef struct Input
 	char string[19];
 	char length;//输入的最大长度
 	char cursor;//光标位置
-	char flag;//0代表不能输入，1代表可以输入
+	char flag;//0代表不接受输入，1代表可以接受输入
 }INPUT;
 
 
@@ -45,7 +44,7 @@ typedef struct User
     char username[10];
     char password[10];
     char phonenumber[12];
-	struct Parameter parameter[10];//参数列表
+	struct Parameter parameter[PAR];//参数列表
 	int lenpar;//参数个数
 	struct user_warehouse here[5];//仓库
 }user;
