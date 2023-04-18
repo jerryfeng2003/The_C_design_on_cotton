@@ -19,6 +19,7 @@ void draw_home01()
 		}
 	}
 	i--;
+	settextjustify(0,2);
 	switch (h->parameter[i].place)
 	{
 		case 'a':
