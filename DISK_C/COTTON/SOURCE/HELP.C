@@ -9,17 +9,21 @@ void draw_help01()
 	quit();
 	last();
 	puthz(50, 90, "本程序作为棉花自动化采摘之模拟程序，可就我国三大棉花产区进行收割模拟，并计算其收成及模拟仓储过程。", 32, 32, BLUE);
-	
+	setfillstyle(1,MAGENTA);
+	bar(320+15,300,320+15+120,380);
+	bar(320-15,300,320-15-120,380);
+	bar(320+15+150,300,320+15+120+150,380);
+	bar(320-15-150,300,320-15-120-150,380);
 
 	for (;;)
 	{
 		newmouse(&MouseX, &MouseY, &press);
 		// quit
-		if (mouse_press(0, 0, 40, 30) == 0)
+		if (mouse_press(0, 0, 40, 30) == 0||mouse_press(0, 450, 40, 480) == 0)
 		{
 			MouseS = 0;
 		}
-		if (mouse_press(0, 0, 40, 30) == 2)
+		if (mouse_press(0, 0, 40, 30) == 2||mouse_press(0, 450, 40, 480) == 2)
 		{
 			MouseS = 1;
 		}
@@ -29,20 +33,22 @@ void draw_help01()
 		}
 
 		// last
-		if (mouse_press(0, 450, 40, 480) == 0)
-		{
-			MouseS = 0;
-		}
-		if (mouse_press(0, 450, 40, 480) == 2)
-		{
-			MouseS = 1;
-		}
 		if (mouse_press(0, 450, 40, 480) == 1)
 		{
 			return;
-		}
+		}     
 		delay(15);
 	}
 	// closegraph();
 }
 
+// void edit_help(void);
+// void start_help(void);
+// void past_help(void);
+// void ware_help(void);
+
+
+void help(void)
+{
+	draw_help01();
+}

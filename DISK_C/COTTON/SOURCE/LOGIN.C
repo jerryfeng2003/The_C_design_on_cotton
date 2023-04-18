@@ -55,7 +55,6 @@ void loginit()
 	INPUT password = {220, 200, 520, 260,"",10,0,0};
     loginit_screen();
     clrmous(MouseX, MouseY);
-    //mouseinit();
     for(;;)
 	{
 		newmouse(&MouseX,&MouseY,&press);

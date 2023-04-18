@@ -34,4 +34,7 @@ int *search(char *str);
 
 //把第二个参数赋给第一个参数
 void parcpy(struct Parameter *a,struct Parameter *b);
+
+//选择参数
+int choosepar(void);
 #endif

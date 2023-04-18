@@ -17,8 +17,8 @@ void past01_screen(void)
 
 int past01()
 {
-	int i, j, flag = 1, searchflag = 0;					  // ÅÐ¶ÏÊÇ·ñ»»Ò³,ÊÇ·ñ°´ËÑË÷Êä³ö
-	//INPUT searchname = {220, 80, 500, 125, "", 10, 0, 0}; // ËÑË÷
+	int i, j, flag = 1, searchflag = 0; // ÅÐ¶ÏÊÇ·ñ»»Ò³,ÊÇ·ñ°´ËÑË÷Êä³ö
+	// INPUT searchname = {220, 80, 500, 125, "", 10, 0, 0}; // ËÑË÷
 	char page[3] = {'1', '/', '1'};
 	int temp;
 	struct Parameter parpar[PAR], temppar;
@@ -383,6 +383,7 @@ void past()
 	for (;;)
 	{
 		act = past01();
+		//act = choosepar();
 		if (act == -1)
 		{
 			return;

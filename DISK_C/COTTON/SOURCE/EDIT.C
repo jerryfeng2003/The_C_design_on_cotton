@@ -10,9 +10,7 @@ void edit01_screen()
 	puthz(240, 30, "请选择地区", 32, 32, BLUE);
 	quit();
 	last();
-	// mouseinit();
 	setcolor(12); // 淡红色
-	//rectangle(50, 150, 590, 420);
 
 	// 参数名字
 	puthz(50, 90, "参数名字：", 32, 32, BLUE);
@@ -30,34 +28,23 @@ void edit01_screen()
 
 int edit01(struct Parameter *abc)
 {
-	void *buffer, *buffer1, *buffer2;
-	unsigned s, s1, s2;
 	INPUT name = {230, 80, 520, 130, "", 10, 0, 0};
 	edit01_screen();
-	// 按钮,按下去
-	setfillstyle(1, MAGENTA);
-	s = imagesize(100 - 30, 180, 170 - 30, 250);
-	buffer = malloc(s);
-	getimage(100 - 30, 180, 170 - 30, 250, buffer);
+	setfillstyle(1, MAGENTA);//洋红色
 
-	s1 = imagesize(420 - 40, 180 + 30, 490 - 40, 250 + 30);
-	buffer1 = malloc(s1);
-	getimage(420 - 40, 180 + 30, 490 - 40, 250 + 30, buffer1);
-
-	s2 = imagesize(270 - 20, 330 + 20, 340 - 20, 400 + 20);
-	buffer2 = malloc(s2);
-	getimage(270 - 20, 330 + 20, 340 - 20, 400 + 20, buffer2);
 	for (;;)
 	{
 		newmouse(&MouseX, &MouseY, &press);
 		input_s(233, 80, &name, 16, 0);
 		if (mouse_press(100 - 30, 180, 170 - 30, 250) == 2) // 新疆
 		{
-			pieslice(135 - 30, 215, 0, 360, 20);
+			setfillstyle(1, MAGENTA);
+			bar(120 - 30, 200, 150 - 30, 230);
 		}
 		else
 		{
-			putimage(100 - 30, 180, buffer, COPY_PUT);
+			setfillstyle(1, CYAN);
+			bar(120 - 30, 200, 150 - 30, 230);
 		}
 		if (mouse_press(100 - 30, 180, 170 - 30, 250) == 1)
 		{
@@ -65,20 +52,19 @@ int edit01(struct Parameter *abc)
 			{
 				strcpy(abc->name, name.string);
 				abc->place = 'a';
-				free(buffer);
-				free(buffer1);
-				free(buffer2);
 				return 0;
 			}
 		}
 
 		if (mouse_press(420 - 40, 180 + 30, 490 - 40, 250 + 30) == 2) // 黄河
 		{
-			pieslice(455 - 40, 215 + 30, 0, 360, 20);
+			setfillstyle(1, MAGENTA);
+			bar(440 - 40, 200 + 30, 470 - 40, 230 + 30);
 		}
 		else
 		{
-			putimage(420 - 40, 180 + 30, buffer1, COPY_PUT);
+			setfillstyle(1, CYAN);
+			bar(440 - 40, 200 + 30, 470 - 40, 230 + 30);
 		}
 		if (mouse_press(420 - 40, 180 + 30, 490 - 40, 250 + 30) == 1)
 		{
@@ -86,20 +72,19 @@ int edit01(struct Parameter *abc)
 			{
 				strcpy(abc->name, name.string);
 				abc->place = 'b';
-				free(buffer);
-				free(buffer1);
-				free(buffer2);
 				return 0;
 			}
 		}
 
 		if (mouse_press(270 - 20, 330 + 20, 340 - 20, 400 + 20) == 2) // 长江
 		{
-			pieslice(305 - 20, 365 + 20, 0, 360, 20);
+			setfillstyle(1, MAGENTA);
+			bar(290 - 20, 350 + 20, 320 - 20, 380 + 20);
 		}
 		else
 		{
-			putimage(270 - 20, 330 + 20, buffer2, COPY_PUT);
+			setfillstyle(1, CYAN);
+			bar(290 - 20, 350 + 20, 320 - 20, 380 + 20);
 		}
 		if (mouse_press(270 - 20, 330 + 20, 340 - 20, 400 + 20) == 1)
 		{
@@ -107,19 +92,16 @@ int edit01(struct Parameter *abc)
 			{
 				strcpy(abc->name, name.string);
 				abc->place = 'c';
-				free(buffer);
-				free(buffer1);
-				free(buffer2);
 				return 0;
 			}
 		}
 
 		// quit
-		if (mouse_press(0, 0, 40, 30) == 0)
+		if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(0, 450, 40, 480) == 0)
 		{
 			MouseS = 0;
 		}
-		if (mouse_press(0, 0, 40, 30) == 2)
+		if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(0, 450, 40, 480) == 2)
 		{
 			MouseS = 1;
 		}
@@ -129,14 +111,6 @@ int edit01(struct Parameter *abc)
 		}
 
 		// last
-		if (mouse_press(0, 450, 40, 480) == 0)
-		{
-			MouseS = 0;
-		}
-		if (mouse_press(0, 450, 40, 480) == 2)
-		{
-			MouseS = 1;
-		}
 		if (mouse_press(0, 450, 40, 480) == 1)
 		{
 			return 1;
@@ -193,7 +167,7 @@ void edit02_screen(struct Parameter *abc)
 
 int edit02(struct Parameter *abc)
 {
-	//int flag = 0; // 返回键判断
+	// int flag = 0; // 返回键判断
 	int flagcan = 0;
 	INPUT S = {330, 30, 490, 90, "", 6, 0, 0};
 
@@ -324,11 +298,11 @@ int edit02(struct Parameter *abc)
 		}
 
 		// quit
-		if (mouse_press(0, 0, 40, 30) == 0)
+		if (mouse_press(0, 0, 40, 30) == 0||mouse_press(0, 450, 40, 480) == 0)
 		{
 			MouseS = 0;
 		}
-		if (mouse_press(0, 0, 40, 30) == 2)
+		if (mouse_press(0, 0, 40, 30) == 2||mouse_press(0, 450, 40, 480) == 2)
 		{
 			MouseS = 1;
 		}
@@ -338,14 +312,6 @@ int edit02(struct Parameter *abc)
 		}
 
 		// last
-		if (mouse_press(0, 450, 40, 480) == 0)
-		{
-			MouseS = 0;
-		}
-		if (mouse_press(0, 450, 40, 480) == 2)
-		{
-			MouseS = 1;
-		}
 		if (mouse_press(0, 450, 40, 480) == 1)
 		{
 			return 1;
