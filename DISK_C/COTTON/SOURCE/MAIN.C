@@ -1,238 +1,239 @@
 #include "TOTAL.H"
-struct User *h;//登录的用户
-int mode=0;
-int mode1=0;
+struct User *h; // 登录的用户
+int mode = 0;
+int mode1 = 0;
 
 void main()
 {
-    int gd=VGA,gm=VGAHI,i=0;
-	h=(user*)malloc(sizeof(user));//登录的用户
-	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+    int gd = VGA, gm = VGAHI, i = 0;
+    h = (user *)malloc(sizeof(user)); // 登录的用户
+    initgraph(&gd, &gm, "..\\borlandc\\bgi");
+    setviewport(0, 0, 640, 480, 0);
     loginit();
-    for(i=0;i<5;i++)
+    for (i = 0; i < 5; i++)
     {
-        char s[10]="ware0";
-        s[5]='0'+i+1;
-        strcpy(h->here[i].ware_name,s);
+        char s[10] = "ware0";
+        s[5] = '0' + i + 1;
+        strcpy(h->here[i].ware_name, s);
     }
-    while(1)
+    while (1)
     {
-        int pre_mode=mode,pre_mode1=mode1;
+        int pre_mode = mode, pre_mode1 = mode1;
         switch (mode)
         {
-            case 0:  //the welcome page
+        case 0: // the welcome page
+        {
+            draw_wel();
+            break;
+        }
+
+        case 1: // the home page
+        {
+
+            switch (mode1)
             {
-                draw_wel();
+            case -1:
+            {
+                // draw_home01();
+                mode1 = 0;
+                break;
+            }
+            case 0: // the home main page
+            {
+                draw_home01();
+                break;
+            }
+            case 1: // the warehouse list page
+            {
+                warehouse_list(h->here);
+                break;
+            }
+            case 2: // the detailed warehouse page
+            {
+                detailed_warehouse(h->here[k].total[(h->here[k].cotton_type)]);
+                break;
+            }
+            case 3: // the export cotton page
+            {
+                out_warehouse();
+                break;
+            }
+            }
+            break;
+        }
+        case 2: // the edit page
+        {
+            edit();
+            pre_mode = 2;
+            mode = 2;
+            break;
+        }
+
+        case 3: // the start page
+        {
+            start();
+            pre_mode = 3;
+            mode = 3;
+            break;
+        }
+
+        case 4: // the past page
+        {
+            past();
+            pre_mode = 4;
+            mode = 4;
+            break;
+        }
+
+        case 5: // the help page
+        {
+            help();
+            break;
+        }
+
+        default:
+            break;
+        }
+        while (pre_mode == mode && pre_mode1 == mode1)
+        {
+            newmouse(&MouseX, &MouseY, &press);
+            switch (mode)
+            {
+            case 0: // the welcome page
+            {
+                enter_next();
                 break;
             }
 
-            case 1: //the home page
+            case 1: // the home page
             {
-
-                switch(mode1)
+                switch (mode1)
                 {
-                    case -1:
-                    {
-                        // draw_home01();
-                        mode1=0;
-                        break;
-                    }
-                    case 0: //the home main page
-                    {
-                        draw_home01();
-                        break;
-                    }
-                    case 1: //the warehouse list page
-                    {
-                        warehouse_list(h->here);
-                        break;
-                    }
-                    case 2: //the detailed warehouse page
-                    {
-                        detailed_warehouse(h->here[k].total[(h->here[k].cotton_type)]);
-                        break;
-                    }
-                    case 3: //the export cotton page
-                    {
-                        out_warehouse();
-                        break;
-                    }
+                case -1: // refresh the home main page
+                {
+                    // press_home(&(here[k].cotton_type));
+                    mode1 = 0;
+                    break;
+                }
+                case 0: // the home main page
+                {
+                    press_home(&(h->here[k].cotton_type));
+                    break;
+                }
+                case 1: // the warehouse list page
+                {
+                    press_warelist();
+                    break;
+                }
+                case 2: // the detailed warehouse page
+                {
+                    press_detwarehouse();
+                    break;
+                }
+                case 3: // the export cotton page
+                {
+                    press_outware();
+                    break;
+                }
                 }
                 break;
             }
-            case 2: //the edit page
+            case 2: // the edit page
             {
-                edit();
-                pre_mode=2;
-                mode=2;
+                cleardevice();
+                mode = 0;
                 break;
             }
 
             case 3: // the start page
             {
-                start();
-                pre_mode=3;
-                mode=3;
+                cleardevice();
+                mode = 0;
                 break;
             }
 
-            case 4: //the past page
+            case 4: // the past page
             {
-                past(); 
-                pre_mode=4;
-                mode=4;  
+                cleardevice();
+                mode = 0;
                 break;
             }
 
-            case 5:  //the help page
+            case 5: // the help page
             {
-                draw_help01();
+                cleardevice();
+                mode = 0;
                 break;
             }
-            
             default:
                 break;
-        }
-        while(pre_mode==mode&&pre_mode1==mode1)
-        {
-            newmouse(&MouseX,&MouseY,&press);
-            switch (mode)
-            {
-                case 0:  //the welcome page
-                {
-                    enter_next();
-                    break;
-                }
-
-                case 1: //the home page
-                {
-                    switch(mode1)
-                    {
-                        case -1: //refresh the home main page
-                        {
-                            // press_home(&(here[k].cotton_type));
-                            mode1=0;
-                            break;
-                        }
-                        case 0: //the home main page
-                        {
-                            press_home(&(h->here[k].cotton_type));
-                            break;
-                        }
-                        case 1: //the warehouse list page
-                        {
-                            press_warelist();
-                            break;
-                        }
-                        case 2: //the detailed warehouse page
-                        {
-                            press_detwarehouse();
-                            break;
-                        }
-                        case 3: //the export cotton page
-                        {
-                            press_outware();
-                            break;
-                        }
-                    }
-                    break;
-                }
-                case 2: //the edit page
-                {
-                    cleardevice();
-                    mode=0;
-                    break;
-                }
-
-                case 3: // the start page
-                {
-                    cleardevice();
-                    mode=0;
-                    break;
-                }
-
-                case 4: //the past page
-                {
-                    cleardevice();
-                    mode=0;
-                    break;
-                }
-
-                case 5:  //the help page
-                {
-                    cleardevice();
-                    mode=0;
-                    break;
-                }            
-                default:
-                    break;
             }
             delay(20);
         }
     }
-    //free(h);
+    // free(h);
 }
 
 void quit(void)
 {
-    setfillstyle(1,LIGHTBLUE);
-    bar(0,0,40,30);
-	puthz(3,10,"退出",16,16,WHITE);
+    setfillstyle(1, LIGHTBLUE);
+    bar(0, 0, 40, 30);
+    puthz(3, 10, "退出", 16, 16, WHITE);
 }
 
 void skip(void)
 {
-    setfillstyle(1,LIGHTBLUE);
-    bar(585,450,625,480);
-    puthz(625-40+3,480-30+10,"跳过",16,16,WHITE);
+    setfillstyle(1, LIGHTBLUE);
+    bar(585, 450, 625, 480);
+    puthz(625 - 40 + 3, 480 - 30 + 10, "跳过", 16, 16, WHITE);
 }
 
 void next(void)
 {
-    setfillstyle(1,LIGHTBLUE);
-    bar(585,450,625,480);
-    puthz(625-40+3,480-30+10,"下页",16,16,WHITE);
+    setfillstyle(1, LIGHTBLUE);
+    bar(585, 450, 625, 480);
+    puthz(625 - 40 + 3, 480 - 30 + 10, "下页", 16, 16, WHITE);
 }
 
 void last(void)
 {
-    setfillstyle(1,LIGHTBLUE);
-    bar(0,450,40,480);
-    puthz(4,480-30+10,"返回",16,16,WHITE);
+    setfillstyle(1, LIGHTBLUE);
+    bar(0, 450, 40, 480);
+    puthz(4, 480 - 30 + 10, "返回", 16, 16, WHITE);
 }
 
 /*void text_input(char *str,int x1,int y1,int x2,int y2,int t_x,int t_y,int t_size)
 {
-	char temp,*p;
-	int i, n=t_x,get,arr[10]={p_0,p_1,p_2,p_4,p_5,p_6,p_7,p_8,p_9};
-	clrmous(MouseX,MouseY);
-	p=str;
-	setfillstyle(1,WHITE);
-	setcolor(DARKGRAY);
-	bar(x1,y1,x2,y2);
-	while(bioskey(1))
-	{
-		get=bioskey(0);
-	}
-	while(*p!='\0')
-	{
-		if (get==p_Enter)
-		{
-			break;
-		}
-		for(i=0;i<10;i++)
-		{
-			if(arr[i]==get)
-			{
-				temp=i+'0';
-			}
-		}
-		*p=temp;
-		p++;
-		outtextxy(n,t_y,&temp);
-		get=bioskey(0);
-		n+=t_size;
-	}
+    char temp,*p;
+    int i, n=t_x,get,arr[10]={p_0,p_1,p_2,p_4,p_5,p_6,p_7,p_8,p_9};
+    clrmous(MouseX,MouseY);
+    p=str;
+    setfillstyle(1,WHITE);
+    setcolor(DARKGRAY);
+    bar(x1,y1,x2,y2);
+    while(bioskey(1))
+    {
+        get=bioskey(0);
+    }
+    while(*p!='\0')
+    {
+        if (get==p_Enter)
+        {
+            break;
+        }
+        for(i=0;i<10;i++)
+        {
+            if(arr[i]==get)
+            {
+                temp=i+'0';
+            }
+        }
+        *p=temp;
+        p++;
+        outtextxy(n,t_y,&temp);
+        get=bioskey(0);
+        n+=t_size;
+    }
 }*/
 
 void input_text(char *id, int x, int y, int charnum, int color, int flag)
@@ -244,7 +245,7 @@ void input_text(char *id, int x, int y, int charnum, int color, int flag)
 #define SX x + 5 // START X
 #define SY y - 5
 
-    //int k = 0;
+    // int k = 0;
 
     int i = 0;
     char t;
@@ -262,77 +263,77 @@ void input_text(char *id, int x, int y, int charnum, int color, int flag)
 
     while (*(id + i) != '\0')
         i++;
-    line(SX+i*w,SY,SX+i*w,SY+h);
+    line(SX + i * w, SY, SX + i * w, SY + h);
     while (1)
     {
-		setfillstyle(1,WHITE);
+        setfillstyle(1, WHITE);
         t = bioskey(0);
-        if (i<charnum)
+        if (i < charnum)
         {
-            if (t!='\n'&& t!='\r'&&t !=' '&& t != 033)
+            if (t != '\n' && t != '\r' && t != ' ' && t != 033)
             { // 033:Esc
                 if (t != '\b')
                 {
                     *(id + i) = t;
                     *(id + i + 1) = '\0';
-                    bar(SX+i*w-1+space,SY - 1,SX +i*w+1+space,SY+h); //遮盖光标
+                    bar(SX + i * w - 1 + space, SY - 1, SX + i * w + 1 + space, SY + h); // 遮盖光标
                     if (flag)
-                        outtextxy(SX + i * 18, SY, id + i); //输出刚输入的字符t
+                        outtextxy(SX + i * 18, SY, id + i); // 输出刚输入的字符t
                     else
                     {
                         outtextxy(SX + i * 18, SY, "*");
                     }
                     i++;
-                    line(SX + i * w + space, SY, SX +i*w +space,SY+h);
+                    line(SX + i * w + space, SY, SX + i * w + space, SY + h);
                 }
                 else if (t == '\b' && i > 0)
                 {
-                    bar(SX+i*w-1+space,SY-1,SX+i*w+1+space,SY+h); //遮盖光标
-                    i--;                                             //减少一个字数
-                    bar(SX+i*w,SY,SX + i * w + w, SY + h);            //遮盖文字
-                    line(SX+i*w+space, SY, SX + i * w + space, SY + h); //绘制光标
+                    bar(SX + i * w - 1 + space, SY - 1, SX + i * w + 1 + space, SY + h); // 遮盖光标
+                    i--;                                                                 // 减少一个字数
+                    bar(SX + i * w, SY, SX + i * w + w, SY + h);                         // 遮盖文字
+                    line(SX + i * w + space, SY, SX + i * w + space, SY + h);            // 绘制光标
                     *(id + i) = '\0';
                     *(id + i + 1) = '\0';
                 }
             }
             else
             {
-                bar(SX+i * w - 1 + space,SY - 1, SX + i * w + 1+ space, SY+ h); //遮盖光标
+                bar(SX + i * w - 1 + space, SY - 1, SX + i * w + 1 + space, SY + h); // 遮盖光标
                 break;
             }
         }
         else
         {
-            if (t!='\n'&&t!='\r' && t != ' '&&t!=033)
+            if (t != '\n' && t != '\r' && t != ' ' && t != 033)
             { // 033:Esc
                 if (t == '\b' && i > 0)
                 {
-                    bar(SX+i*w-1+space,SY-1,SX + i * w + 1 + space, SY + h); //遮盖光标
-                    i--;                                                                 //减少一个字数
-                    bar(SX + i * w, SY, SX + i *w+w,SY+h);                         //遮盖文字
-                    line(SX + i * w + space, SY, SX + i * w + space,SY + h);            //绘制光标
+                    bar(SX + i * w - 1 + space, SY - 1, SX + i * w + 1 + space, SY + h); // 遮盖光标
+                    i--;                                                                 // 减少一个字数
+                    bar(SX + i * w, SY, SX + i * w + w, SY + h);                         // 遮盖文字
+                    line(SX + i * w + space, SY, SX + i * w + space, SY + h);            // 绘制光标
                     *(id + i) = '\0';
                     *(id + i + 1) = '\0';
                 }
             }
             else
             {
-                bar(SX+i*w -1+space,SY-1,SX+i*w+1+space,SY+h); //遮盖光标
+                bar(SX + i * w - 1 + space, SY - 1, SX + i * w + 1 + space, SY + h); // 遮盖光标
                 break;
             }
         }
     }
-    //return i;
+    // return i;
 }
 
 /*int ch_to_int(char *str)
 {
-	int out=0;
-	char *p=str;
-	while(*p!='\0')
-	{
-		out*=10;
-		out+=*p-'0';
-	}
-	return out;
+    int out=0;
+    char *p=str;
+    while(*p!='\0')
+    {
+        out*=10;
+        out+=*p-'0';
+    }
+    return out;
 }*/

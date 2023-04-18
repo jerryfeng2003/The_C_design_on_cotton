@@ -1,0 +1,26 @@
+{
+    "sourceFile": "COTTON/SOURCE/HELP.C",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1681742852383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681742859831,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,12 +4,12 @@\n {\r\n \tint i;\r\n \tcleardevice();\r\n \tsetbkcolor(WHITE);\r\n-\tputhz(240, 30, \"������˵��\", 32, 32, BLUE);\r\n+\tputhz(240, 30, \"帮助及说明\", 32, 32, BLUE);\r\n \tquit();\r\n \tlast();\r\n-\tputhz(50, 90, \"��������Ϊ�޻��Զ�����ժ֮ģ����򣬿ɾ��ҹ������޻����������ո�ģ�⣬���������ճɼ�ģ��ִ����̡�\", 32, 32, BLUE);\r\n+\tputhz(50, 90, \"本程序作为棉花自动化采摘之模拟程序，可就我国三大棉花产区进行收割模拟，并计算其收成及模拟仓储过程。\", 32, 32, BLUE);\r\n \t\r\n \r\n \tfor (;;)\r\n \t{\r\n"
+                },
+                {
+                    "date": 1681743440758,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,12 +4,12 @@\n {\r\n \tint i;\r\n \tcleardevice();\r\n \tsetbkcolor(WHITE);\r\n-\tputhz(240, 30, \"������˵��\", 32, 32, BLUE);\r\n+\tputhz(240, 30, \"帮助及说明\", 32, 32, BLUE);\r\n \tquit();\r\n \tlast();\r\n-\tputhz(50, 90, \"��������Ϊ�޻��Զ�����ժ֮ģ����򣬿ɾ��ҹ������޻����������ո�ģ�⣬���������ճɼ�ģ��ִ����̡�\", 32, 32, BLUE);\r\n+\tputhz(50, 90, \"本程序作为棉花自动化采摘之模拟程序，可就我国三大棉花产区进行收割模拟，并计算其收成及模拟仓储过程。\", 32, 32, BLUE);\r\n \t\r\n \r\n \tfor (;;)\r\n \t{\r\n"
+                }
+            ],
+            "date": 1681742852383,
+            "name": "Commit-0",
+            "content": "#include \"TOTAL.H\"\r\n\r\nvoid draw_help01()\r\n{\r\n\tint i;\r\n\tcleardevice();\r\n\tsetbkcolor(WHITE);\r\n\tputhz(240, 30, \"帮助及说明\", 32, 32, BLUE);\r\n\tquit();\r\n\tlast();\r\n\tputhz(50, 90, \"本程序作为棉花自动化采摘之模拟程序，可就我国三大棉花产区进行收割模拟，并计算其收成及模拟仓储过程。\", 32, 32, BLUE);\r\n\t\r\n\r\n\tfor (;;)\r\n\t{\r\n\t\tnewmouse(&MouseX, &MouseY, &press);\r\n\t\t// quit\r\n\t\tif (mouse_press(0, 0, 40, 30) == 0)\r\n\t\t{\r\n\t\t\tMouseS = 0;\r\n\t\t}\r\n\t\tif (mouse_press(0, 0, 40, 30) == 2)\r\n\t\t{\r\n\t\t\tMouseS = 1;\r\n\t\t}\r\n\t\tif (mouse_press(0, 0, 40, 30) == 1)\r\n\t\t{\r\n\t\t\texit(0);\r\n\t\t}\r\n\r\n\t\t// last\r\n\t\tif (mouse_press(0, 450, 40, 480) == 0)\r\n\t\t{\r\n\t\t\tMouseS = 0;\r\n\t\t}\r\n\t\tif (mouse_press(0, 450, 40, 480) == 2)\r\n\t\t{\r\n\t\t\tMouseS = 1;\r\n\t\t}\r\n\t\tif (mouse_press(0, 450, 40, 480) == 1)\r\n\t\t{\r\n\t\t\treturn;\r\n\t\t}\r\n\t\tdelay(15);\r\n\t}\r\n\t// closegraph();\r\n}\r\n\r\n// void edit_help(void);\r\n// void start_help(void);\r\n// void past_help(void);\r\n// void ware_help(void);\r\n\r\n\r\nvoid help(void);"
+        }
+    ]
+}

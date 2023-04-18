@@ -1,17 +1,17 @@
 #include "TOTAL.H"
 
 // 键盘输入   mode为0输出文字，mode为1输出*
-void input_s(int x, int y, INPUT *word, int size, int mode)
+int input_s(int x, int y, INPUT *word, int size, int mode)
 {
-	static int p=0;//画一个框
-	int k = 0;//判断是否输出文字
-	if(p==0)
+	static int p = 0; // 画一个框
+	int k = 0;		  // 判断是否输出文字
+	if (p == 0)
 	{
 		setcolor(BLUE);
 		rectangle(word->x1, word->y1, word->x2, word->y2);
 		setfillstyle(1, 0);
 		bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
-		p=1;
+		p = 1;
 	}
 	if (press == 1)
 	{
@@ -24,7 +24,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 			setlinestyle(0, 0, 1);
 			rectangle(word->x1, word->y1, word->x2, word->y2);
 			setcolor(DARKGRAY);
-			k=1;
+			k = 1;
 		}
 		else
 		{
@@ -34,7 +34,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 			setcolor(BLUE);
 			setlinestyle(0, 0, 1);
 			rectangle(word->x1, word->y1, word->x2, word->y2);
-			//不可输入则把光标遮蔽掉
+			// 不可输入则把光标遮蔽掉
 			if (mode == 0)
 			{
 				setfillstyle(1, 0);
@@ -71,7 +71,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 				{
 					(word->string)[word->cursor - 1] = '\0';
 					(word->cursor)--;
-					k=1;
+					k = 1;
 				}
 			}
 			else if (t >= '!' && t <= '~')
@@ -81,7 +81,11 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 					(word->string)[word->cursor] = t;
 					(word->string)[word->cursor + 1] = '\0';
 					(word->cursor)++;
-					k=1;
+					k = 1;
+				}
+				else
+				{
+					return 1;
 				}
 			}
 		}
@@ -97,7 +101,7 @@ void input_s(int x, int y, INPUT *word, int size, int mode)
 			{
 				setcolor(DARKGRAY);
 				outtextxy(x, y, word->string);
-				line(x + (word->cursor) * (2 * size - 6) + 2, word->y1 + 3, x + (word->cursor) * (2 * size - 6) + 2, word->y2 - 3);
+				line(x + (word->cursor) * (2 * size - 8) + 2, word->y1 + 3, x + (word->cursor) * (2 * size - 8) + 2, word->y2 - 3);
 			}
 			else
 			{
@@ -151,9 +155,9 @@ void wr_user(char username1[], char password1[], char phonenumber1[])
 	}
 }
 
-// 判断注册的账号是否已经存在
+// 判断注册的账号是否已经存在和电话号码是否正确
 // return flag为1则存在，0则不存在
-int username_same(char username0[])
+int username_same(char username0[], char phonenumber0[])
 {
 	FILE *fp;
 	user *u = (user *)malloc(sizeof(user));
@@ -186,33 +190,36 @@ int username_same(char username0[])
 		}
 		if (j == 10)
 		{
-			void *buffer;
-			unsigned s;
 			setfillstyle(1, CYAN);
-			s = imagesize(220, 100, 520, 150);
-			buffer = malloc(s);
-			getimage(220, 100, 520, 150, buffer);
-			bar(220, 100, 520, 150);
-			puthz(220, 100, "注册账号已存在", 32, 32, BLUE);
-			delay(2000);
-			putimage(220, 100, buffer, COPY_PUT);
+			bar(200, 30, 440, 72);
+			puthz(210, 32, "注册账号已存在", 32, 32, BLUE);
+			delay(1200);
+			setfillstyle(1, 0);
+			bar(200, 30, 440, 72);
+			puthz(260, 30, "注册账号", 32, 32, BLUE);
 			flag = 1;
-			free(buffer);
 		}
+	}
+	if (strlen(phonenumber0) != 11)
+	{
+		setfillstyle(1, CYAN);
+		bar(180, 30, 460, 72);
+		puthz(190, 32, "请输入十一位号码", 32, 32, BLUE);
+		delay(1200);
+		setfillstyle(1, 0);
+		bar(180, 30, 460, 72);
+		puthz(260, 30, "注册账号", 32, 32, BLUE);
+		flag = 1;
 	}
 	if (flag == 0)
 	{
-		void *buffer;
-		unsigned s;
 		setfillstyle(1, CYAN);
-		s = imagesize(220, 100, 420, 150);
-		buffer = malloc(s);
-		getimage(220, 100, 420, 150, buffer);
-		bar(220, 100, 420, 150);
-		puthz(220, 100, "注册账号成功", 32, 32, BLUE);
-		delay(2000);
-		putimage(220, 100, buffer, COPY_PUT);
-		free(buffer);
+		bar(200, 30, 440, 72);
+		puthz(210, 32, "注册账号成功", 32, 32, BLUE);
+		delay(1200);
+		setfillstyle(1, 0);
+		bar(200, 30, 440, 72);
+		puthz(260, 30, "注册账号", 32, 32, BLUE);
 	}
 	fclose(fp);
 	free(u);
@@ -316,19 +323,35 @@ int logg(char username0[], char password0[])
 			}
 		}
 	}
-	if (flag == 0)
+	if ((j != 10) && (flag == 0))
 	{
-		void *buffer;
-		unsigned s;
 		setfillstyle(1, CYAN);
-		s = imagesize(220, 100, 420, 150);
-		buffer = malloc(s);
-		getimage(220, 100, 420, 150, buffer);
-		bar(220, 100, 420, 150);
-		puthz(220, 100, "登录失败", 32, 32, BLUE);
+		bar(220, 30, 420, 80);
+		puthz(250, 35, "账号未注册", 32, 32, BLUE);
 		delay(1000);
-		putimage(220, 100, buffer, COPY_PUT);
-		free(buffer);
+		setfillstyle(1, 0);
+		bar(220, 30, 420, 80);
+		puthz(180, 30, "棉花模拟采集系统", 32, 32, BLUE);
+	}
+	else if ((k != 10) && (flag == 0))
+	{
+		setfillstyle(1, CYAN);
+		bar(220, 30, 420, 80);
+		puthz(250, 35, "密码不正确", 32, 32, BLUE);
+		delay(1000);
+		setfillstyle(1, 0);
+		bar(220, 30, 420, 80);
+		puthz(180, 30, "棉花模拟采集系统", 32, 32, BLUE);
+	}
+	else if (flag == 0)
+	{
+		setfillstyle(1, CYAN);
+		bar(240, 30, 400, 80);
+		puthz(250, 35, "登录失败", 32, 32, BLUE);
+		delay(1000);
+		setfillstyle(1, 0);
+		bar(240, 30, 400, 80);
+		puthz(180, 30, "棉花模拟采集系统", 32, 32, BLUE);
 	}
 	fclose(fp);
 	free(u);
@@ -402,21 +425,16 @@ int changepassword(char username0[], char newpassword0[], char phonenumber0[])
 		setfillstyle(1, CYAN);
 		bar(220, 100, 420, 150);
 		puthz(220, 100, "更改密码成功", 32, 32, BLUE);
-		delay(2000);
+		delay(1500);
 	}
 	else
 	{
-		void *buffer;
-		unsigned s;
 		setfillstyle(1, CYAN);
-		s = imagesize(220, 100, 420, 150);
-		buffer = malloc(s);
-		getimage(220, 100, 420, 150, buffer);
-		bar(220, 100, 420, 150);
-		puthz(220, 100, "更改密码失败", 32, 32, BLUE);
-		delay(2000);
-		putimage(220, 100, buffer, COPY_PUT);
-		free(buffer);
+		bar(220, 80, 420, 130);
+		puthz(220, 85, "更改密码失败", 32, 32, BLUE);
+		delay(1200);
+		setfillstyle(1, LIGHTBLUE);
+		bar(220, 80, 420, 130);
 	}
 
 	free(u);
