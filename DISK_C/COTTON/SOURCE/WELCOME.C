@@ -253,6 +253,7 @@ void enter_next()
 	if (mouse_press(0, 0, 40, 30) == 1)
 	{
 		free(h);
+		wr_h();
 		exit(0);
 	}
 }
@@ -264,7 +265,6 @@ void draw_wel()
 	draw_wel_cofield();
 	draw_wel_tractors();
 	quit();
-	mouseinit();
 	// 	for(;;)
 	// 	{
 	// 		newmouse(&MouseX,&MouseY,&press);

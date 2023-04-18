@@ -1,0 +1,22 @@
+{
+    "sourceFile": "INCLUDE/mouse.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1681547787792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681726779343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,15 @@\n #ifndef _mouse_h_\r\n #define _mouse_h_\r\n-int mouse_press(int x1, int y1, int x2, int y2);//如果在框中点击，则返�?1；在框中未点击，则返�?2；不在框中则返回0\r\n-void mouse(int,int);//设计鼠标\r\n-void mouseinit(void);//初始�?\r\n-//void mou_pos(int*,int*,int*);//更改鼠标位置\r\n-void mread(int *,int *,int*);//改坐标不�?\r\n-void save_bk_mou(int x,int y);//存鼠标背�?\r\n-void clrmous(int x,int y);//清除鼠标\r\n-void drawmous(int x,int y);//画鼠�?\r\n-void newmouse(int *nx,int *ny,int *nbuttons);   //更新鼠标\r\n+int mouse_press(int x1, int y1, int x2, int y2);//濡傛灉鍦ㄦ涓偣鍑伙紝鍒欒繑鍥�1锛涘湪妗嗕腑鏈偣鍑伙紝鍒欒繑鍥�2锛涗笉鍦ㄦ涓垯杩斿洖0\r\n+void mouse(int,int);//璁捐榧犳爣\r\n+void mouseinit(void);//鍒濆鍖�\r\n+//void mou_pos(int*,int*,int*);//鏇存敼榧犳爣浣嶇疆\r\n+void mread(int *,int *,int*);//鏀瑰潗鏍囦笉鐢�\r\n+void save_bk_mou(int x,int y);//瀛橀紶鏍囪儗鏅�\r\n+void clrmous(int x,int y);//娓呴櫎榧犳爣\r\n+void drawmous(int x,int y);//鐢婚紶鏍�\r\n+void newmouse(int *nx,int *ny,int *nbuttons);   //鏇存柊榧犳爣\r\n \r\n extern int MouseX;\r\n extern int MouseY;\r\n extern int MouseS;\r\n"
+                }
+            ],
+            "date": 1681547787792,
+            "name": "Commit-0",
+            "content": "#ifndef _mouse_h_\r\n#define _mouse_h_\r\nint mouse_press(int x1, int y1, int x2, int y2); //濡傛灉鍦ㄦ?嗕腑鐐瑰嚮锛屽垯杩斿洖1锛涘湪妗嗕腑鏈?鐐瑰嚮锛屽垯杩斿洖2锛涗笉鍦ㄦ?嗕腑鍒欒繑鍥?0\r\nvoid mouse(int, int);                            //璁捐?￠紶鏍?\r\nvoid mouseinit(void);                            //鍒濆?嬪寲\r\n//void mou_pos(int*,int*,int*);//鏇存敼榧犳爣浣嶇疆\r\nvoid mread(int *, int *, int *);                //鏀瑰潗鏍囦笉鐢?\r\nvoid save_bk_mou(int x, int y);                 //瀛橀紶鏍囪儗鏅?\r\nvoid clrmous(int x, int y);                     //娓呴櫎榧犳爣\r\nvoid drawmous(int x, int y);                    //鐢婚紶鏍?\r\nvoid newmouse(int *nx, int *ny, int *nbuttons); //鏇存柊榧犳爣\r\nvoid myfree();\r\nextern int MouseX; //榧犳爣浣嶇疆x\r\nextern int MouseY; //榧犳爣浣嶇疆y\r\nextern int MouseS; //榧犳爣褰㈢姸Shape 1涓烘墜鍔匡紱2涓哄厜鏍囷紱3涓哄崄瀛楋紱default鏄?榛樿??\r\nextern int press;  //榧犳爣鎸夊帇鐘舵€? 1涓烘寜涓嬪乏閿?锛?2涓烘寜涓嬪彸閿?锛?0涓洪粯璁ょ姸鎬佸嵆娌℃寜閿?\r\nextern union REGS regs;\r\n\r\n#endif\r\n"
+        }
+    ]
+}

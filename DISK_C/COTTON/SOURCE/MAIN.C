@@ -109,41 +109,44 @@ void main()
             {
                 switch (mode1)
                 {
-                case -1: // refresh the home main page
-                {
-                    // press_home(&(here[k].cotton_type));
-                    mode1 = 0;
+                    switch(mode1)
+                    {
+                        case -1: //refresh the home main page
+                        {
+                            clrmous(MouseX,MouseY);
+                            // press_home(&(here[k].cotton_type));
+                            mode1=0;
+                            break;
+                        }
+                        case 0: //the home main page
+                        {
+                            press_home(&(h->here[k].cotton_type));
+                            break;
+                        }
+                        case 1: //the warehouse list page
+                        {
+                            press_warelist();
+                            break;
+                        }
+                        case 2: //the detailed warehouse page
+                        {
+                            press_detwarehouse();
+                            break;
+                        }
+                        case 3: //the export cotton page
+                        {
+                            press_outware();
+                            break;
+                        }
+                    }
                     break;
                 }
-                case 0: // the home main page
+                case 2: //the edit page
                 {
-                    press_home(&(h->here[k].cotton_type));
+                    cleardevice();
+                    mode=0;
                     break;
                 }
-                case 1: // the warehouse list page
-                {
-                    press_warelist();
-                    break;
-                }
-                case 2: // the detailed warehouse page
-                {
-                    press_detwarehouse();
-                    break;
-                }
-                case 3: // the export cotton page
-                {
-                    press_outware();
-                    break;
-                }
-                }
-                break;
-            }
-            case 2: // the edit page
-            {
-                cleardevice();
-                mode = 0;
-                break;
-            }
 
             case 3: // the start page
             {

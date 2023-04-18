@@ -24,14 +24,13 @@ union REGS regs;
 int flag=0;
 
 
-
-void mouseinit()//閿熸枻鎷峰閿熸枻鎷?
+void mouseinit()//初始化
 {
 	int retcode;
-	int xmin,xmax,ymin,ymax,x_max=625,y_max=480;
+	int xmin,xmax,ymin,ymax,x_max=640,y_max=480;
 	int size;
 
-	xmin=2;
+	xmin=0;
 	xmax=x_max-1;
 	ymin=8;
 	ymax=y_max-2;
@@ -63,16 +62,16 @@ void mouseinit()//閿熸枻鎷峰閿熸枻鎷?
 
 /*****************************
 FUNCTION: mouse
-DESCRIPTION: 閿熸枻鎷烽敓鏂ゆ嫹鍚岄敓鏂ゆ嫹鎬侀敓鏂ゆ嫹閿熸枻鎷烽敓?
+DESCRIPTION: 画不同形态的鼠标
 INPUT: x,y
-RETURN: 閿熸枻鎷?
+RETURN: 无
 ******************************/
 void mouse(int x,int y)
 {
 	
 	switch(MouseS)
 	{
-		case 1:                                  //閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓?
+		case 1:                                  //手势鼠标
 		{
 				setcolor(WHITE);
 				setlinestyle(0,0,1);
@@ -113,7 +112,7 @@ void mouse(int x,int y)
 				line(x+1,y+13,x-1,y+9);
 		}
 			break;
-		case 2:                        //閿熸枻鎷烽敓?
+		case 2:                        //光标
 		{
 			setcolor(DARKGRAY);
 			setlinestyle(0,0,1);
@@ -122,7 +121,7 @@ void mouse(int x,int y)
 			line(x+5,y-1,x+5,y+15);
 		}
 			break;
-		case 3:                        //鍗侀敓鏂ゆ嫹
+		case 3:                        //十字
 		{
 			setcolor(WHITE);
 			setlinestyle(0,0,1);
@@ -130,7 +129,7 @@ void mouse(int x,int y)
 			line(x+5,y-1,x+5,y+15);
 		}
 			break;
-		default:              //榛橀敓鏂ゆ嫹閿熸枻鎷烽敓?
+		default:              //默认鼠标
 		{
 			setlinestyle(0,0,1);
 			setcolor(WHITE);
@@ -164,7 +163,7 @@ void mouse(int x,int y)
 	}
 }
 
-/*void mou_pos(int *nx,int *ny,int*nbuttons)//閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓杞夸紮鎷烽敓?
+void mou_pos(int *nx,int *ny,int*nbuttons)//更改鼠标位置
 {
 	int x0=*nx,y0=*ny;
 
@@ -174,7 +173,7 @@ void mouse(int x,int y)
 	drawmous(*nx,*ny);
 }
 
-void mread(int *nx,int *ny,int*nbuttons)//閿熸枻鎷烽敓鏂ゆ嫹閿熺枼涓嶉敓鏂ゆ嫹
+/*void mread(int *nx,int *ny,int*nbuttons)//改坐标不画
 {
 	int x0=*nx,y0=*ny,buttons0=*nbuttons;
 	int xnew,ynew,buttonsnew;
@@ -200,9 +199,9 @@ void mread(int *nx,int *ny,int*nbuttons)//閿熸枻鎷烽敓鏂ゆ嫹閿熺枼涓嶉敓鏂ゆ嫹
 
 /***************************************
 FUNCTION: mread
-DESCRIPTION: 閿熸枻鎷峰彇閿熼摪鐨勫瘎杈炬嫹閿熸枻鎷烽敓鏂ゆ嫹鎭?
+DESCRIPTION: 获取新的寄存器信息
 INPUT: nx,ny,nbuttons
-RETURN: 閿熸枻鎷?
+RETURN: 无
 ****************************************/
 void mread(int *nx,int *ny,int *nbuttons)  
 {
@@ -215,32 +214,58 @@ void mread(int *nx,int *ny,int *nbuttons)
 
 /*******************************************
 FUNCTION: newmouse
-DESCRIPTION: 閿熸枻鎷烽敓闃跺埡顒婃嫹閿熸枻鎷烽敓鏂ゆ嫹娴狀垽鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿??
+DESCRIPTION: 鼠标状态发生变化则更新鼠标
 INPUT: nx,ny,nbuttons
-RETURN: 閿熸枻鎷?
+RETURN: 无
 ********************************************/
 void newmouse(int *nx,int *ny,int *nbuttons)
 {
+#define side 2
 	int xn,yn,buttonsn;
 	int x0=*nx,y0=*ny,buttons0=*nbuttons;
-	// if(x0>615)
-	// {
-	// 	clrmous(x0,y0);
-	// }
 	mread(&xn,&yn,&buttonsn);
 	*nx = xn;
 	*ny = yn;
+	setfillstyle(1,WHITE);
+	if(*nx<=side)
+	{
+		clrmous(MouseX,MouseY);
+		bar(MouseX,MouseY,MouseX+3*side,MouseY+3*side);
+		MouseX=side;
+		return;
+	}
+	if(*nx>=640-side)
+	{
+		clrmous(MouseX,MouseY);
+		bar(MouseX,MouseY,MouseX+3*side,MouseY+3*side);
+		MouseX=640-side;
+		return;
+	}
+	if(*ny<=side)
+	{
+		clrmous(MouseX,MouseY);
+		bar(MouseX,MouseY,MouseX+3*side,MouseY+3*side);
+		MouseY=side;
+		return;
+	}
+	if(*ny>=480-side)
+	{
+		clrmous(MouseX,MouseY);
+		bar(MouseX,MouseY,MouseX+3*side,MouseY+3*side);
+		MouseY=480-side;
+		return;
+	}
 	*nbuttons = buttonsn;
 	if(buttons0 == *nbuttons)
-		*nbuttons = 0;    //浣块敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷?
+		*nbuttons = 0;    //使得能连续按键
 	if(xn == x0 && yn == y0 && buttonsn == buttons0)
-		return;            //閿熸枻鎷烽敓闃跺埡顒婃嫹閿熸枻鎷烽敓鏂ゆ嫹閿熻鎲嬫嫹鑷冮敓鏂ゆ嫹閿熺祳
-	clrmous(x0,y0);        //璇撮敓鏂ゆ嫹閿熸枻鎷烽敓闃跺埡顒婃嫹閿熸枻鎷烽敓鏂ゆ嫹鐑佽皨閿??
+		return;            //鼠标状态不变则直接返回S
+	clrmous(x0,y0);        //说明鼠标状态发生了改变
 	save_bk_mou(*nx,*ny);
 	drawmous(*nx,*ny);
 }
 
-void save_bk_mou(int nx,int ny)//閿熸枻鎷烽敓鏂ゆ嫹鐡鎷烽敓?
+void save_bk_mou(int nx,int ny)//存鼠标背景
 {
 	int size;
 
@@ -252,7 +277,7 @@ void save_bk_mou(int nx,int ny)//閿熸枻鎷烽敓鏂ゆ嫹鐡鎷烽敓?
 		printf("Error");
 }
 
-void clrmous(int nx,int ny)//閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷?
+void clrmous(int nx,int ny)//清除鼠标
 {
 	if(flag==1)
 	{
@@ -276,10 +301,10 @@ void drawmous(int nx,int ny)
 
 
 
-//閿熸枻鎷烽敓鏂ゆ嫹璇抽敓鏂ゆ嫹姊伴敓鏂ゆ嫹閿熸枻鎷烽敓娲ヨ繑浼欐嫹1閿熸枻鎷烽敓鑺傚尅鎷烽敓鏂ゆ嫹鏈敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹铓嶇シ閿??2閿熸枻鎷烽敓鏂ゆ嫹閿熻妭鍖℃嫹閿熸枻鎷烽敓娲ヨ繑浼欐嫹0
+//如果在框中点击，则返回1；在框中未点击，则返回2；不在框中则返回0
 int mouse_press(int x1, int y1, int x2, int y2)
 {
-	//閿熻妭鍖℃嫹閿熷彨纰夋嫹閿熸枻鎷烽敓鏂ゆ嫹铓嶇シ閿??1
+	//在框中点击，则返回1
 	if(MouseX > x1 
 	&&MouseX < x2
 	&&MouseY > y1
@@ -289,7 +314,7 @@ int mouse_press(int x1, int y1, int x2, int y2)
 		return 1;
 	}
 	
-	//閿熻妭鍖℃嫹閿熸枻鎷锋湭閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷疯殟绁烽敓?2
+	//在框中未点击，则返回2
 	else if(MouseX > x1 
 	&&MouseX < x2
 	&&MouseY > y1
@@ -299,7 +324,7 @@ int mouse_press(int x1, int y1, int x2, int y2)
 		return 2;
 	}
 	
-	//閿熻妭鍖℃嫹閿熷彨纰夋嫹閿熸枻鎷峰９閿熸枻鎷烽敓鏂ゆ嫹铓嶇シ閿??3
+	//在框中点击右键，则返回3
 	else if(MouseX > x1 
 	&&MouseX < x2
 	&&MouseY > y1
@@ -314,4 +339,3 @@ int mouse_press(int x1, int y1, int x2, int y2)
 		return 0;
 	}
 }
-
