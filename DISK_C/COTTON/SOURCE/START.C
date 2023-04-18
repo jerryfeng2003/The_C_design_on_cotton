@@ -1,5 +1,11 @@
-#include "TOTAL.H"
+#include "COMMON.H"
+#include "START.H"
+#include "PARAMETE.H"
+#include "LOGFUN.H"
+#include "HOME.H"
+#include "mouse.h"
 
+int delaytime=20;
 // int main()
 // {
 // 	int gd=VGA,gm=VGAHI; 
@@ -52,6 +58,7 @@ void start()
 {
 	int i=0,time=0;
 	double space=0,harvest=0;
+	delaytime=20;
 	for(i=0;i<10;i++)
 	{
 		if(strcmp(h->parameter[i].name,"\0")==0)
@@ -62,6 +69,14 @@ void start()
 	i--;
 	space=atoi(h->parameter[i].S);
 	time=space/pick_ph;
+	if(time<tra_time)
+		time=tra_time;
+	if(time>tracktor_num_max*tra_time)
+		time=tracktor_num_max*tra_time;
+	if(space<500)
+		space=500;
+	if(space>2000)
+		space=2000;
 	switch(h->parameter[i].place)
 	{
 		case 'a':
@@ -80,6 +95,8 @@ void start()
 			break;
 		}
 	}
+	if(harvest==0)
+		harvest=3;
 
 	switch(h->parameter[i].type)
 	{
@@ -181,6 +198,7 @@ void draw_simu01(int time)
 {
 	char str[8];
 	itoa(time,str,10);
+	clrmous(MouseX,MouseY);
     cleardevice();
     setbkcolor(WHITE);
 	puthz(150,30,"采摘完成还需",32,32,BLUE);
@@ -217,7 +235,7 @@ void draw_simu01(int time)
 void init_based_field()
 {
 	setfillstyle(1,BROWN);
-	bar(0,80,615,500);
+	bar(10,80,615,470);
 	return;
 }
 
@@ -228,7 +246,7 @@ void start_ainime01(int t_trac,double space,int time)
 	double temp_x,temp_y;
 	temp_y=sqrt(space/55*32)*10;
 	temp_x=temp_y*55/32;
-	x=temp_x,y=temp_y,num=time/100;
+	x=temp_x,y=temp_y,num=time/tra_time;
 	if(x>x_max)
 		x=x_max;
 	if(y>y_max)
@@ -238,6 +256,7 @@ void start_ainime01(int t_trac,double space,int time)
 	i=0,x_p=x_start,y_p=y_start+y-40,flag=0,out=0;
 	select_setoff01(xy,x_start+x,y_start+y);
 	draw_simu01(time);
+	clrmous(MouseX,MouseY);
 	draw_setoff(xy);
 	init_field(x,y);
 	x/=num;
@@ -288,7 +307,7 @@ void start_ainime01(int t_trac,double space,int time)
 						earth_fill03(x_p + i * x, 120 + y - 49);
 					}
 				}
-				delay(20 / num);
+				delay(delaytime / num);
 			}
 			if (flag == 0)
 			{
@@ -312,7 +331,7 @@ void start_ainime01(int t_trac,double space,int time)
 					x_p += 25;
 				}
 			}
-			out = pressed_anime(x * num, y);
+			out = pressed_anime(x_start,y_start,x * num, y);
 			if (out != 0)
 			{
 				// for (i = 1; i <= num; i++)
@@ -335,6 +354,7 @@ void start_ainime01(int t_trac,double space,int time)
 	}
 	else
 	{
+		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		tracktor_set_off0(xy[0],xy[1],x_start,y_start+y,x,num);
 		earth_fill01(x_p, y_p);
@@ -380,7 +400,7 @@ void start_ainime01(int t_trac,double space,int time)
 						earth_fill03(x_p + i * x, 120 + y - 49);
 					}
 				}
-				delay(20 / num);
+				delay(delaytime/num);
 			}
 			if (flag == 0)
 			{
@@ -404,7 +424,7 @@ void start_ainime01(int t_trac,double space,int time)
 					x_p += 25;
 				}
 			}
-			out = pressed_anime(x * num, y);
+			out = pressed_anime(x_start,y_start,x * num, y);
 			if (out != 0)
 			{
 				// for (i = 1; i <= num; i++)
@@ -440,9 +460,8 @@ void press_start(int *bk)
 	}
 	if (mouse_press(0, 0, 40, 30) == 1)
 	{
-		mode=0;
-		*bk=1;
-		return;
+		free(h);
+		exit(0);
 	}
 	else if (mouse_press(265, 350, 365, 410) == 1)
 	{
@@ -455,11 +474,11 @@ void press_start(int *bk)
 }
 
 // add press moudules in video page
-int pressed_anime(int x, int y)
+int pressed_anime(int x_sta,int y_sta, int x_des,int y_des)
 {
 	int re;
 	re=0;
-	if(MouseX>=x_start&&MouseY>=y_start&&MouseX<=x_start+x&&MouseY<=y_start+y)
+	if(MouseX>=x_sta&&MouseY>=y_sta&&MouseX<=x_sta+x_des&&MouseY<=y_sta+y_des)
 	{
 		clrmous(MouseX, MouseY);
 	}
@@ -471,6 +490,14 @@ int pressed_anime(int x, int y)
 	{
 		MouseS = 1;
 	}
+	// if(*times>0.5&& bioskey(0)==p_Up_arrow)
+	// {
+	// 	*times-=0.1;
+	// }
+	// if(*times<2&&bioskey(0)==p_Donw_arrow)
+	// {
+	// 	*times+=0.1;
+	// }
 	if (mouse_press(0, 0, 40, 30) == 1)
 	{
 		mode=0;
@@ -478,7 +505,7 @@ int pressed_anime(int x, int y)
 	}
 	if (mouse_press(585, 450, 625, 480) == 1)
 	{
-		anime_skip_result(x, y);
+		anime_skip_result(x_sta, y_sta,x_des,y_des);
 		re = 1;
 	}
 	return re;
@@ -536,12 +563,12 @@ void pick_finish(int count)
 }
 
 // moudules which skip the video and show the result
-void anime_skip_result(long int x,long int y)
+void anime_skip_result(int x_sta,int y_sta, int x_des,int y_des)
 {
 	//int i = 0;
 	setfillstyle(1, BROWN);
 	setcolor(WHITE);
-	bar(x_start, y_start, x_start + x+4, y_start + y);
+	bar(x_sta, y_sta, x_des, y_des);
 	// for (i = 0; i < x*y*0.05; i++)
 	// {
 	// 	int x_t = rand() % x, y_t = rand() % y;
@@ -975,7 +1002,6 @@ void select02(struct Parameter *abc)
 	settextstyle(3, 0, 4);
 	quit();
 
-	mouseinit();
 	while (1)
 	{
 		if (back != 0)
@@ -1101,7 +1127,8 @@ void pick_points(int *x, int *y, int *flag)
 		}
 		if (mouse_press(0, 0, 40, 30) == 1)
 		{
-			draw_wel();
+			mode=0;
+			return;
 		}
 		// if(mouse_press(200,70,280,115)==1&&(*flag)==0)
 		// {
@@ -1213,7 +1240,6 @@ void select03(struct Parameter *abc)
 	settextstyle(3, 0, 4);
 	quit();
 
-	mouseinit();
 	while (1)
 	{
 		if (back != 0)
@@ -1244,7 +1270,8 @@ void press_select03(int *x,int *y,int *flag,int *back)
 	}
 	if(mouse_press(0,0,40,30)==1)
 	{
-		draw_wel();
+		mode=0;
+		return;
 	}
 	if(mouse_press(200,70,280,115)==1&&(*flag)==0)
 	{
@@ -1370,6 +1397,7 @@ void init_field02(int *x,int *y,int *flag,int type,int time)
 	// setlinestyle(0,0,3);
 	// bar(x_start-5,y_start-5,x_start+x_max+5,y_start+y_max+5);
 	draw_points(arr,flag,xy_m);
+	clrmous(MouseX,MouseY);
 	draw_setoff(xy);
 	//setcolor(GREEN);
 	//rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
@@ -1379,13 +1407,14 @@ void init_field02(int *x,int *y,int *flag,int type,int time)
 	// 	int x_r=rand()%(xy_m[2]-xy_m[0]),y_r=rand()%(xy_m[3]-xy_m[1]);
 	// 	line(xy_m[0]+x_r,xy_m[1]+y_r,xy_m[0]+x_r,xy_m[1]+y_r);
 	// }
-	num=time/100;
+	num=time/tra_time;
 	if(num==0)
 		num=1;
 	//delay(1000);
 	if(type==0)
 	{
 		tracktor_set_off(xy[0],xy[1],xy_m[0],xy_m[3],(xy_m[2]-xy_m[0])/num,num);
+		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		dense_init_tracktor01(x,y,flag,xy_m,num);
 		tracktor_return(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num);
@@ -1393,6 +1422,7 @@ void init_field02(int *x,int *y,int *flag,int type,int time)
 	else
 	{
 		tracktor_set_off0(xy[0],xy[1],xy_m[0],xy_m[3],(xy_m[2]-xy_m[0])/num,num);
+		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		dense_init_tracktor02(x,y,flag,xy_m,num);
 		tracktor_return0(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num);
@@ -1406,9 +1436,9 @@ void init_field03(int *x,int *y,int *flag,int type,int time)
 	//[0]:minest of x,[1]:minest of y,[2]:largest of x,[3]:largest of y
 	long int xy_m[4]={x_start+x_max,y_start+y_max,x_start,y_start};
 	int arr[dense_points_max * 2], i,num=0,xy[2];
-	num=time/100;
+	num=time/tra_time;
 	if(num==0)
-		time=1;
+		num=1;
 	for (i = 0; i < (*flag); i++)
 	{
 		if (x[i] < xy_m[0])
@@ -1436,6 +1466,7 @@ void init_field03(int *x,int *y,int *flag,int type,int time)
 	select_setoff02(xy,xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
 	draw_simu01(time);
 	dense_draw_points(arr,flag,xy_m);
+	clrmous(MouseX,MouseY);
 	draw_setoff(xy);
 	//setcolor(GREEN);
 	//rectangle(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
@@ -1449,6 +1480,7 @@ void init_field03(int *x,int *y,int *flag,int type,int time)
 	if(type==0)
 	{
 		tracktor_set_off(xy[0],xy[1],xy_m[0],xy_m[3],(xy_m[2]-xy_m[0])/num,num);
+		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		dense_init_tracktor01(x,y,flag,xy_m,num);
 		tracktor_return(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num);
@@ -1456,13 +1488,14 @@ void init_field03(int *x,int *y,int *flag,int type,int time)
 	else
 	{
 		tracktor_set_off0(xy[0],xy[1],xy_m[0],xy_m[3],(xy_m[2]-xy_m[0])/num,num);
+		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		dense_init_tracktor02(x,y,flag,xy_m,num);
 		tracktor_return0(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num);
 	}
 }
 
-void dense_init_tracktor01(int *x, int *y, int *flag, long int *xy_m, int num)
+void dense_init_tracktor01(int *x, int *y, int *flag,long int *xy_m, int num)
 {
 	long int total=0;
 	int x_d,i,tra_d[tracktor_num_max][4],tra_mark[tracktor_num_max][4];
@@ -1539,19 +1572,19 @@ void dense_init_tracktor01(int *x, int *y, int *flag, long int *xy_m, int num)
 		total+=tra_d[i][1];
 		total+=tra_d[i][3];
 	}
-	for(i=0;i<num;i++)
-	{
-		int temp=(total-tra_d[i][1]-tra_d[i][3])/((num-1)*2);
-		if(tra_d[i][3]<temp)
-		{
-			tra_d[i][3]=(xy_m[3]+tra_d[i][3])/2+30;
-		}
-		if(tra_d[i][1]>temp)
-		{
-			tra_d[i][1]=(xy_m[1]+tra_d[i][1])/2-30;
-		}
-	}
-	start_ainime03_01(tra_d,num);
+	// for(i=0;i<num;i++)
+	// {
+	// 	int temp=(total-tra_d[i][1]-tra_d[i][3])/((num-1)*2);
+	// 	if(tra_d[i][3]<temp)
+	// 	{
+	// 		tra_d[i][3]=(xy_m[3]+tra_d[i][3])/2+30;
+	// 	}
+	// 	if(tra_d[i][1]>temp)
+	// 	{
+	// 		tra_d[i][1]=(xy_m[1]+tra_d[i][1])/2-30;
+	// 	}
+	// }
+	start_ainime03_01(tra_d,num,xy_m);
 }
 
 void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num)
@@ -1631,22 +1664,22 @@ void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num)
 		total+=tra_d[i][1];
 		total+=tra_d[i][3];
 	}
-	for(i=0;i<num;i++)
-	{
-		int temp=(total-tra_d[i][1]-tra_d[i][3])/((num-1)*2);
-		if(tra_d[i][3]<temp)
-		{
-			tra_d[i][3]=(xy_m[3]+tra_d[i][3])/2+30;
-		}
-		if(tra_d[i][1]>temp)
-		{
-			tra_d[i][1]=(xy_m[1]+tra_d[i][1])/2-30;
-		}
-	}
-	start_ainime03_02(tra_d,num);
+	// for(i=0;i<num;i++)
+	// {
+	// 	int temp=(total-tra_d[i][1]-tra_d[i][3])/((num-1)*2);
+	// 	if(tra_d[i][3]<temp)
+	// 	{
+	// 		tra_d[i][3]=(xy_m[3]+tra_d[i][3])/2+30;
+	// 	}
+	// 	if(tra_d[i][1]>temp)
+	// 	{
+	// 		tra_d[i][1]=(xy_m[1]+tra_d[i][1])/2-30;
+	// 	}
+	// }
+	start_ainime03_02(tra_d,num,xy_m);
 }
 
-void start_ainime03_01(int (*tra_d)[4], int num)
+void start_ainime03_01(int (*tra_d)[4], int num,long int *xy_m)
 {
 	int type[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
 	for(i=0;i<num;i++)
@@ -1657,8 +1690,30 @@ void start_ainime03_01(int (*tra_d)[4], int num)
 	}
 	while (1)
 	{
-		int count=0;
+		int count=0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
+		re=pressed_anime(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
+		if(re!=0)
+		{
+			for(i=0;i<num;i++)
+			{
+				if(type[i]==0)
+				{
+					earth_cover01(x_p[i], y_p[i]);
+					earth_cover01(x_p[i], y_p[i] + 5);
+				}
+				if(type[i]==1)
+				{
+					earth_cover02(x_p[i],y_p[i]);
+					earth_cover02(x_p[i]+7,y_p[i]);
+				}
+			}
+			if(mode==0)
+			{
+				return;
+			}
+			break;
+		}
 		for(i=0;i<num;i++)
 		{
 			if (type[i] == 4)
@@ -1691,7 +1746,7 @@ void start_ainime03_01(int (*tra_d)[4], int num)
 					type[i] = 1;
 					x_p[i] += 25;
 				}
-				delay(20 / (num - count));
+				delay(delaytime / (num - count));
 				continue;
 			}
 			else if (type[i] == 1)
@@ -1713,11 +1768,12 @@ void start_ainime03_01(int (*tra_d)[4], int num)
 						x_p[i] += 25;
 					}
 				}
-				delay(20 / (num - count));
+				delay(delaytime / (num - count));
 				continue;
 			}
-			else if (type[i] = 2)
+			else
 			{
+				type[i]=2;
 				earth_fill01(x_p[i], y_p[i]);
 				init_tracktor01_f(x_p[i], y_p[i]);
 				y_p[i]--;
@@ -1727,15 +1783,15 @@ void start_ainime03_01(int (*tra_d)[4], int num)
 					type[i] = 1;
 					x_p[i] += 25;
 				}
-				delay(20 / (num - count));
+				delay(delaytime / (num - count));
 				continue;
 			}
-			else if (type[i] = 3)
-			{
-				earth_fill02(x_p[i], y_p[i]);
-				init_tracktor01_b(x_p[i], y_p[i]);
-				y_p[i]++;
-			}
+			// else if (type[i] = 3)
+			// {
+			// 	earth_fill02(x_p[i], y_p[i]);
+			// 	init_tracktor01_b(x_p[i], y_p[i]);
+			// 	y_p[i]++;
+			// }
 		}
 		if (count >= num)
 		{
@@ -1749,19 +1805,41 @@ void start_ainime03_01(int (*tra_d)[4], int num)
 	}
 }
 
-void start_ainime03_02(int (*tra_d)[4], int num)
+void start_ainime03_02(int (*tra_d)[4], int num,long int *xy_m)
 {
 	int type[tracktor_num_max],x_p[tracktor_num_max],y_p[tracktor_num_max],i;
 	for(i=0;i<num;i++)
 	{
 		type[i] = 0;
 		x_p[i] = tra_d[i][0];
-		y_p[i] = y_start + y_max - 40;
+		y_p[i] = tra_d[i][3]-40;
 	}
 	while (1)
 	{
-		int count=0;
+		int count=0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
+		re=pressed_anime(xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
+		if(re!=0)
+		{
+			for(i=0;i<num;i++)
+			{
+				if(type[i]==0)
+				{
+					earth_cover01(x_p[i], y_p[i]);
+					earth_cover01(x_p[i], y_p[i] + 5);
+				}
+				if(type[i]==1)
+				{
+					earth_cover02(x_p[i],y_p[i]);
+					earth_cover02(x_p[i]+7,y_p[i]);
+				}
+			}
+			if(mode==0)
+			{
+				return;
+			}
+			break;
+		}
 		for(i=0;i<num;i++)
 		{
 			if (type[i] == 4)
@@ -1794,7 +1872,7 @@ void start_ainime03_02(int (*tra_d)[4], int num)
 					type[i] = 1;
 					x_p[i] += 25;
 				}
-				delay(20 / (num - count));
+				delay(delaytime / (num - count));
 				continue;
 			}
 			else if (type[i] == 1)
@@ -1816,11 +1894,12 @@ void start_ainime03_02(int (*tra_d)[4], int num)
 						x_p[i] += 25;
 					}
 				}
-				delay(20 / (num - count));
+				delay(delaytime / (num - count));
 				continue;
 			}
-			else if (type[i] = 2)
+			else
 			{
+				type[i] = 2;
 				earth_fill01(x_p[i], y_p[i]);
 				init_tracktor02_f(x_p[i], y_p[i]);
 				y_p[i]--;
@@ -1830,15 +1909,15 @@ void start_ainime03_02(int (*tra_d)[4], int num)
 					type[i] = 1;
 					x_p[i] += 25;
 				}
-				delay(20 / (num - count));
+				delay(delaytime / (num - count));
 				continue;
 			}
-			else if (type[i] = 3)
-			{
-				earth_fill02(x_p[i], y_p[i]);
-				init_tracktor02_b(x_p[i], y_p[i]);
-				y_p[i]++;
-			}
+			// else if (type[i] = 3)
+			// {
+			// 	earth_fill02(x_p[i], y_p[i]);
+			// 	init_tracktor02_b(x_p[i], y_p[i]);
+			// 	y_p[i]++;
+			// }
 		}
 		if (count >= num)
 		{
@@ -1887,7 +1966,7 @@ void cal_tracktor_circle(int type,double space,int time)
 	long int x0=(2*x_start+x_max)/2,y0=(2*y_start+y_max)/2,r;
 	int tra_d[tracktor_num_max][4],i,d,num,xy[2];
 	r=sqrt(space/3.1415926)*10;
-	num=time/100;
+	num=time/tra_time;
 	if(num==0)
 		num=1;
 	if(r>=y_max/2-3)
@@ -1954,10 +2033,12 @@ void cal_tracktor_circle(int type,double space,int time)
 	select_setoff02(xy,x0-r,y0-r,x0+r,y0+r);
 	draw_simu01(time);
 	circle_field(r);
+	clrmous(MouseX,MouseY);
 	draw_setoff(xy);
 	if(type==0)
 	{
 		tracktor_set_off(xy[0],xy[1],x0-r,y0+r,2*r/num,num);
+		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		start_ainime04_01(tra_d,num);
 		for(i=0;i<num;i++)
@@ -1970,6 +2051,7 @@ void cal_tracktor_circle(int type,double space,int time)
 	else
 	{
 		tracktor_set_off0(xy[0],xy[1],x0-r,y0+r,2*r/num,num);
+		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		start_ainime04_02(tra_d,num);
 		for(i=0;i<num;i++)
@@ -1993,8 +2075,30 @@ void start_ainime04_01(int (*tra_d)[4],int num)
 	}
 	while(1)
 	{
-		int count=0;
+		int count=0,re=0;
         newmouse(&MouseX,&MouseY,&press);
+		re=pressed_anime(tra_d[0][0],tra_d[num/2][1],tra_d[num-1][2],tra_d[num/2][3]);
+		if(re!=0)
+		{
+			for(i=0;i<num;i++)
+			{
+				if(type[i]==0)
+				{
+					earth_cover01(x_p[i], y_p[i]);
+					earth_cover01(x_p[i], y_p[i] + 5);
+				}
+				if(type[i]==1)
+				{
+					earth_cover02(x_p[i],y_p[i]);
+					earth_cover02(x_p[i]+7,y_p[i]);
+				}
+			}
+			if(mode==0)
+			{
+				return;
+			}
+			break;
+		}
 		for(i=0;i<num;i++)
 		{
 			if(type[i]==4)
@@ -2027,7 +2131,7 @@ void start_ainime04_01(int (*tra_d)[4],int num)
 					type[i]=1;
 					x_p[i]+=25;
 				}
-				delay(20/(num-count));
+				delay(delaytime/(num-count));
 				continue;
 			}
 			else if(type[i]==1)
@@ -2049,11 +2153,12 @@ void start_ainime04_01(int (*tra_d)[4],int num)
 						x_p[i]+=25;
 					}
 				}
-				delay(20/(num-count));
+				delay(delaytime/(num-count));
 				continue;
 			}
-			else if (type[i]=2)
+			else
 			{
+				type[i]=2;
 				earth_fill01(x_p[i],y_p[i]);
 				init_tracktor01_f(x_p[i],y_p[i]);
 				y_p[i]--;
@@ -2063,15 +2168,15 @@ void start_ainime04_01(int (*tra_d)[4],int num)
 					type[i]=1;
 					x_p[i]+=25;
 				}
-				delay(20/(num-count));
+				delay(delaytime/(num-count));
 				continue;
 			}
-			else if(type[i]=3)
-			{
-				earth_fill02(x_p[i],y_p[i]);
-				init_tracktor01_b(x_p[i],y_p[i]);
-				y_p[i]++;
-			}
+			// else if(type[i]=3)
+			// {
+			// 	earth_fill02(x_p[i],y_p[i]);
+			// 	init_tracktor01_b(x_p[i],y_p[i]);
+			// 	y_p[i]++;
+			// }
 		}
 		if(count>=num)
 		{
@@ -2096,8 +2201,30 @@ void start_ainime04_02(int (*tra_d)[4],int num)
 	}
 	while(1)
 	{
-		int count=0;
+		int count=0,re=0;
         newmouse(&MouseX,&MouseY,&press);
+		re=pressed_anime(tra_d[0][0],tra_d[num/2-1][1],tra_d[num-1][2],tra_d[num/2-1][3]);
+		if(re!=0)
+		{
+			for(i=0;i<num;i++)
+			{
+				if(type[i]==0)
+				{
+					earth_cover01(x_p[i], y_p[i]);
+					earth_cover01(x_p[i], y_p[i] + 5);
+				}
+				if(type[i]==1)
+				{
+					earth_cover02(x_p[i],y_p[i]);
+					earth_cover02(x_p[i]+7,y_p[i]);
+				}
+			}
+			if(mode==0)
+			{
+				return;
+			}
+			break;
+		}
 		for(i=0;i<num;i++)
 		{
 			if(type[i]==4)
@@ -2130,7 +2257,7 @@ void start_ainime04_02(int (*tra_d)[4],int num)
 					type[i]=1;
 					x_p[i]+=25;
 				}
-				delay(20/(num-count));
+				delay(delaytime/(num-count));
 				continue;
 			}
 			else if(type[i]==1)
@@ -2152,11 +2279,12 @@ void start_ainime04_02(int (*tra_d)[4],int num)
 						x_p[i]+=25;
 					}
 				}
-				delay(20/(num-count));
+				delay(delaytime/(num-count));
 				continue;
 			}
-			else if (type[i]=2)
+			else
 			{
+				type[i]=2;
 				earth_fill01(x_p[i],y_p[i]);
 				init_tracktor02_f(x_p[i],y_p[i]);
 				y_p[i]--;
@@ -2166,15 +2294,15 @@ void start_ainime04_02(int (*tra_d)[4],int num)
 					type[i]=1;
 					x_p[i]+=25;
 				}
-				delay(20/(num-count));
+				delay(delaytime/(num-count));
 				continue;
 			}
-			else if(type[i]=3)
-			{
-				earth_fill02(x_p[i],y_p[i]);
-				init_tracktor02_b(x_p[i],y_p[i]);
-				y_p[i]++;
-			}
+			// else if(type[i]=3)
+			// {
+			// 	earth_fill02(x_p[i],y_p[i]);
+			// 	init_tracktor02_b(x_p[i],y_p[i]);
+			// 	y_p[i]++;
+			// }
 		}
 		if(count>=num)
 		{
@@ -2225,7 +2353,6 @@ void select_setoff01(int *xy,int x_end,int y_end)
 	setlinestyle(0,0,3);
 	setcolor(GREEN);
 	rectangle(x_start,y_start,x_end,y_end);
-	mouseinit();
 	// for(i=0;i<100;i++)
 	// {
 	// 	newmouse(&MouseX,&MouseY,&press);
@@ -2258,12 +2385,12 @@ void select_setoff02(int *xy,int x_s,int y_s,int x_e,int y_e)
 {
 	cleardevice();
 	setbkcolor(WHITE);   
-	puthz(150,30,"请在框外选择农机出发点",32,32,BLUE);
+	puthz(100,30,"请在框外选择农机出发点",32,32,BLUE);
+	//puthz(400,40,"速度",32,32,GREEN);
 	init_based_field();
 	setlinestyle(0,0,3);
 	setcolor(GREEN);
 	rectangle(x_s,y_s,x_e,y_e);
-	mouseinit();
 	// for(i=0;i<100;i++)
 	// {
 	// 	newmouse(&MouseX,&MouseY,&press);
@@ -2281,6 +2408,30 @@ void select_setoff02(int *xy,int x_s,int y_s,int x_e,int y_e)
 		}
 		delay(20);
 	}
+	// while(1)
+	// {
+	// 	if(bioskey(0)==p_Enter)
+	// 	{
+	// 		break;
+	// 	}
+	// 	if(flag==0)
+	// 	{
+	// 		itoa(100*times,str,5);
+	// 		outtextxy(450,40,str);
+	// 		flag=1;
+	// 	}
+	// 	if(times>0.5&& bioskey(0)==p_Up_arrow)
+	// 	{
+	// 		times-=0.05;
+	// 		flag=0;
+	// 	}
+	// 	if(times<2&&bioskey(0)==p_Donw_arrow)
+	// 	{
+	// 		times+=0.05;
+	// 		flag=0;
+	// 	}
+	// 	delay(delaytime);
+	// }
 	if(xy[0]<=x_s&&xy[0]+tra_start_l>=x_s)
 	{
 		xy[0]=x_s-tra_start_l;
@@ -2297,8 +2448,44 @@ void select_setoff02(int *xy,int x_s,int y_s,int x_e,int y_e)
 	{
 		xy[1]=y_s+tra_start_d;
 	}
-
+	clrmous(MouseX,MouseY);
+	draw_setoff(xy);
+	choose_speed();
 	return;
+}
+
+void choose_speed()
+{
+	float x_p=0;
+	setcolor(RED);
+	setfillstyle(1,WHITE);
+	bar(0,0,480,70);
+	puthz(100,30,"请在横轴上选择农机速度值",32,32,BLUE);
+	setfillstyle(1,RED);
+	bar(320-100,85,320,95);
+	setfillstyle(1,GREEN);
+	bar(320,85,320+100,95);
+	while(1)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		if(mouse_press(320-100,85,320+100,95)==1)
+		{
+			x_p=420-MouseX;
+			break;
+		}
+		if (mouse_press(320-100,85,320+100,95) == 2 )
+		{
+			MouseS = 1;
+		}
+		delay(delaytime);
+	}
+	if(x_p<=20)
+	{
+		x_p=20;
+	}
+	x_p/=200;
+	delaytime*=x_p;
+	clrmous(MouseX,MouseY);
 }
 
 void draw_setoff(int *xy)
@@ -2341,12 +2528,11 @@ void tracktor_set_off01(int start_x, int start_y, int des_x, int des_y, int dist
 		y_p[i] = start_y + tra_start_d + 1;
 	}
 	//clrmous(MouseX,MouseY);
-	mouseinit();
 	while (1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -2414,7 +2600,7 @@ void tracktor_set_off01(int start_x, int start_y, int des_x, int des_y, int dist
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -2430,12 +2616,11 @@ void tracktor_set_off02(int start_x, int start_y, int des_x, int des_y, int dist
 		y_p[i] = start_y - tra_start_d - 1 - tracktor_l;
 	}
 	//clrmous(MouseX,MouseY);
-	mouseinit();
 	while (1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -2503,7 +2688,7 @@ void tracktor_set_off02(int start_x, int start_y, int des_x, int des_y, int dist
 		{
 			break;
 		}
-		delay(20);
+	delay(delaytime);
 	}
 }
 
@@ -2519,12 +2704,11 @@ void tracktor_set_off03(int start_x, int start_y, int des_x, int des_y, int dist
 		y_p[i] = start_y + tra_start_d + 1;
 	}
 	//clrmous(MouseX,MouseY);
-	mouseinit();
 	while (1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -2592,7 +2776,7 @@ void tracktor_set_off03(int start_x, int start_y, int des_x, int des_y, int dist
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -2608,12 +2792,11 @@ void tracktor_set_off04(int start_x, int start_y, int des_x, int des_y, int dist
 		y_p[i] = start_y - tra_start_d - 1 - tracktor_l;
 	}
 	//clrmous(MouseX,MouseY);
-	mouseinit();
 	while (1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -2681,7 +2864,7 @@ void tracktor_set_off04(int start_x, int start_y, int des_x, int des_y, int dist
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -2721,12 +2904,11 @@ void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,
 		x_p[i]-=tracktor_l;
 		y_p[i]-=tracktor_w;
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -2787,7 +2969,7 @@ void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -2807,12 +2989,11 @@ void tracktor_return02(int start_x,int start_y,int des_x,int des_y,int distance,
 		x_p[num-1-i]+=tracktor_l;
 		y_p[num-1-i]-=tracktor_w;
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -2873,7 +3054,7 @@ void tracktor_return02(int start_x,int start_y,int des_x,int des_y,int distance,
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -2893,12 +3074,11 @@ void tracktor_return03(int start_x,int start_y,int des_x,int des_y,int distance,
 		x_p[i]-=tracktor_l;
 		y_p[i]-=tracktor_w;
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -2960,7 +3140,7 @@ void tracktor_return03(int start_x,int start_y,int des_x,int des_y,int distance,
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -2978,12 +3158,11 @@ void tracktor_return04(int start_x,int start_y,int des_x,int des_y,int distance,
 		y_p[num-1-i]=des_y-tracktor_w;
 		earth_fill03(x_p[i],y_p[i]);
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -3045,7 +3224,7 @@ void tracktor_return04(int start_x,int start_y,int des_x,int des_y,int distance,
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}      
 }
 
@@ -3080,12 +3259,11 @@ void tracktor_set_off001(int start_x,int start_y,int des_x,int des_y,int distanc
 		x_p[i] = (2 * start_x + tra_start_l) / 2 - tracktor_w / 2;
 		y_p[i] = start_y + tra_start_d + 1;
 	}
-	mouseinit();
 	while (1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -3153,7 +3331,7 @@ void tracktor_set_off001(int start_x,int start_y,int des_x,int des_y,int distanc
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -3168,12 +3346,11 @@ void tracktor_set_off002(int start_x,int start_y,int des_x,int des_y,int distanc
 		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
 		y_p[i]=start_y-tra_start_d-1-tracktor_l;
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -3241,7 +3418,7 @@ void tracktor_set_off002(int start_x,int start_y,int des_x,int des_y,int distanc
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -3256,12 +3433,11 @@ void tracktor_set_off003(int start_x,int start_y,int des_x,int des_y,int distanc
 		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
 		y_p[i]=start_y+tra_start_d+1;
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -3329,7 +3505,7 @@ void tracktor_set_off003(int start_x,int start_y,int des_x,int des_y,int distanc
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -3344,12 +3520,11 @@ void tracktor_set_off004(int start_x,int start_y,int des_x,int des_y,int distanc
 		x_p[i]=(2*start_x+tra_start_l)/2-tracktor_w/2;
 		y_p[i]=start_y-tra_start_d-1-tracktor_l;
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -3417,7 +3592,7 @@ void tracktor_set_off004(int start_x,int start_y,int des_x,int des_y,int distanc
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -3457,12 +3632,11 @@ void tracktor_return001(int start_x,int start_y,int des_x,int des_y,int distance
 		x_p[i]-=tracktor_l;
 		y_p[i]-=tracktor_w;
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -3523,7 +3697,7 @@ void tracktor_return001(int start_x,int start_y,int des_x,int des_y,int distance
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -3543,12 +3717,11 @@ void tracktor_return002(int start_x,int start_y,int des_x,int des_y,int distance
 		x_p[num-1-i]+=tracktor_l;
 		y_p[num-1-i]-=tracktor_w;
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -3609,7 +3782,7 @@ void tracktor_return002(int start_x,int start_y,int des_x,int des_y,int distance
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -3629,12 +3802,11 @@ void tracktor_return003(int start_x,int start_y,int des_x,int des_y,int distance
 		x_p[i]-=tracktor_l;
 		y_p[i]-=tracktor_w;
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -3696,7 +3868,7 @@ void tracktor_return003(int start_x,int start_y,int des_x,int des_y,int distance
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }
 
@@ -3714,12 +3886,11 @@ void tracktor_return004(int start_x,int start_y,int des_x,int des_y,int distance
 		y_p[num-1-i]=des_y-tracktor_w;
 		earth_fill03(x_p[i],y_p[i]);
 	}
-	mouseinit();
 	while(1)
 	{
 		int count = 0,re=0;
 		newmouse(&MouseX,&MouseY,&press);
-		re=pressed_anime(x_start,y_start);
+		re=pressed_anime(x_start,y_start,x_start,y_start);
 		if(re!=0)
 		{
 			for(i=0;i<num;i++)
@@ -3781,6 +3952,6 @@ void tracktor_return004(int start_x,int start_y,int des_x,int des_y,int distance
 		{
 			break;
 		}
-		delay(20);
+		delay(delaytime);
 	}
 }

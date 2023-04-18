@@ -8,16 +8,17 @@ int k=0;
 //the page of n-w warehouse
 void draw_home01()
 {
-    int i,type,location;//1 means the norwestern,0 means others
+	int i,type,location=0;//1 means the norwestern,0 means others
 	long int temp, c_tal;
+	clrmous(MouseX,MouseY);
 	for(i=0;i<10;i++)
 	{
-		if(h->parameter[i].name=='\0')
+		if(strcmp(h->parameter[i].name,"\0")==0)
 		{
-			i--;
 			break;
 		}
 	}
+	i--;
 	switch (h->parameter[i].place)
 	{
 		case 'a':
@@ -35,7 +36,7 @@ void draw_home01()
 			location=0;
 			break;
 		}
-		
+
 		default:
 			break;
 	}
@@ -51,6 +52,7 @@ void draw_home01()
     setbkcolor(WHITE);
 	draw_warehouse();
 	draw_trunk();
+	last();
 	if(location==1)
 	{
 		puthz(180,30,"新疆地区：室外仓库",32,32,BLUE);
@@ -77,8 +79,8 @@ void draw_home01()
 		}
 	}
 	in_warehouse(h->here+k);
-    mouseinit();
 	quit();
+	clrmous(MouseX,MouseY);
 	//wr_h();
 	// for(;;)
 	// {
@@ -92,20 +94,25 @@ void draw_home01()
 void press_home(int *c_t)
 {
 	if(mouse_press(0,0,40,30)==0||mouse_press(53,90,280,190)==0||mouse_press(26,130,46,150)==0\
-	||mouse_press(287,130,307,150)==0||mouse_press(100,300,200,360)==0)
+	||mouse_press(287,130,307,150)==0||mouse_press(100,300,200,360)==0||mouse_press(0,450,40,480)==0)
 	{
 		MouseS=0;
 	}
 	if(mouse_press(0,0,40,30)==2||mouse_press(53,90,280,190)==2||mouse_press(26,130,46,150)==2\
-	||mouse_press(287,130,307,150)==2||mouse_press(100,300,200,360)==2)
+	||mouse_press(287,130,307,150)==2||mouse_press(100,300,200,360)==2||mouse_press(0,450,40,480)==2)
 	{
 		MouseS=1;
+	}
+	if(mouse_press(0,450,40,480)==1)
+	{
+		mode=0;
+		mode1=0;
 	}
 	if(mouse_press(0,0,40,30)==1)
 	{
 		// draw_wel();
-		mode=0;
-		mode1=0;
+		free(h);
+		exit(0);
 	}
 	if(mouse_press(100,300,200,360)==1)
 	{
@@ -162,6 +169,7 @@ void in_warehouse(U_ware* now)
 	int arr1[6]={32-5,140,47-5,132,47-5,148},arr2[6]={301+5,140,286+5,132,286+5,148};
 	int type,count;
 	type=now->cotton_type,count=now->total[type];
+	clrmous(MouseX,MouseY);
 	setfillstyle(1,LIGHTGRAY);
 	setlinestyle(0,0,1);
 	bar(53,70,280,190);
@@ -207,6 +215,7 @@ void warehouse_list(U_ware *w)
 	int i;
 	cleardevice();
 	setbkcolor(WHITE);
+	clrmous(MouseX,MouseY);
 	setfillstyle(1,LIGHTGRAY);
 	puthz(220,30,"当前仓库列表",32,32,BLUE);
 	bar(100,100,540,400);
@@ -266,7 +275,6 @@ void warehouse_list(U_ware *w)
 	quit();
 	last();
 
-	mouseinit();
 	// while(1)
 	// {
 	// 	newmouse(&MouseX,&MouseY,&press);
@@ -315,8 +323,8 @@ void press_warelist()
 	else if(mouse_press(0,0,40,30)==1)
 	{
 		// draw_wel();
-		mode=0;
-		mode1=0;
+		free(h);
+		exit(0);
 	}
 }
 
@@ -327,6 +335,7 @@ void detailed_warehouse(long int count)
 	char str1[8];
 	cleardevice();
 	setbkcolor(WHITE);
+	clrmous(MouseX,MouseY);
 	setfillstyle(1,LIGHTGRAY);
 	puthz(220,30,"当前仓储信息",32,32,BLUE);
 	bar(100,100,540,300);
@@ -363,7 +372,6 @@ void detailed_warehouse(long int count)
 	puthz(155,333,"采摘",32,32,WHITE);
 	puthz(395,333,"出库",32,32,WHITE);
 
-	mouseinit();
 	quit();
 	// for(;;)
 	// {
@@ -389,8 +397,8 @@ void press_detwarehouse()
 	if(mouse_press(0,0,40,30)==1)
 	{
 		// draw_wel();
-		mode=0;
-		mode1=0;
+		free(h);
+		exit(0);
 	}
 	if(mouse_press(0,450,40,480)==1)
 	{
@@ -414,6 +422,7 @@ void press_detwarehouse()
 void out_warehouse()
 {
 	//int out;
+	clrmous(MouseX,MouseY);
 	//int kick=0;
 	cleardevice();
 	setbkcolor(WHITE);
@@ -430,7 +439,6 @@ void out_warehouse()
 	puthz(285,333,"完成",32,32,WHITE);
 	last();
 
-	mouseinit();
 	quit();
 	// for(;;)
 	// {
@@ -456,19 +464,19 @@ void press_outware()
 	if(mouse_press(0,0,40,30)==1)
 	{
 		// draw_wel();
-		mode=0;
-		mode1=0;
+		free(h);
+		exit(0);
 	}
 	if(mouse_press(0,450,40,480)==1)
 	{
 		// detailed_warehouse(count);
-		mode=2;
+		mode1=2;
 	}
-	if(mouse_press(0,0,40,30)==1)
-	{
-		// detailed_warehouse(count);
-		mode=2;
-	}
+	// if(mouse_press(0,0,40,30)==1)
+	// {
+	// 	// detailed_warehouse(count);
+	// 	mode=2;
+	// }
 	if(mouse_press(130,150,510,250)==1)
 	{
 		input_text(str,140,190,15,DARKGRAY,1);
@@ -483,6 +491,7 @@ void press_outware()
 
 void out_finish()
 {
+	clrmous(MouseX,MouseY);
 	setfillstyle(1,WHITE);
 	bar(200,160,430,240);
 	setcolor(BLUE);

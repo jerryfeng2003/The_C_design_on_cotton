@@ -2,6 +2,7 @@
 #ifndef _LOGFUN_H_
 #define _LOGFUN_H_
 
+#include "HOME.H"
 #define PAR 10
 
 typedef struct Input

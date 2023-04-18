@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1681526402442,
@@ -12,6 +12,10 @@
                 {
                     "date": 1681526407615,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n {\r\n     clrmous(MouseX,MouseY);\r\n     cleardevice();\r\n     setbkcolor(WHITE);\r\n-    puthz(180,30,\"�޻�ģ��ɼ�ϵͳ\",32,32,BLUE);\r\n+    puthz(180,30,\"棉花模拟采集系统\",32,32,BLUE);\r\n     quit();\r\n \r\n \r\n     setcolor(BLUE);\r\n@@ -25,13 +25,13 @@\n     setfillstyle(1,DARKGRAY);\r\n     bar(120, 350, 280, 400);           \r\n     bar(360, 350, 520, 400);           \r\n           \r\n-    puthz(123,110,\"�˺ţ�\",32,32,BLUE);\r\n-    puthz(123,210,\"���룺\",32,32,BLUE);\r\n-    puthz(130,360,\"��������\",32,32,WHITE);\r\n-    puthz(370,360,\"ע���˺�\",32,32,WHITE);\r\n-    puthz(285,305,\"��¼\",32,32,BLUE);\r\n+    puthz(123,110,\"账号：\",32,32,BLUE);\r\n+    puthz(123,210,\"密码：\",32,32,BLUE);\r\n+    puthz(130,360,\"忘记密码\",32,32,WHITE);\r\n+    puthz(370,360,\"注册账号\",32,32,WHITE);\r\n+    puthz(285,305,\"登录\",32,32,BLUE);\r\n }\r\n \r\n int logenter()\r\n {\r\n"
+                },
+                {
+                    "date": 1681727671288,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n     cleardevice();\r\n     //setbkcolor(WHITE);\r\n \tsetfillstyle(1,WHITE);\r\n \tbar(0,0,640,480);\r\n-    puthz(180,30,\"�޻�ģ��ɼ�ϵͳ\",32,32,BLUE);\r\n+    puthz(180,30,\"棉花模拟采集系统\",32,32,BLUE);\r\n     quit();\r\n \r\n \r\n     setcolor(BLUE);\r\n@@ -29,13 +29,13 @@\n     setfillstyle(1,DARKGRAY);\r\n     bar(120, 350, 280, 400);           \r\n     bar(360, 350, 520, 400);           \r\n           \r\n-    puthz(123,110,\"�˺ţ�\",32,32,BLUE);\r\n-    puthz(123,210,\"���룺\",32,32,BLUE);\r\n-    puthz(130,360,\"��������\",32,32,WHITE);\r\n-    puthz(370,360,\"ע���˺�\",32,32,WHITE);\r\n-    puthz(285,305,\"��¼\",32,32,BLUE);\r\n+    puthz(123,110,\"账号：\",32,32,BLUE);\r\n+    puthz(123,210,\"密码：\",32,32,BLUE);\r\n+    puthz(130,360,\"忘记密码\",32,32,WHITE);\r\n+    puthz(370,360,\"注册账号\",32,32,WHITE);\r\n+    puthz(285,305,\"登录\",32,32,BLUE);\r\n }\r\n \r\n int logenter()\r\n {\r\n"
                 }
             ],
             "date": 1681526402442,

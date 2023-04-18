@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 26,
+            "activePatchIndex": 68,
             "patches": [
                 {
                     "date": 1681365047248,
@@ -112,6 +112,174 @@
                 {
                     "date": 1681465228544,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,12 +20,10 @@\n //attention: the warehouse moudule is made by file \"HOME.H\"\r\n void start(void);\r\n void draw_simu01(int time);//draw the process of harvest in animition\r\n void press_start(int *bk);//add the press moudules\r\n-void init_based_field(void);\r\n void start(void);\r\n void draw_simu01(int time);//draw the process of harvest in animition\r\n-void press_start(int *bk);//add the press moudules\r\n void init_based_field(void);\r\n void init_field(int x,int y);//initialize the cotton field\r\n void init_tracktor01_f(int x,int y);//initialize the tarcker 01\r\n void init_tracktor01_b(int x,int y);\r\n@@ -42,9 +40,9 @@\n void start_ainime01(int t_trac,double space,int time);\r\n void init_tracktor02_f(int x,int y);\r\n void init_tracktor02_b(int x,int y);\r\n int pressed_anime(int x,int y);\r\n-void anime_skip_result(int x,int y);\r\n+void anime_skip_result(long int x,long int y);\r\n void pick_finish(int count);\r\n \r\n void select02(struct Parameter *abc);\r\n void press_select02(int *x,int *y,int *flag,int *back);\r\n"
+                },
+                {
+                    "date": 1681543370884,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,8 @@\n //attention: the warehouse moudule is made by file \"HOME.H\"\r\n void start(void);\r\n void draw_simu01(int time);//draw the process of harvest in animition\r\n void press_start(int *bk);//add the press moudules\r\n-void start(void);\r\n void draw_simu01(int time);//draw the process of harvest in animition\r\n void init_based_field(void);\r\n void init_field(int x,int y);//initialize the cotton field\r\n void init_tracktor01_f(int x,int y);//initialize the tarcker 01\r\n"
+                },
+                {
+                    "date": 1681730458460,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 10\r\n+#define delaytime 20\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n #define tra_start_d 35\r\n"
+                },
+                {
+                    "date": 1681730625947,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 10\r\n #define delaytime 20\r\n+#define tra_time 50\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n #define tra_start_d 35\r\n"
+                },
+                {
+                    "date": 1681730726556,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 10\r\n #define delaytime 20\r\n-#define tra_time 50\r\n+#define tra_time 40\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n #define tra_start_d 35\r\n"
+                },
+                {
+                    "date": 1681730812175,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 10\r\n #define delaytime 20\r\n-#define tra_time 40\r\n+#define tra_time 70\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n #define tra_start_d 35\r\n"
+                },
+                {
+                    "date": 1681730849742,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 10\r\n #define delaytime 20\r\n-#define tra_time 70\r\n+#define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n #define tra_start_d 35\r\n"
+                },
+                {
+                    "date": 1681730922791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 10\r\n #define delaytime 20\r\n-#define tra_time 80\r\n+#define tra_time 50\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n #define tra_start_d 35\r\n"
+                },
+                {
+                    "date": 1681731180411,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n void earn_anim(int x,int y);\r\n void start_ainime01(int t_trac,double space,int time);\r\n void init_tracktor02_f(int x,int y);\r\n void init_tracktor02_b(int x,int y);\r\n-int pressed_anime(int x,int y);\r\n+int pressed_anime(int x_sta,int y_sta, int x_des,int y_des);\r\n void anime_skip_result(long int x,long int y);\r\n void pick_finish(int count);\r\n \r\n void select02(struct Parameter *abc);\r\n"
+                },
+                {
+                    "date": 1681731218488,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n void start_ainime01(int t_trac,double space,int time);\r\n void init_tracktor02_f(int x,int y);\r\n void init_tracktor02_b(int x,int y);\r\n int pressed_anime(int x_sta,int y_sta, int x_des,int y_des);\r\n-void anime_skip_result(long int x,long int y);\r\n+void anime_skip_result(int x_sta,int y_sta, int x_des,int y_des);\r\n void pick_finish(int count);\r\n \r\n void select02(struct Parameter *abc);\r\n void press_select02(int *x,int *y,int *flag,int *back);\r\n"
+                },
+                {
+                    "date": 1681732270726,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,10 +60,10 @@\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void start_ainime03_01(int (*tra_d)[4],int num);\r\n-void start_ainime03_02(int (*tra_d)[4],int num);\r\n+void start_ainime03_01(int (*tra_d)[4],int num,int *xy_m);\r\n+void start_ainime03_02(int (*tra_d)[4],int num,int *xy_m);\r\n \r\n void circle_field(long int r);\r\n void cal_tracktor_circle(int tpye,double space,int time);\r\n void start_ainime04_01(int (*tra_d)[4],int num);\r\n"
+                },
+                {
+                    "date": 1681732318072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,10 +60,10 @@\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void start_ainime03_01(int (*tra_d)[4],int num,int *xy_m);\r\n-void start_ainime03_02(int (*tra_d)[4],int num,int *xy_m);\r\n+void start_ainime03_01(int (*tra_d)[4],int num,long int *xy_m);\r\n+void start_ainime03_02(int (*tra_d)[4],int num,long int *xy_m);\r\n \r\n void circle_field(long int r);\r\n void cal_tracktor_circle(int tpye,double space,int time);\r\n void start_ainime04_01(int (*tra_d)[4],int num);\r\n"
+                },
+                {
+                    "date": 1681732549178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,13 +57,12 @@\n void press_select03(int *x,int *y,int *flag,int *back);\r\n void dense_pick(int *x,int *y,int *flag);\r\n void dense_draw_points(int *arr,int *flag,long int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n-void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void start_ainime03_01(int (*tra_d)[4],int num,long int *xy_m);\r\n-void start_ainime03_02(int (*tra_d)[4],int num,long int *xy_m);\r\n+void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num);\r\n+void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n+void start_ainime03_01(int (*tra_d)[4],int num,int *xy_m);\r\n+void start_ainime03_02(int (*tra_d)[4],int num,int *xy_m);\r\n \r\n void circle_field(long int r);\r\n void cal_tracktor_circle(int tpye,double space,int time);\r\n void start_ainime04_01(int (*tra_d)[4],int num);\r\n"
+                },
+                {
+                    "date": 1681732601944,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,16 +48,16 @@\n void select02(struct Parameter *abc);\r\n void press_select02(int *x,int *y,int *flag,int *back);\r\n void pick_start(int *x,int *y);\r\n void pick_points(int *x,int *y,int *flag);\r\n-void draw_points(int *arr,int *flag,long int *xy_m);\r\n+void draw_points(int *arr,int *flag,int *xy_m);\r\n void init_field02(int *x,int *y,int *flag,int type,int time);\r\n \r\n void pick_wait(void);\r\n void select03(struct Parameter *abc);\r\n void press_select03(int *x,int *y,int *flag,int *back);\r\n void dense_pick(int *x,int *y,int *flag);\r\n-void dense_draw_points(int *arr,int *flag,long int *xy_m);\r\n+void dense_draw_points(int *arr,int *flag,int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n void start_ainime03_01(int (*tra_d)[4],int num,int *xy_m);\r\n"
+                },
+                {
+                    "date": 1681732962306,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,21 +48,22 @@\n void select02(struct Parameter *abc);\r\n void press_select02(int *x,int *y,int *flag,int *back);\r\n void pick_start(int *x,int *y);\r\n void pick_points(int *x,int *y,int *flag);\r\n-void draw_points(int *arr,int *flag,int *xy_m);\r\n+void draw_points(int *arr,int *flag,long int *xy_m);\r\n void init_field02(int *x,int *y,int *flag,int type,int time);\r\n \r\n void pick_wait(void);\r\n void select03(struct Parameter *abc);\r\n void press_select03(int *x,int *y,int *flag,int *back);\r\n void dense_pick(int *x,int *y,int *flag);\r\n-void dense_draw_points(int *arr,int *flag,int *xy_m);\r\n+void dense_draw_points(int *arr,int *flag,long int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n-void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num);\r\n-void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n-void start_ainime03_01(int (*tra_d)[4],int num,int *xy_m);\r\n-void start_ainime03_02(int (*tra_d)[4],int num,int *xy_m);\r\n+void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);\r\n+void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n+void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n+void start_ainime03_01(int (*tra_d)[4],int num,long int *xy_m);\r\n+void start_ainime03_02(int (*tra_d)[4],int num,long int *xy_m);\r\n \r\n void circle_field(long int r);\r\n void cal_tracktor_circle(int tpye,double space,int time);\r\n void start_ainime04_01(int (*tra_d)[4],int num);\r\n"
+                },
+                {
+                    "date": 1681733206737,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,11 +59,10 @@\n void dense_draw_points(int *arr,int *flag,long int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void start_ainime03_01(int (*tra_d)[4],int num,long int *xy_m);\r\n-void start_ainime03_02(int (*tra_d)[4],int num,long int *xy_m);\r\n+void start_ainime03_01(int (*tra_d)[4],int num,int x_s,int y_s,int x_e,int y_e);\r\n+void start_ainime03_02(int (*tra_d)[4],int num,int x_s,int y_s,int x_e,int y_e);\r\n \r\n void circle_field(long int r);\r\n void cal_tracktor_circle(int tpye,double space,int time);\r\n void start_ainime04_01(int (*tra_d)[4],int num);\r\n"
+                },
+                {
+                    "date": 1681733338602,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,10 +59,11 @@\n void dense_draw_points(int *arr,int *flag,long int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void start_ainime03_01(int (*tra_d)[4],int num,int x_s,int y_s,int x_e,int y_e);\r\n-void start_ainime03_02(int (*tra_d)[4],int num,int x_s,int y_s,int x_e,int y_e);\r\n+void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n+void start_ainime03_01(int (*tra_d)[4],int num);\r\n+void start_ainime03_02(int (*tra_d)[4],int num);\r\n \r\n void circle_field(long int r);\r\n void cal_tracktor_circle(int tpye,double space,int time);\r\n void start_ainime04_01(int (*tra_d)[4],int num);\r\n"
+                },
+                {
+                    "date": 1681733372708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,13 +57,13 @@\n void press_select03(int *x,int *y,int *flag,int *back);\r\n void dense_pick(int *x,int *y,int *flag);\r\n void dense_draw_points(int *arr,int *flag,long int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n-void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n-void start_ainime03_01(int (*tra_d)[4],int num);\r\n-void start_ainime03_02(int (*tra_d)[4],int num);\r\n+void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num);\r\n+void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n+void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n+void start_ainime03_01(int (*tra_d)[4], int num,int *xy_m);\r\n+void start_ainime03_02(int (*tra_d)[4], int num,int *xy_m);\r\n \r\n void circle_field(long int r);\r\n void cal_tracktor_circle(int tpye,double space,int time);\r\n void start_ainime04_01(int (*tra_d)[4],int num);\r\n"
+                },
+                {
+                    "date": 1681733504421,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n void pick_wait(void);\r\n void select03(struct Parameter *abc);\r\n void press_select03(int *x,int *y,int *flag,int *back);\r\n void dense_pick(int *x,int *y,int *flag);\r\n-void dense_draw_points(int *arr,int *flag,long int *xy_m);\r\n+void dense_draw_points(int *arr,int *flag,int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n"
+                },
+                {
+                    "date": 1681733613712,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n void pick_wait(void);\r\n void select03(struct Parameter *abc);\r\n void press_select03(int *x,int *y,int *flag,int *back);\r\n void dense_pick(int *x,int *y,int *flag);\r\n-void dense_draw_points(int *arr,int *flag,int *xy_m);\r\n+void dense_draw_points(int *arr,int *flag,long int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n"
+                },
+                {
+                    "date": 1681733954265,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,13 +57,13 @@\n void press_select03(int *x,int *y,int *flag,int *back);\r\n void dense_pick(int *x,int *y,int *flag);\r\n void dense_draw_points(int *arr,int *flag,long int *xy_m);\r\n void init_field03(int *x,int *y,int *flag,int type,int time);\r\n-void dense_init_tracktor01(int *x,int *y,int *flag,int* xy_m,int num);\r\n-void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n-void dense_init_tracktor02(int *x,int *y,int *flag,int* xy_m,int num);\r\n-void start_ainime03_01(int (*tra_d)[4], int num,int *xy_m);\r\n-void start_ainime03_02(int (*tra_d)[4], int num,int *xy_m);\r\n+void dense_init_tracktor01(int *x,int *y,int *flag,long int* xy_m,int num);\r\n+void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n+void dense_init_tracktor02(int *x,int *y,int *flag,long int* xy_m,int num);\r\n+void start_ainime03_01(int (*tra_d)[4], int num,long int *xy_m);\r\n+void start_ainime03_02(int (*tra_d)[4], int num,long int *xy_m);\r\n \r\n void circle_field(long int r);\r\n void cal_tracktor_circle(int tpye,double space,int time);\r\n void start_ainime04_01(int (*tra_d)[4],int num);\r\n"
+                },
+                {
+                    "date": 1681734085964,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 10\r\n #define delaytime 20\r\n-#define tra_time 50\r\n+#define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n #define tra_start_d 35\r\n"
+                },
+                {
+                    "date": 1681734471259,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n #define x_start 50\r\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n-#define tracktor_num_max 10\r\n+#define tracktor_num_max 5\r\n #define delaytime 20\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n"
+                },
+                {
+                    "date": 1681736824035,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n void earth_cover01(int x,int y);\r\n void earth_cover02(int x,int y);\r\n void earth_cover03(int x,int y);\r\n \r\n-void earn_anim(int x,int y);\r\n+//void earn_anim(int x,int y);\r\n void start_ainime01(int t_trac,double space,int time);\r\n void init_tracktor02_f(int x,int y);\r\n void init_tracktor02_b(int x,int y);\r\n int pressed_anime(int x_sta,int y_sta, int x_des,int y_des);\r\n"
+                },
+                {
+                    "date": 1681736882534,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,9 +46,9 @@\n void pick_finish(int count);\r\n \r\n void select02(struct Parameter *abc);\r\n void press_select02(int *x,int *y,int *flag,int *back);\r\n-void pick_start(int *x,int *y);\r\n+//void pick_start(int *x,int *y);\r\n void pick_points(int *x,int *y,int *flag);\r\n void draw_points(int *arr,int *flag,long int *xy_m);\r\n void init_field02(int *x,int *y,int *flag,int type,int time);\r\n \r\n"
+                },
+                {
+                    "date": 1681736994047,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n //void earn_anim(int x,int y);\r\n void start_ainime01(int t_trac,double space,int time);\r\n void init_tracktor02_f(int x,int y);\r\n void init_tracktor02_b(int x,int y);\r\n-int pressed_anime(int x_sta,int y_sta, int x_des,int y_des);\r\n+int pressed_anime(int x_sta,int y_sta, int x_des,int y_des,float *times);\r\n void anime_skip_result(int x_sta,int y_sta, int x_des,int y_des);\r\n void pick_finish(int count);\r\n \r\n void select02(struct Parameter *abc);\r\n"
+                },
+                {
+                    "date": 1681737137567,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n //void earn_anim(int x,int y);\r\n void start_ainime01(int t_trac,double space,int time);\r\n void init_tracktor02_f(int x,int y);\r\n void init_tracktor02_b(int x,int y);\r\n-int pressed_anime(int x_sta,int y_sta, int x_des,int y_des,float *times);\r\n+int pressed_anime(int x_sta,int y_sta, int x_des,int y_des);\r\n void anime_skip_result(int x_sta,int y_sta, int x_des,int y_des);\r\n void pick_finish(int count);\r\n \r\n void select02(struct Parameter *abc);\r\n"
+                },
+                {
+                    "date": 1681737171599,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,10 @@\n #define pick_ph 2.4\r\n #define Xinjinag_har 2.1\r\n #define Huanghe_har 1.3\r\n #define Chnagjiang_har 1.1\r\n+#define p_Up_arrow 0x4800\r\n+#define p_Donw_arrow 0x5000\r\n \r\n \r\n //attention: the warehouse moudule is made by file \"HOME.H\"\r\n void start(void);\r\n"
+                },
+                {
+                    "date": 1681737261982,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n //void earn_anim(int x,int y);\r\n void start_ainime01(int t_trac,double space,int time);\r\n void init_tracktor02_f(int x,int y);\r\n void init_tracktor02_b(int x,int y);\r\n-int pressed_anime(int x_sta,int y_sta, int x_des,int y_des);\r\n+int pressed_anime(int x_sta,int y_sta, int x_des,int y_des,int *times);\r\n void anime_skip_result(int x_sta,int y_sta, int x_des,int y_des);\r\n void pick_finish(int count);\r\n \r\n void select02(struct Parameter *abc);\r\n"
+                },
+                {
+                    "date": 1681737880217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n //void earn_anim(int x,int y);\r\n void start_ainime01(int t_trac,double space,int time);\r\n void init_tracktor02_f(int x,int y);\r\n void init_tracktor02_b(int x,int y);\r\n-int pressed_anime(int x_sta,int y_sta, int x_des,int y_des,int *times);\r\n+int pressed_anime(int x_sta,int y_sta, int x_des,int y_des,float *times);\r\n void anime_skip_result(int x_sta,int y_sta, int x_des,int y_des);\r\n void pick_finish(int count);\r\n \r\n void select02(struct Parameter *abc);\r\n"
+                },
+                {
+                    "date": 1681737996299,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 20\r\n+#define delaytime 10\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681738047074,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 10\r\n+#define delaytime 2\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681738370126,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n //void earn_anim(int x,int y);\r\n void start_ainime01(int t_trac,double space,int time);\r\n void init_tracktor02_f(int x,int y);\r\n void init_tracktor02_b(int x,int y);\r\n-int pressed_anime(int x_sta,int y_sta, int x_des,int y_des,float *times);\r\n+int pressed_anime(int x_sta,int y_sta, int x_des,int y_des);\r\n void anime_skip_result(int x_sta,int y_sta, int x_des,int y_des);\r\n void pick_finish(int count);\r\n \r\n void select02(struct Parameter *abc);\r\n"
+                },
+                {
+                    "date": 1681738641405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 2\r\n+#define delaytime 20\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681739604556,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 20\r\n+#define delaytime 5\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681739721200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 5\r\n+#define delaytime 20\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681739793434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 20\r\n+#define delaytime 20.1\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681739819272,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 20.1\r\n+#define delaytime 20\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681740108917,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 20\r\n+#define delaytime 200\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681740157450,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 200\r\n+#define delaytime 20\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681740266815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n #define y_start 120\r\n #define point_max 500\r\n #define dense_points_max 500\r\n #define tracktor_num_max 5\r\n-#define delaytime 20\r\n+//#define delaytime 20\r\n #define tra_time 80\r\n #define tracktor_w 25\r\n #define tracktor_l 30\r\n #define tra_start_l 50\r\n"
+                },
+                {
+                    "date": 1681740536980,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,10 +18,10 @@\n #define Huanghe_har 1.3\r\n #define Chnagjiang_har 1.1\r\n #define p_Up_arrow 0x4800\r\n #define p_Donw_arrow 0x5000\r\n+#define p_Enter 0x1C0D\r\n \r\n-\r\n //attention: the warehouse moudule is made by file \"HOME.H\"\r\n void start(void);\r\n void draw_simu01(int time);//draw the process of harvest in animition\r\n void press_start(int *bk);//add the press moudules\r\n"
+                },
+                {
+                    "date": 1681740816675,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,9 @@\n void init_tracktor02_b(int x,int y);\r\n int pressed_anime(int x_sta,int y_sta, int x_des,int y_des);\r\n void anime_skip_result(int x_sta,int y_sta, int x_des,int y_des);\r\n void pick_finish(int count);\r\n-\r\n+void choose_speed(void);\r\n void select02(struct Parameter *abc);\r\n void press_select02(int *x,int *y,int *flag,int *back);\r\n //void pick_start(int *x,int *y);\r\n void pick_points(int *x,int *y,int *flag);\r\n"
                 }
             ],
             "date": 1681365047248,

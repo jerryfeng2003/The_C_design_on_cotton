@@ -110,6 +110,7 @@ void main()
                     {
                         case -1: //refresh the home main page
                         {
+                            clrmous(MouseX,MouseY);
                             // press_home(&(here[k].cotton_type));
                             mode1=0;
                             break;

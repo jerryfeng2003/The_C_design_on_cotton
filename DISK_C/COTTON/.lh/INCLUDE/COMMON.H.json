@@ -1,0 +1,30 @@
+{
+    "sourceFile": "INCLUDE/COMMON.H",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1681547196204,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681547207369,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,2 +1,4 @@\n #ifndef _COMMON_H_\r\n-#define _COMMON_H_\n\\ No newline at end of file\n+#define _COMMON_H_\r\n+\r\n+#endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681547232609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,22 @@\n #ifndef _COMMON_H_\r\n #define _COMMON_H_\r\n \r\n+\r\n+\r\n+\r\n+//extern U_ware here[5];\r\n+extern int k;\r\n+extern int mode;\r\n+extern int mode1;\r\n+//extern char str[15];\r\n+extern struct User*h;\r\n+void quit(void);//the leave button in every page\r\n+void skip(void);\r\n+void next(void);\r\n+void last(void);\r\n+void finish(void);//the finish button in every page\r\n+//void text_input(char *str,int x1,int y1,int x2,int y2,int t_x,int t_y,int t_size);//the input function for English characters and numbers\r\n+//int ch_to_int(char *str);\r\n+void input_text(char *id, int x, int y, int charnum, int color, int flag);\r\n+\r\n #endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681547264373,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,18 @@\n #ifndef _COMMON_H_\r\n #define _COMMON_H_\r\n \r\n+#include<stdio.h>\r\n+#include<stdlib.h>\r\n+#include<graphics.h>\r\n+#include<dos.h>\r\n+#include<malloc.h>\r\n+#include<bios.h>\r\n+#include<math.h>\r\n+#include<string.h>\r\n+#include<conio.h>\r\n+#include \".\\\\HZK\\\\HZ.H\"\r\n \r\n-\r\n-\r\n //extern U_ware here[5];\r\n extern int k;\r\n extern int mode;\r\n extern int mode1;\r\n"
+                }
+            ],
+            "date": 1681547196204,
+            "name": "Commit-0",
+            "content": "#ifndef _COMMON_H_\r\n#define _COMMON_H_"
+        }
+    ]
+}

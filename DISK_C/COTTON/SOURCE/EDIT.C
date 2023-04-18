@@ -25,6 +25,7 @@ void edit01_screen()
 	bar(120 - 30, 200, 150 - 30, 230);
 	bar(440 - 40, 200 + 30, 470 - 40, 230 + 30);
 	bar(290 - 20, 350 + 20, 320 - 20, 380 + 20);
+	rectangle(230, 80, 520, 130);
 }
 
 int edit01(struct Parameter *abc)
@@ -187,6 +188,7 @@ void edit02_screen(struct Parameter *abc)
 	bar(200, 150, 600, 460);
 	setcolor(RED);
 	rectangle(200, 150, 600, 460);
+	rectangle(330, 30, 490, 90);
 }
 
 int edit02(struct Parameter *abc)

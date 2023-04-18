@@ -1,0 +1,22 @@
+{
+    "sourceFile": "SOURCE/RESET.C",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1681727671273,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681727890115,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,21 +8,21 @@\n     setfillstyle(1,LIGHTBLUE);\r\n     bar(80,80,560,500);\r\n \r\n     setfillstyle(1,LIGHTGRAY);\r\n-    puthz(260,30,\"��������\",32,32,BLUE);\r\n-    bar(120, 140, 520, 200);            //�˺�\r\n-    puthz(123,150,\"�˺�\",32,32,BLUE);\r\n-    bar(120, 220, 520, 280);            //�绰����\r\n-    puthz(123,230,\"�绰����\",32,32,BLUE);\r\n-    bar(120, 300, 520, 360);            //������\r\n-    puthz(123,310,\"������\",32,32,BLUE);\r\n+    puthz(260,30,\"忘记密码\",32,32,BLUE);\r\n+    bar(120, 140, 520, 200);            //账号\r\n+    puthz(123,150,\"账号\",32,32,BLUE);\r\n+    bar(120, 220, 520, 280);            //电话号码\r\n+    puthz(123,230,\"电话号码\",32,32,BLUE);\r\n+    bar(120, 300, 520, 360);            //新密码\r\n+    puthz(123,310,\"新密码\",32,32,BLUE);\r\n \r\n     setfillstyle(1,DARKGRAY);\r\n-    bar(120, 420, 280, 460);            //����\r\n-    puthz(160,423,\"����\",32,32,BLUE);\r\n-    bar(360, 420, 520, 460);            //ȷ��\r\n-    puthz(400,423,\"ȷ��\",32,32,BLUE);\r\n+    bar(120, 420, 280, 460);            //返回\r\n+    puthz(160,423,\"返回\",32,32,BLUE);\r\n+    bar(360, 420, 520, 460);            //确认\r\n+    puthz(400,423,\"确认\",32,32,BLUE);\r\n \r\n     setfillstyle(1,WHITE);\r\n     bar(220, 140, 520, 200);\r\n     bar(260, 220, 520, 280);\r\n"
+                }
+            ],
+            "date": 1681727671273,
+            "name": "Commit-0",
+            "content": "#include \"TOTAL.H\"\r\n\r\n\r\nvoid reset_screen()\r\n{\r\n    cleardevice();\r\n    //setbkcolor(WHITE);\r\n    setfillstyle(1,WHITE);\r\n    bar(0,0,640,480);\r\n    setfillstyle(1,LIGHTBLUE);\r\n    bar(80,80,560,500);\r\n\r\n    setfillstyle(1,LIGHTGRAY);\r\n    puthz(260,30,\"忘记密码\",32,32,BLUE);\r\n    bar(120, 140, 520, 200);            //账号\r\n    puthz(123,150,\"账号\",32,32,BLUE);\r\n    bar(120, 220, 520, 280);            //电话号码\r\n    puthz(123,230,\"电话号码\",32,32,BLUE);\r\n    bar(120, 300, 520, 360);            //新密码\r\n    puthz(123,310,\"新密码\",32,32,BLUE);\r\n\r\n    setfillstyle(1,DARKGRAY);\r\n    bar(120, 420, 280, 460);            //返回\r\n    puthz(160,423,\"返回\",32,32,BLUE);\r\n    bar(360, 420, 520, 460);            //确认\r\n    puthz(400,423,\"确认\",32,32,BLUE);\r\n\r\n    setfillstyle(1,WHITE);\r\n    bar(220, 140, 520, 200);\r\n    bar(260, 220, 520, 280);\r\n    bar(220, 300, 520, 360);\r\n}\r\n\r\n\r\nvoid reset()\r\n{\r\n    INPUT username = {220, 140, 520, 200,\"\",10,0,1};\r\n\tINPUT phonenumber = {260, 220, 520, 280,\"\",11,0,1};\r\n    INPUT newpassword = {220, 300, 520, 360,\"\",10,0,1};\r\n    \r\n    reset_screen();\r\n\r\n    for(;;)\r\n    {\r\n        newmouse(&MouseX,&MouseY,&press);\r\n        input_s(223, 140, &username, 12 , 0);\r\n        input_s(263, 220, &phonenumber, 12 , 1);\r\n        input_s(223, 300, &newpassword, 12 , 1);\r\n        if(mouse_press(120, 420, 280, 460)==1)\r\n        {\r\n            return;\r\n        }\r\n        if(mouse_press(360, 420, 520, 460)==1)\r\n        {\r\n            if(changepassword(username.string, newpassword.string, phonenumber.string)==1)\r\n            {\r\n                return;\r\n            }\r\n        }\r\n        delay(15);\r\n    }\r\n}\r\n"
+        }
+    ]
+}
