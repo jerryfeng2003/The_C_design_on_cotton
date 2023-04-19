@@ -1,0 +1,26 @@
+{
+    "sourceFile": "INCLUDE/HELP.H",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1681813847643,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681813869555,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #ifndef _HELP_H_\r\n #define _HELP_H_\r\n \r\n \r\n-void \r\n+void draw_help();\r\n void help01(void);//Draw the Help and Explanation page\r\n void edit_help(void);\r\n void start_help(void);\r\n void past_help(void);\r\n"
+                },
+                {
+                    "date": 1681880080673,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #ifndef _HELP_H_\r\n #define _HELP_H_\r\n \r\n \r\n-void draw_help();\r\n+void draw_help(void);\r\n void help01(void);//Draw the Help and Explanation page\r\n void edit_help(void);\r\n void start_help(void);\r\n void past_help(void);\r\n"
+                }
+            ],
+            "date": 1681813847643,
+            "name": "Commit-0",
+            "content": "#ifndef _HELP_H_\r\n#define _HELP_H_\r\n\r\n\r\nvoid \r\nvoid help01(void);//Draw the Help and Explanation page\r\nvoid edit_help(void);\r\nvoid start_help(void);\r\nvoid past_help(void);\r\nvoid ware_help(void);\r\nvoid help(void);\r\n\r\n#endif"
+        }
+    ]
+}

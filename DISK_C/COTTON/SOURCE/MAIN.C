@@ -171,7 +171,6 @@ void main()
             delay(20);
         }
     }
-    //free(h);
 }
 
 void quit(void)
