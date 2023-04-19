@@ -59,14 +59,17 @@ void start()
 	int i=0,time=0;
 	double space=0,harvest=0;
 	delaytime=20;
-	for(i=0;i<10;i++)
-	{
-		if(strcmp(h->parameter[i].name,"\0")==0)
-		{
-			break;
-		}
-	}
+	// for(i=0;i<10;i++)
+	// {
+	// 	if(strcmp(h->parameter[i].name,"\0")==0)
+	// 	{
+	// 		break;
+	// 	}
+	// }
+	// i--;
+	i=choosepar();
 	i--;
+	delay(500);
 	space=atoi(h->parameter[i].S);
 	time=space/pick_ph;
 	if(time<tra_time)
@@ -204,6 +207,7 @@ void draw_simu01(int time)
 	puthz(150,30,"采摘完成还需",32,32,BLUE);
 	settextstyle(3,0,4);
 	setcolor(RED);
+	settextjustify(0,2);
 	outtextxy(350,28,str);
     puthz(450,30,"小时",32,32,BLUE);
 	init_based_field();
@@ -527,6 +531,7 @@ void pick_finish(int count)
 	puthz(210,230,"共计：",32,32,BLUE);
 	settextstyle(3,0,4);
 	puthz(380,230,"吨",32,32,BLUE);
+	settextjustify(0,2);
 	outtextxy(300,225,str);
 	switch(h->here[k].cotton_type)
 	{
@@ -559,6 +564,8 @@ void pick_finish(int count)
         newmouse(&MouseX,&MouseY,&press);
 		press_start(&bk);
 	}
+	mode=1;
+	mode1=1;
 	return;
 }
 

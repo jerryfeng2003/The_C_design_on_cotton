@@ -115,6 +115,7 @@ int input_s(int x, int y, INPUT *word, int size, int mode)
 			}
 		}
 	}
+	return 0;
 }
 
 // 录入注册账号到文件

@@ -44,6 +44,7 @@ void log_register()
     for (;;)
     {
         newmouse(&MouseX, &MouseY, &press);
+        input_s(260, 260, &realpassword, 16, 1);
         if (input_s(223, 100, &username, 16, 0) == 1)
         {
             setfillstyle(1, CYAN);
@@ -54,7 +55,7 @@ void log_register()
             bar(170, 30, 470, 72);
             puthz(260, 30, "×¢²áÕËºÅ", 32, 32, BLUE);
         }
-        if (input_s(263, 260, &realpassword, 16, 1) == 1)
+        if (input_s(220, 180, &password, 16, 1) == 1)
         {
             setfillstyle(1, CYAN);
             bar(170, 30, 470, 72);

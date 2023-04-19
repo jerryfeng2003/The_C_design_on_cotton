@@ -517,6 +517,7 @@ int choosepar(void)
     char page[3] = {'1', '/', '1'};
     int barcolor[11] = {1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14};
     clrmous(MouseX, MouseY);
+    delay(200);
     cleardevice();
     setbkcolor(WHITE);
     puthz(240, 30, "ÇëÑ¡Ôñ²ÎÊı", 32, 32, BLUE);
@@ -640,6 +641,7 @@ int choosepar(void)
             page2[0] = page[0];
             pagepar = atoi(page2) - 1;
 
+            clrmous(MouseX, MouseY);
             return (pagepar)*4 + 1;
         }
         if ((mouse_press(460, 150 + 60 * 1, 520, 150 + 40 + 60 * 1) == 1) && ((h->lenpar - (pagepar * 4)) > 1))
@@ -649,6 +651,7 @@ int choosepar(void)
             page2[1] = '\0';
             page2[0] = page[0];
             pagepar = atoi(page2) - 1;
+            clrmous(MouseX, MouseY);
 
             return (pagepar)*4 + 2;
         }
@@ -659,6 +662,7 @@ int choosepar(void)
             page2[1] = '\0';
             page2[0] = page[0];
             pagepar = atoi(page2) - 1;
+            clrmous(MouseX, MouseY);
 
             return (pagepar)*4 + 3;
         }
@@ -669,6 +673,7 @@ int choosepar(void)
             page2[1] = '\0';
             page2[0] = page[0];
             pagepar = atoi(page2) - 1;
+            clrmous(MouseX, MouseY);
 
             return (pagepar)*4 + 4;
         }
