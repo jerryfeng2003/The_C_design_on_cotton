@@ -24,7 +24,7 @@ typedef struct Input
 // 产区place：a--新疆；b--黄河；c--长江；分别对应：长绒棉，细绒棉，粗绒棉
 // 面积S：123（数字）
 // 形状shape：a--矩形；b--圆形；c--多边形；d自定义形状
-// 坐标xyz：c/d才用：x1,y1,x2,y2,x3,y3....
+// 坐标x和坐标y：c/d才用
 // 收割机类型type：a垂直/b水平
 // 名字name：abcdefg
 
@@ -51,7 +51,6 @@ typedef struct User
 }user;
 
 
-int input_s(int x,int y,INPUT *word,int size,int mode);//键盘输入
 void wr_user(char username[],char password[],char phonenumber[]);
 int changepassword(char username0[],char newpassword0[],char phonenumber0[]);
 int logg(char username0[],char password0[]);

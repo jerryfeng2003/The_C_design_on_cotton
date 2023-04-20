@@ -2,124 +2,6 @@
 #include "LOGFUN.H"
 #include "PARAMETE.H"
 
-// 键盘输入   mode为0输出文字，mode为1输出*
-int input_s(int x, int y, INPUT *word, int size, int mode)
-{
-	static int p = 0; // 画一个框
-	int k = 0;		  // 判断是否输出文字
-	if (p == 0)
-	{
-		setcolor(BLUE);
-		rectangle(word->x1, word->y1, word->x2, word->y2);
-		setfillstyle(1, 0);
-		bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
-		p = 1;
-	}
-	if (press == 1)
-	{
-		if (mouse_press(word->x1, word->y1, word->x2, word->y2) == 1)
-		{
-			word->flag = 1;
-
-			clrmous(MouseX, MouseY);
-			setcolor(RED);
-			setlinestyle(0, 0, 1);
-			rectangle(word->x1, word->y1, word->x2, word->y2);
-			setcolor(DARKGRAY);
-			k = 1;
-		}
-		else
-		{
-			word->flag = 0;
-
-			clrmous(MouseX, MouseY);
-			setcolor(BLUE);
-			setlinestyle(0, 0, 1);
-			rectangle(word->x1, word->y1, word->x2, word->y2);
-			// 不可输入则把光标遮蔽掉
-			if (mode == 0)
-			{
-				setfillstyle(1, 0);
-				bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
-				setcolor(DARKGRAY);
-				outtextxy(x, y, word->string);
-			}
-			else
-			{
-				int i;
-				setfillstyle(1, 0);
-				bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
-				for (i = 0; i < word->cursor; i++)
-				{
-					outtextxy(x + i * (2 * size - 2), y, "*");
-				}
-				setcolor(DARKGRAY);
-			}
-		}
-	}
-
-	// flag为1时表示可以接收键盘输入
-	if (word->flag == 1)
-	{
-		char t;
-
-		if (kbhit())
-		{
-			t = getch();
-
-			if (t == '\b')
-			{
-				if (word->cursor > 0)
-				{
-					(word->string)[word->cursor - 1] = '\0';
-					(word->cursor)--;
-					k = 1;
-				}
-			}
-			else if (t >= '!' && t <= '~')
-			{
-				if (word->cursor < word->length)
-				{
-					(word->string)[word->cursor] = t;
-					(word->string)[word->cursor + 1] = '\0';
-					(word->cursor)++;
-					k = 1;
-				}
-				else
-				{
-					return 1;
-				}
-			}
-		}
-		if (k == 1)
-		{
-			setcolor(DARKGRAY);
-			setlinestyle(0, 0, 1);
-			setfillstyle(SOLID_FILL, WHITE);
-			settextjustify(LEFT_TEXT, TOP_TEXT);
-			settextstyle(SMALL_FONT, HORIZ_DIR, size);
-			bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
-			if (mode == 0)
-			{
-				setcolor(DARKGRAY);
-				outtextxy(x, y, word->string);
-				line(x + (word->cursor) * (2 * size - 8) + 2, word->y1 + 3, x + (word->cursor) * (2 * size - 8) + 2, word->y2 - 3);
-			}
-			else
-			{
-				int i;
-				for (i = 0; i < word->cursor; i++)
-				{
-					outtextxy(x + i * (2 * size - 2), y, "*");
-				}
-				setcolor(DARKGRAY);
-				line(x + (word->cursor) * (2 * size - 2) + 2, word->y1 + 3, x + (word->cursor) * (2 * size - 2) + 2, word->y2 - 3);
-			}
-		}
-	}
-	return 0;
-}
-
 // 录入注册账号到文件
 void wr_user(char username1[], char password1[], char phonenumber1[])
 {
@@ -224,7 +106,12 @@ int username_same(char username0[], char phonenumber0[])
 		bar(200, 30, 440, 72);
 		puthz(260, 30, "注册账号", 32, 32, BLUE);
 	}
-	fclose(fp);
+	if (fclose(fp) != 0) // 关闭文件
+	{
+		puthz(120, 300, "关闭错误", 32, 32, BLUE);
+		delay(3000);
+		return;
+	}
 	free(u);
 	u = NULL;
 	return flag;
@@ -247,18 +134,11 @@ int logg(char username0[], char password0[])
 	}
 	fseek(fp, 0, SEEK_END);
 	all = ftell(fp) / sizeof(user);
-	// itoa(all, a, 10);
-	// outtextxy(200, 200, a);
 	for (i = 0; i < all; i++)
 	{
 
 		fseek(fp, i * sizeof(user), SEEK_SET);
 		fread(u, sizeof(user), 1, fp);
-
-		// outtextxy(100 + 100 * i, 180, u->username);
-		// outtextxy(100 + 100 * i, 280, u->password);
-		// outtextxy(100 + 100 * i, 380, "666");
-		// delay(2000);
 
 		for (j = 0; j < 10; j++) // 查找账号位置
 		{
@@ -294,20 +174,7 @@ int logg(char username0[], char password0[])
 				h->lenpar = u->lenpar;
 				for (l = 0; l < u->lenpar; l++)
 				{
-					for (o = 0; o < 10; o++)
-					{
-						h->parameter[l].name[o] = u->parameter[l].name[o];
-					}
-					h->parameter[l].place = u->parameter[l].place;
-					h->parameter[l].shape = u->parameter[l].shape;
-					h->parameter[l].type = u->parameter[l].type;
-					strcpy(h->parameter[l].S, u->parameter[l].S);
-					for (k = 0; k < dense_points_max; k++)
-					{
-						h->parameter[l].x[k] = u->parameter[l].x[k];
-						h->parameter[l].y[k] = u->parameter[l].y[k];
-					}
-					h->parameter[l].lenxy = u->parameter[l].lenxy;
+					parcpy(&(h->parameter[l]),&(u->parameter[l]));
 				}
 				for (l = 0; l < 5; l++)
 				{
@@ -356,7 +223,12 @@ int logg(char username0[], char password0[])
 		bar(240, 30, 400, 80);
 		puthz(180, 30, "棉花模拟采集系统", 32, 32, BLUE);
 	}
-	fclose(fp);
+	if (fclose(fp) != 0) // 关闭文件
+	{
+		puthz(120, 300, "关闭错误", 32, 32, BLUE);
+		delay(3000);
+		return;
+	}
 	free(u);
 	u = NULL;
 	return flag;
@@ -442,6 +314,11 @@ int changepassword(char username0[], char newpassword0[], char phonenumber0[])
 
 	free(u);
 	u = NULL;
-	fclose(fp);
+	if (fclose(fp) != 0) // 关闭文件
+	{
+		puthz(120, 300, "关闭错误", 32, 32, BLUE);
+		delay(3000);
+		return;
+	}
 	return flag;
 }

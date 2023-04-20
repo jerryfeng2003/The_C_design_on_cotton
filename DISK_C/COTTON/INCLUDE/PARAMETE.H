@@ -1,6 +1,8 @@
-
 #ifndef _PARAMETE_H_
 #define _PARAMETE_H_
+
+//键盘输入函数
+int input_s(int x,int y,struct Input *word,int size,int mode);
 
 //判断名字是否为空and重复
 int judgename(char name[]);
@@ -23,18 +25,24 @@ int changetype(int par);
 //修改面积
 int changeS(int par);
 
+//修改名字
+void changeparname(int par);
+
 //删除参数
 void deletepar(int par);
 
 //把当前登录的用户重新写进文件
 void wr_h(void);
 
-//搜索函数
-int *search(char *str);
-
 //把第二个参数赋给第一个参数
 void parcpy(struct Parameter *a,struct Parameter *b);
 
 //选择参数
 int choosepar(void);
+
+//搜索
+int search(char name[]);
+
+//改仓库名字
+void changewarename(int wi);
 #endif
