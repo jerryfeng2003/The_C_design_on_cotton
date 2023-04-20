@@ -1,4 +1,9 @@
-#include "TOTAL.H"
+#include "EDIT.H"
+#include "COMMON.H"
+#include "IMAGE.h"
+#include "PARAMETE.H"
+#include "LOGFUN.H"
+#include "START.H"
 
 void edit01_screen()
 {

@@ -1,0 +1,26 @@
+{
+    "sourceFile": "INCLUDE/WELCOME.H",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1681983193584,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681983338013,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,7 @@\n #ifndef _WELCOME_H_\r\n #define _WELCOME_H_\r\n #include \"COMMON.H\"\r\n-#include \"WELCOME.H\"\r\n #include \"PARAMETE.H\"\r\n #include \"LOGFUN.H\"\r\n \r\n void draw_wel(void);//Draw the whole welcome page\r\n"
+                },
+                {
+                    "date": 1681983401938,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,8 @@\n #ifndef _WELCOME_H_\r\n #define _WELCOME_H_\r\n-#include \"COMMON.H\"\r\n-#include \"PARAMETE.H\"\r\n-#include \"LOGFUN.H\"\r\n \r\n+\r\n void draw_wel(void);//Draw the whole welcome page\r\n void draw_wel_tractors(void);//Draw the tractors in the welcome page\r\n void draw_wel_cofield(void);//Draw the cotton field in the welcome page\r\n void draw_wel_buttons(void);//Draw all the function buttons in welcome page\r\n"
+                }
+            ],
+            "date": 1681983193584,
+            "name": "Commit-0",
+            "content": "#ifndef _WELCOME_H_\r\n#define _WELCOME_H_\r\n#include \"COMMON.H\"\r\n#include \"WELCOME.H\"\r\n#include \"PARAMETE.H\"\r\n#include \"LOGFUN.H\"\r\n\r\nvoid draw_wel(void);//Draw the whole welcome page\r\nvoid draw_wel_tractors(void);//Draw the tractors in the welcome page\r\nvoid draw_wel_cofield(void);//Draw the cotton field in the welcome page\r\nvoid draw_wel_buttons(void);//Draw all the function buttons in welcome page\r\nvoid enter_next(void);//Complete the function of all buttons\r\n\r\n\r\n#endif"
+        }
+    ]
+}

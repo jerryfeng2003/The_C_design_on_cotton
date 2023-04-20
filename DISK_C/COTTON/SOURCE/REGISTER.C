@@ -1,4 +1,6 @@
-#include "TOTAL.H"
+#include "COMMON.H"
+#include "REGISTER.H"
+#include "LOGFUN.H"
 
 void register_screen()
 {

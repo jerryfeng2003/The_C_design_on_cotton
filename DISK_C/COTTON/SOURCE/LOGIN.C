@@ -1,4 +1,9 @@
-#include "TOTAL.H"
+#include "COMMON.H"
+#include "PARAMETE.H"
+#include "LOGFUN.H"
+#include "LOGIN.H"
+#include "REGISTER.H"
+#include "RESET.H"
 
 
 void loginit_screen()

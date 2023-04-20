@@ -1,4 +1,8 @@
-#include "TOTAL.H"
+#include "COMMON.H"
+#include "LOGIN.H"
+#include "PARAMETE.H"
+#include "RESET.H"
+#include "LOGFUN.H"
 
 
 void reset_screen()

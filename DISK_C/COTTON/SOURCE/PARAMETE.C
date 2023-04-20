@@ -1,4 +1,7 @@
-#include "TOTAL.H"
+#include "COMMON.H"
+#include "PARAMETE.H"
+#include "LOGFUN.H"
+#include "START.H"
 // 专门用来写有关edit和past的函数
 
 int judgename(char name[])
@@ -516,8 +519,8 @@ int choosepar(void)
     int i, j, flag = 1;
     char page[3] = {'1', '/', '1'};
     int barcolor[11] = {1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14};
-    clrmous(MouseX, MouseY);
-    delay(200);
+    //delay(400);
+    clrmous(MouseX,MouseY);
     cleardevice();
     setbkcolor(WHITE);
     puthz(240, 30, "请选择参数", 32, 32, BLUE);

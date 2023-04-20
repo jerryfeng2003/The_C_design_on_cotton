@@ -1,4 +1,7 @@
-#include "TOTAL.H"
+#include "COMMON.H"
+#include "PAST.H"
+#include "PARAMETE.H"
+#include "LOGFUN.H"
 void past01_screen(void)
 {
 	int i;

@@ -1,4 +1,6 @@
-#include "TOTAL.H"
+#include "COMMON.H"
+#include "HELP.H"
+#include "LOGFUN.H"
 
 void draw_help()
 {

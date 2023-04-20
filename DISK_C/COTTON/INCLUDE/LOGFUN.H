@@ -1,9 +1,9 @@
-
 #ifndef _LOGFUN_H_
 #define _LOGFUN_H_
 
 #include "HOME.H"
 #define PAR 10
+#define dense_points_max 500
 
 typedef struct Input
 {

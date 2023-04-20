@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1681526402459,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681984375609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n #ifndef _RESET_H_\r\n #define _RESET_H_\r\n-#include \"TOTAL.H\"\r\n \r\n \r\n void reset_screen(void);\r\n void reset(void);\r\n"
                 }
             ],
             "date": 1681526402459,

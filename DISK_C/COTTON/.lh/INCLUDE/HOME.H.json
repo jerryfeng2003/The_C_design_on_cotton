@@ -1,0 +1,30 @@
+{
+    "sourceFile": "INCLUDE/HOME.H",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1681902878018,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681983162875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,10 @@\n #ifndef _HOME_H_\r\n #define _HOME_H_\r\n-\r\n+#include \"COMMON.H\"\r\n+#include \"WELCOME.H\"\r\n+#include \"PARAMETE.H\"\r\n+#include \"LOGFUN.H\"\r\n #define ware_full 29999\r\n #define num_ware 5\r\n \r\n void draw_home01(void);//the page of n-w warehouse\r\n"
+                },
+                {
+                    "date": 1681983249245,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,6 @@\n #ifndef _HOME_H_\r\n #define _HOME_H_\r\n-#include \"COMMON.H\"\r\n-#include \"WELCOME.H\"\r\n-#include \"PARAMETE.H\"\r\n-#include \"LOGFUN.H\"\r\n #define ware_full 29999\r\n #define num_ware 5\r\n \r\n void draw_home01(void);//the page of n-w warehouse\r\n"
+                },
+                {
+                    "date": 1681983401939,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n #ifndef _HOME_H_\r\n #define _HOME_H_\r\n+\r\n #define ware_full 29999\r\n #define num_ware 5\r\n \r\n void draw_home01(void);//the page of n-w warehouse\r\n"
+                }
+            ],
+            "date": 1681902878018,
+            "name": "Commit-0",
+            "content": "#ifndef _HOME_H_\r\n#define _HOME_H_\r\n\r\n#define ware_full 29999\r\n#define num_ware 5\r\n\r\nvoid draw_home01(void);//the page of n-w warehouse\r\n//void draw_home00(void);//the page of Y-H warehouse\r\nvoid warehouse_list(struct user_warehouse * w);\r\nvoid press_warelist(int *re);\r\nvoid draw_warehouse(void);//draw the picture of warehouse\r\nvoid cot_mount(int x,int y);//draw the cotton in warehouse\r\nvoid draw_trunk(void);//draw the trunk int the page\r\nvoid in_warehouse(struct user_warehouse *now);//draw the board which show the cotton in warehouse\r\nvoid detailed_warehouse(long int count);//detail message of warehouse\r\nvoid press_detwarehouse(void);\r\nvoid press_home(int *c_t);//add the press moudule\r\nvoid out_warehouse(void);//page of the cotton out\r\nvoid press_outware(void);\r\nvoid out_finish(void);\r\n\r\ntypedef struct user_warehouse\r\n{\r\n\tchar ware_name[15];\r\n\tint cotton_type;\r\n\tlong int total[3];\r\n}U_ware;\r\n\r\n#endif"
+        }
+    ]
+}

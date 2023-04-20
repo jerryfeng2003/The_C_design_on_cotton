@@ -1,6 +1,11 @@
-#include "TOTAL.H"
+#include "COMMON.H"
+#include "START.H"
+#include "LOGFUN.H"
+#include "PARAMETE.H"
+#include "HOME.H"
+#include "PAST.H"
 char str[15];
-int k=0;
+int k;
 
 // U_ware here[5]={"ware01",0,{100,200,300},"ware02",1,{1000,2000,3000},\
 // "ware03",2,{123,456,789},"ware04",1,{1234,4545,234},"ware05",0,{34535,3423,6465}};
@@ -284,7 +289,7 @@ void warehouse_list(U_ware *w)
 	// }
 }
 
-void press_warelist()
+void press_warelist(int *re)
 {
 	int i;
 	for(i=0;i<num_ware;i++)
@@ -304,6 +309,7 @@ void press_warelist()
 		{
 			k=i;
 			// draw_home01();
+			*re=1;
 			mode1=0;
 			return;
 		}
@@ -324,6 +330,7 @@ void press_warelist()
 	else if(mouse_press(0,0,40,30)==1)
 	{
 		// draw_wel();
+		wr_h();
 		free(h);
 		exit(0);
 	}

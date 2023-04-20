@@ -9,6 +9,7 @@
 #include<bios.h>
 #include<math.h>
 #include<string.h>
+#include "mouse.h"
 #include<conio.h>
 #include ".\\HZK\\HZ.H"
 

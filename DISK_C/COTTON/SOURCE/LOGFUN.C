@@ -1,4 +1,6 @@
-#include "TOTAL.H"
+#include "COMMON.H"
+#include "LOGFUN.H"
+#include "PARAMETE.H"
 
 // 键盘输入   mode为0输出文字，mode为1输出*
 int input_s(int x, int y, INPUT *word, int size, int mode)
