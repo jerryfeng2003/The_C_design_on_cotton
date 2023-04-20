@@ -119,6 +119,7 @@ void press_home(int *c_t)
 	if(mouse_press(0,0,40,30)==1)
 	{
 		// draw_wel();
+		wr_h();
 		free(h);
 		exit(0);
 	}
@@ -417,6 +418,7 @@ void press_detwarehouse()
 	if(mouse_press(0,0,40,30)==1)
 	{
 		// draw_wel();
+		wr_h();
 		free(h);
 		exit(0);
 	}
@@ -484,6 +486,7 @@ void press_outware()
 	if(mouse_press(0,0,40,30)==1)
 	{
 		// draw_wel();
+		wr_h();
 		free(h);
 		exit(0);
 	}

@@ -175,27 +175,27 @@ void start()
 	}
 
 
-	switch (h->parameter[i].place)
-	{
-		case 'a':
-		{
-			h->here[k].total[0]+=harvest;
-			break;
-		}
-		case 'b':
-		{
-			h->here[k].total[1]+=harvest;
-			break;
-		}
-		case 'c':
-		{
-			h->here[k].total[2]+=harvest;
-			break;
-		}
+	// switch (h->parameter[i].place)
+	// {
+	// 	case 'a':
+	// 	{
+	// 		h->here[k].total[0]+=harvest;
+	// 		break;
+	// 	}
+	// 	case 'b':
+	// 	{
+	// 		h->here[k].total[1]+=harvest;
+	// 		break;
+	// 	}
+	// 	case 'c':
+	// 	{
+	// 		h->here[k].total[2]+=harvest;
+	// 		break;
+	// 	}
 		
-		default:
-			break;
-	}
+	// 	default:
+	// 		break;
+	// }
 	return;
 }
 
@@ -519,6 +519,7 @@ void press_start(int *bk)
 	}
 	if (mouse_press(0, 0, 40, 30) == 1)
 	{
+		wr_h();
 		free(h);
 		exit(0);
 	}
@@ -560,6 +561,7 @@ int pressed_anime(int x_sta,int y_sta, int x_des,int y_des)
 	if (mouse_press(0, 0, 40, 30) == 1)
 	{
 		re=1;
+		wr_h();
 		free(h);
 		exit(0);
 	}
