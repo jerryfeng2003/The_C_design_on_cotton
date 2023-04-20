@@ -32,7 +32,7 @@ int past01()
 	// struct Parameter parpar[PAR], temppar;
 	int barcolor[11] = {1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14};
 	page[3] = '\0';
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < PAR; i++)
 	{
 		char a[1];
 		a[1] = '\0';

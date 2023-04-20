@@ -20,9 +20,12 @@ void main()
     loginit();
     for(i=0;i<5;i++)
     {
-        char s[10]="ware0";
-        s[5]='0'+i+1;
-        strcpy(h->here[i].ware_name,s);
+        if(strcmp(h->here[i].ware_name,"\0")==0)
+        {
+            char s[10]="ware0";
+            s[5]='0'+i+1;
+            strcpy(h->here[i].ware_name,s);
+        }
     }
     while(1)
     {

@@ -16,7 +16,7 @@ void draw_home01()
 	int i,type,location=0;//1 means the norwestern,0 means others
 	long int temp, c_tal;
 	clrmous(MouseX,MouseY);
-	for(i=0;i<10;i++)
+	for(i=0;i<PAR;i++)
 	{
 		if(strcmp(h->parameter[i].name,"\0")==0)
 		{
@@ -100,12 +100,14 @@ void draw_home01()
 void press_home(int *c_t)
 {
 	if(mouse_press(0,0,40,30)==0||mouse_press(53,90,280,190)==0||mouse_press(26,130,46,150)==0\
-	||mouse_press(287,130,307,150)==0||mouse_press(100,300,200,360)==0||mouse_press(0,450,40,480)==0)
+	||mouse_press(287,130,307,150)==0||mouse_press(100,300,200,360)==0||mouse_press(0,450,40,480)==0\
+	||mouse_press(310,150,370,190)==0)
 	{
 		MouseS=0;
 	}
 	if(mouse_press(0,0,40,30)==2||mouse_press(53,90,280,190)==2||mouse_press(26,130,46,150)==2\
-	||mouse_press(287,130,307,150)==2||mouse_press(100,300,200,360)==2||mouse_press(0,450,40,480)==2)
+	||mouse_press(287,130,307,150)==2||mouse_press(100,300,200,360)==2||mouse_press(0,450,40,480)==2\
+	||mouse_press(310,150,370,190)==2)
 	{
 		MouseS=1;
 	}
@@ -145,6 +147,11 @@ void press_home(int *c_t)
 		// draw_home01();
 		mode1=-1;
 	}
+	if(mouse_press(310,150,370,190)==1)
+	{
+		changewarename(k+1);
+		mode1=-1;
+	}
 	if(mouse_press(53,90,280,190)==1)
 	{
 		// detailed_warehouse(here[k].total[*c_t]);
@@ -179,6 +186,9 @@ void in_warehouse(U_ware* now)
 	setfillstyle(1,LIGHTGRAY);
 	setlinestyle(0,0,1);
 	bar(53,70,280,190);
+	setfillstyle(1,CYAN);
+	bar(310,150,370,190);
+	puthz(324,160,"修改",16,16,DARKGRAY);
 	setcolor(RED);
 	settextstyle(1,0,3);
 	outtextxy(110,70,now->ware_name);
@@ -223,9 +233,11 @@ void warehouse_list(U_ware *w)
 	setbkcolor(WHITE);
 	clrmous(MouseX,MouseY);
 	setfillstyle(1,LIGHTGRAY);
+	settextjustify(0,2);
 	puthz(220,30,"当前仓库列表",32,32,BLUE);
 	bar(100,100,540,400);
 
+	settextstyle(1,0,3);
 	setfillstyle(1,WHITE);
 	for(i=0;i<num_ware;i++)
 	{
