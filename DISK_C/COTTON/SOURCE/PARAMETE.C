@@ -1,6 +1,125 @@
 #include "TOTAL.H"
 // 专门用来写有关edit和past的函数
 
+// 键盘输入   mode为0输出文字，mode为1输出*
+int input_s(int x, int y, INPUT *word, int size, int mode)
+{
+    static int p = 0; // 画一个框
+    int k = 0;        // 判断是否输出文字
+    settextjustify(0, 2);
+    if (p == 0)
+    {
+        setcolor(BLUE);
+        rectangle(word->x1, word->y1, word->x2, word->y2);
+        setfillstyle(1, 0);
+        bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
+        p = 1;
+    }
+    if (press == 1)
+    {
+        if (mouse_press(word->x1, word->y1, word->x2, word->y2) == 1)
+        {
+            word->flag = 1;
+
+            clrmous(MouseX, MouseY);
+            setcolor(RED);
+            setlinestyle(0, 0, 1);
+            rectangle(word->x1, word->y1, word->x2, word->y2);
+            setcolor(DARKGRAY);
+            k = 1;
+        }
+        else
+        {
+            word->flag = 0;
+
+            clrmous(MouseX, MouseY);
+            setcolor(BLUE);
+            setlinestyle(0, 0, 1);
+            rectangle(word->x1, word->y1, word->x2, word->y2);
+            // 不可输入则把光标遮蔽掉
+            if (mode == 0)
+            {
+                setfillstyle(1, 0);
+                bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
+                setcolor(DARKGRAY);
+                outtextxy(x, y, word->string);
+            }
+            else
+            {
+                int i;
+                setfillstyle(1, 0);
+                bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
+                for (i = 0; i < word->cursor; i++)
+                {
+                    outtextxy(x + i * (2 * size - 2), y, "*");
+                }
+                setcolor(DARKGRAY);
+            }
+        }
+    }
+
+    // flag为1时表示可以接收键盘输入
+    if (word->flag == 1)
+    {
+        char t;
+
+        if (kbhit())
+        {
+            t = getch();
+
+            if (t == '\b')
+            {
+                if (word->cursor > 0)
+                {
+                    (word->string)[word->cursor - 1] = '\0';
+                    (word->cursor)--;
+                    k = 1;
+                }
+            }
+            else if (t >= '!' && t <= '~')
+            {
+                if (word->cursor < word->length)
+                {
+                    (word->string)[word->cursor] = t;
+                    (word->string)[word->cursor + 1] = '\0';
+                    (word->cursor)++;
+                    k = 1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+        }
+        if (k == 1)
+        {
+            setcolor(DARKGRAY);
+            setlinestyle(0, 0, 1);
+            setfillstyle(SOLID_FILL, WHITE);
+            settextjustify(LEFT_TEXT, TOP_TEXT);
+            settextstyle(SMALL_FONT, HORIZ_DIR, size);
+            bar(word->x1 + 2, word->y1 + 2, word->x2 - 2, word->y2 - 2);
+            if (mode == 0)
+            {
+                setcolor(DARKGRAY);
+                outtextxy(x, y, word->string);
+                line(x + (word->cursor) * (2 * size - 8) + 2, word->y1 + 3, x + (word->cursor) * (2 * size - 8) + 2, word->y2 - 3);
+            }
+            else
+            {
+                int i;
+                for (i = 0; i < word->cursor; i++)
+                {
+                    outtextxy(x + i * (2 * size - 2), y, "*");
+                }
+                setcolor(DARKGRAY);
+                line(x + (word->cursor) * (2 * size - 2) + 2, word->y1 + 3, x + (word->cursor) * (2 * size - 2) + 2, word->y2 - 3);
+            }
+        }
+    }
+    return 0;
+}
+
 int judgename(char name[])
 {
     static int i, j;
@@ -75,6 +194,17 @@ int judgeS(char S[])
             return 0;
         }
     }
+    if (S[0] == '0')
+    {
+        setfillstyle(1, CYAN);
+        bar(80, 100, 380, 140);
+        puthz(83, 100, "土地面积不能为零", 32, 32, BLUE);
+        delay(1000);
+        setfillstyle(1, 0);
+        bar(80, 100, 380, 140);
+        puthz(70, 100, "本地推荐种植的棉花种类为：", 32, 32, BLUE);
+        return 0;
+    }
     return 1;
 }
 
@@ -141,7 +271,12 @@ void wr_parameter(struct Parameter *abc)
 
     free(u);
     u = NULL;
-    fclose(fp);
+    if (fclose(fp) != 0) // 关闭文件
+    {
+        puthz(120, 300, "关闭错误", 32, 32, BLUE);
+        delay(3000);
+        return;
+    }
     return;
 }
 
@@ -185,7 +320,12 @@ void wr_h(void)
 
     free(u);
     u = NULL;
-    fclose(fp);
+    if (fclose(fp) != 0) // 关闭文件
+    {
+        puthz(120, 300, "关闭错误", 32, 32, BLUE);
+        delay(3000);
+        return;
+    }
     return;
 }
 
@@ -196,20 +336,7 @@ void deletepar(int par)
     par -= 1;
     for (i = par; i < h->lenpar; i++)
     {
-        for (j = 0; j < 10; j++)
-        {
-            h->parameter[par].name[j] = h->parameter[par + 1].name[j];
-        }
-        h->parameter[par].place = h->parameter[par + 1].place;
-        h->parameter[par].shape = h->parameter[par + 1].shape;
-        h->parameter[par].type = h->parameter[par + 1].type;
-        strcpy(h->parameter[par].S, h->parameter[par + 1].S);
-        for (k = 0; k < dense_points_max; k++)
-        {
-            h->parameter[par].x[k] = h->parameter[par + 1].x[k];
-            h->parameter[par].y[k] = h->parameter[par + 1].y[k];
-        }
-        h->parameter[par].lenxy = h->parameter[par + 1].lenxy;
+        parcpy(&(h->parameter[par]), &(h->parameter[par + 1]));
     }
     h->lenpar -= 1;
     wr_h();
@@ -600,6 +727,7 @@ int choosepar(void)
             {
                 page[0] -= 1;
                 flag = 1;
+                delay(100);
             }
             else
             {
@@ -619,6 +747,7 @@ int choosepar(void)
             {
                 page[0] += 1;
                 flag = 1;
+                delay(100);
             }
             else if (page[0] == page[2])
             {
@@ -700,180 +829,162 @@ int choosepar(void)
     }
 }
 
-int *search(char *str)
+// 搜索
+int search(char name[])
 {
-    int i, j, k;
-    int par[PAR]; // 优先度数组，与参数一一对应，无对应则为0
-    // int temp;
-    // struct Parameter parpar[PAR], temppar;
-    for (i = 0; i < h->lenpar; i++) // 第i个参数
+    int i, j, flag = 0;
+    clrmous(MouseX, MouseY);
+    cleardevice();
+    clrmous(MouseX, MouseY);
+    setbkcolor(WHITE);
+    quit();
+
+    setfillstyle(1, LIGHTGRAY);
+    bar(50, 80, 590, 420);
+    settextstyle(0, 0, 3);
+    settextjustify(1, 1);
+    outtextxy(320, 60, name);
+
+    for (i = 0; i < h->lenpar; i++)
     {
-        par[i] = 1;
-        for (j = 0; j < strlen(str); j++) // str中第j个字符
+        for (j = 0; j < 10; j++) // 查找账号位置
         {
-            for (k = 0; k < strlen(h->parameter[i].name); k++) // 第i个参数中第k个字符
+            if (name[j] != h->parameter[i].name[j])
             {
-                if (str[j] == h->parameter[i].name[k])
-                {
-                    par[i] += 1; // 有相同的则其优先度+1
-                }
+                break;
+            }
+            if (name[j] == '\0')
+            {
+                j = 10;
+                break;
             }
         }
-        // parcpy(&parpar[i], &(h->parameter[i]));
+        if (j == 10)
+        {
+            flag = 1;
+            break;
+        }
     }
-    // 按优先度大到小排序
-    // for (i = 0; i < h->lenpar; i++)
-    // {
-    //     for (k = 0; k < h->lenpar; k++)
-    //     {
-    //         if (par[k] < par[k + 1])
-    //         {
-    //             temp = par[k];
-    //             par[k] = par[k + 1];
-    //             par[k + 1] = temp;
+    if (flag == 1)
+    {
+        setfillstyle(1, BLUE);
+        bar(90, 150, 300, 150 + 40);
+        setfillstyle(1, YELLOW);
+        bar(460, 150, 520, 150 + 40);
+        puthz(470, 160, "查看", 16, 16, BLUE);
+        settextstyle(0, 0, 3);
+        settextjustify(1, 1);
+        outtextxy(195, 170, h->parameter[i].name);
+    }
+    else
+    {
+        settextstyle(0, 0, 3);
+        settextjustify(1, 1);
+        outtextxy(320, 250, "the parameter");
+        outtextxy(320, 200, "Can not find");
+    }
 
-    //             parcpy(&temppar, &parpar[k]);
-    //             parcpy(&parpar[k], &parpar[k + 1]);
-    //             parcpy(&parpar[k + 1], &temppar);
-    //         }
-    //     }
-    // }
-    return par;
+    setfillstyle(1, CYAN);
+    bar(80, 120 + 60 * 4, 150, 160 + 60 * 4);
+    puthz(83, 125 + 60 * 4, "返回", 32, 32, BLUE);
+
+    for (;;)
+    {
+        newmouse(&MouseX, &MouseY, &press);
+        if (mouse_press(460, 150, 520, 150 + 40) == 1)
+        {
+            return i + 1;
+        }
+        // enter
+        if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(80, 120 + 60 * 4, 150, 160 + 60 * 4) == 0)
+        {
+            MouseS = 0;
+        }
+        if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(80, 120 + 60 * 4, 150, 160 + 60 * 4) == 2)
+        {
+            MouseS = 1;
+        }
+        // quit
+        if (mouse_press(0, 0, 40, 30) == 1)
+        {
+            exit(0);
+        }
+
+        if (mouse_press(80, 120 + 60 * 4, 150, 160 + 60 * 4) == 1)
+        {
+            return -1;
+        }
+    }
 }
-// if (flag == 1)
-// {
-// setfillstyle(1, LIGHTGRAY);
-// bar(50, 80, 590, 420);
-// settextstyle(0, 0, 2);
-// outtextxy(320, 405, page);
-// outtextxy(280, 405, "<<");
-// outtextxy(360, 405, ">>");
-// settextstyle(0, 0, 3);
-// setcolor(DARKGRAY);
 
-// setcolor(BLUE);
-// rectangle(510, 80, 580, 125);
-// puthz(200, 85, "搜索结果", 32, 32, BLUE);
-// puthz(510, 85, "查询", 32, 32, BLUE);
+void changewarename(int wi)
+{
+    int i, j;
+    INPUT name = {195, 220, 445, 270, "", 6, 0, 0};
+    clrmous(MouseX, MouseY);
+    setfillstyle(1, CYAN);
+    bar(100, 130, 540, 370);
+    puthz(180, 150, "请重新输入仓库名字", 32, 32, BLUE);
+    setfillstyle(1, CYAN);
+    bar(150, 290, 240, 340);
+    puthz(153, 293, "返回", 32, 32, BLUE);
+    bar(400, 290, 490, 340);
+    puthz(403, 293, "确认", 32, 32, BLUE);
+    setfillstyle(1, 0);
+    bar(195, 220, 445, 270);
 
-// for (i = 0, j = pagepar * 4; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++, j++)
-// {
-//     setfillstyle(1, barcolor[rand() % 12]);
-//     bar(90, 150 + 60 * i, 300, 150 + 40 + 60 * i);
-//     outtextxy(195, 170 + 60 * i, parpar[i].name);
-// }
-// for (i = 0; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++)
-// {
-//     setfillstyle(1, 14);
-//     bar(460, 150 + 60 * i, 520, 150 + 40 + 60 * i);
-//     puthz(470, 160 + 60 * i, "查看", 16, 16, BLUE);
-// }
+    for (;;)
+    {
+        delay(15);
+        newmouse(&MouseX, &MouseY, &press);
+        input_s(198, 220, &name, 16, 0);
 
-// for (;;)
-// {
-//     newmouse(&MouseX, &MouseY, &press);
-//     delay(15);
-//     // 四个查看按钮
-//     if ((mouse_press(460, 150 + 60 * 0, 520, 150 + 40 + 60 * 0) == 1) && ((h->lenpar - (pagepar * 4)) > 0))
-//     {
-//         int pagepar;
-//         char page2[1];
-//         page2[1] = '\0';
-//         page2[0] = page[0];
-//         pagepar = atoi(page2) - 1;
+        if (mouse_press(150, 290, 240, 340) == 1) // 返回
+        {
+            return -1;
+        }
+        if (mouse_press(400, 290, 490, 340) == 1) // 确认
+        {
+            strcpy(h->here[wi-1].ware_name, name.string);
+            wr_h();
+            return 1;
+        }
+    }
+    wr_h();
+}
 
-//         return (pagepar)*4 + 1;
-//     }
-//     if ((mouse_press(460, 150 + 60 * 1, 520, 150 + 40 + 60 * 1) == 1) && ((h->lenpar - (pagepar * 4)) > 1))
-//     {
-//         int pagepar;
-//         char page2[1];
-//         page2[1] = '\0';
-//         page2[0] = page[0];
-//         pagepar = atoi(page2) - 1;
+void changeparname(int par)
+{
+    int i, j;
+    INPUT name = {195, 220, 445, 270, "", 6, 0, 0};
+    clrmous(MouseX, MouseY);
+    setfillstyle(1, BROWN);
+    bar(100, 130, 540, 370);
+    puthz(180, 150, "请重新输入参数名字", 32, 32, BLUE);
+    setfillstyle(1, CYAN);
+    bar(150, 290, 240, 340);
+    puthz(153, 293, "返回", 32, 32, BLUE);
+    bar(400, 290, 490, 340);
+    puthz(403, 293, "确认", 32, 32, BLUE);
+    setfillstyle(1, 0);
+    bar(195, 220, 445, 270);
 
-//         return (pagepar)*4 + 2;
-//     }
-//     if ((mouse_press(460, 150 + 60 * 2, 520, 150 + 40 + 60 * 2) == 1) && ((h->lenpar - (pagepar * 4)) > 2))
-//     {
-//         int pagepar;
-//         char page2[1];
-//         page2[1] = '\0';
-//         page2[0] = page[0];
-//         pagepar = atoi(page2) - 1;
+    for (;;)
+    {
+        delay(15);
+        newmouse(&MouseX, &MouseY, &press);
+        input_s(198, 220, &name, 16, 0);
 
-//         return (pagepar)*4 + 3;
-//     }
-//     if ((mouse_press(460, 150 + 60 * 3, 520, 150 + 40 + 60 * 3) == 1) && ((h->lenpar - (pagepar * 4)) > 3))
-//     {
-//         int pagepar;
-//         char page2[1];
-//         page2[1] = '\0';
-//         page2[0] = page[0];
-//         pagepar = atoi(page2) - 1;
-
-//         return (pagepar)*4 + 4;
-//     }
-//     //page last
-//     if (mouse_press(260, 395, 310, 415) == 1)
-// 	{
-// 		if (page[0] > '1')
-// 		{
-// 			page[0] -= 1;
-// 			flag = 1;
-// 		}
-// 		else
-// 		{
-// 			setfillstyle(1, CYAN);
-// 			bar(230, 30, 450, 80);
-// 			puthz(240, 30, "第一页啦", 32, 32, BLUE);
-// 			delay(300);
-// 			setfillstyle(1, 0);
-// 			bar(230, 30, 450, 80);
-// 			puthz(240, 30, "参数列表", 32, 32, BLUE);
-// 		}
-// 	}
-
-// 	// page next
-// 	if (mouse_press(330, 395, 380, 415) == 1)
-// 	{
-// 		if (page[0] < page[2])
-// 		{
-// 			page[0] += 1;
-// 			flag = 1;
-// 		}
-// 		else if (page[0] == page[2])
-// 		{
-// 			setfillstyle(1, CYAN);
-// 			bar(230, 30, 450, 80);
-// 			puthz(240, 30, "最后一页啦", 32, 32, BLUE);
-// 			delay(300);
-// 			setfillstyle(1, 0);
-// 			bar(230, 30, 450, 80);
-// 			puthz(240, 30, "参数列表", 32, 32, BLUE);
-// 		}
-// 	}
-
-//     // enter
-//     if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(0, 450, 40, 480) == 0 || mouse_press(260, 395, 310, 415) == 0 )
-//     {
-//         MouseS = 0;
-//     }
-//     if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(0, 450, 40, 480) == 2 || mouse_press(260, 395, 310, 415) == 2 )
-//     {
-//         MouseS = 1;
-//     }
-//     // quit
-//     if (mouse_press(0, 0, 40, 30) == 1)
-//     {
-//         exit(0);
-//     }
-//     // last
-//     if (mouse_press(0, 450, 40, 480) == 1)
-//     {
-//         return 100;
-//     }
-// }
-// flag = 0;
-// }
-//}
+        if (mouse_press(150, 290, 240, 340) == 1) // 返回
+        {
+            return -1;
+        }
+        if (mouse_press(400, 290, 490, 340) == 1) // 确认
+        {
+            strcpy(h->parameter[par-1].name, name.string);
+            wr_h();
+            return 1;
+        }
+    }
+    wr_h();
+}

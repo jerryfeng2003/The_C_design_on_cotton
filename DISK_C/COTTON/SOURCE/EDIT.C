@@ -30,7 +30,7 @@ int edit01(struct Parameter *abc)
 {
 	INPUT name = {230, 80, 520, 130, "", 10, 0, 0};
 	edit01_screen();
-	setfillstyle(1, MAGENTA);//洋红色
+	setfillstyle(1, MAGENTA); // 洋红色
 
 	for (;;)
 	{
@@ -168,7 +168,7 @@ void edit02_screen(struct Parameter *abc)
 int edit02(struct Parameter *abc)
 {
 	// int flag = 0; // 返回键判断
-	int flagcan = 0;
+	int flagcan = 0, flagcan1 = 1;
 	INPUT S = {330, 30, 490, 90, "", 6, 0, 0};
 
 	edit02_screen(abc);
@@ -182,58 +182,78 @@ int edit02(struct Parameter *abc)
 		// 土地形状按钮，停留在上面
 		if (mouse_press(0, 150, 160, 200) == 2) // 矩形
 		{
-			MouseS = 1;
-			setfillstyle(1, MAGENTA);
-			bar(0, 150, 160, 200);
-			puthz(20, 160, "矩形", 32, 32, BLUE);
-			setfillstyle(10, BROWN);
-			rectangle(240, 190, 560, 420);
-			bar(241, 191, 559, 419);
+			if (flagcan1 == 1)
+			{
+				clrmous(MouseX, MouseY);
+				MouseS = 1;
+				setfillstyle(1, MAGENTA);
+				bar(0, 150, 160, 200);
+				puthz(20, 160, "矩形", 32, 32, BLUE);
+				setfillstyle(10, BROWN);
+				rectangle(240, 190, 560, 420);
+				bar(241, 191, 559, 419);
 
-			flagcan = 0;
+				flagcan = 0;
+				flagcan1 = 0;
+			}
 		}
 		else if (mouse_press(0, 230, 160, 280) == 2) // 圆形
 		{
-			MouseS = 1;
-			setfillstyle(1, MAGENTA);
-			bar(0, 230, 160, 280);
-			puthz(20, 235, "圆形", 32, 32, BLUE);
-			setfillstyle(10, LIGHTGRAY);
-			circle(400, 305, 121);
-			pieslice(400, 305, 0, 360, 120);
-			line(280, 305, 520, 305);
-			line(400, 185, 400, 425);
+			if (flagcan1 == 1)
+			{
+				clrmous(MouseX, MouseY);
+				MouseS = 1;
+				setfillstyle(1, MAGENTA);
+				bar(0, 230, 160, 280);
+				puthz(20, 235, "圆形", 32, 32, BLUE);
+				setfillstyle(10, LIGHTGRAY);
+				circle(400, 305, 121);
+				pieslice(400, 305, 0, 360, 120);
+				line(280, 305, 520, 305);
+				line(400, 185, 400, 425);
 
-			flagcan = 0;
+				flagcan = 0;
+				flagcan1 = 0;
+			}
 		}
 		else if (mouse_press(0, 310, 160, 360) == 2) // 多边形
 		{
-			int dindian[8] = {220, 270, 350, 270, 285, 170, 220, 270}, dindian2[10] = {560, 420, 560, 330, 400, 330, 400, 400, 560, 420}; // 200,150,600,460
-			MouseS = 1;
-			setfillstyle(1, MAGENTA);
-			bar(0, 310, 160, 360);
-			puthz(10, 315, "多边形", 32, 32, BLUE);
-			setfillstyle(10, LIGHTGRAY);
-			drawpoly(4, dindian);
-			drawpoly(5, dindian2);
-			setlinestyle(0, 0, 3);
-			line(220, 440, 580, 170);
-			flagcan = 0;
+			if (flagcan1 == 1)
+			{
+				int dindian[8] = {220, 270, 350, 270, 285, 170, 220, 270}, dindian2[10] = {560, 420, 560, 330, 400, 330, 400, 400, 560, 420}; // 200,150,600,460
+				clrmous(MouseX, MouseY);
+				MouseS = 1;
+				setfillstyle(1, MAGENTA);
+				bar(0, 310, 160, 360);
+				puthz(10, 315, "多边形", 32, 32, BLUE);
+				setfillstyle(10, LIGHTGRAY);
+				fillpoly(4, dindian);
+				fillpoly(5, dindian2);
+				setlinestyle(0, 0, 3);
+				line(220, 440, 580, 170);
+				flagcan = 0;
+				flagcan1 = 0;
+			}
 		}
 		else if (mouse_press(0, 380, 160, 430) == 2) // 自定义图形
 		{
-			MouseS = 1;
-			setlinestyle(0, 0, 15);
-			setfillstyle(1, MAGENTA);
-			bar(0, 380, 160, 430);
-			puthz(0, 390, "自定义图形", 32, 32, BLUE);
-			setfillstyle(1, LIGHTGRAY);
-			arc(400, 230, -90, 180, 60);
-			line(400, 290, 400, 370);
-			setfillstyle(1, BLACK);
-			circle(400, 390, 10);
+			if (flagcan1 == 1)
+			{
+				clrmous(MouseX, MouseY);
+				MouseS = 1;
+				setlinestyle(0, 0, 15);
+				setfillstyle(1, MAGENTA);
+				bar(0, 380, 160, 430);
+				puthz(0, 390, "自定义图形", 32, 32, BLUE);
+				setfillstyle(1, LIGHTGRAY);
+				arc(400, 230, -90, 180, 60);
+				line(400, 290, 400, 370);
+				setfillstyle(1, BLACK);
+				circle(400, 390, 10);
 
-			flagcan = 0;
+				flagcan = 0;
+				flagcan1 = 0;
+			}
 		}
 		else
 		{
@@ -255,6 +275,7 @@ int edit02(struct Parameter *abc)
 				setcolor(RED);
 				rectangle(200, 150, 600, 460);
 				flagcan = 1;
+				flagcan1 = 1;
 			}
 		}
 
@@ -298,11 +319,11 @@ int edit02(struct Parameter *abc)
 		}
 
 		// quit
-		if (mouse_press(0, 0, 40, 30) == 0||mouse_press(0, 450, 40, 480) == 0)
+		if (mouse_press(0, 0, 40, 30) == 0 || mouse_press(0, 450, 40, 480) == 0)
 		{
 			MouseS = 0;
 		}
-		if (mouse_press(0, 0, 40, 30) == 2||mouse_press(0, 450, 40, 480) == 2)
+		if (mouse_press(0, 0, 40, 30) == 2 || mouse_press(0, 450, 40, 480) == 2)
 		{
 			MouseS = 1;
 		}
