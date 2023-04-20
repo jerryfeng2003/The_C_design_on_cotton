@@ -928,7 +928,7 @@ void changewarename(int wi)
     setfillstyle(1, CYAN);
     bar(100, 130, 540, 370);
     puthz(180, 150, "请重新输入仓库名字", 32, 32, BLUE);
-    setfillstyle(1, CYAN);
+    setfillstyle(1, GREEN);
     bar(150, 290, 240, 340);
     puthz(153, 293, "返回", 32, 32, BLUE);
     bar(400, 290, 490, 340);
@@ -941,19 +941,17 @@ void changewarename(int wi)
         delay(15);
         newmouse(&MouseX, &MouseY, &press);
         input_s(198, 220, &name, 16, 0);
-
         if (mouse_press(150, 290, 240, 340) == 1) // 返回
         {
-            return -1;
+            return;
         }
         if (mouse_press(400, 290, 490, 340) == 1) // 确认
         {
             strcpy(h->here[wi-1].ware_name, name.string);
             wr_h();
-            return 1;
+            return;
         }
     }
-    wr_h();
 }
 
 void changeparname(int par)
@@ -980,14 +978,13 @@ void changeparname(int par)
 
         if (mouse_press(150, 290, 240, 340) == 1) // 返回
         {
-            return -1;
+            return;
         }
         if (mouse_press(400, 290, 490, 340) == 1) // 确认
         {
             strcpy(h->parameter[par-1].name, name.string);
             wr_h();
-            return 1;
+            return;
         }
     }
-    wr_h();
 }

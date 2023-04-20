@@ -110,7 +110,7 @@ int username_same(char username0[], char phonenumber0[])
 	{
 		puthz(120, 300, "¹Ø±Õ´íÎó", 32, 32, BLUE);
 		delay(3000);
-		return;
+		return 0;
 	}
 	free(u);
 	u = NULL;
@@ -227,7 +227,7 @@ int logg(char username0[], char password0[])
 	{
 		puthz(120, 300, "¹Ø±Õ´íÎó", 32, 32, BLUE);
 		delay(3000);
-		return;
+		return 0;
 	}
 	free(u);
 	u = NULL;
@@ -318,7 +318,7 @@ int changepassword(char username0[], char newpassword0[], char phonenumber0[])
 	{
 		puthz(120, 300, "¹Ø±Õ´íÎó", 32, 32, BLUE);
 		delay(3000);
-		return;
+		return 0;
 	}
 	return flag;
 }
