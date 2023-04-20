@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1681536345172,
@@ -12,6 +12,10 @@
                 {
                     "date": 1681536564423,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,37 +1,37 @@\n \r\n #ifndef _PARAMETE_H_\r\n #define _PARAMETE_H_\r\n \r\n-//�ж������Ƿ�Ϊ��and�ظ�\r\n+//判断名字是否为空and重复\r\n int judgename(char name[]);\r\n \r\n-//�ж���������Ƿ�Ϊ���ֺͿ�\r\n+//判断土地面积是否为数字和空\r\n int judgeS(char name[]);\r\n \r\n-//�Ѳ���д��h��Ȼ���hд���ļ�����\r\n+//把参数写进h，然后把h写进文件里面\r\n void wr_parameter(struct Parameter* abc);\r\n \r\n-//�޸Ĳ���\r\n+//修改产区\r\n int changeplace(int par);\r\n \r\n-//�޸�������״\r\n+//修改土地形状\r\n int changeshape(int par);\r\n \r\n-//�޸��ո������\r\n+//修改收割机类型\r\n int changetype(int par);\r\n \r\n-//�޸����\r\n+//修改面积\r\n int changeS(int par);\r\n \r\n-//ɾ������\r\n+//删除参数\r\n void deletepar(int par);\r\n \r\n-//�ѵ�ǰ��¼���û�����д���ļ�\r\n+//把当前登录的用户重新写进文件\r\n void wr_h(void);\r\n \r\n-//��������\r\n+//搜索函数\r\n int *search(char *str);\r\n \r\n-//�ѵڶ�������������һ������\r\n+//把第二个参数赋给第一个参数\r\n void parcpy(struct Parameter *a,struct Parameter *b);\r\n #endif\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681966166788,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,37 +1,37 @@\n \r\n #ifndef _PARAMETE_H_\r\n #define _PARAMETE_H_\r\n \r\n-//�ж������Ƿ�Ϊ��and�ظ�\r\n+//判断名字是否为空and重复\r\n int judgename(char name[]);\r\n \r\n-//�ж���������Ƿ�Ϊ���ֺͿ�\r\n+//判断土地面积是否为数字和空\r\n int judgeS(char name[]);\r\n \r\n-//�Ѳ���д��h��Ȼ���hд���ļ�����\r\n+//把参数写进h，然后把h写进文件里面\r\n void wr_parameter(struct Parameter* abc);\r\n \r\n-//�޸Ĳ���\r\n+//修改产区\r\n int changeplace(int par);\r\n \r\n-//�޸�������״\r\n+//修改土地形状\r\n int changeshape(int par);\r\n \r\n-//�޸��ո������\r\n+//修改收割机类型\r\n int changetype(int par);\r\n \r\n-//�޸����\r\n+//修改面积\r\n int changeS(int par);\r\n \r\n-//ɾ������\r\n+//删除参数\r\n void deletepar(int par);\r\n \r\n-//�ѵ�ǰ��¼���û�����д���ļ�\r\n+//把当前登录的用户重新写进文件\r\n void wr_h(void);\r\n \r\n-//�ѵڶ�������������һ������\r\n+//把第二个参数赋给第一个参数\r\n void parcpy(struct Parameter *a,struct Parameter *b);\r\n \r\n-//ѡ�����\r\n+//选择参数\r\n int choosepar(void);\r\n #endif\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1681536345171,
