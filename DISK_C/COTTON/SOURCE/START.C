@@ -72,15 +72,15 @@ void start()
 	i--;
 	delay(500);
 	space=atoi(h->parameter[i].S);
+	if(space>32767||space<=0)
+		space=32767;
+	if(space<500)
+		space=500;
 	time=space/pick_ph;
 	if(time<tra_time)
 		time=tra_time;
 	if(time>tracktor_num_max*tra_time)
 		time=tracktor_num_max*tra_time;
-	if(space<500)
-		space=500;
-	if(space>2000)
-		space=2000;
 	switch(h->parameter[i].place)
 	{
 		case 'a':
@@ -175,27 +175,27 @@ void start()
 	}
 
 
-	switch (h->parameter[i].place)
-	{
-		case 'a':
-		{
-			h->here[k].total[0]+=harvest;
-			break;
-		}
-		case 'b':
-		{
-			h->here[k].total[1]+=harvest;
-			break;
-		}
-		case 'c':
-		{
-			h->here[k].total[2]+=harvest;
-			break;
-		}
+	// switch (h->parameter[i].place)
+	// {
+	// 	case 'a':
+	// 	{
+	// 		h->here[k].total[0]+=harvest;
+	// 		break;
+	// 	}
+	// 	case 'b':
+	// 	{
+	// 		h->here[k].total[1]+=harvest;
+	// 		break;
+	// 	}
+	// 	case 'c':
+	// 	{
+	// 		h->here[k].total[2]+=harvest;
+	// 		break;
+	// 	}
 		
-		default:
-			break;
-	}
+	// 	default:
+	// 		break;
+	// }
 	return;
 }
 
@@ -249,6 +249,8 @@ void init_based_field()
 
 void draw_copak(int x,int y)
 {
+	if(x<x_start||y<y_start)
+		return;
 	setfillstyle(1,WHITE);
 	bar(x,y,x+tracktor_w,y+co_pak_w);
 }
@@ -268,6 +270,11 @@ void start_ainime01(int t_trac,double space,int time)
 		y=y_max;
 	if(num==0)
 		num=1;
+	for(i=0;i<num;i++)
+	{
+		des_x[i]=600;
+		des_y[i]=0;
+	}
 	i=0,x_p=x_start,y_p=y_start+y-40,flag=0,out=0;
 	select_setoff01(xy,x_start+x,y_start+y);
 	draw_simu01(time);
@@ -375,6 +382,10 @@ void start_ainime01(int t_trac,double space,int time)
 				// 	init_tracktor01_f(x_start + i * x - x % 25, y_start + 7);
 				// }
 				break;
+			}
+			for(i=0;i<num;i++)
+			{
+				draw_copak(des_x[i],des_y[i]);
 			}
 			// delay(15*num);
 		}
@@ -490,6 +501,10 @@ void start_ainime01(int t_trac,double space,int time)
 				// 	init_tracktor02_f(x_start + i * x - x % 25, y_start + 7);
 				// }
 				break;
+			}
+			for(i=0;i<num;i++)
+			{
+				draw_copak(des_x[i],des_y[i]);
 			}
 			// delay(15*num);
 		}
@@ -937,6 +952,7 @@ void select03(struct Parameter *abc)
 	puthz(327, 76, "Íê³É", 32, 32, WHITE);
 	settextstyle(3, 0, 4);
 	quit();
+	setfillstyle(1, RED);
 
 	while (1)
 	{
@@ -986,7 +1002,6 @@ void press_select03(int *x,int *y,int *flag,int *back)
 
 void dense_pick(int *x, int *y, int *flag)
 {
-	setfillstyle(1, WHITE);
 	clrmous(MouseX, MouseY);
 	bar(200, 70, 280, 115);
 	setlinestyle(0, 0, 1);
@@ -1020,6 +1035,7 @@ void dense_pick(int *x, int *y, int *flag)
 			x[*flag] = MouseX;
 			y[*flag] = MouseY;
 			clrmous(MouseX, MouseY);
+			setfillstyle(1, RED);
 			bar(x[*flag] - 5, y[*flag] - 5, x[*flag] + 5, y[*flag] + 5);
 			line(x[(*flag) - 1], y[(*flag) - 1], x[(*flag)], y[(*flag)]);
 			(*flag)++;
@@ -1088,6 +1104,11 @@ void init_field02(int *x,int *y,int *flag,int type,int time)
 		}
 		arr[2 * i] = x[i];
 		arr[2 * i + 1] = y[i];
+	}
+	for(i=0;i<num;i++)
+	{
+		des_x[i]=600;
+		des_y[i]=0;
 	}
 	select_setoff02(xy,xy_m[0],xy_m[1],xy_m[2],xy_m[3]);
 	draw_simu01(time);
@@ -1159,6 +1180,11 @@ void init_field03(int *x,int *y,int *flag,int type,int time)
 		}
 		arr[2 * i] = x[i];
 		arr[2 * i + 1] = y[i];
+	}
+	for(i=0;i<num;i++)
+	{
+		des_x[i]=600;
+		des_y[i]=0;
 	}
 	// setfillstyle(1,BROWN);
 	// setlinestyle(0,0,3);
@@ -1517,6 +1543,10 @@ void start_ainime03_01(int (*tra_d)[4], int num,long int *xy_m,int *des_x,int *d
 			// 	y_p[i]++;
 			// }
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(des_x[i],des_y[i]);
+		}
 		if (count >= num)
 		{
 			break;
@@ -1530,10 +1560,10 @@ void start_ainime03_01(int (*tra_d)[4], int num,long int *xy_m,int *des_x,int *d
 		{
 			des_x[i]=0;
 		}
-		else
-		{
-			draw_copak(des_x[i],des_y[i]);
-		}
+		// else
+		// {
+		// 	draw_copak(des_x[i],des_y[i]);
+		// }
 	}
 }
 
@@ -1673,6 +1703,10 @@ void start_ainime03_02(int (*tra_d)[4], int num,long int *xy_m,int *des_x,int *d
 			// 	y_p[i]++;
 			// }
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(des_x[i],des_y[i]);
+		}
 		if (count >= num)
 		{
 			break;
@@ -1686,10 +1720,10 @@ void start_ainime03_02(int (*tra_d)[4], int num,long int *xy_m,int *des_x,int *d
 		{
 			des_x[i]=0;
 		}
-		else
-		{
-			draw_copak(des_x[i],des_y[i]);
-		}
+		// else
+		// {
+		// 	draw_copak(des_x[i],des_y[i]);
+		// }
 	}
 	// if(cal_time[0]>=0)
 	// {
@@ -1738,6 +1772,11 @@ void cal_tracktor_circle(int type,double space,int time)
 	if(r>=y_max/2-3)
 	{
 		r = y_max / 2 - 3;
+	}
+	for(i=0;i<num;i++)
+	{
+		des_x[i]=600;
+		des_y[i]=0;
 	}
 	d = 2 * r / num;
 	for (i = 0; i < num; i++)
@@ -1968,6 +2007,10 @@ void start_ainime04_01(int (*tra_d)[4],int num,int *des_x,int *des_y)
 			// 	y_p[i]++;
 			// }
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(des_x[i],des_y[i]);
+		}
 		if(count>=num)
 		{
 			break;
@@ -1981,10 +2024,10 @@ void start_ainime04_01(int (*tra_d)[4],int num,int *des_x,int *des_y)
 		{
 			des_x[i]=0;
 		}
-		else
-		{
-			draw_copak(des_x[i],des_y[i]);
-		}
+		// else
+		// {
+		// 	draw_copak(des_x[i],des_y[i]);
+		// }
 	}
 	// if(cal_time[0]>=0)
 	// {
@@ -2128,6 +2171,10 @@ void start_ainime04_02(int (*tra_d)[4],int num,int *des_x,int *des_y)
 			// 	y_p[i]++;
 			// }
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(des_x[i],des_y[i]);
+		}
 		if(count>=num)
 		{
 			break;
@@ -2141,10 +2188,10 @@ void start_ainime04_02(int (*tra_d)[4],int num,int *des_x,int *des_y)
 		{
 			des_x[i]=0;
 		}
-		else
-		{
-			draw_copak(des_x[i],des_y[i]);
-		}
+		// else
+		// {
+		// 	draw_copak(des_x[i],des_y[i]);
+		// }
 	}
 	// if(cal_time[0]>=0)
 	// {
@@ -3812,6 +3859,7 @@ void picker_anime(int start_x,int start_y,int *des_x,int *des_y,int distance,int
 		time[i] = i * distance;
 		x_p[i] = (2 * start_x + tra_start_l) / 2 - tracktor_w / 2;
 		y_p[i] = start_y + tra_start_d + 1;
+		draw_copak(des_x[i],des_y[i]);
 	}
 	while(1)
 	{

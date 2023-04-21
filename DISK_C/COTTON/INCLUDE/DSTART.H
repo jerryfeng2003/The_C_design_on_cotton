@@ -17,7 +17,7 @@
 #define tra_time 80
 #define tracktor_w 25
 #define co_pak_w 10
-#define pick_bar 400
+#define pick_bar 600
 #define tracktor_l 30
 #define tra_start_l 50
 #define tra_start_d 35
