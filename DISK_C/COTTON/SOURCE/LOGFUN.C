@@ -6,12 +6,20 @@
 void wr_user(char username1[], char password1[], char phonenumber1[])
 {
 	FILE *fp;
-	int i;
+	int i,j;
 	user *u = (user *)malloc(sizeof(user));
 	u->lenpar = 0;
-	for (i = 0; i < 3; i++)
+	for (i = 0; i < 5; i++)
 	{
 		u->here[i].cotton_type = 0;
+	}
+	for (i=0;i<5;i++)
+	{
+		u->here[i].ware_name[0]='\0';
+		for (j=0;j<3;j++)
+		{
+			u->here[i].total[j]=0;
+		}
 	}
 	if ((fp = fopen("User.dat", "rb+")) == NULL)
 	{
@@ -178,10 +186,11 @@ int logg(char username0[], char password0[])
 				}
 				for (l = 0; l < 5; l++)
 				{
-					for (k = 0; k < 15; k++)
-					{
-						h->here[l].ware_name[k] = u->here[l].ware_name[k];
-					}
+					// for (k = 0; k < 15; k++)
+					// {
+					// 	h->here[l].ware_name[k] = u->here[l].ware_name[k];
+					// }
+					strcpy(h->here[l].ware_name,u->here[l].ware_name);
 					for (k = 0; k < 3; k++)
 					{
 						h->here[l].total[k] = u->here[l].total[k];

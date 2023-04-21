@@ -28,8 +28,6 @@ int past01()
 	int i, j, flag = 1;									  // 判断是否换页
 	INPUT searchname = {220, 80, 500, 125, "", 10, 0, 0}; // 搜索
 	char page[3] = {'1', '/', '1'};
-	// int temp;
-	// struct Parameter parpar[PAR], temppar;
 	int barcolor[11] = {1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14};
 	page[3] = '\0';
 	for (i = 0; i < PAR; i++)
@@ -92,7 +90,7 @@ int past01()
 				outtextxy(320, 405, page);
 				outtextxy(280, 405, "<<");
 				outtextxy(360, 405, ">>");
-				settextstyle(0, 0, 3);
+				// settextstyle(0, 0, 3);
 				setcolor(BLACK);
 				srand((unsigned)time(NULL));
 				for (i = 0, j = pagepar * 4; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++, j++)
@@ -106,14 +104,22 @@ int past01()
 					}
 					setcolor(a);
 					setfillstyle(1, b);
-					bar(90, 150 + 60 * i, 300, 150 + 40 + 60 * i);
+					bar(70, 150 + 60 * i, 320, 150 + 40 + 60 * i);
+					if (strlen(h->parameter[j].name) >= 7)
+					{
+						settextstyle(0, 0, 2);
+					}
+					else
+					{
+						settextstyle(0, 0, 3);
+					}
 					outtextxy(195, 170 + 60 * i, h->parameter[j].name);
 				}
 				for (i = 0; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++)
 				{
 					setfillstyle(1, 14);
 					bar(460, 150 + 60 * i, 520, 150 + 40 + 60 * i);
-					puthz(470, 160 + 60 * i, "查看", 16, 16, BLUE);
+					puthz(474, 160 + 60 * i, "查看", 16, 16, BLUE);
 				}
 				flag = 0;
 			}
@@ -313,14 +319,14 @@ void past02_screen(int par)
 	for (i = 0; i < 4; i++)
 	{
 		bar(500, 118 + 60 * i, 550, 118 + 40 + 60 * i);
-		puthz(505, 125 + 60 * i, "修改", 16, 16, BLUE);
+		puthz(510, 130 + 60 * i, "修改", 16, 16, BLUE);
 	}
 	setfillstyle(1, CYAN);
 	bar(80, 120 + 60 * 4, 150, 160 + 60 * 4);
 	puthz(83, 125 + 60 * 4, "返回", 32, 32, BLUE);
 
 	bar(400, 120 + 60 * 4, 550, 160 + 60 * 4);
-	puthz(403, 125 + 60 * 4, "修改名字", 32, 32, BLUE);
+	puthz(408, 125 + 60 * 4, "修改名字", 32, 32, BLUE);
 
 	setfillstyle(1, RED);
 	bar(400 + 40, 30, 480 + 40, 80);
@@ -344,7 +350,7 @@ int past02(int par)
 			deletepar(par);
 			return 1;
 		}
-		//改名字
+		// 改名字
 		if (mouse_press(400, 120 + 60 * 4, 550, 160 + 60 * 4) == 1)
 		{
 			changeparname(par);
@@ -401,7 +407,6 @@ void past()
 	for (;;)
 	{
 		act = past01();
-		// act = choosepar();
 		if (act == -1) // 返回主界面
 		{
 			return;

@@ -7,7 +7,7 @@
 
 typedef struct Input
 {
-	int x1;//输入框坐标
+	int x1;//框的坐标
 	int y1;
 	int x2;
 	int y2;
