@@ -650,6 +650,10 @@ void pick_finish(int count,int co_type)
 		press_warelist(&re);
 	}
 	h->here[k].total[co_type]+=count;
+	if(h->here[k].total[co_type]<0)
+	{
+		h->here[k].total[co_type]=ware_full;
+	}
 	mode=1;
 	return;
 }
