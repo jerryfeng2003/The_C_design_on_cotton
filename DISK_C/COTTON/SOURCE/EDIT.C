@@ -174,7 +174,7 @@ int edit02(struct Parameter *abc)
 {
 	// int flag = 0; // 返回键判断
 	int flagcan = 0, flagcan1 = 1;
-	INPUT S = {330, 30, 490, 90, "", 6, 0, 0};
+	INPUT S = {330, 30, 490, 90, "", 5, 0, 0};
 
 	edit02_screen(abc);
 
@@ -286,7 +286,7 @@ int edit02(struct Parameter *abc)
 
 		if (mouse_press(0, 150, 160, 200) == 1) // 矩形
 		{
-			if (judgeS(S.string) == 1)
+			if (judgeS(S.string,abc) == 1)
 			{
 				strcpy(abc->S, S.string);
 				abc->shape = 'a';
@@ -295,7 +295,7 @@ int edit02(struct Parameter *abc)
 		}
 		else if (mouse_press(0, 230, 160, 280) == 1) // 圆形
 		{
-			if (judgeS(S.string) == 1)
+			if (judgeS(S.string,abc) == 1)
 			{
 				strcpy(abc->S, S.string);
 				abc->shape = 'b';
@@ -304,7 +304,7 @@ int edit02(struct Parameter *abc)
 		}
 		else if (mouse_press(0, 300, 160, 350) == 1) // 多边形
 		{
-			if (judgeS(S.string) == 1)
+			if (judgeS(S.string,abc) == 1)
 			{
 				strcpy(abc->S, S.string);
 				abc->shape = 'c';
@@ -314,7 +314,7 @@ int edit02(struct Parameter *abc)
 		}
 		else if (mouse_press(0, 370, 160, 420) == 1) // 自定义图形
 		{
-			if (judgeS(S.string) == 1)
+			if (judgeS(S.string,abc) == 1)
 			{
 				strcpy(abc->S, S.string);
 				abc->shape = 'd';

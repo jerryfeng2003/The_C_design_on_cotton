@@ -12,7 +12,7 @@ void register_screen()
 
     setfillstyle(1, LIGHTGRAY);
     puthz(260, 30, "◊¢≤·’À∫≈", 32, 32, BLUE);
-    bar(120, 105, 530, 150); // ’À∫≈
+    bar(120, 100, 530, 150); // ’À∫≈
     puthz(123, 110, "’À∫≈", 32, 32, BLUE);
     bar(120, 180, 530, 230); // √‹¬Î
     puthz(123, 190, "√‹¬Î", 32, 32, BLUE);
@@ -68,7 +68,7 @@ void log_register()
             bar(170, 30, 470, 72);
             puthz(260, 30, "◊¢≤·’À∫≈", 32, 32, BLUE);
         }
-        if ((input_s(263, 340, &phonenumber, 16, 0))==1)
+        if ((input_s(263, 340, &phonenumber, 16, 0)) == 1)
         {
             setfillstyle(1, CYAN);
             bar(170, 30, 470, 72);
@@ -84,8 +84,19 @@ void log_register()
         }
         if ((mouse_press(360, 420, 520, 460) == 1) &&
             (username.string[0] != '\0') && (phonenumber.string[0] != '\0') &&
-            (password.string[0] != '\0') && (strcmp(password.string, realpassword.string) == 0))
+            (password.string[0] != '\0'))
         {
+            if ((strcmp(password.string, realpassword.string) != 0))
+            {
+                setfillstyle(1, CYAN);
+                bar(160, 30, 480, 72);
+                puthz(170, 32, "»∑»œ√‹¬Î”Î√‹¬Î≤ªœ‡Õ¨", 32, 32, BLUE);
+                delay(800);
+                setfillstyle(1, 0);
+                bar(160, 30, 480, 72);
+                puthz(260, 30, "◊¢≤·’À∫≈", 32, 32, BLUE);
+                return;
+            }
             if (username_same(username.string, phonenumber.string) == 0)
             {
                 wr_user(username.string, password.string, phonenumber.string);

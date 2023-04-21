@@ -169,9 +169,51 @@ int judgename(char name[])
     return 1;
 }
 
-int judgeS(char S[])
+int judgeS_change(char S[])
+{
+    int i;
+    if (S[0] == '\0' || S[0] == '0' || (strlen(S) == 5 && S[0] >= '3'))
+    {
+        setfillstyle(1, CYAN);
+        bar(190, 150, 450, 190);
+        puthz(195, 150, "输入土地面积错误", 32, 32, BLUE);
+        delay(1000);
+        setfillstyle(1, CYAN);
+        bar(190, 150, 450, 190);
+        puthz(220, 150, "请重新输入面积", 32, 32, BLUE);
+        return 0;
+    }
+    for (i = 0; i < strlen(S); i++)
+    {
+        if (S[i] > '9' || S[i] < '0')
+        {
+            setfillstyle(1, CYAN);
+            bar(200, 150, 440, 190);
+            puthz(205, 150, "输入土地面积错误", 32, 32, BLUE);
+            delay(1000);
+            setfillstyle(1, CYAN);
+            bar(200, 150, 440, 190);
+            puthz(220, 150, "请重新输入面积", 32, 32, BLUE);
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int judgeS(char S[], struct Parameter *abc)
 {
     int i = 0;
+    if (S[0] == '-')
+    {
+        setfillstyle(1, CYAN);
+        bar(80, 100, 380, 140);
+        puthz(83, 100, "土地面积不能负数", 32, 32, BLUE);
+        delay(1000);
+        setfillstyle(1, 0);
+        bar(80, 100, 380, 140);
+        puthz(70, 100, "本地推荐种植的棉花种类为：", 32, 32, BLUE);
+        return 0;
+    }
     if (S[0] == '\0')
     {
         setfillstyle(1, CYAN);
@@ -206,6 +248,30 @@ int judgeS(char S[])
         setfillstyle(1, 0);
         bar(80, 100, 380, 140);
         puthz(70, 100, "本地推荐种植的棉花种类为：", 32, 32, BLUE);
+        return 0;
+    }
+
+    if (strlen(S) == 5 && S[0] >= '3')
+    {
+        setfillstyle(1, CYAN);
+        bar(80, 100, 540, 140);
+        puthz(83, 100, "土地面积不能大于等于三万公顷", 32, 32, BLUE);
+        delay(1000);
+        setfillstyle(1, 0);
+        bar(80, 100, 540, 140);
+        puthz(70, 100, "本地推荐种植的棉花种类为：", 32, 32, BLUE);
+        if (abc->place == 'a')
+        {
+            puthz(480, 100, "粗绒棉", 32, 32, BLUE);
+        }
+        else if (abc->place == 'b')
+        {
+            puthz(480, 100, "长绒棉", 32, 32, BLUE);
+        }
+        else
+        {
+            puthz(480, 100, "细绒棉", 32, 32, BLUE);
+        }
         return 0;
     }
     return 1;
@@ -589,7 +655,7 @@ int changetype(int par)
 // 修改面积
 int changeS(int par)
 {
-    INPUT S = {245, 220, 445, 260, "", 6, 0, 0};
+    INPUT S = {245, 220, 445, 260, "", 5, 0, 0};
     clrmous(MouseX, MouseY);
     setfillstyle(1, BROWN);
     bar(100, 130, 540, 370);
@@ -615,7 +681,7 @@ int changeS(int par)
         }
         if (mouse_press(400, 290, 490, 340) == 1) // 确认
         {
-            if (judgeS(S.string) == 1)
+            if (judgeS_change(S.string) == 1)
             {
                 strcpy(h->parameter[par - 1].S, S.string);
                 wr_h();
@@ -723,14 +789,14 @@ int choosepar(void)
                     setcolor(a);
                     setfillstyle(1, b);
                     bar(70, 150 + 60 * i, 320, 150 + 40 + 60 * i);
-					if (strlen(h->parameter[j].name) >= 7)
-					{
-						settextstyle(0, 0, 2);
-					}
-					else
-					{
-						settextstyle(0, 0, 3);
-					}
+                    if (strlen(h->parameter[j].name) >= 7)
+                    {
+                        settextstyle(0, 0, 2);
+                    }
+                    else
+                    {
+                        settextstyle(0, 0, 3);
+                    }
                     outtextxy(195, 170 + 60 * i, h->parameter[j].name);
                 }
 
