@@ -58,11 +58,11 @@ void tracktor_set_off02(int start_x,int start_y,int des_x,int des_y,int distance
 void tracktor_set_off03(int start_x,int start_y,int des_x,int des_y,int distance,int num);
 void tracktor_set_off04(int start_x,int start_y,int des_x,int des_y,int distance,int num);
 
-void tracktor_return(int start_x,int start_y,int des_x,int des_y,int distance,int num);
-void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,int num);
-void tracktor_return02(int start_x,int start_y,int des_x,int des_y,int distance,int num);
-void tracktor_return03(int start_x,int start_y,int des_x,int des_y,int distance,int num);
-void tracktor_return04(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_return(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
+void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
+void tracktor_return02(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
+void tracktor_return03(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
+void tracktor_return04(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
 
 void tracktor_set_off0(int start_x,int start_y,int des_x,int des_y,int distance,int num);
 void tracktor_set_off001(int start_x,int start_y,int des_x,int des_y,int distance,int num);
@@ -70,11 +70,11 @@ void tracktor_set_off002(int start_x,int start_y,int des_x,int des_y,int distanc
 void tracktor_set_off003(int start_x,int start_y,int des_x,int des_y,int distance,int num);
 void tracktor_set_off004(int start_x,int start_y,int des_x,int des_y,int distance,int num);
 
-void tracktor_return0(int start_x,int start_y,int des_x,int des_y,int distance,int num);
-void tracktor_return001(int start_x,int start_y,int des_x,int des_y,int distance,int num);
-void tracktor_return002(int start_x,int start_y,int des_x,int des_y,int distance,int num);
-void tracktor_return003(int start_x,int start_y,int des_x,int des_y,int distance,int num);
-void tracktor_return004(int start_x,int start_y,int des_x,int des_y,int distance,int num);
+void tracktor_return0(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
+void tracktor_return001(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
+void tracktor_return002(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
+void tracktor_return003(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
+void tracktor_return004(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y);
 
 
 void picker_anime(int start_x,int start_y,int *des_x,int *des_y,int distance,int num);
