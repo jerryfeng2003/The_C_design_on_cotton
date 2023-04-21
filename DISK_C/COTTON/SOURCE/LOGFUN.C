@@ -48,7 +48,7 @@ void wr_user(char username1[], char password1[], char phonenumber1[])
 	}
 }
 
-// 判断注册的账号是否已经存在和电话号码是否正确
+// 判断注册的账号是否已经存在，电话号码是否正确
 // return flag为1则存在，0则不存在
 int username_same(char username0[], char phonenumber0[])
 {

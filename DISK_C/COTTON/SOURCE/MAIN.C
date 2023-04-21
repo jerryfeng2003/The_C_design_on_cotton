@@ -17,6 +17,7 @@ void main()
     int gd=VGA,gm=VGAHI,i=0;
 	h=(user*)malloc(sizeof(user));//µÇÂ¼µÄÓÃ»§
 	initgraph(&gd,&gm,"..\\borlandc\\bgi");
+    mouseinit();
     loginit();
     for(i=0;i<5;i++)
     {

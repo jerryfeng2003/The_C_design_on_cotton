@@ -8,7 +8,7 @@ int input_s(int x,int y,struct Input *word,int size,int mode);
 int judgename(char name[]);
 
 //判断土地面积是否为数字和空
-int judgeS(char name[]);
+int judgeS(char S[],struct Parameter *abc);
 
 //把参数写进h，然后把h写进文件里面
 void wr_parameter(struct Parameter* abc);
@@ -24,6 +24,9 @@ int changetype(int par);
 
 //修改面积
 int changeS(int par);
+
+//判断面积是否正确for修改面积
+int judgeS_change(char S[]);
 
 //修改名字
 void changeparname(int par);
