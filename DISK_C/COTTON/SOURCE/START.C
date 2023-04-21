@@ -249,7 +249,7 @@ void init_based_field()
 
 void draw_copak(int x,int y)
 {
-	if(x<x_start||y<y_start)
+	if(x<10||y<50)
 		return;
 	setfillstyle(1,WHITE);
 	bar(x,y,x+tracktor_w,y+co_pak_w);
@@ -389,7 +389,7 @@ void start_ainime01(int t_trac,double space,int time)
 			}
 			// delay(15*num);
 		}
-		tracktor_return(xy[0],xy[1],x_start+x,y_start,x,num);
+		tracktor_return(xy[0],xy[1],x_start+x,y_start,x,num,des_x,des_y);
 		picker_anime(xy[0],xy[1],des_x,des_y,x,num);
 		return;
 		// for(i=1;i<=num;i++)
@@ -508,7 +508,7 @@ void start_ainime01(int t_trac,double space,int time)
 			}
 			// delay(15*num);
 		}
-		tracktor_return0(xy[0],xy[1],x_start+x,y_start,x,num);
+		tracktor_return0(xy[0],xy[1],x_start+x,y_start,x,num,des_x,des_y);
 		picker_anime(xy[0],xy[1],des_x,des_y,x,num);
 		return;
 		// for(i=1;i<=num;i++)
@@ -1144,7 +1144,7 @@ void init_field02(int *x,int *y,int *flag,int type,int time)
 		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		dense_init_tracktor01(x,y,flag,xy_m,num,des_x,des_y);
-		tracktor_return(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num);
+		tracktor_return(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num,des_x,des_y);
 		picker_anime(xy[0],xy[1],des_x,des_y,(xy_m[2]-xy_m[0])/num,num);
 	}
 	else
@@ -1153,7 +1153,7 @@ void init_field02(int *x,int *y,int *flag,int type,int time)
 		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		dense_init_tracktor02(x,y,flag,xy_m,num,des_x,des_y);
-		tracktor_return0(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num);
+		tracktor_return0(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num,des_x,des_y);
 		picker_anime(xy[0],xy[1],des_x,des_y,(xy_m[2]-xy_m[0])/num,num);
 	}
 }
@@ -1217,7 +1217,7 @@ void init_field03(int *x,int *y,int *flag,int type,int time)
 		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		dense_init_tracktor01(x,y,flag,xy_m,num,des_x,des_y);
-		tracktor_return(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num);
+		tracktor_return(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num,des_x,des_y);
 		picker_anime(xy[0],xy[1],des_x,des_y,(xy_m[2]-xy_m[0])/num,num);
 	}
 	else
@@ -1226,7 +1226,7 @@ void init_field03(int *x,int *y,int *flag,int type,int time)
 		clrmous(MouseX,MouseY);
 		draw_setoff(xy);
 		dense_init_tracktor02(x,y,flag,xy_m,num,des_x,des_y);
-		tracktor_return0(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num);
+		tracktor_return0(xy[0],xy[1],xy_m[0]+(xy_m[2]-xy_m[0])/num,xy_m[1],(xy_m[2]-xy_m[0])/num,num,des_x,des_y);
 		picker_anime(xy[0],xy[1],des_x,des_y,(xy_m[2]-xy_m[0])/num,num);
 	}
 }
@@ -1859,7 +1859,7 @@ void cal_tracktor_circle(int type,double space,int time)
 			earth_fill03(x0-r+2*r/num+i*2*r/num,y0-r);
 			earth_fill03(x0-r+2*r/num+i*2*r/num,y0-r-6);
 		}
-		tracktor_return(xy[0],xy[1],x0-r+2*r/num,y0-r,2*r/num,num);
+		tracktor_return(xy[0],xy[1],x0-r+2*r/num,y0-r,2*r/num,num,des_x,des_y);
 		picker_anime(xy[0],xy[1],des_x,des_y,2*r/num,num);
 	}
 	else
@@ -1873,7 +1873,7 @@ void cal_tracktor_circle(int type,double space,int time)
 			earth_fill03(x0-r+2*r/num+i*2*r/num,y0-r);
 			earth_fill03(x0-r+2*r/num+i*2*r/num,y0-r-6);
 		}
-		tracktor_return0(xy[0],xy[1],x0-r+2*r/num,y0-r,2*r/num,num);
+		tracktor_return0(xy[0],xy[1],x0-r+2*r/num,y0-r,2*r/num,num,des_x,des_y);
 		picker_anime(xy[0],xy[1],des_x,des_y,2*r/num,num);
 	}
 	return;
@@ -2762,27 +2762,27 @@ void tracktor_set_off04(int start_x, int start_y, int des_x, int des_y, int dist
 	}
 }
 
-void tracktor_return(int start_x, int start_y, int des_x, int des_y, int distance, int num)
+void tracktor_return(int start_x, int start_y, int des_x, int des_y, int distance, int num,int *he_x,int *he_y)
 {
 	if(start_x<des_x&&start_y>des_y)
 	{
-		tracktor_return01(start_x, start_y, des_x, des_y, distance, num);
+		tracktor_return01(start_x, start_y, des_x, des_y, distance, num,he_x,he_y);
 	}
 	else if(start_x>des_x&&start_y>des_y)
 	{
-		tracktor_return02(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_return02(start_x,start_y,des_x,des_y,distance,num,he_x,he_y);
 	}
 	else if(start_x<des_x&&start_y<des_y)
 	{
-		tracktor_return03(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_return03(start_x,start_y,des_x,des_y,distance,num,he_x,he_y);
 	}
 	else
 	{
-		tracktor_return04(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_return04(start_x,start_y,des_x,des_y,distance,num,he_x,he_y);
 	}
 }
 
-void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y)
 {
 	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],i;
 	if(distance<tracktor_l)
@@ -2859,6 +2859,10 @@ void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,
 				}
 			}
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(he_x[i],he_y[i]);
+		}
 		if(count>=num)
 		{
 			break;
@@ -2867,7 +2871,7 @@ void tracktor_return01(int start_x,int start_y,int des_x,int des_y,int distance,
 	}
 }
 
-void tracktor_return02(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return02(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y)
 {
 	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],i;
 	if(distance<tracktor_l)
@@ -2944,6 +2948,10 @@ void tracktor_return02(int start_x,int start_y,int des_x,int des_y,int distance,
 				}
 			}
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(he_x[i],he_y[i]);
+		}
 		if(count>=num)
 		{
 			break;
@@ -2952,7 +2960,7 @@ void tracktor_return02(int start_x,int start_y,int des_x,int des_y,int distance,
 	}
 }
 
-void tracktor_return03(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return03(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y)
 {
 	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],i;
 	if(distance<tracktor_l)
@@ -3030,6 +3038,10 @@ void tracktor_return03(int start_x,int start_y,int des_x,int des_y,int distance,
 				}
 			}
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(he_x[i],he_y[i]);
+		}
 		if(count>=num)
 		{
 			break;
@@ -3038,7 +3050,7 @@ void tracktor_return03(int start_x,int start_y,int des_x,int des_y,int distance,
 	}
 }
 
-void tracktor_return04(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return04(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y)
 {
 	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],i;
 	if(distance<tracktor_l)
@@ -3113,6 +3125,10 @@ void tracktor_return04(int start_x,int start_y,int des_x,int des_y,int distance,
 					continue;
 				}
 			}
+		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(he_x[i],he_y[i]);
 		}
 		if(count>=num)
 		{
@@ -3490,27 +3506,27 @@ void tracktor_set_off004(int start_x,int start_y,int des_x,int des_y,int distanc
 	}
 }
 
-void tracktor_return0(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return0(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y)
 {
 	if(start_x<des_x&&start_y>des_y)
 	{
-		tracktor_return001(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_return001(start_x,start_y,des_x,des_y,distance,num,he_x,he_y);
 	}
 	else if(start_x>des_x&&start_y>des_y)
 	{
-		tracktor_return002(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_return002(start_x,start_y,des_x,des_y,distance,num,he_x,he_y);
 	}
 	else if(start_x<des_x&&start_y<des_y)
 	{
-		tracktor_return003(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_return003(start_x,start_y,des_x,des_y,distance,num,he_x,he_y);
 	}
 	else
 	{
-		tracktor_return004(start_x,start_y,des_x,des_y,distance,num);
+		tracktor_return004(start_x,start_y,des_x,des_y,distance,num,he_x,he_y);
 	}
 }
 
-void tracktor_return001(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return001(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y)
 {
 	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],i;
 	if(distance<tracktor_l)
@@ -3587,6 +3603,10 @@ void tracktor_return001(int start_x,int start_y,int des_x,int des_y,int distance
 				}
 			}
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(he_x[i],he_y[i]);
+		}
 		if(count>=num)
 		{
 			break;
@@ -3595,7 +3615,7 @@ void tracktor_return001(int start_x,int start_y,int des_x,int des_y,int distance
 	}
 }
 
-void tracktor_return002(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return002(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y)
 {
 	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],i;
 	if(distance<tracktor_l)
@@ -3672,6 +3692,10 @@ void tracktor_return002(int start_x,int start_y,int des_x,int des_y,int distance
 				}
 			}
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(he_x[i],he_y[i]);
+		}
 		if(count>=num)
 		{
 			break;
@@ -3680,7 +3704,7 @@ void tracktor_return002(int start_x,int start_y,int des_x,int des_y,int distance
 	}
 }
 
-void tracktor_return003(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return003(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y)
 {
 	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],i;
 	if(distance<tracktor_l)
@@ -3758,6 +3782,10 @@ void tracktor_return003(int start_x,int start_y,int des_x,int des_y,int distance
 				}
 			}
 		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(he_x[i],he_y[i]);
+		}
 		if(count>=num)
 		{
 			break;
@@ -3766,7 +3794,7 @@ void tracktor_return003(int start_x,int start_y,int des_x,int des_y,int distance
 	}
 }
 
-void tracktor_return004(int start_x,int start_y,int des_x,int des_y,int distance,int num)
+void tracktor_return004(int start_x,int start_y,int des_x,int des_y,int distance,int num,int *he_x,int *he_y)
 {
 	int x_p[tracktor_num_max],y_p[tracktor_num_max],type[tracktor_num_max],i;
 	if(distance<tracktor_l)
@@ -3841,6 +3869,10 @@ void tracktor_return004(int start_x,int start_y,int des_x,int des_y,int distance
 					continue;
 				}
 			}
+		}
+		for(i=0;i<num;i++)
+		{
+			draw_copak(he_x[i],he_y[i]);
 		}
 		if (count >= num)
 		{

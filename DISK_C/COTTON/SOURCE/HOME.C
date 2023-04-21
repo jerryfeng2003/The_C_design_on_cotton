@@ -16,6 +16,17 @@ void draw_home01()
 	int i,type,location=0;//1 means the norwestern,0 means others
 	long int temp, c_tal;
 	clrmous(MouseX,MouseY);
+	for(i=0;i<5;i++)
+	{
+		int j=0;
+		for(j=0;j<3;j++)
+		{
+			if(h->here[i].total[j]<0||h->here[i].total[j]>ware_full)
+			{
+				h->here[i].total[j]=ware_full;
+			}
+		}
+	}
 	for(i=0;i<PAR;i++)
 	{
 		if(strcmp(h->parameter[i].name,"\0")==0)
