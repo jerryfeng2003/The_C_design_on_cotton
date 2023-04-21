@@ -35,6 +35,18 @@ void draw_home01()
 		}
 	}
 	i--;
+	for(i=0;i<5;i++)
+	{
+		int j=0;
+		for(j=0;j<3;j++)
+		{
+			if(h->here[i].total[j]<0)
+			{
+				h->here[i].total[j]=ware_full;
+			}	
+		}
+
+	}
 	settextjustify(0,2);
 	switch (h->parameter[i].place)
 	{

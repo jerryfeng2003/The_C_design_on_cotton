@@ -649,6 +649,10 @@ void pick_finish(int count,int co_type)
         newmouse(&MouseX,&MouseY,&press);
 		press_warelist(&re);
 	}
+	if(h->here[k].total[co_type]<0)
+	{
+		h->here[k].total[co_type]=ware_full;
+	}
 	h->here[k].total[co_type]+=count;
 	if(h->here[k].total[co_type]<0)
 	{
