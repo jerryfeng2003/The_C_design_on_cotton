@@ -201,6 +201,7 @@ void enter_next()
 			bar(310, 130, 410, 200);
 			puthz(330, 150, "≤÷ø‚π‹¿Ì", 16, 16, BLUE);
 			fillpoly(4, dian);
+			rectangle(310, 130, 410, 200);
 			flag = 0;
 			flag1 = 0;
 		}
@@ -271,20 +272,12 @@ void enter_next()
 		}*/
 	}
 
-	// if (mouse_press(0, 450, 40, 480) == 1)
-	// {
-	// 	loginit();
-	// 	draw_wel_buttons();
-	// 	draw_wel_cofield();
-	// 	draw_wel_tractors();
-	// 	quit();
-	// }
-
 	// Exit the program
 	if (mouse_press(0, 0, 40, 30) == 1)
 	{
-		free(h);
+		//free(h);
 		wr_h();
+		free(h);
 		exit(0);
 	}
 }
@@ -296,12 +289,6 @@ void draw_wel()
 	draw_wel_cofield();
 	draw_wel_tractors();
 	quit();
-	// 	for(;;)
-	// 	{
-	// 		newmouse(&MouseX,&MouseY,&press);
-	// 		enter_next(h);
-	// 		delay(15);
-	// 	}
 }
 
 void quit(void)
@@ -455,16 +442,3 @@ void input_text(char *id, int x, int y, int charnum, int color, int flag)
     }
     //return i;
 }
-
-/*int ch_to_int(char *str)
-{
-	int out=0;
-	char *p=str;
-	while(*p!='\0')
-	{
-		out*=10;
-		out+=*p-'0';
-	}
-	return out;
-}*/
-//"C:\\BORLANDC\\BGI"

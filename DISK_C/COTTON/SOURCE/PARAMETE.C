@@ -615,8 +615,11 @@ int changeS(int par)
         }
         if (mouse_press(400, 290, 490, 340) == 1) // 确认
         {
-            strcpy(h->parameter[par - 1].S, S.string);
-            wr_h();
+            if (judgeS(S.string) == 1)
+            {
+                strcpy(h->parameter[par - 1].S, S.string);
+                wr_h();
+            }
             return 1;
         }
     }
@@ -646,8 +649,8 @@ int choosepar(void)
     int i, j, flag = 1;
     char page[3] = {'1', '/', '1'};
     int barcolor[11] = {1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14};
-    //delay(400);
-    clrmous(MouseX,MouseY);
+    // delay(400);
+    clrmous(MouseX, MouseY);
     cleardevice();
     setbkcolor(WHITE);
     puthz(240, 30, "请选择参数", 32, 32, BLUE);
@@ -710,8 +713,24 @@ int choosepar(void)
 
                 for (i = 0, j = pagepar * 4; i < (4 > ((h->lenpar) - (pagepar * 4)) ? ((h->lenpar) - (pagepar * 4)) : 4); i++, j++)
                 {
-                    setfillstyle(1, barcolor[rand() % 12]);
-                    bar(90, 150 + 60 * i, 300, 150 + 40 + 60 * i);
+                    int a, b;
+                    a = barcolor[rand() % 12];
+                    b = barcolor[rand() % 12];
+                    if (a == b)
+                    {
+                        a += 1;
+                    }
+                    setcolor(a);
+                    setfillstyle(1, b);
+                    bar(70, 150 + 60 * i, 320, 150 + 40 + 60 * i);
+					if (strlen(h->parameter[j].name) >= 7)
+					{
+						settextstyle(0, 0, 2);
+					}
+					else
+					{
+						settextstyle(0, 0, 3);
+					}
                     outtextxy(195, 170 + 60 * i, h->parameter[j].name);
                 }
 
@@ -923,7 +942,7 @@ int search(char name[])
 void changewarename(int wi)
 {
     int i, j;
-    INPUT name = {195, 220, 445, 270, "", 6, 0, 0};
+    INPUT name = {185, 220, 455, 270, "", 8, 0, 0};
     clrmous(MouseX, MouseY);
     setfillstyle(1, CYAN);
     bar(100, 130, 540, 370);
@@ -934,20 +953,20 @@ void changewarename(int wi)
     bar(400, 290, 490, 340);
     puthz(403, 293, "确认", 32, 32, BLUE);
     setfillstyle(1, 0);
-    bar(195, 220, 445, 270);
+    bar(185, 220, 455, 270);
 
     for (;;)
     {
         delay(15);
         newmouse(&MouseX, &MouseY, &press);
-        input_s(198, 220, &name, 16, 0);
+        input_s(188, 220, &name, 16, 0);
         if (mouse_press(150, 290, 240, 340) == 1) // 返回
         {
             return;
         }
         if (mouse_press(400, 290, 490, 340) == 1) // 确认
         {
-            strcpy(h->here[wi-1].ware_name, name.string);
+            strcpy(h->here[wi - 1].ware_name, name.string);
             wr_h();
             return;
         }
@@ -957,7 +976,7 @@ void changewarename(int wi)
 void changeparname(int par)
 {
     int i, j;
-    INPUT name = {195, 220, 445, 270, "", 6, 0, 0};
+    INPUT name = {175, 220, 465, 270, "", 10, 0, 0};
     clrmous(MouseX, MouseY);
     setfillstyle(1, BROWN);
     bar(100, 130, 540, 370);
@@ -968,13 +987,13 @@ void changeparname(int par)
     bar(400, 290, 490, 340);
     puthz(403, 293, "确认", 32, 32, BLUE);
     setfillstyle(1, 0);
-    bar(195, 220, 445, 270);
+    bar(175, 220, 465, 270);
 
     for (;;)
     {
         delay(15);
         newmouse(&MouseX, &MouseY, &press);
-        input_s(198, 220, &name, 16, 0);
+        input_s(178, 220, &name, 16, 0);
 
         if (mouse_press(150, 290, 240, 340) == 1) // 返回
         {
@@ -982,7 +1001,7 @@ void changeparname(int par)
         }
         if (mouse_press(400, 290, 490, 340) == 1) // 确认
         {
-            strcpy(h->parameter[par-1].name, name.string);
+            strcpy(h->parameter[par - 1].name, name.string);
             wr_h();
             return;
         }
